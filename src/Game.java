@@ -3,7 +3,10 @@ import java.util.Scanner;
 public class Game {
     static Scanner scanner = new Scanner(System.in);
 
+
+
     public static void main(String[] args) {
+
         // Create the initial room
         Hub cave = new Hub("Tom's Dark Cave", "The back of the ancient cave where Tom the hermit lived for many years.");
 
@@ -18,10 +21,11 @@ public class Game {
 
     public static void Story(Hub cave) {
 
+        // Creating start boolean
+        boolean start;
+
         // Makes the room you are in "cave"
         Hub inRoom = cave;
-
-        boolean start;
 
         // Asks if you want to play
         System.out.print("Play (yes or no)? \n-> ");
@@ -41,19 +45,23 @@ public class Game {
         }
 
         //While start is true, run the code
-        while (start) {
-            System.out.print("-> ");
-            String action = scanner.nextLine();
+        if (start){
 
-            // If user said "look" then description of current room prints
-            if (action.toLowerCase().equals("look")) {
-                System.out.println(inRoom.getRoomDescription());
-            }
+            while(true) {
+                System.out.print("-> ");
 
-            // If user moves north update room (if possible)
-            if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
-                // Call the move method and update to inRoom
-                inRoom = move(action.toLowerCase(), inRoom);
+                String action = scanner.nextLine();
+
+                // If user said "look" then description of current room prints
+                if (action.toLowerCase().equals("look")) {
+                    System.out.println(inRoom.getRoomDescription());
+                }
+
+                // If user moves north update room (if possible)
+                if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
+                    // Call the move method and update to inRoom
+                    inRoom = move(action.toLowerCase(), inRoom);
+                }
             }
         }
     }
