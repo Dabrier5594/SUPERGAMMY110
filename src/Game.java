@@ -43,6 +43,16 @@ public class Game {
         verbs.add("west");
         verbs.add("east");
 
+        List<String> verbsOnly = new ArrayList<>();
+        verbs.add("n");
+        verbs.add("s");
+        verbs.add("w");
+        verbs.add("e");
+        verbs.add("north");
+        verbs.add("south");
+        verbs.add("west");
+        verbs.add("east");
+        verbs.add("look");
 
         List<String> objects = new ArrayList<>();
         objects.add("w");
@@ -82,17 +92,25 @@ public class Game {
             System.out.print("-> ");
             String action = scanner.nextLine();
 
+            for (String verb : verbs) {
+                if (action.contains(verb)) {
+                    break;
+                }
+            }
+
             //checks to see if input has verb
-            if (verbs.contains(action)) {
+            for (String verb : verbs) {
+                if (action.contains(verb)) {
+                boolean verbHere = true;
+                break;
+
+            }
 
 
+            //checks to see if input has an object for the verb to act on if needed (open, close etc.)
+                if (objects.contains(actionParsed)) {
 
-                //checks to see if input has an object for the verb to act on if needed (open, close etc.)
-
-                    // If user said "look" then description of current room prints
-                    if (action.toLowerCase().equals("look")) {
-                        System.out.println(inRoom.getRoomDescription());
-                    }
+                    //CHANGE TO MAKE IF THE VERB WAS MOVE OR GO, THEN CHECK IF IT HAS A DIRECTION, IF NOT, MOVE WHERE?
 
                     // If user moves north update room (if possible)
                     if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
@@ -123,15 +141,28 @@ public class Game {
                         System.out.println(inRoom.getRoomDescription());
 
                     }
+
+                }
+
+                else if (verbsOnly.contains(actionParsed)) {
+
+
+
+                }
+
+                else {
+                    //need object to do that!
+
+                }
             }
 
-            else if (){
+            else if (objects.contains(actionParsed)){
 
-                //input does not contain a known word)
+                System.out.println("You need a verb to do something!");
             }
 
             else {
-                System.out.println("You need a verb do something!");
+                System.out.println("I don't know that word.");
             }
         }
     }
