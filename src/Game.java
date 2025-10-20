@@ -44,6 +44,7 @@ public class Game {
         verbs.add("south");
         verbs.add("west");
         verbs.add("east");
+        verbs.add("l");
 
         List<String> verbsOnly = new ArrayList<>();
         verbsOnly.add("n");
@@ -55,6 +56,7 @@ public class Game {
         verbsOnly.add("west");
         verbsOnly.add("east");
         verbsOnly.add("look");
+        verbsOnly.add("l");
 
         List<String> directions = new ArrayList<>();
         directions.add("w");
@@ -88,6 +90,10 @@ public class Game {
         movements.add("move");
 
         List<String> objects = new ArrayList<>();
+
+        List<String> look = new ArrayList<>();
+        look.add("l");
+        look.add("look");
 
 
 
@@ -136,24 +142,28 @@ public class Game {
 
                             inRoom = move(action.toLowerCase(), inRoom);
 
-                            System.out.println(inRoom.getRoomDescription());
-                        } else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
+
+                        }
+                        else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
                             // Call the move method and update to inRoom
                             inRoom = move(action.toLowerCase(), inRoom);
 
-                            System.out.println(inRoom.getRoomDescription());
-                        } else if (action.toLowerCase().equals("w") || action.toLowerCase().equals("west")) {
+
+                        }
+                        else if (action.toLowerCase().equals("w") || action.toLowerCase().equals("west")) {
                             // Call the move method and update to inRoom
                             inRoom = move(action.toLowerCase(), inRoom);
 
-                            System.out.println(inRoom.getRoomDescription());
-                        } else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
+
+                        }
+                        else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
                             // Call the move method and update to inRoom
                             inRoom = move(action.toLowerCase(), inRoom);
 
-                            System.out.println(inRoom.getRoomDescription());
 
-                        } else if (stringContainsWordFromList(action.toLowerCase(), movements.toArray(new String[0]))) {
+
+                        }
+                        else if (stringContainsWordFromList(action.toLowerCase(), movements.toArray(new String[0]))) {
 
                             if (stringContainsWordFromList(action.toLowerCase(), directions.toArray(new String[0]))) {
 
@@ -163,7 +173,7 @@ public class Game {
 
                                     inRoom = move(action.toLowerCase(), inRoom);
 
-                                    System.out.println(inRoom.getRoomDescription());
+
                                 }
 
                                 if (stringContainsWordFromList(action.toLowerCase(), southways.toArray(new String[0]))) {
@@ -172,7 +182,7 @@ public class Game {
 
                                     inRoom = move(action.toLowerCase(), inRoom);
 
-                                    System.out.println(inRoom.getRoomDescription());
+
                                 }
 
                                 if (stringContainsWordFromList(action.toLowerCase(), westways.toArray(new String[0]))) {
@@ -181,7 +191,7 @@ public class Game {
 
                                     inRoom = move(action.toLowerCase(), inRoom);
 
-                                    System.out.println(inRoom.getRoomDescription());
+
                                 }
 
                                 if (stringContainsWordFromList(action.toLowerCase(), easyways.toArray(new String[0]))) {
@@ -190,13 +200,19 @@ public class Game {
 
                                     inRoom = move(action.toLowerCase(), inRoom);
 
-                                    System.out.println(inRoom.getRoomDescription());
+
                                 }
 
-                            } else {
+                            }
+
+                            else {
                                 System.out.println("You can't just '" + action + "'");
                             }
 
+                        }
+
+                        else if (stringContainsWordFromList(action.toLowerCase(), look.toArray(new String[0]))) {
+                            System.out.println(inRoom.getRoomDescription());
                         }
 
                     } else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0]))) {
@@ -245,7 +261,7 @@ public class Game {
 
         // If there is a new area where user tries to go, update it
         if (newRoom != null) {
-
+            System.out.println(newRoom.getRoomDescription());
             return newRoom; // Return the new Hub object (room)
 
         }
