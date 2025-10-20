@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
+
 public class Game {
     static Scanner scanner = new Scanner(System.in);
 
@@ -44,25 +46,51 @@ public class Game {
         verbs.add("east");
 
         List<String> verbsOnly = new ArrayList<>();
-        verbs.add("n");
-        verbs.add("s");
-        verbs.add("w");
-        verbs.add("e");
-        verbs.add("north");
-        verbs.add("south");
-        verbs.add("west");
-        verbs.add("east");
-        verbs.add("look");
+        verbsOnly.add("n");
+        verbsOnly.add("s");
+        verbsOnly.add("w");
+        verbsOnly.add("e");
+        verbsOnly.add("north");
+        verbsOnly.add("south");
+        verbsOnly.add("west");
+        verbsOnly.add("east");
+        verbsOnly.add("look");
+
+        List<String> directions = new ArrayList<>();
+        directions.add("w");
+        directions.add("e");
+        directions.add("s");
+        directions.add("n");
+        directions.add("west");
+        directions.add("east");
+        directions.add("south");
+        directions.add("north");
+
+        List<String> northways = new ArrayList<>();
+        northways.add("north");
+        northways.add("n");
+
+        List<String> easyways = new ArrayList<>();
+        easyways.add("east");
+        easyways.add("e");
+
+        List<String> westways = new ArrayList<>();
+        westways.add("west");
+        westways.add("w");
+
+        List<String> southways = new ArrayList<>();
+        southways.add("south");
+        southways.add("s");
+
+
+        List<String> movements = new ArrayList<>();
+        movements.add("go");
+        movements.add("move");
 
         List<String> objects = new ArrayList<>();
-        objects.add("w");
-        objects.add("e");
-        objects.add("s");
-        objects.add("n");
-        objects.add("west");
-        objects.add("east");
-        objects.add("south");
-        objects.add("north");
+
+
+
 
 
         // Makes the room you are in "cave"
@@ -92,77 +120,105 @@ public class Game {
             System.out.print("-> ");
             String action = scanner.nextLine();
 
-            for (String verb : verbs) {
-                if (action.contains(verb)) {
-                    break;
-                }
-            }
+            boolean oneCardinol = oneDirection(action, northways, southways, easyways, westways);
 
-            //checks to see if input has verb
-            for (String verb : verbs) {
-                if (action.contains(verb)) {
-                boolean verbHere = true;
-                break;
-
-            }
-
-
-            //checks to see if input has an object for the verb to act on if needed (open, close etc.)
-                if (objects.contains(actionParsed)) {
-
-                    //CHANGE TO MAKE IF THE VERB WAS MOVE OR GO, THEN CHECK IF IT HAS A DIRECTION, IF NOT, MOVE WHERE?
-
-                    // If user moves north update room (if possible)
-                    if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
-                        // Call the move method and update to inRoom
-                        inRoom = move(action.toLowerCase(), inRoom);
-
-                        System.out.println(inRoom.getRoomDescription());
-                    }
-
-                    if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
-                        // Call the move method and update to inRoom
-                        inRoom = move(action.toLowerCase(), inRoom);
-
-                        System.out.println(inRoom.getRoomDescription());
-                    }
-
-                    if (action.toLowerCase().equals("w") || action.toLowerCase().equals("west")) {
-                        // Call the move method and update to inRoom
-                        inRoom = move(action.toLowerCase(), inRoom);
-
-                        System.out.println(inRoom.getRoomDescription());
-                    }
-
-                    if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
-                        // Call the move method and update to inRoom
-                        inRoom = move(action.toLowerCase(), inRoom);
-
-                        System.out.println(inRoom.getRoomDescription());
-
-                    }
-
-                }
-
-                else if (verbsOnly.contains(actionParsed)) {
-
-
-
-                }
-
-                else {
-                    //need object to do that!
-
-                }
-            }
-
-            else if (objects.contains(actionParsed)){
-
-                System.out.println("You need a verb to do something!");
+            if (oneCardinol){
+                System.out.println("You can't input multiple directions!");
             }
 
             else {
-                System.out.println("I don't know that word.");
+
+                if (stringContainsWordFromList(action.toLowerCase(), verbs.toArray(new String[0]))) {
+
+                    if (stringContainsWordFromList(action.toLowerCase(), verbsOnly.toArray(new String[0]))) {
+
+                        if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
+
+                            inRoom = move(action.toLowerCase(), inRoom);
+
+                            System.out.println(inRoom.getRoomDescription());
+                        } else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
+                            // Call the move method and update to inRoom
+                            inRoom = move(action.toLowerCase(), inRoom);
+
+                            System.out.println(inRoom.getRoomDescription());
+                        } else if (action.toLowerCase().equals("w") || action.toLowerCase().equals("west")) {
+                            // Call the move method and update to inRoom
+                            inRoom = move(action.toLowerCase(), inRoom);
+
+                            System.out.println(inRoom.getRoomDescription());
+                        } else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
+                            // Call the move method and update to inRoom
+                            inRoom = move(action.toLowerCase(), inRoom);
+
+                            System.out.println(inRoom.getRoomDescription());
+
+                        } else if (stringContainsWordFromList(action.toLowerCase(), movements.toArray(new String[0]))) {
+
+                            if (stringContainsWordFromList(action.toLowerCase(), directions.toArray(new String[0]))) {
+
+                                if (stringContainsWordFromList(action.toLowerCase(), northways.toArray(new String[0]))) {
+
+                                    action = "n";
+
+                                    inRoom = move(action.toLowerCase(), inRoom);
+
+                                    System.out.println(inRoom.getRoomDescription());
+                                }
+
+                                if (stringContainsWordFromList(action.toLowerCase(), southways.toArray(new String[0]))) {
+
+                                    action = "s";
+
+                                    inRoom = move(action.toLowerCase(), inRoom);
+
+                                    System.out.println(inRoom.getRoomDescription());
+                                }
+
+                                if (stringContainsWordFromList(action.toLowerCase(), westways.toArray(new String[0]))) {
+
+                                    action = "w";
+
+                                    inRoom = move(action.toLowerCase(), inRoom);
+
+                                    System.out.println(inRoom.getRoomDescription());
+                                }
+
+                                if (stringContainsWordFromList(action.toLowerCase(), easyways.toArray(new String[0]))) {
+
+                                    action = "e";
+
+                                    inRoom = move(action.toLowerCase(), inRoom);
+
+                                    System.out.println(inRoom.getRoomDescription());
+                                }
+
+                            } else {
+                                System.out.println("You can't just '" + action + "'");
+                            }
+
+                        }
+
+                    } else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0]))) {
+
+                        if (true) {
+                            System.out.println("You can't '" + action + "' ");
+                        }
+
+
+                    } else {
+                        //need object to do that!
+
+                        System.out.println("You need something to receive this action (e.g., Open -> door)!");
+
+                    }
+                } else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0]))) {
+
+                    System.out.println("You need a verb to do something!");
+                } else {
+                    System.out.println("I don't know that word.");
+                }
+
             }
         }
     }
@@ -200,4 +256,37 @@ public class Game {
             return currentHub; // Return the current Hub object
         }
     }
+
+    public static boolean stringContainsWordFromList(String inputStr, String[] items) {
+        for (String item : items) {
+            if (inputStr.matches(".*\\b" + Pattern.quote(item) + "\\b.*")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean oneDirection(String action, List<String> northways, List<String> southways, List<String> eastways, List<String> westways) {
+        int directionCounter = 0;
+        if (stringContainsWordFromList(action.toLowerCase(), northways.toArray(new String[0]))){
+            directionCounter ++;
+        }
+        if (stringContainsWordFromList(action.toLowerCase(), southways.toArray(new String[0]))){
+            directionCounter ++;
+        }
+        if (stringContainsWordFromList(action.toLowerCase(), eastways.toArray(new String[0]))){
+            directionCounter ++;
+        }
+        if (stringContainsWordFromList(action.toLowerCase(), westways.toArray(new String[0]))){
+            directionCounter ++;
+        }
+
+        if (directionCounter > 1){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 }
