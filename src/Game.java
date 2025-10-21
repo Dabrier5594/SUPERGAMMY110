@@ -10,7 +10,7 @@ public class Game {
         // Create the initial room
         Hub cave = new Hub("Tom's Dark Cave", "The back of the ancient cave where Tom the hermit lived for many years.");
 
-        Hub caveN = new Hub("Tom's Dark Kitchen", "Still in Tom's cave, but now you have moved into his kitchen.");
+        Hub caveN = new Hub("Tom's Dark Kitchen", "Still in Tom's cave, but now you have moved into his kitchen which consists of a cabinet and a counter.");
 
         // Attatch the rooms together
         cave.setExit("n", caveN);
@@ -57,6 +57,8 @@ public class Game {
         verbsOnly.add("east");
         verbsOnly.add("look");
         verbsOnly.add("l");
+        verbsOnly.add("wait");
+        verbsOnly.add("listen");
 
         List<String> directions = new ArrayList<>();
         directions.add("w");
@@ -90,10 +92,30 @@ public class Game {
         movements.add("move");
 
         List<String> objects = new ArrayList<>();
+        objects.add("cabinet");
+        objects.add("newspaperA");
+        objects.add("dagger");
+
 
         List<String> look = new ArrayList<>();
         look.add("l");
         look.add("look");
+
+        List<String> wait = new ArrayList<>();
+        wait.add("wait");
+
+        List<String> listen = new ArrayList<>();
+        listen.add("listen");
+
+        List<String> inventory = new ArrayList<>();
+
+        List<String> objectsInCave = new ArrayList<>();
+
+        List<String> objectsInCaveN = new ArrayList<>();
+        objectsInCaveN.add("newspaperA");
+        objectsInCaveN.add("dagger");
+
+
 
 
 
@@ -215,23 +237,39 @@ public class Game {
                             System.out.println(inRoom.getRoomDescription());
                         }
 
-                    } else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0]))) {
+                        else if (stringContainsWordFromList(action.toLowerCase(), wait.toArray(new String[0]))) {
+                            System.out.println("You are waiting (hint: nothing happens by waiting)...");
+                        }
+
+                        else if (stringContainsWordFromList(action.toLowerCase(), listen.toArray(new String[0]))) {
+                            listening(inRoom);
+                        }
+
+                    }
+
+                    else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0]))) {
 
                         if (true) {
                             System.out.println("You can't '" + action + "' ");
                         }
 
 
-                    } else {
+                    }
+
+                    else {
                         //need object to do that!
 
                         System.out.println("You need something to receive this action (e.g., Open -> door)!");
 
                     }
+
+
+
                 } else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0]))) {
 
                     System.out.println("You need a verb to do something!");
-                } else {
+                }
+                else {
                     System.out.println("I don't know that word.");
                 }
 
@@ -262,6 +300,10 @@ public class Game {
         // If there is a new area where user tries to go, update it
         if (newRoom != null) {
             System.out.println(newRoom.getRoomDescription());
+
+            //Print out any objects in the room here
+            //somehow make it so that the checking objects in room method has access to all lists with objects in rooms.
+
             return newRoom; // Return the new Hub object (room)
 
         }
@@ -302,6 +344,24 @@ public class Game {
         }
         else {
             return false;
+        }
+    }
+
+    public static void listening(Hub inRoom) {
+        if (inRoom.getRoomName().equals("cave")){
+            System.out.println("You hear absolutely nothing but your own breathing");
+        }
+    }
+
+    public static void onjectsInRoom(Hub inRoom, List a) {
+        if (inRoom.getRoomName().equals("caveN")){
+            System.out.print("Items in the room (visible): ");
+            if (a.contains("newspaperA")){
+                System.out.println("newspaperA");
+            }
+            else {
+                System.out.println("nothing...");
+            }
         }
     }
 
