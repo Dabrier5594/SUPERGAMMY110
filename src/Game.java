@@ -16,6 +16,10 @@ public class Game {
         cave.setExit("n", caveN);
         caveN.setExit("s", cave);
 
+        caveN.addObject("newspaperA");
+        caveN.addObject("dagger");
+
+
         Story(cave);
     }
 
@@ -31,7 +35,6 @@ public class Game {
         verbs.add("take");
         verbs.add("read");
         verbs.add("push");
-        verbs.add("pull");
         verbs.add("wait");
         verbs.add("listen");
         verbs.add("lock");
@@ -107,19 +110,13 @@ public class Game {
         List<String> listen = new ArrayList<>();
         listen.add("listen");
 
+        List<String> open = new ArrayList<>();
+        listen.add("open");
+
+        List<String> cabinet = new ArrayList<>();
+        listen.add("cabinet");
+
         List<String> inventory = new ArrayList<>();
-
-        List<String> objectsInCave = new ArrayList<>();
-
-        List<String> objectsInCaveN = new ArrayList<>();
-        objectsInCaveN.add("newspaperA");
-        objectsInCaveN.add("dagger");
-
-
-
-
-
-
 
         // Makes the room you are in "cave"
         Hub inRoom = cave;
@@ -249,6 +246,14 @@ public class Game {
 
                     else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0]))) {
 
+                        if (stringContainsWordFromList(action.toLowerCase(), open.toArray(new String[0]))) {
+                            if (inRoom.getRoomName().equals("caveN") && stringContainsWordFromList(action.toLowerCase(), cabinet.toArray(new String[0]))) {
+                                if (inRoom.getRoomName().equals("caveN")){
+                                    System.out.println("You open the cabinet.");
+                                    //If dagger is not in room and not in inventory, it falls out and is added to room (SO MAKE SURE TO REMOVE It FROM THE ROOM AT THE START!!!!
+                                }
+                            }
+                        }
                         if (true) {
                             System.out.println("You can't '" + action + "' ");
                         }
@@ -301,8 +306,10 @@ public class Game {
         if (newRoom != null) {
             System.out.println(newRoom.getRoomDescription());
 
-            //Print out any objects in the room here
-            //somehow make it so that the checking objects in room method has access to all lists with objects in rooms.
+            System.out.println("Items here: " + newRoom.getObjects());
+            if (newRoom.getObjects() == null || newRoom.getObjects().isEmpty()){
+                System.out.println("Nothing...");
+            }
 
             return newRoom; // Return the new Hub object (room)
 
@@ -353,16 +360,8 @@ public class Game {
         }
     }
 
-    public static void onjectsInRoom(Hub inRoom, List a) {
-        if (inRoom.getRoomName().equals("caveN")){
-            System.out.print("Items in the room (visible): ");
-            if (a.contains("newspaperA")){
-                System.out.println("newspaperA");
-            }
-            else {
-                System.out.println("nothing...");
-            }
-        }
+    public static void open(Hub inRoom) {
+
     }
 
 }

@@ -1,12 +1,26 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Hub {
     private String roomName;
     private String roomDescription;
     private java.util.Map<String, Hub> exits;
+    private List<String> objects;
+
 
     public Hub(String name, String description) {
         this.roomName = name;
         this.roomDescription = description;
         this.exits = new java.util.HashMap<>();
+        this.objects = new ArrayList<>();
+    }
+
+    public void addObject(String obj) {
+        objects.add(obj);
+    }
+
+    public List<String> getObjects() {
+        return objects;
     }
 
     public String getRoomName() {
