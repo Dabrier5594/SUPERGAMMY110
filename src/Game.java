@@ -250,7 +250,7 @@ public class Game {
                             if (inRoom.getRoomName().equals("caveN") && stringContainsWordFromList(action.toLowerCase(), cabinet.toArray(new String[0]))) {
                                 if (inRoom.getRoomName().equals("caveN")){
                                     System.out.println("You open the cabinet.");
-                                    //If dagger is not in room and not in inventory, it falls out and is added to room (SO MAKE SURE TO REMOVE It FROM THE ROOM AT THE START!!!!
+                                    //If dagger is not in room and not in inventory, it falls out and is added to room (SO MAKE SURE TO REMOVE It FROM THE ROOM AT THE START!!!!!
                                 }
                             }
                         }
