@@ -264,6 +264,7 @@ public class Game {
                                 if (!cabinetCaveN){
                                     System.out.println("You open the cabinet.");
                                     cabinetCaveN = true;
+
                                     if (cabinetDaggerCaveN){
                                         System.out.println("A dagger falls out and clatters to the floor...");
                                         inRoom.addObject("dagger");
