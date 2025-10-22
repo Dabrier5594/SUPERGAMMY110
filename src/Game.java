@@ -17,7 +17,7 @@ public class Game {
         caveN.setExit("s", cave);
 
         caveN.addObject("newspaperA");
-        caveN.addObject("dagger");
+
 
 
         Story(cave);
@@ -111,10 +111,14 @@ public class Game {
         listen.add("listen");
 
         List<String> open = new ArrayList<>();
-        listen.add("open");
+        open.add("open");
+
+        List<String> close = new ArrayList<>();
+        close.add("close");
+
 
         List<String> cabinet = new ArrayList<>();
-        listen.add("cabinet");
+        cabinet.add("cabinet");
 
         List<String> inventory = new ArrayList<>();
 
@@ -142,6 +146,10 @@ public class Game {
 
         //While start is true, run the code
         while (start) {
+
+            boolean cabinetCaveN = false;
+            boolean cabinetDaggerCaveN = true;
+
             System.out.print("-> ");
             String action = scanner.nextLine();
 
@@ -162,10 +170,12 @@ public class Game {
                             inRoom = move(action.toLowerCase(), inRoom);
 
 
+
                         }
                         else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
                             // Call the move method and update to inRoom
                             inRoom = move(action.toLowerCase(), inRoom);
+
 
 
                         }
@@ -232,6 +242,7 @@ public class Game {
 
                         else if (stringContainsWordFromList(action.toLowerCase(), look.toArray(new String[0]))) {
                             System.out.println(inRoom.getRoomDescription());
+                            System.out.println(inRoom.getRoomName());
                         }
 
                         else if (stringContainsWordFromList(action.toLowerCase(), wait.toArray(new String[0]))) {
@@ -247,19 +258,46 @@ public class Game {
                     else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0]))) {
 
                         if (stringContainsWordFromList(action.toLowerCase(), open.toArray(new String[0]))) {
-                            if (inRoom.getRoomName().equals("caveN") && stringContainsWordFromList(action.toLowerCase(), cabinet.toArray(new String[0]))) {
-                                if (inRoom.getRoomName().equals("caveN")){
+
+                            if (inRoom.getRoomName().equals("Tom's Dark Kitchen") && stringContainsWordFromList(action.toLowerCase(), cabinet.toArray(new String[0]))) {
+
+                                if (!cabinetCaveN){
                                     System.out.println("You open the cabinet.");
+                                    cabinetCaveN = true;
+                                    if (cabinetDaggerCaveN){
+                                        System.out.println("A dagger falls out and clatters to the floor...");
+                                        inRoom.addObject("dagger");
+                                        cabinetDaggerCaveN = false;
+                                    }
+
+                                }
+                                else {
+                                    System.out.println("The cabinet is already open.");
+                                }
                                     //If dagger is not in room and not in inventory, it falls out and is added to room (SO MAKE SURE TO REMOVE It FROM THE ROOM AT THE START!!!!!
+                            }
+
+                        }
+
+                        else if (stringContainsWordFromList(action.toLowerCase(), close.toArray(new String[0]))) {
+                            if (inRoom.getRoomName().equals("Tom's Dark Kitchen") && stringContainsWordFromList(action.toLowerCase(), cabinet.toArray(new String[0]))) {
+                                if (cabinetCaveN) {
+                                    System.out.println("You close the cabinet.");
+                                    cabinetCaveN = false;
+                                }
+                                else {
+                                    System.out.println("The cabinet is already closed.");
                                 }
                             }
                         }
-                        if (true) {
+                        else {
                             System.out.println("You can't '" + action + "' ");
                         }
 
 
                     }
+
+
 
                     else {
                         //need object to do that!
@@ -304,6 +342,7 @@ public class Game {
 
         // If there is a new area where user tries to go, update it
         if (newRoom != null) {
+            System.out.println(newRoom.getRoomName());
             System.out.println(newRoom.getRoomDescription());
 
             System.out.println("Items here: " + newRoom.getObjects());
@@ -355,13 +394,10 @@ public class Game {
     }
 
     public static void listening(Hub inRoom) {
-        if (inRoom.getRoomName().equals("cave")){
+        if (inRoom.getRoomName().equals("Tom's Dark Cave")){
             System.out.println("You hear absolutely nothing but your own breathing");
         }
     }
 
-    public static void open(Hub inRoom) {
-
-    }
 
 }
