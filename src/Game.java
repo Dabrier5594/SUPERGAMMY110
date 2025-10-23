@@ -16,7 +16,9 @@ public class Game {
         cave.setExit("n", caveN);
         caveN.setExit("s", cave);
 
-        caveN.addObject("newspaperA");
+        caveN.addObject("newspaper1");
+
+
 
 
 
@@ -32,7 +34,9 @@ public class Game {
         verbs.add("look");
         verbs.add("open");
         verbs.add("drop");
+        verbs.add("remove");
         verbs.add("take");
+        verbs.add("get");
         verbs.add("read");
         verbs.add("push");
         verbs.add("wait");
@@ -48,6 +52,7 @@ public class Game {
         verbs.add("west");
         verbs.add("east");
         verbs.add("l");
+        verbs.add("inventory");
 
         List<String> verbsOnly = new ArrayList<>();
         verbsOnly.add("n");
@@ -96,8 +101,9 @@ public class Game {
 
         List<String> objects = new ArrayList<>();
         objects.add("cabinet");
-        objects.add("newspaperA");
+        objects.add("newspaper1");
         objects.add("dagger");
+        objects.add("inventory");
 
 
         List<String> look = new ArrayList<>();
@@ -116,14 +122,37 @@ public class Game {
         List<String> close = new ArrayList<>();
         close.add("close");
 
+        List<String> take = new ArrayList<>();
+        take.add("take");
+
+        List<String> get = new ArrayList<>();
+        get.add("get");
+
+        List<String> read = new ArrayList<>();
+        read.add("read");
+
+        List<String> drop = new ArrayList<>();
+        drop.add("drop");
+
+        List<String> remove = new ArrayList<>();
+        remove.add("remove");
 
         List<String> cabinet = new ArrayList<>();
         cabinet.add("cabinet");
 
         List<String> inventory = new ArrayList<>();
 
+        List<String> inventoryinventory = new ArrayList<>();
+        inventoryinventory.add("inventory");
+
+
         // Makes the room you are in "cave"
+        // INSERT ALL CODE THAT SETS A VARIABLE HERE!!!!!
         Hub inRoom = cave;
+
+
+        boolean cabinetCaveN = false;
+        boolean cabinetDaggerCaveN = true;
 
         boolean start;
 
@@ -147,16 +176,19 @@ public class Game {
         //While start is true, run the code
         while (start) {
 
-            boolean cabinetCaveN = false;
-            boolean cabinetDaggerCaveN = true;
-
             System.out.print("-> ");
             String action = scanner.nextLine();
 
             boolean oneCardinol = oneDirection(action, northways, southways, easyways, westways);
 
+            boolean correctFormat = oneObjectOneVerb(action, verbs, objects);
+
             if (oneCardinol){
                 System.out.println("You can't input multiple directions!");
+            }
+
+            else if (!correctFormat) {
+                System.out.println("Max verbs: 1   ||   Max objects: 1   ||  Try again");
             }
 
             else {
@@ -243,6 +275,8 @@ public class Game {
                         else if (stringContainsWordFromList(action.toLowerCase(), look.toArray(new String[0]))) {
                             System.out.println(inRoom.getRoomDescription());
                             System.out.println(inRoom.getRoomName());
+                            System.out.println("Items here: " + inRoom.getObjects());
+
                         }
 
                         else if (stringContainsWordFromList(action.toLowerCase(), wait.toArray(new String[0]))) {
@@ -259,7 +293,12 @@ public class Game {
 
                         if (stringContainsWordFromList(action.toLowerCase(), open.toArray(new String[0]))) {
 
-                            if (inRoom.getRoomName().equals("Tom's Dark Kitchen") && stringContainsWordFromList(action.toLowerCase(), cabinet.toArray(new String[0]))) {
+                            if (stringContainsWordFromList(action.toLowerCase(), inventory.toArray(new String[0]))){
+                                System.out.println("Items in inventory: " + inventory);
+
+                            }
+
+                            else if (inRoom.getRoomName().equals("Tom's Dark Kitchen") && stringContainsWordFromList(action.toLowerCase(), cabinet.toArray(new String[0]))) {
 
                                 if (!cabinetCaveN){
                                     System.out.println("You open the cabinet.");
@@ -278,6 +317,7 @@ public class Game {
                                     //If dagger is not in room and not in inventory, it falls out and is added to room (SO MAKE SURE TO REMOVE It FROM THE ROOM AT THE START!!!!!
                             }
 
+
                         }
 
                         else if (stringContainsWordFromList(action.toLowerCase(), close.toArray(new String[0]))) {
@@ -291,6 +331,65 @@ public class Game {
                                 }
                             }
                         }
+
+                        else if (stringContainsWordFromList(action.toLowerCase(), take.toArray(new String[0])) || stringContainsWordFromList(action.toLowerCase(), get.toArray(new String[0]))) {
+                            boolean validObject = false;
+
+                            for (String obj : objects) {
+                                if (action.toLowerCase().contains(obj)) {
+                                    take(inRoom, obj, inventory);
+                                    validObject = true;
+                                    break;
+                                }
+                            }
+
+                            if (!validObject){
+                                System.out.println("You can't just '" + action + "'");
+                            }
+                        }
+
+                        else if (stringContainsWordFromList(action.toLowerCase(), read.toArray(new String[0]))) {
+
+                            boolean validObject = false;
+
+
+                            for (String obj : objects) {
+                                if (action.toLowerCase().contains(obj)) {
+                                    read(inRoom, inventory, obj);
+                                    validObject = true;
+
+                                    break;
+                                }
+                            }
+
+                            if (!validObject){
+                                System.out.println("You can't just '" + action + "'");
+                            }
+                        }
+
+                        else if (stringContainsWordFromList(action.toLowerCase(), drop.toArray(new String[0])) || stringContainsWordFromList(action.toLowerCase(), remove.toArray(new String[0]))) {
+
+                            boolean validObject = false;
+
+
+                            for (String obj : objects) {
+                                if (action.toLowerCase().contains(obj)) {
+                                    drop(inRoom, obj, inventory);
+                                    validObject = true;
+
+                                    break;
+                                }
+                            }
+
+                            if (!validObject){
+                                System.out.println("You can't just '" + action + "'");
+                            }
+                        }
+
+                        else if (stringContainsWordFromList(action.toLowerCase(), inventoryinventory.toArray(new String[0]))){
+                            System.out.println("Items in inventory: " + inventory);
+                        }
+
                         else {
                             System.out.println("You can't '" + action + "' ");
                         }
@@ -347,9 +446,7 @@ public class Game {
             System.out.println(newRoom.getRoomDescription());
 
             System.out.println("Items here: " + newRoom.getObjects());
-            if (newRoom.getObjects() == null || newRoom.getObjects().isEmpty()){
-                System.out.println("Nothing...");
-            }
+
 
             return newRoom; // Return the new Hub object (room)
 
@@ -394,9 +491,91 @@ public class Game {
         }
     }
 
+    public static boolean oneObjectOneVerb(String action, List<String> verbs, List<String> objects) {
+        String[] words = action.toLowerCase().split("\\s+");
+        int verbCount = 0;
+        int objectCount = 0;
+
+        for (String word : words) {
+            if (verbs.contains(word)) {
+                verbCount++;
+            }
+            if (objects.contains(word)) {
+                objectCount++;
+            }
+        }
+
+        if (verbCount > 1) {
+            return false;
+        }
+        if (objectCount > 1) {
+            return false;
+        }
+        return true;
+    }
+
     public static void listening(Hub inRoom) {
         if (inRoom.getRoomName().equals("Tom's Dark Cave")){
             System.out.println("You hear absolutely nothing but your own breathing");
+        }
+    }
+
+    public static void take(Hub inRoom, String item, List<String> inventory){
+
+        List<String> itemos = inRoom.getObjects();
+
+        if (itemos.contains(item)){
+            inventory.add(item);
+            itemos.remove(item);
+            System.out.println("You pick up the " + item + ".");
+        }
+
+        else {
+            System.out.println("There is no " + item + " here to take.");
+        }
+
+
+    }
+
+    public static void drop(Hub inRoom, String item, List<String> inventory){
+
+        if (inventory.contains(item)) {
+            inventory.remove(item);
+            inRoom.addObject(item);
+            System.out.println("You have dropped '" + item + "'");
+        }
+
+        else {
+            System.out.println("You can't get rid of what you don't have!");
+        }
+
+
+
+    }
+
+    public static void read(Hub inRoom, List<String> inventory, String item) {
+
+        if (inventory.contains(item)) {
+
+            if (item.toLowerCase().equals("newspaper1")) {
+                System.out.println("[You unfold the newspaper and read its headline:]");
+                System.out.println("Welcome, to the world of Tim.");
+                System.out.println("[You eyes follow the page down...]");
+                System.out.println("world is one which mysteries and secrets about itself. \nPrepare yourself, to delve deeper into the world of Tim and experience the un-imaginable. \nHint: (Use 'help' to get help)");
+            }
+
+            else {
+                System.out.println("You can't read '" + item + "'");
+            }
+
+        }
+        else {
+
+            if (inRoom.getObjects().contains(item)) {
+                System.out.println("You can only read things in your inventory.");
+            } else {
+                System.out.println("There is no " + item + " here to read.");
+            }
         }
     }
 
