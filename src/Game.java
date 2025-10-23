@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.Collections;
 
 public class Game {
     static Scanner scanner = new Scanner(System.in);
@@ -12,11 +13,20 @@ public class Game {
 
         Hub caveN = new Hub("Tom's Dark Kitchen", "Still in Tom's cave, but now you have moved into his kitchen which consists of a cabinet and a counter.");
 
+        Hub caveNN = new Hub("Tom's Treasure Room", "Still in Tom's cave, but now you have moved into his treasure room which has no furniture." );
+
         // Attatch the rooms together
         cave.setExit("n", caveN);
         caveN.setExit("s", cave);
+        caveN.setExit("n", caveNN);
+        caveNN.setExit("s", caveN);
+
 
         caveN.addObject("newspaper1");
+        caveNN.addObject("gold");
+
+
+
 
 
 
@@ -38,7 +48,6 @@ public class Game {
         verbs.add("take");
         verbs.add("get");
         verbs.add("read");
-        verbs.add("push");
         verbs.add("wait");
         verbs.add("listen");
         verbs.add("lock");
@@ -104,6 +113,7 @@ public class Game {
         objects.add("newspaper1");
         objects.add("dagger");
         objects.add("inventory");
+        objects.add("gold");
 
 
         List<String> look = new ArrayList<>();
