@@ -4,29 +4,48 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.Collections;
 
+// MAKE IT SO YOU CAN't MOVE TO A NEW ROOM WHEN YOU HAVE TO GO THRU A CLOSED DOOR
+
 public class Game {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         // Create the initial room
-        Hub cave = new Hub("Tom's Dark Cave", "The back of the ancient cave where Tom the hermit lived for many years.");
+        Hub cave = new Hub("Tom's Dark Cave", "The back of the ancient cave where Tom the hermit lived for many years. \nEXITS: (N) ");
 
-        Hub caveN = new Hub("Tom's Dark Kitchen", "Still in Tom's cave, but now you have moved into his kitchen which consists of a cabinet and a counter.");
+        Hub caveN = new Hub("Tom's Dark Kitchen", "Still in Tom's cave, but now you have moved into his kitchen which consists of a cabinet and a counter. \nEXITS: (N) (S)");
 
-        Hub caveNN = new Hub("Tom's Treasure Room", "Still in Tom's cave, but now you have moved into his treasure room which has no furniture." );
+        Hub caveNN = new Hub("Tom's Treasure Room", "Still in Tom's cave, but now you have moved into his treasure room which has no furniture. \nEXITS: (W) (E) (S)" );
+
+        Hub caveNE = new Hub("Tom's Living Room", "Still in Tom's cave, but now you have moved into his living room which. \nEXITS: (W)" );
+
+        Hub caveNW = new Hub("Tom's Dark Entrance", "Still in Tom's cave, but now you have moved to the cave's entrance, where a door stands. \nEXITS: (N) (E)" );
+
+        Hub forest1 = new Hub("Southern Forest Area #1", "Just outside Tom's cave and just inside the Southern forest area. but now you have moved to the cave's entrance, where a door stands tall. \nEXITS: (S)  " );
 
         // Attatch the rooms together
         cave.setExit("n", caveN);
         caveN.setExit("s", cave);
         caveN.setExit("n", caveNN);
         caveNN.setExit("s", caveN);
+        caveNN.setExit("e", caveNE);
+        caveNN.setExit("w", caveNW);
+        caveNW.setExit("e", caveNN);
+        caveNW.setExit("n", forest1);
+        caveNE.setExit("w", caveNN);
+
 
 
         caveN.addObject("newspaper1");
         caveNN.addObject("gold");
-        caveNN.addObject("silver");
-        caveNN.addObject("silver");
+        for (int i = 0; i < 2; i ++) {
+            caveNN.addObject("silver");
+        }
         caveNN.addObject("copper");
+        caveNE.addObject("newspaper2");
+        for (int ii = 0; ii < 3; ii ++) {
+            forest1.addObject("twig");
+        }
 
 
 
@@ -122,6 +141,7 @@ public class Game {
         objects.add("gold");
         objects.add("silver");
         objects.add("copper");
+        objects.add("twig");
 
 
         List<String> look = new ArrayList<>();
@@ -158,6 +178,9 @@ public class Game {
         List<String> cabinet = new ArrayList<>();
         cabinet.add("cabinet");
 
+        List<String> door = new ArrayList<>();
+        door.add("door");
+
         List<String> inventory = new ArrayList<>();
 
         List<String> inventoryinventory = new ArrayList<>();
@@ -175,11 +198,15 @@ public class Game {
         boolean cabinetCaveN = false;
         boolean cabinetDaggerCaveN = true;
 
+        boolean doorCaveNW = false;
+
         boolean start;
 
         // Asks if you want to play
         System.out.print("Play (yes or no)? \n-> ");
         String play = scanner.nextLine();
+
+        System.out.println("");
 
         //Checks if you said yes or not
         if (play.toLowerCase().equals("yes") || play.toLowerCase().equals("y")) {
@@ -199,6 +226,8 @@ public class Game {
 
             System.out.print("-> ");
             String action = scanner.nextLine();
+
+            System.out.println("");
 
             boolean oneCardinol = oneDirection(action, northways, southways, easyways, westways);
 
@@ -297,6 +326,7 @@ public class Game {
                             System.out.println(inRoom.getRoomDescription());
                             System.out.println(inRoom.getRoomName());
                             itemsIfAny(inRoom.getObjects(), "Items in room: ");
+
                         }
 
                         else if (stringContainsWordFromList(action.toLowerCase(), wait.toArray(new String[0]))) {
@@ -340,6 +370,21 @@ public class Game {
                                     //If dagger is not in room and not in inventory, it falls out and is added to room (SO MAKE SURE TO REMOVE It FROM THE ROOM AT THE START!!!!!
                             }
 
+                            else if (inRoom.getRoomName().equals("Tom's Dark Entrance") && stringContainsWordFromList(action.toLowerCase(), door.toArray(new String[0]))) {
+
+                                if (!doorCaveNW){
+                                    System.out.println("You open the door.");
+                                    doorCaveNW = true;
+
+                                }
+                                else {
+                                    System.out.println("The door is already open.");
+                                }
+
+
+                            }
+
+
 
                         }
 
@@ -352,6 +397,20 @@ public class Game {
                                 else {
                                     System.out.println("The cabinet is already closed.");
                                 }
+                            }
+
+                            else if (inRoom.getRoomName().equals("Tom's Dark Entrance") && stringContainsWordFromList(action.toLowerCase(), door.toArray(new String[0]))) {
+
+                                if (doorCaveNW){
+                                    System.out.println("You close the door.");
+                                    doorCaveNW = false;
+
+                                }
+                                else {
+                                    System.out.println("The door is already closed.");
+                                }
+
+
                             }
                         }
 
@@ -542,15 +601,20 @@ public class Game {
 
         int count = Collections.frequency(itemos, item);
 
+        int chosenAmount = 0;
+
         if (count == 0){
             System.out.println("There is no " + item + " (single-form) to take here");
 
         }
 
-        int chosenAmount = 1;
+        else {
+            chosenAmount = 1;
+        }
 
         if (count > 1){
-            System.out.println("There are " + count + " " + item + "(s) here. How many do you want to take? \n->");
+            System.out.println("There are " + count + " " + item + "(s) here. How many do you want to take?");
+            System.out.print("-> ");
 
             if (scanner.hasNextInt()) {
 
@@ -604,12 +668,16 @@ public class Game {
 
         int count = Collections.frequency(inventory, item);
 
+        int chosenAmount = 0;
+
         if (count == 0){
             System.out.println("There is no " + item + " (single-form) in you inventory");
 
         }
+        else {
 
-        int chosenAmount = 1;
+            chosenAmount = 1;
+        }
 
         if (count > 1){
             System.out.println("You have " + count + " " + item + "(s). How many do you want to drop? \n->");
@@ -667,6 +735,13 @@ public class Game {
                 System.out.println("Welcome, to the world of Tim.");
                 System.out.println("[You eyes follow the page down...]");
                 System.out.println("world is one which mysteries and secrets about itself. \nPrepare yourself, to delve deeper into the world of Tim and experience the un-imaginable. \nHint: (Use 'help' to get help)");
+            }
+
+            if (item.toLowerCase().equals("newspaper2")) {
+                System.out.println("[You unfold the newspaper and read its headline:]");
+                System.out.println("The Money Challenges");
+                System.out.println("[You eyes follow the page down...]");
+                System.out.println("The world is in a money crisis, and people are going on more dangerous quests to get more money. \nOne gold is 10 silver, 1 silver is 5 copper. \nHint: (More dangerous quests make more money! But they are also much harder to complete...)");
             }
 
             else {
