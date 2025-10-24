@@ -24,6 +24,10 @@ public class Game {
 
         caveN.addObject("newspaper1");
         caveNN.addObject("gold");
+        caveNN.addObject("silver");
+        caveNN.addObject("silver");
+        caveNN.addObject("copper");
+
 
 
 
@@ -52,6 +56,7 @@ public class Game {
         verbs.add("listen");
         verbs.add("lock");
         verbs.add("close");
+        verbs.add("help");
         verbs.add("n");
         verbs.add("s");
         verbs.add("w");
@@ -76,6 +81,7 @@ public class Game {
         verbsOnly.add("l");
         verbsOnly.add("wait");
         verbsOnly.add("listen");
+        verbsOnly.add("help");
 
         List<String> directions = new ArrayList<>();
         directions.add("w");
@@ -114,6 +120,8 @@ public class Game {
         objects.add("dagger");
         objects.add("inventory");
         objects.add("gold");
+        objects.add("silver");
+        objects.add("copper");
 
 
         List<String> look = new ArrayList<>();
@@ -154,6 +162,9 @@ public class Game {
 
         List<String> inventoryinventory = new ArrayList<>();
         inventoryinventory.add("inventory");
+
+        List<String> help = new ArrayList<>();
+        help.add("help");
 
 
         // Makes the room you are in "cave"
@@ -285,8 +296,7 @@ public class Game {
                         else if (stringContainsWordFromList(action.toLowerCase(), look.toArray(new String[0]))) {
                             System.out.println(inRoom.getRoomDescription());
                             System.out.println(inRoom.getRoomName());
-                            System.out.println("Items here: " + inRoom.getObjects());
-
+                            itemsIfAny(inRoom.getObjects(), "Items in room: ");
                         }
 
                         else if (stringContainsWordFromList(action.toLowerCase(), wait.toArray(new String[0]))) {
@@ -297,6 +307,10 @@ public class Game {
                             listening(inRoom);
                         }
 
+                        else if (stringContainsWordFromList(action.toLowerCase(), help.toArray(new String[0]))) {
+                            help(verbs);
+                        }
+
                     }
 
                     else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0]))) {
@@ -304,8 +318,7 @@ public class Game {
                         if (stringContainsWordFromList(action.toLowerCase(), open.toArray(new String[0]))) {
 
                             if (stringContainsWordFromList(action.toLowerCase(), inventory.toArray(new String[0]))){
-                                System.out.println("Items in inventory: " + inventory);
-
+                                itemsIfAny(inventory, "Items in inventory: ");
                             }
 
                             else if (inRoom.getRoomName().equals("Tom's Dark Kitchen") && stringContainsWordFromList(action.toLowerCase(), cabinet.toArray(new String[0]))) {
@@ -397,7 +410,7 @@ public class Game {
                         }
 
                         else if (stringContainsWordFromList(action.toLowerCase(), inventoryinventory.toArray(new String[0]))){
-                            System.out.println("Items in inventory: " + inventory);
+                            itemsIfAny(inventory, "Items in inventory: ");
                         }
 
                         else {
@@ -455,8 +468,7 @@ public class Game {
             System.out.println(newRoom.getRoomName());
             System.out.println(newRoom.getRoomDescription());
 
-            System.out.println("Items here: " + newRoom.getObjects());
-
+            itemsIfAny(newRoom.getObjects(), "Items in room: ");
 
             return newRoom; // Return the new Hub object (room)
 
@@ -515,13 +527,7 @@ public class Game {
             }
         }
 
-        if (verbCount > 1) {
-            return false;
-        }
-        if (objectCount > 1) {
-            return false;
-        }
-        return true;
+        return verbCount <= 1 && objectCount <= 1;
     }
 
     public static void listening(Hub inRoom) {
@@ -534,29 +540,118 @@ public class Game {
 
         List<String> itemos = inRoom.getObjects();
 
-        if (itemos.contains(item)){
+        int count = Collections.frequency(itemos, item);
+
+        if (count == 0){
+            System.out.println("There is no " + item + " (single-form) to take here");
+
+        }
+
+        int chosenAmount = 1;
+
+        if (count > 1){
+            System.out.println("There are " + count + " " + item + "(s) here. How many do you want to take? \n->");
+
+            if (scanner.hasNextInt()) {
+
+                int amountToTake = scanner.nextInt();
+                scanner.nextLine();
+
+                if (amountToTake > count){
+                    System.out.println("You are trying to take more items than there are. \nTaking 1 by default.");
+
+                }
+                else if (amountToTake < 0) {
+                    System.out.println("You are trying to take a negative amount. \nTaking 1 by default.");
+                }
+
+                else {
+                    chosenAmount = amountToTake;
+                }
+
+            }
+
+            else {
+
+                System.out.println("You are trying to take an invalid amount. \nTaking 1 by default.");
+                scanner.nextLine();
+            }
+
+        }
+
+        for (int i = 0; i < chosenAmount; i++){
+
             inventory.add(item);
-            itemos.remove(item);
-            System.out.println("You pick up the " + item + ".");
+            inRoom.getObjects().remove(item);
+
+        }
+
+        if (chosenAmount > 0){
+
+            System.out.println("You have taken " + chosenAmount + " " + item + "(s)");
+
         }
 
         else {
-            System.out.println("There is no " + item + " here to take.");
+            System.out.println("You have reframed from taking anything.");
         }
+
 
 
     }
 
     public static void drop(Hub inRoom, String item, List<String> inventory){
 
-        if (inventory.contains(item)) {
-            inventory.remove(item);
-            inRoom.addObject(item);
-            System.out.println("You have dropped '" + item + "'");
+        int count = Collections.frequency(inventory, item);
+
+        if (count == 0){
+            System.out.println("There is no " + item + " (single-form) in you inventory");
+
         }
 
-        else {
-            System.out.println("You can't get rid of what you don't have!");
+        int chosenAmount = 1;
+
+        if (count > 1){
+            System.out.println("You have " + count + " " + item + "(s). How many do you want to drop? \n->");
+
+            if (scanner.hasNextInt()) {
+
+                int amountToTake = scanner.nextInt();
+                scanner.nextLine();
+
+                if (amountToTake > count){
+                    System.out.println("You are trying to drop more items than there you have. \nDropping 1 by default.");
+
+                }
+                else if (amountToTake < 0) {
+                    System.out.println("You are trying to drop a negative amount. \nDropping 1 by default.");
+                }
+
+                else {
+                    chosenAmount = amountToTake;
+                }
+
+            }
+
+            else {
+
+                System.out.println("You are trying to drop an invalid amount. \nDropping 1 by default.");
+                scanner.nextLine();
+            }
+
+        }
+
+        for (int i = 0; i < chosenAmount; i++){
+
+            inventory.remove(item);
+            inRoom.getObjects().add(item);
+
+        }
+
+        if (chosenAmount >= 0){
+
+            System.out.println("You have dropped " + chosenAmount + " " + item + "(s)");
+
         }
 
 
@@ -587,6 +682,27 @@ public class Game {
                 System.out.println("There is no " + item + " here to read.");
             }
         }
+    }
+
+    public static void itemsIfAny(List<String> items, String Name) {
+        if (items.isEmpty()) {
+            System.out.println(Name + " []");
+            return;
+        }
+        System.out.print(Name + "");
+        for (String item : new ArrayList<>(new java.util.HashSet<>(items))) {
+            int count = Collections.frequency(items, item);
+            System.out.print("[" + item + (count > 1 ? " (x" + count + ")] " : "] "));
+        }
+
+        System.out.println("");
+
+    }
+
+    public static void help(List<String> verbs) {
+
+        System.out.println("In order to call a command you need to enter in the FOLLOWING FORMAT: \n[VERB] + [OBJECT] = action\nSome verbs will not need an object to be used (e.g., 'look')\nHere are a list of possible commands: \n move, go || open, close || look, listen, wait, read || get, drop, take, remove || help" );
+
     }
 
 
