@@ -7,7 +7,7 @@ public class Hub {
     private java.util.Map<String, Hub> exits;
     private List<String> objects;
     private java.util.Map<String, Door> doors = new java.util.HashMap<>();
-    private List<String> mobs = new ArrayList<>();
+    private List<Mob> mobs = new ArrayList<>();
 
 
     public Hub(String name, String description) {
@@ -49,7 +49,7 @@ public class Hub {
         return doors.get(direction);
     }
 
-    public List<String> getMOBS() { return mobs; }
+    public List<Mob> getMOBS() { return mobs; }
 
 
 }

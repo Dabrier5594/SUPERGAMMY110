@@ -57,14 +57,6 @@ public class Game {
             forest1.addObject("twig");
         }
 
-
-
-
-
-
-
-
-
         Story(cave);
     }
 
@@ -96,6 +88,10 @@ public class Game {
         verbs.add("east");
         verbs.add("l");
         verbs.add("inventory");
+        verbs.add("kill");
+        verbs.add("attack");
+        verbs.add("stats");
+
 
         List<String> verbsOnly = new ArrayList<>();
         verbsOnly.add("n");
@@ -111,6 +107,8 @@ public class Game {
         verbsOnly.add("wait");
         verbsOnly.add("listen");
         verbsOnly.add("help");
+        verbsOnly.add("stats");
+
 
         List<String> directions = new ArrayList<>();
         directions.add("w");
@@ -153,6 +151,8 @@ public class Game {
         objects.add("copper");
         objects.add("twig");
         objects.add("door");
+        objects.add("rabbit");
+        objects.add("chicken");
 
 
         List<String> look = new ArrayList<>();
@@ -161,6 +161,9 @@ public class Game {
 
         List<String> wait = new ArrayList<>();
         wait.add("wait");
+
+        List<String> stats = new ArrayList<>();
+        stats.add("stats");
 
         List<String> listen = new ArrayList<>();
         listen.add("listen");
@@ -200,6 +203,12 @@ public class Game {
         List<String> help = new ArrayList<>();
         help.add("help");
 
+        List<String> kill = new ArrayList<>();
+        kill.add("kill");
+
+        List<String> attack = new ArrayList<>();
+        attack.add("attack");
+
 
         // Makes the room you are in "cave"
         // INSERT ALL CODE THAT SETS A VARIABLE HERE!!!!!
@@ -214,6 +223,14 @@ public class Game {
         boolean start;
 
         // Asks if you want to play
+
+        System.out.print("Enter a name: ");
+        String namer = scanner.nextLine();
+        System.out.println("");
+
+
+        Player player =  new Player(namer, 10,10,3, 0);
+
         System.out.print("Play (yes or no)? \n-> ");
         String play = scanner.nextLine();
 
@@ -225,6 +242,14 @@ public class Game {
             start = true;
 
             System.out.println("Okay! Starting...!");
+
+            System.out.println("");
+
+            player.displayStats(player);
+
+            System.out.println("");
+
+
             System.out.println(cave.getRoomDescription());
         }
 
@@ -342,7 +367,16 @@ public class Game {
 
                             itemsIfAny(inRoom.getObjects(), "Items in room: ");
                             System.out.println("");
-                            mobsIfAny(inRoom.getMOBS(), "Mobs in room: ");
+
+                            List<String> mobNames = new ArrayList<>();
+
+                            for (Mob mob : inRoom.getMOBS()){
+
+                                mobNames.add(mob.getName());
+
+                            }
+
+                            mobsIfAny(mobNames, "Mobs in room: ");
 
                         }
 
@@ -356,6 +390,10 @@ public class Game {
 
                         else if (stringContainsWordFromList(action.toLowerCase(), help.toArray(new String[0]))) {
                             help(verbs);
+                        }
+
+                        else if (stringContainsWordFromList(action.toLowerCase(), stats.toArray(new String[0]))) {
+                            player.displayStats(player);
                         }
 
                     }
@@ -533,6 +571,33 @@ public class Game {
                             itemsIfAny(inventory, "Items in inventory: ");
                         }
 
+                        else if (stringContainsWordFromList(action.toLowerCase(), attack.toArray(new String[0])) ||stringContainsWordFromList(action.toLowerCase(), kill.toArray(new String[0]))) {
+
+                            boolean mobbo = false;
+
+                            for (Mob mob : inRoom.getMOBS()) {
+
+                                String mobNameLower = mob.getName().toLowerCase();
+
+                                if (action.toLowerCase().contains(mobNameLower)) {
+
+                                    combat(player, mob);
+
+                                    mobbo = true;
+
+                                    break;
+
+                                }
+
+                            }
+
+                            if (mobbo == false){
+                                System.out.println("You couldn't find your target.");
+                            }
+
+                        }
+
+
                         else {
                             System.out.println("You can't '" + action + "' ");
                         }
@@ -601,7 +666,16 @@ public class Game {
 
             Mobs(newRoom);
 
-            mobsIfAny(newRoom.getMOBS(), "Mobs in room: ");
+            List<String> mobNames = new ArrayList<>();
+
+
+            for (Mob mob : newRoom.getMOBS()){
+
+                mobNames.add(mob.getName());
+
+            }
+
+            mobsIfAny(mobNames, "Mobs in room: ");
             return newRoom; // Return the new Hub object (room)
 
         }
@@ -864,7 +938,7 @@ public class Game {
 
     public static void help(List<String> verbs) {
 
-        System.out.println("In order to call a command you need to enter in the FOLLOWING FORMAT: \n[VERB] + [OBJECT] = action\nSome verbs will not need an object to be used (e.g., 'look')\nHere are a list of possible commands: \n move, go || open, close || look, listen, wait, read || get, drop, take, remove || help" );
+        System.out.println("In order to call a command you need to enter in the FOLLOWING FORMAT: \n[VERB] + [OBJECT] = action\nSome verbs will not need an object to be used (e.g., 'look')\nHere are a list of possible commands: \n move, go || open, close || look, listen, wait, read || get, drop, take, remove || kill, attack || stats || help" );
 
     }
 
@@ -880,35 +954,111 @@ public class Game {
             if (chancer < 20) {
 
                 // Random number between 0–3 to decide mob type
-                number = (int)(Math.random() * 4);
+                number = (int)(Math.random() * 2) + 1;
 
                 if (number == 1) {
-                    if (Collections.frequency(inRoom.getMOBS(), "rabbit") < 3) {
-                        inRoom.getMOBS().add("rabbit");
+
+                    List<String> mobCounts = new ArrayList<>();
+
+                    for (Mob mob : inRoom.getMOBS()) {
+                        String name = mob.getName();
+                        mobCounts.add(name);
+                    }
+
+                    int rabbitCount = Collections.frequency(mobCounts, "Rabbit");
+
+                    if (rabbitCount < 3) {
+                        Mob rabbit = createRabbitWithRandomStats();
+                        inRoom.getMOBS().add(rabbit);
                         System.out.println("A rabbit hops out from the bushes.");
                     }
                 }
 
                 else if (number == 2) {
-                    if (Collections.frequency(inRoom.getMOBS(), "chicken") < 3) {
-                        inRoom.getMOBS().add("chicken");
-                        System.out.println("You hear clucking nearby.");
+
+
+                    List<String> mobCounts = new ArrayList<>();
+
+                    for (Mob mob : inRoom.getMOBS()) {
+                        String name = mob.getName();
+                        mobCounts.add(name);
                     }
+
+                    int chickenCount = Collections.frequency(mobCounts, "Chicken");
+
+                    if (chickenCount < 3) {
+                        Mob chicken = createChickenWithRandomStats();
+                        inRoom.getMOBS().add(chicken);
+                        System.out.println("A chicken clucks into the area in confusion.");
+                    }
+
                 }
 
-                else if (number == 3) {
-                    if (Collections.frequency(inRoom.getMOBS(), "rabbit") < 3) {
-                        inRoom.getMOBS().add("rabbit");
-                        System.out.println("A rabbit hops into view.");
-                    }
-                    if (Collections.frequency(inRoom.getMOBS(), "chicken") < 3) {
-                        inRoom.getMOBS().add("chicken");
-                        System.out.println("Some chickens wander in.");
-                    }
-                }
+
 
             }
         }
+    }
+
+    private static Mob createRabbitWithRandomStats() {
+        int maxHealth = (int)(Math.random() * 5 + 8);
+        int currentHealth = maxHealth;  // start at full health
+        int damageResistance = 0;       // example damage resistance
+        Health rabbitHealth = new Health(maxHealth, currentHealth, damageResistance);
+
+        int attackPower = (int)(Math.random() * 4);
+        boolean isAggro = false;
+
+        return new Mob("Rabbit", rabbitHealth, attackPower, isAggro);
+    }
+
+    private static Mob createChickenWithRandomStats() {
+        int maxHealth = (int)(Math.random() * 3 + 6);
+        int currentHealth = maxHealth;  // start at full health
+        int damageResistance = 0;       // example damage resistance
+        Health rabbitHealth = new Health(maxHealth, currentHealth, damageResistance);
+
+        int attackPower = (int)(Math.random() * 3);
+        boolean isAggro = false;
+
+        return new Mob("Chicken", rabbitHealth, attackPower, isAggro);
+    }
+
+
+
+
+
+
+    public static void combat(Player player, Mob mob){
+
+        while (!player.getHealth().isDead() && !mob.getHealth().isDead()){
+
+            player.attack(mob);
+
+            if (mob.getHealth().isDead()){
+                System.out.println("The " + mob.getName() +" has died at your hands.");
+                player.displayStats(player);
+                break;
+            }
+
+            else {
+
+                mob.attack(player);
+
+                if (player.getHealth().isDead()){
+                    System.out.println("You have been killed");
+
+                    break;
+                }
+            }
+
+
+
+
+        }
+
+
+
     }
 
 
