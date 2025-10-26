@@ -6,6 +6,8 @@ public class Hub {
     private String roomDescription;
     private java.util.Map<String, Hub> exits;
     private List<String> objects;
+    private java.util.Map<String, Door> doors = new java.util.HashMap<>();
+    private List<String> mobs = new ArrayList<>();
 
 
     public Hub(String name, String description) {
@@ -38,6 +40,17 @@ public class Hub {
     public Hub getExit(String direction) {
         return this.exits.get(direction);
     }
+
+    public void setDoor(String direction, Door door) {
+        doors.put(direction, door);
+    }
+
+    public Door getDoor(String direction) {
+        return doors.get(direction);
+    }
+
+    public List<String> getMOBS() { return mobs; }
+
 
 }
 

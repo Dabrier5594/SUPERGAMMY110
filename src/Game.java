@@ -1,8 +1,5 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
-import java.util.Collections;
 
 // MAKE IT SO YOU CAN't MOVE TO A NEW ROOM WHEN YOU HAVE TO GO THRU A CLOSED DOOR
 
@@ -21,9 +18,11 @@ public class Game {
 
         Hub caveNW = new Hub("Tom's Dark Entrance", "Still in Tom's cave, but now you have moved to the cave's entrance, where a door stands. \nEXITS: (N) (E)" );
 
-        Hub forest1 = new Hub("Southern Forest Area #1", "Just outside Tom's cave and just inside the Southern forest area. but now you have moved to the cave's entrance, where a door stands tall. \nEXITS: (S)  " );
+        Hub forest1 = new Hub("Southern Forest Area #1", "Just outside Tom's cave and just inside The Southern Area of the Great Makiss Forest. but now you have moved to the cave's entrance, where a door stands tall. \nEXITS: (S) (N) " );
 
-        // Attatch the rooms together
+        Hub forest2 = new Hub("Southern Forest Area #2" , "The Southern Area of the Great Makiss Forest. Only minor prey lay in wait in this forest. \nEXITS: (S)  " );
+
+        //Cave EXITS:
         cave.setExit("n", caveN);
         caveN.setExit("s", cave);
         caveN.setExit("n", caveNN);
@@ -31,8 +30,19 @@ public class Game {
         caveNN.setExit("e", caveNE);
         caveNN.setExit("w", caveNW);
         caveNW.setExit("e", caveNN);
-        caveNW.setExit("n", forest1);
         caveNE.setExit("w", caveNN);
+        caveNW.setExit("n", forest1);
+
+        //Forest EXITS:
+        forest1.setExit("s", caveNW);
+        forest1.setExit("n", forest2);
+        forest2.setExit("s", forest1);
+
+
+        //Doors!!!!
+        Door caveDoor = new Door(caveNW, forest1, false);
+        caveNW.setDoor("n", caveDoor);
+        forest1.setDoor("s", caveDoor);
 
 
 
@@ -142,6 +152,7 @@ public class Game {
         objects.add("silver");
         objects.add("copper");
         objects.add("twig");
+        objects.add("door");
 
 
         List<String> look = new ArrayList<>();
@@ -223,6 +234,8 @@ public class Game {
 
         //While start is true, run the code
         while (start) {
+
+            System.out.println("");
 
             System.out.print("-> ");
             String action = scanner.nextLine();
@@ -325,7 +338,11 @@ public class Game {
                         else if (stringContainsWordFromList(action.toLowerCase(), look.toArray(new String[0]))) {
                             System.out.println(inRoom.getRoomDescription());
                             System.out.println(inRoom.getRoomName());
+                            System.out.println("");
+
                             itemsIfAny(inRoom.getObjects(), "Items in room: ");
+                            System.out.println("");
+                            mobsIfAny(inRoom.getMOBS(), "Mobs in room: ");
 
                         }
 
@@ -370,21 +387,42 @@ public class Game {
                                     //If dagger is not in room and not in inventory, it falls out and is added to room (SO MAKE SURE TO REMOVE It FROM THE ROOM AT THE START!!!!!
                             }
 
-                            else if (inRoom.getRoomName().equals("Tom's Dark Entrance") && stringContainsWordFromList(action.toLowerCase(), door.toArray(new String[0]))) {
+                            else if (stringContainsWordFromList(action.toLowerCase(), door.toArray(new String[0]))) {
 
-                                if (!doorCaveNW){
-                                    System.out.println("You open the door.");
-                                    doorCaveNW = true;
+                                Door isDoor = null;
+                                String doorDir = null;
 
+                                for (String dir : Arrays.asList("n", "s", "e", "w")){
+
+                                    if (inRoom.getDoor(dir) != null){
+
+                                        isDoor = inRoom.getDoor(dir);
+
+                                        doorDir = dir;
+
+                                        break;
+
+                                    }
                                 }
+
+                                if (isDoor != null){
+
+                                    if (!isDoor.isOpen()) {
+
+                                        System.out.println("You open the door to the " + doorDir.toUpperCase() + ".");
+                                        isDoor.setOpen(true);
+
+                                    }
+
+                                    else{
+                                            System.out.println("The door is already open.");
+                                    }
+                                }
+
                                 else {
-                                    System.out.println("The door is already open.");
+                                    System.out.println("There is no door here.");
                                 }
-
-
                             }
-
-
 
                         }
 
@@ -399,19 +437,42 @@ public class Game {
                                 }
                             }
 
-                            else if (inRoom.getRoomName().equals("Tom's Dark Entrance") && stringContainsWordFromList(action.toLowerCase(), door.toArray(new String[0]))) {
+                            else if (stringContainsWordFromList(action.toLowerCase(), door.toArray(new String[0]))) {
 
-                                if (doorCaveNW){
-                                    System.out.println("You close the door.");
-                                    doorCaveNW = false;
+                                Door isDoor = null;
+                                String doorDir = null;
 
+                                for (String dir : Arrays.asList("n", "s", "e", "w")){
+
+                                    if (inRoom.getDoor(dir) != null){
+
+                                        isDoor = inRoom.getDoor(dir);
+
+                                        doorDir = dir;
+
+                                        break;
+
+                                    }
                                 }
+
+                                if (isDoor != null){
+                                    if (isDoor.isOpen()) {
+                                        System.out.println("You close the door to the " + doorDir.toUpperCase() + ".");
+                                        isDoor.setOpen(false);
+
+                                    }
+
+                                    else{
+                                        System.out.println("The door is already closed.");
+                                    }
+                                }
+
                                 else {
-                                    System.out.println("The door is already closed.");
+                                    System.out.println("There is no door here.");
                                 }
-
-
                             }
+
+
                         }
 
                         else if (stringContainsWordFromList(action.toLowerCase(), take.toArray(new String[0])) || stringContainsWordFromList(action.toLowerCase(), get.toArray(new String[0]))) {
@@ -520,15 +581,27 @@ public class Game {
         if (direction.equals("east")) {
             direction = "e";
         }
+
+
+        Door door = currentHub.getDoor(direction);
+        if (door != null && !door.isOpen()) {
+            System.out.println("There is a closed door in your way.");
+            return currentHub;
+        }
+
         Hub newRoom = currentHub.getExit(direction);
 
         // If there is a new area where user tries to go, update it
         if (newRoom != null) {
+
             System.out.println(newRoom.getRoomName());
             System.out.println(newRoom.getRoomDescription());
 
             itemsIfAny(newRoom.getObjects(), "Items in room: ");
 
+            Mobs(newRoom);
+
+            mobsIfAny(newRoom.getMOBS(), "Mobs in room: ");
             return newRoom; // Return the new Hub object (room)
 
         }
@@ -774,11 +847,70 @@ public class Game {
 
     }
 
+    public static void mobsIfAny(List<String> mobs, String name) {
+        if (mobs.isEmpty()) {
+            System.out.println(name + " []");
+            return;
+        }
+
+        System.out.print(name + "");
+        for (String mob : new ArrayList<>(new java.util.HashSet<>(mobs))) {
+            int count = Collections.frequency(mobs, mob);
+            System.out.print("[" + mob + (count > 1 ? " (x" + count + ")] " : "] "));
+        }
+        System.out.println("");
+    }
+
+
     public static void help(List<String> verbs) {
 
         System.out.println("In order to call a command you need to enter in the FOLLOWING FORMAT: \n[VERB] + [OBJECT] = action\nSome verbs will not need an object to be used (e.g., 'look')\nHere are a list of possible commands: \n move, go || open, close || look, listen, wait, read || get, drop, take, remove || help" );
 
     }
+
+    public static void Mobs(Hub inRoom) {
+        int chancer = 0;
+        int number = 0;
+
+        // Only run this code if player is in a Southern Forest room
+        if (inRoom.getRoomName().contains("Southern Forest")) {
+
+            chancer = (int)(Math.random() * 101);
+
+            if (chancer < 20) {
+
+                // Random number between 0–3 to decide mob type
+                number = (int)(Math.random() * 4);
+
+                if (number == 1) {
+                    if (Collections.frequency(inRoom.getMOBS(), "rabbit") < 3) {
+                        inRoom.getMOBS().add("rabbit");
+                        System.out.println("A rabbit hops out from the bushes.");
+                    }
+                }
+
+                else if (number == 2) {
+                    if (Collections.frequency(inRoom.getMOBS(), "chicken") < 3) {
+                        inRoom.getMOBS().add("chicken");
+                        System.out.println("You hear clucking nearby.");
+                    }
+                }
+
+                else if (number == 3) {
+                    if (Collections.frequency(inRoom.getMOBS(), "rabbit") < 3) {
+                        inRoom.getMOBS().add("rabbit");
+                        System.out.println("A rabbit hops into view.");
+                    }
+                    if (Collections.frequency(inRoom.getMOBS(), "chicken") < 3) {
+                        inRoom.getMOBS().add("chicken");
+                        System.out.println("Some chickens wander in.");
+                    }
+                }
+
+            }
+        }
+    }
+
 
 
 }
