@@ -20,7 +20,10 @@ public class Game {
 
         Hub forest1 = new Hub("Southern Forest Area #1", "Just outside Tom's cave and just inside The Southern Area of the Great Makiss Forest. but now you have moved to the cave's entrance, where a door stands tall. \nEXITS: (S) (N) " );
 
-        Hub forest2 = new Hub("Southern Forest Area #2" , "The Southern Area of the Great Makiss Forest. Only minor prey lay in wait in this forest. \nEXITS: (S)  " );
+        Hub forest2 = new Hub("Southern Forest Area #2" , "The Southern Area of the Great Makiss Forest. Only minor prey lay in wait in this forest. \nEXITS: (S) (W) " );
+
+        Hub forest3 = new Hub("Southern Forest Area #3", "The Southern Area of the Great Makiss Forest. Only minor prey lay in wait in this forest.. \nEXITS: (E)" );
+
 
         //Cave EXITS:
         cave.setExit("n", caveN);
@@ -37,6 +40,9 @@ public class Game {
         forest1.setExit("s", caveNW);
         forest1.setExit("n", forest2);
         forest2.setExit("s", forest1);
+        forest2.setExit("w", forest3);
+        forest3.setExit("2", forest2);
+
 
 
         //Doors!!!!
@@ -91,6 +97,8 @@ public class Game {
         verbs.add("kill");
         verbs.add("attack");
         verbs.add("stats");
+        verbs.add("heal");
+
 
 
         List<String> verbsOnly = new ArrayList<>();
@@ -108,6 +116,8 @@ public class Game {
         verbsOnly.add("listen");
         verbsOnly.add("help");
         verbsOnly.add("stats");
+        verbsOnly.add("heal");
+
 
 
         List<String> directions = new ArrayList<>();
@@ -209,6 +219,9 @@ public class Game {
         List<String> attack = new ArrayList<>();
         attack.add("attack");
 
+        List<String> heal = new ArrayList<>();
+        heal.add("heal");
+
 
         // Makes the room you are in "cave"
         // INSERT ALL CODE THAT SETS A VARIABLE HERE!!!!!
@@ -228,7 +241,6 @@ public class Game {
         String namer = scanner.nextLine();
         System.out.println("");
 
-
         Player player =  new Player(namer, 10,10,3, 0);
 
         System.out.print("Play (yes or no)? \n-> ");
@@ -245,9 +257,21 @@ public class Game {
 
             System.out.println("");
 
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
             player.displayStats(player);
 
             System.out.println("");
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 
 
             System.out.println(cave.getRoomDescription());
@@ -394,6 +418,10 @@ public class Game {
 
                         else if (stringContainsWordFromList(action.toLowerCase(), stats.toArray(new String[0]))) {
                             player.displayStats(player);
+                        }
+
+                        else if (stringContainsWordFromList(action.toLowerCase(), heal.toArray(new String[0]))) {
+                            heal(player);
                         }
 
                     }
@@ -581,7 +609,7 @@ public class Game {
 
                                 if (action.toLowerCase().contains(mobNameLower)) {
 
-                                    combat(player, mob);
+                                    combat(player, mob , inRoom);
 
                                     mobbo = true;
 
@@ -884,7 +912,7 @@ public class Game {
                 System.out.println("world is one which mysteries and secrets about itself. \nPrepare yourself, to delve deeper into the world of Tim and experience the un-imaginable. \nHint: (Use 'help' to get help)");
             }
 
-            if (item.toLowerCase().equals("newspaper2")) {
+            else if (item.toLowerCase().equals("newspaper2")) {
                 System.out.println("[You unfold the newspaper and read its headline:]");
                 System.out.println("The Money Challenges");
                 System.out.println("[You eyes follow the page down...]");
@@ -1001,24 +1029,24 @@ public class Game {
     }
 
     private static Mob createRabbitWithRandomStats() {
-        int maxHealth = (int)(Math.random() * 5 + 8);
+        int maxHealth = (int)(Math.random() * 1 + 6);
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health rabbitHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int)(Math.random() * 4);
+        int attackPower = (int)(Math.random() * 4 + 1);
         boolean isAggro = false;
 
         return new Mob("Rabbit", rabbitHealth, attackPower, isAggro);
     }
 
     private static Mob createChickenWithRandomStats() {
-        int maxHealth = (int)(Math.random() * 3 + 6);
+        int maxHealth = (int)(Math.random() * 3 + 9);
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health rabbitHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int)(Math.random() * 3);
+        int attackPower = (int)(Math.random() * 3 + 1);
         boolean isAggro = false;
 
         return new Mob("Chicken", rabbitHealth, attackPower, isAggro);
@@ -1029,14 +1057,26 @@ public class Game {
 
 
 
-    public static void combat(Player player, Mob mob){
+    public static void combat(Player player, Mob mob, Hub inRoom){
 
         while (!player.getHealth().isDead() && !mob.getHealth().isDead()){
 
             player.attack(mob);
 
+            System.out.println("");
+
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
             if (mob.getHealth().isDead()){
-                System.out.println("The " + mob.getName() +" has died at your hands.");
+                System.out.println("The " + mob.getName() + " has died at your hands.");
+
+                inRoom.getMOBS().removeIf(Mob -> mob.getName().equals(mob.getName())); //remove an object that has the name Rabbit
+
+
                 player.displayStats(player);
                 break;
             }
@@ -1044,10 +1084,17 @@ public class Game {
             else {
 
                 mob.attack(player);
+                System.out.println("");
+
+
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
                 if (player.getHealth().isDead()){
                     System.out.println("You have been killed");
-
                     break;
                 }
             }
@@ -1058,6 +1105,30 @@ public class Game {
         }
 
 
+
+    }
+
+    public static void heal(Player player) {
+
+        if (player.getHealth().getHeealth() == player.getHealth().getMaxHealth()){
+            System.out.println("You are already maxed out in health.");
+        }
+
+        else{
+
+            System.out.println("You drop into unconsciousness and begin to heal...");
+
+            try {
+                Thread.sleep(3500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            System.out.println("You have healed!");
+
+            player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+
+        }
 
     }
 

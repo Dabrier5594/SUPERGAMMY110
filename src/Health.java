@@ -12,9 +12,11 @@ public class Health {
 
     }
 
-    public int getHealth() {
+    public int getHeealth() {
         return health;
     }
+
+    public void setHeealth(int amount) { this.health = amount;}
 
     public int getMaxHealth(){
         return maxHealth;
@@ -36,8 +38,13 @@ public class Health {
 
         int finalDamage = amount - damageResistance;
 
+        if (damageResistance> 1){
+            System.out.println("The damage has been muffled by " + damageResistance + " due to damage resistance.");
+        }
+
         if (finalDamage < 0){
             finalDamage = 0;
+            System.out.println("Your defenses are too strong for the puny attack!");
         }
 
         if (health - finalDamage > 0) {
@@ -51,6 +58,37 @@ public class Health {
         else {
             health = 0;
             System.out.println("You have taken " + finalDamage + " damage (0/" + maxHealth + ") HP remaining).");
+        }
+
+
+    }
+
+    public void mobTakeDamage(int amount){
+
+
+        int finalDamage = amount - damageResistance;
+
+        if (damageResistance> 1){
+            System.out.println("The damage has been muffled by " + damageResistance + " due to damage resistance.");
+        }
+
+
+        if (finalDamage < 0){
+            finalDamage = 0;
+            System.out.println("The enemies defenses are too strong for your puny attack!");
+        }
+
+        if (health - finalDamage > 0) {
+
+            health -= finalDamage;
+
+            System.out.println("The enemy has taken " + finalDamage + " damage (" + health + "/" + maxHealth + " HP remaining).");
+
+        }
+
+        else {
+            health = 0;
+            System.out.println("The enemy has taken " + finalDamage + " damage (0/" + maxHealth + ") HP remaining).");
         }
 
 
