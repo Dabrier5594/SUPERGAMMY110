@@ -8,7 +8,7 @@ public class Game {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        // Create the initial room
+        // TOMS CAVE
         Hub cave = new Hub("Tom's Dark Cave", "The back of the ancient cave where Tom the hermit lived for many years. \nEXITS: (N) ");
 
         Hub caveN = new Hub("Tom's Dark Kitchen", "Still in Tom's cave, but now you have moved into his kitchen which consists of a cabinet and a counter. \nEXITS: (N) (S)");
@@ -19,14 +19,38 @@ public class Game {
 
         Hub caveNW = new Hub("Tom's Dark Entrance", "Still in Tom's cave, but now you have moved to the cave's entrance, where a door stands. \nEXITS: (N) (E)" );
 
+        // S FOREST
         Hub forest1 = new Hub("Southern Forest Area #1", "Just outside Tom's cave and just inside The Southern Area of the Great Makiss Forest. but now you have moved to the cave's entrance, where a door stands tall. \nEXITS: (S) (N) " );
 
-        Hub forest2 = new Hub("Southern Forest Area #2" , "The Southern Area of the Great Makiss Forest. Only minor prey lay in wait in this forest. \nEXITS: (S) (W) " );
+        Hub forest2 = new Hub("Southern Forest Area #2" , "The Southern Area of the Great Makiss Forest. Only minor prey lay in wait in this forest. \nEXITS:  " );
 
-        Hub forest3 = new Hub("Southern Forest Area #3", "The Southern Area of the Great Makiss Forest. Only minor prey lay in wait in this forest.. \nEXITS: (E)" );
+        Hub forest4 = new Hub("Southern Forest Area #4", "The Southern Area of the Great Makiss Forest. The air feels heavy here, and the forest is unusually silent. The ground is littered with broken twigs, as though something recently passed through... \nEXITS: " );
 
+        Hub forest3 = new Hub("Southern Forest Area #3", "The Southern Area of the Great Makiss Forest. Thorny bushes block much of the way south, their barbs glinting sharply. However, the path seems clearer to the north, where faint sunlight filters through. \nEXITS: " );
 
-        //Cave EXITS:
+        Hub forest5 = new Hub("Southern Forest Area #5", "The Southern Area of the Great Makiss Forest. Reminiscence of something eating a chicken is visible under scattered leaves...\nEXITS: " );
+
+        Hub forest6 = new Hub("Southern Forest Area #6", "The Southern Area of the Great Makiss Forest. The trees grow closer together here, their canopies blotting out much of the sunlight. The air feels damp, and faint rustling can be heard in the underbrush... \nEXITS: ");
+
+        Hub forest7 = new Hub("Southern Forest Area #7", "The Southern Area of the Great Makiss Forest. Thick ferns and wildflowers cover the forest floor. A small trail, barely visible, weaves between the towering oaks and leads South. \nEXITS: ");
+
+        Hub forest8 = new Hub("Southern Forest Area #8", "The Southern Area of the Great Makiss Forest. The chirping of birds fills the air as soft beams of light break through the leaves. The ground here is softer, marked by faint paw prints. \nEXITS: ");
+
+        Hub forest9 = new Hub("Southern Forest Area #9", "The Southern Area of the Great Makiss Forest. A clearing opens up, surrounded by mossy boulders. A faint breeze carries the scent of pine and damp earth. Something moves just beyond sight... \nEXITS: ");
+
+        Hub forest10 = new Hub("Southern Forest Area #10", "The Southern Area of the Great Makiss Forest. Dark vines creep up the tree trunks, their tendrils twisting toward the faint light above. The sound of dripping water echoes through the silence. \nEXITS: ");
+
+        Hub forest11 = new Hub("Southern Forest Area #11", "The Southern Area of the Great Makiss Forest. The forest floor dips here, forming a shallow hollow where mushrooms glow faintly in the dim light. The atmosphere feels eerily calm. \nEXITS: ");
+
+        Hub forest12 = new Hub("Southern Forest Area #12", "The Southern Area of the Great Makiss Forest. Ancient trees dominate this part of the forest, their roots rising like walls of wood. A faint trail of claw marks runs along one of the trunks... \nEXITS: ");
+
+        Hub forest13 = new Hub("Southern Forest Area #13", "The Southern Area of the Great Makiss Forest. You find yourself in a foggy grove. The mist curls around your legs and blurs the outlines of the trees. Strange, muffled sounds echo from the distance. \nEXITS: ");
+
+        Hub forest14 = new Hub("Southern Forest Area #14", "The Southern Area of the Great Makiss Forest. The terrain here becomes rocky, with exposed roots clawing through the soil. You can hear a faint trickle of water somewhere to the west. \nEXITS: ");
+
+        Hub forest15 = new Hub("Southern Forest Area #15", "AThe Southern Area of the Great Makiss Forest.  wide patch of sunlight filters through the canopy, illuminating a small pool of crystal-clear water. Tiny insects hover above its surface. \nEXITS: ");
+
+        //Toms Cave EXITS:
         cave.setExit("n", caveN);
         caveN.setExit("s", cave);
         caveN.setExit("n", caveNN);
@@ -37,12 +61,31 @@ public class Game {
         caveNE.setExit("w", caveNN);
         caveNW.setExit("n", forest1);
 
-        //Forest EXITS:
+        //S Forest EXITS:
         forest1.setExit("s", caveNW);
         forest1.setExit("n", forest2);
         forest2.setExit("s", forest1);
         forest2.setExit("w", forest3);
         forest3.setExit("e", forest2);
+        forest3.setExit("w", forest4);
+        forest4.setExit("e", forest3);
+        forest4.setExit("w", forest5);
+        forest5.setExit("e", forest4);
+        forest5.setExit("n", forest6);
+        forest6.setExit("s", forest5);
+        forest6.setExit("n", forest7);
+        forest6.setExit("w", forest9);
+        forest7.setExit("s", forest6);
+        forest7.setExit("w", forest8);
+        forest8.setExit("e", forest7);
+        forest8.setExit("s", forest9);
+        forest9.setExit("n", forest8);
+        forest9.setExit("e", forest6);
+
+
+
+
+
 
 
 
@@ -167,6 +210,9 @@ public class Game {
         objects.add("rabbit");
         objects.add("chicken");
         objects.add("squirrel");
+        objects.add("C-chest");
+        objects.add("B-chest");
+        objects.add("A-chest");
 
 
         List<String> look = new ArrayList<>();
@@ -226,6 +272,11 @@ public class Game {
         List<String> heal = new ArrayList<>();
         heal.add("heal");
 
+        List<String> chests = new ArrayList<>();
+        chests.add("chests");
+
+
+
 
         // Makes the room you are in "cave"
         // INSERT ALL CODE THAT SETS A VARIABLE HERE!!!!!
@@ -255,12 +306,12 @@ public class Game {
 
             start = true;
 
-            System.out.println("Okay! Starting...!");//
+            System.out.println("Okay! Starting... (hint: use help to 'help')!");//
 
             System.out.println("");
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(600);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -270,7 +321,7 @@ public class Game {
             System.out.println("");
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(600);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -494,6 +545,11 @@ public class Game {
                                 }
                             }
 
+                            else if (stringContainsWordFromList(action.toLowerCase(), chests.toArray(new String[0]))) {
+
+
+                            }
+
                         }
 
                         else if (stringContainsWordFromList(action.toLowerCase(), close.toArray(new String[0]))) {
@@ -701,7 +757,8 @@ public class Game {
 
 
             for (Mob mob : newRoom.getMOBS()) {
-                if (mob.isAggro() && !mob.getHealth().isDead()) { //THE COLLECTION EXPECTS NO CHANGES TO THE LIST DURING THE CODE. SO I NEED TO SAFELY REMOVE AN OBJECT FROM LIST WITHOUT CAUSING AN "EXCEPTIION""
+
+                if (mob.isAggro() && !mob.getHealth().isDead()) {
 
                     System.out.println("");
 
@@ -720,7 +777,14 @@ public class Game {
                     System.out.println(mob.getName() + " is aggro and attacks you as you enter!");
 
                     combat(player, mob, newRoom);
+
+                    if (newRoom.getMOBS().isEmpty()){
+
+                        break; // If I change stuff then before the for I should see what the newRoom.getMOBS's length is, and then do a "for (int i = (the length of the list)"
+                    }
+
                 }
+
             }
 
             List<String> mobNames = new ArrayList<>();
@@ -1126,7 +1190,7 @@ public class Game {
         else {
             System.out.println("Would you like to you skills and items in this battle or just use what you already have (y/n) ?");
             System.out.print("-> ");
-            String answer = scanner.next();
+            String answer = scanner.nextLine();
 
             if (answer.substring(0, 1).toLowerCase().equals("y")) {
                 using = true;
@@ -1149,7 +1213,7 @@ public class Game {
                 System.out.println("");
                 System.out.print("-> ");
 
-                String usingNow = scanner.next();
+                String usingNow = scanner.nextLine();
                 if (usingNow.toLowerCase().equals("stun")){
                     Skill.StunSkill.apply(player, mob);
                 }
@@ -1183,7 +1247,7 @@ public class Game {
             }
 
             if (mob.getHealth().isDead()){
-                System.out.println("The " + mob.getName() + " has died at your hands.");
+                System.out.println("The " + mob.getName() + " has died at your hands. \n");
                 String targetMobName = mob.getName();
                 inRoom.getMOBS().removeIf(mob1 -> mob.getName().equals(targetMobName)); //remove an object that has the name Rabbit
 
@@ -1239,6 +1303,13 @@ public class Game {
             player.getHealth().setHeealth(player.getHealth().getMaxHealth());
 
         }
+
+    }
+
+    public static void chests(Hub inRoom, String obj){
+
+        //Make so chest doesn't keep restorcking, do something like cabinet.
+        //MAKE A CLASS THAT CUTS VINES. SO I CAN MAKE THIS CHEST BE COVERED IN VINES AND ONLY BE OPENABLE WHEN CUT BY VINES
 
     }
 
