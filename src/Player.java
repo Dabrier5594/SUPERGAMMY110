@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -10,9 +11,7 @@ public class Player {
 
     private boolean isStunned = false;
 
-    private List<Skill> skills;
-
-    private List<String> inventory;
+    private List<Skill> skills = new ArrayList<>();
 
     public Player(String name, int maxHealth, int health, int power, int damageResistance) {
 

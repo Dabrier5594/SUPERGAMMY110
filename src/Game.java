@@ -1,6 +1,7 @@
 import java.util.*;
 import java.util.regex.Pattern;
 
+
 // MAKE IT SO YOU CAN't MOVE TO A NEW ROOM WHEN YOU HAVE TO GO THRU A CLOSED DOOR
 
 public class Game {
@@ -41,7 +42,7 @@ public class Game {
         forest1.setExit("n", forest2);
         forest2.setExit("s", forest1);
         forest2.setExit("w", forest3);
-        forest3.setExit("2", forest2);
+        forest3.setExit("e", forest2);
 
 
 
@@ -68,6 +69,7 @@ public class Game {
     }
 
     public static void Story(Hub cave) {
+
 
         //List of verbs
         List<String> verbs = new ArrayList<>();
@@ -164,6 +166,7 @@ public class Game {
         objects.add("door");
         objects.add("rabbit");
         objects.add("chicken");
+        objects.add("squirrel");
 
 
         List<String> look = new ArrayList<>();
@@ -232,8 +235,6 @@ public class Game {
         boolean cabinetCaveN = false;
         boolean cabinetDaggerCaveN = true;
 
-        boolean doorCaveNW = false;
-
         boolean start;
 
         // Asks if you want to play
@@ -278,7 +279,6 @@ public class Game {
             System.out.println(cave.getRoomDescription());
 
             player.getSkills().add(new Skill.StunSkill("Stun", "Stuns enemy for one turn. Cooldown: 3 turns.", true, 3));
-
         }
 
         else {
@@ -454,7 +454,7 @@ public class Game {
                                 else {
                                     System.out.println("The cabinet is already open.");
                                 }
-                                    //If dagger is not in room and not in inventory, it falls out and is added to room (SO MAKE SURE TO REMOVE It FROM THE ROOM AT THE START!!!!!
+                                //If dagger is not in room and not in inventory, it falls out and is added to room (SO MAKE SURE TO REMOVE It FROM THE ROOM AT THE START!!!!!
                             }
 
                             else if (stringContainsWordFromList(action.toLowerCase(), door.toArray(new String[0]))) {
@@ -485,7 +485,7 @@ public class Game {
                                     }
 
                                     else{
-                                            System.out.println("The door is already open.");
+                                        System.out.println("The door is already open.");
                                     }
                                 }
 
@@ -701,7 +701,7 @@ public class Game {
 
 
             for (Mob mob : newRoom.getMOBS()) {
-                if (mob.isAggro() && !mob.getHealth().isDead()) {
+                if (mob.isAggro() && !mob.getHealth().isDead()) { //THE COLLECTION EXPECTS NO CHANGES TO THE LIST DURING THE CODE. SO I NEED TO SAFELY REMOVE AN OBJECT FROM LIST WITHOUT CAUSING AN "EXCEPTIION""
 
                     System.out.println("");
 
@@ -717,9 +717,9 @@ public class Game {
 
                     System.out.println("");
 
-                    System.out.println(mob.getName() + " attacks you as you enter!");
+                    System.out.println(mob.getName() + " is aggro and attacks you as you enter!");
 
-                    combat(player, mob);
+                    combat(player, mob, newRoom);
                 }
             }
 
@@ -1011,9 +1011,9 @@ public class Game {
             if (chancer < 20) {
 
                 // Random number between 0–3 to decide mob type
-                number = (int)(Math.random() * 2) + 1;
+                number = (int)(Math.random() * 7) + 1;
 
-                if (number == 1) {
+                if (number ==3) {
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -1031,7 +1031,7 @@ public class Game {
                     }
                 }
 
-                else if (number == 2) {
+                else if (number == 3) {
 
 
                     List<String> mobCounts = new ArrayList<>();
@@ -1051,6 +1051,25 @@ public class Game {
 
                 }
 
+                else {
+
+                    List<String> mobCounts = new ArrayList<>();
+
+                    for (Mob mob : inRoom.getMOBS()) {
+                        String name = mob.getName();
+                        mobCounts.add(name);
+                    }
+
+                    int squirrelCount = Collections.frequency(mobCounts, "Squirrel");
+
+                    if (squirrelCount < 3) {
+                        Mob squirrel = createSquirrelWithRandomStats();
+                        inRoom.getMOBS().add(squirrel);
+                        System.out.println("A squirrel falls from the trees.");
+                    }
+
+                }
+
 
 
             }
@@ -1058,7 +1077,7 @@ public class Game {
     }
 
     private static Mob createRabbitWithRandomStats() {
-        int maxHealth = (int)(Math.random() * 1 + 6);
+        int maxHealth = (int)(Math.random() * 2 + 6); //6-7
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health rabbitHealth = new Health(maxHealth, currentHealth, damageResistance);
@@ -1069,8 +1088,20 @@ public class Game {
         return new Mob("Rabbit", rabbitHealth, attackPower, isAggro);
     }
 
+    private static Mob createSquirrelWithRandomStats() {
+        int maxHealth = (int)(Math.random() * 3 + 4); //4-6
+        int currentHealth = maxHealth;  // start at full health
+        int damageResistance = 0;       // example damage resistance
+        Health squirrelHealth = new Health(maxHealth, currentHealth, damageResistance);
+
+        int attackPower = (int)(Math.random() * 5 + 2); //2-6
+        boolean isAggro = true;
+
+        return new Mob("Squirrel", squirrelHealth, attackPower, isAggro);
+    }
+
     private static Mob createChickenWithRandomStats() {
-        int maxHealth = (int)(Math.random() * 3 + 9);
+        int maxHealth = (int)(Math.random() * 3 + 9); //9-11
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health rabbitHealth = new Health(maxHealth, currentHealth, damageResistance);
@@ -1086,7 +1117,7 @@ public class Game {
 
 
 
-    public static void combat(Player player, Mob mob){
+    public static void combat(Player player, Mob mob, Hub inRoom){
         boolean using = false;
 
         if (player.getSkills().isEmpty()){
@@ -1094,6 +1125,7 @@ public class Game {
         }
         else {
             System.out.println("Would you like to you skills and items in this battle or just use what you already have (y/n) ?");
+            System.out.print("-> ");
             String answer = scanner.next();
 
             if (answer.substring(0, 1).toLowerCase().equals("y")) {
@@ -1101,8 +1133,10 @@ public class Game {
             } else {
                 using = false;
             }
+
+            System.out.println("");
         }
-    public static void combat(Player player, Mob mob, Hub inRoom){
+
 
         while (!player.getHealth().isDead() && !mob.getHealth().isDead()){
 
@@ -1112,12 +1146,31 @@ public class Game {
                 for (Skill skill : player.getSkills())  {
                     System.out.print("[" + skill.getName() + "]  ");
                 }
+                System.out.println("");
+                System.out.print("-> ");
+
                 String usingNow = scanner.next();
                 if (usingNow.toLowerCase().equals("stun")){
                     Skill.StunSkill.apply(player, mob);
                 }
 
+                else {
+                    int chop = 0;
+                    for (Skill skiller : player.getSkills())  {
+                        if (usingNow.toLowerCase().equals(skiller.getName())){
+                            chop++;
+                        }
+                    }
+
+                    if (chop <= 0){
+                        System.out.println("Unknown input.");
+                    }
+                }
+
+
             }
+
+            System.out.println("");
 
             player.attack(mob);
 
@@ -1131,8 +1184,8 @@ public class Game {
 
             if (mob.getHealth().isDead()){
                 System.out.println("The " + mob.getName() + " has died at your hands.");
-
-                inRoom.getMOBS().removeIf(Mob -> mob.getName().equals(mob.getName())); //remove an object that has the name Rabbit
+                String targetMobName = mob.getName();
+                inRoom.getMOBS().removeIf(mob1 -> mob.getName().equals(targetMobName)); //remove an object that has the name Rabbit
 
 
                 player.displayStats(player);
@@ -1143,7 +1196,6 @@ public class Game {
 
                 mob.attack(player);
                 System.out.println("");
-
 
                 try {
                     Thread.sleep(300);
@@ -1176,7 +1228,6 @@ public class Game {
         else{
 
             System.out.println("You drop into unconsciousness and begin to heal...");
-
             try {
                 Thread.sleep(3500);
             } catch (InterruptedException e) {

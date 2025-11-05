@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Hub {
@@ -49,8 +50,8 @@ public class Hub {
         return doors.get(direction);
     }
 
-    public List<Mob> getMOBS() { return mobs; }
-
-
+    public List<Mob> getMOBS() {
+        return mobs;
+    }
 }
 

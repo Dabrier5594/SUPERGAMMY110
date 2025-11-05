@@ -44,6 +44,7 @@ public abstract class Skill {
 
         public static void apply(Player user, Mob target) {
             if (!canUse()) {
+                System.out.println("Skill is recharging for use.");
                 return;
             }
 

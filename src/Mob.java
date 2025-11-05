@@ -8,7 +8,7 @@ public class Mob {
     private boolean isAggro;
 
 
-        public Mob (String name, Health health, int attackPower, boolean isAggro ){
+    public Mob (String name, Health health, int attackPower, boolean isAggro ){
 
         this.name = name;
         this.attackPower = attackPower;
@@ -47,11 +47,11 @@ public class Mob {
     }
 
     public boolean isStunned(){
-            return isStunned;
+        return isStunned;
     }
 
     public void setStunned(boolean hm){
-            this.isStunned = hm;
+        this.isStunned = hm;
     }
 
 }
