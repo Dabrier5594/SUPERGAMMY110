@@ -45,13 +45,7 @@ public class Player {
 
         System.out.println(name + " attacks " + mob.getName() + " for " + attackPower + " damage!");
 
-        mob.getHealth().takeDamage(attackPower);
-
-        if (mob.getHealth().isDead()) {
-            System.out.println(mob.getName() + " has been defeated!");
-        } else {
-            System.out.println(mob.getName() + " has " + mob.getHealth().getHealth() + " HP remaining.");
-        }
+        mob.getHealth().mobTakeDamage(attackPower);
 
     }
 
@@ -62,7 +56,7 @@ public class Player {
     public void displayStats(Player player) {
         System.out.println("=== Player Stats ===");
         System.out.println("Name: " + name);
-        System.out.println("HP: " + health.getHealth() + "/" + health.getMaxHealth());
+        System.out.println("HP: " + health.getHeealth() + "/" + health.getMaxHealth());
         System.out.println("Attack: " + attackPower + " | Defense: " + player.getHealth().getDamageResistance());
     }
 
