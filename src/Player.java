@@ -8,6 +8,9 @@ public class Player {
 
     private int attackPower;
 
+    private boolean isStunned = false;
+
+    private List<Skill> skills;
 
     private List<String> inventory;
 
@@ -19,7 +22,22 @@ public class Player {
 
     }
 
+    public String getName(){
+        return name;
+    }
+
+    public List<Skill> getSkills(){
+        return skills;
+    }
+
     public void attack(Mob mob) {
+
+        if (isStunned == true){
+            System.out.println("You are stunned and cannot do anything.");
+            setStunned(false);
+            return;
+        }
+
         if (mob == null) {
             System.out.println("There is nothing to attack.");
             return;
@@ -45,5 +63,14 @@ public class Player {
     public Health getHealth() {
         return health;
     }
+
+    public boolean getStunned(){
+        return isStunned;
+    }
+
+    public void setStunned(boolean stunner){
+        this.isStunned = stunner;
+    }
+
 
 }

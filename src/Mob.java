@@ -3,6 +3,7 @@ public class Mob {
     private String name;
     private int attackPower;
     private Health health;
+    private boolean isStunned = false;
 
     private boolean isAggro;
 
@@ -14,14 +15,22 @@ public class Mob {
         this.health = health;
         this.isAggro = isAggro;
 
-
     }
 
     public void attack(Player player){
 
-        System.out.println(name + " attacks you for " + attackPower + " damage!");
+        if (isStunned()) {
+            System.out.println(name + " is stunned and skips its turn!");
+            setStunned(false);
+            // Reset stun after skipping one turn
 
-        player.getHealth().takeDamage(attackPower);
+        }
+        else {
+
+            System.out.println(name + " attacks you for " + attackPower + " damage!");
+
+            player.getHealth().takeDamage(attackPower);
+        }
 
     }
 
@@ -35,6 +44,14 @@ public class Mob {
 
     public boolean isAggro() {
         return isAggro;
+    }
+
+    public boolean isStunned(){
+            return isStunned;
+    }
+
+    public void setStunned(boolean hm){
+            this.isStunned = hm;
     }
 
 }

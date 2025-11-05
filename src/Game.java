@@ -64,6 +64,7 @@ public class Game {
         }
 
         Story(cave);
+
     }
 
     public static void Story(Hub cave) {
@@ -253,7 +254,7 @@ public class Game {
 
             start = true;
 
-            System.out.println("Okay! Starting...!");
+            System.out.println("Okay! Starting...!");//
 
             System.out.println("");
 
@@ -275,6 +276,9 @@ public class Game {
 
 
             System.out.println(cave.getRoomDescription());
+
+            player.getSkills().add(new Skill.StunSkill("Stun", "Stuns enemy for one turn. Cooldown: 3 turns.", true, 3));
+
         }
 
         else {
@@ -311,27 +315,27 @@ public class Game {
 
                         if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
 
-                            inRoom = move(action.toLowerCase(), inRoom);
+                            inRoom = move(action.toLowerCase(), inRoom, player);
 
 
 
                         }
                         else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
                             // Call the move method and update to inRoom
-                            inRoom = move(action.toLowerCase(), inRoom);
+                            inRoom = move(action.toLowerCase(), inRoom, player);
 
 
 
                         }
                         else if (action.toLowerCase().equals("w") || action.toLowerCase().equals("west")) {
                             // Call the move method and update to inRoom
-                            inRoom = move(action.toLowerCase(), inRoom);
+                            inRoom = move(action.toLowerCase(), inRoom, player);
 
 
                         }
                         else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
                             // Call the move method and update to inRoom
-                            inRoom = move(action.toLowerCase(), inRoom);
+                            inRoom = move(action.toLowerCase(), inRoom, player);
 
 
 
@@ -344,7 +348,7 @@ public class Game {
 
                                     action = "n";
 
-                                    inRoom = move(action.toLowerCase(), inRoom);
+                                    inRoom = move(action.toLowerCase(), inRoom, player);
 
 
                                 }
@@ -353,7 +357,7 @@ public class Game {
 
                                     action = "s";
 
-                                    inRoom = move(action.toLowerCase(), inRoom);
+                                    inRoom = move(action.toLowerCase(), inRoom, player);
 
 
                                 }
@@ -362,7 +366,7 @@ public class Game {
 
                                     action = "w";
 
-                                    inRoom = move(action.toLowerCase(), inRoom);
+                                    inRoom = move(action.toLowerCase(), inRoom,player);
 
 
                                 }
@@ -371,7 +375,7 @@ public class Game {
 
                                     action = "e";
 
-                                    inRoom = move(action.toLowerCase(), inRoom);
+                                    inRoom = move(action.toLowerCase(), inRoom, player);
 
 
                                 }
@@ -657,7 +661,7 @@ public class Game {
     }
 
     // move method
-    public static Hub move(String direction, Hub currentHub) {
+    public static Hub move(String direction, Hub currentHub, Player player) {
 
         if (direction.equals("north")) {
             direction = "n";
@@ -693,6 +697,31 @@ public class Game {
             itemsIfAny(newRoom.getObjects(), "Items in room: ");
 
             Mobs(newRoom);
+
+
+
+            for (Mob mob : newRoom.getMOBS()) {
+                if (mob.isAggro() && !mob.getHealth().isDead()) {
+
+                    System.out.println("");
+
+                    List<String> mobNames = new ArrayList<>();
+
+                    for (Mob mob1 : newRoom.getMOBS()){
+
+                        mobNames.add(mob1.getName());
+
+                    }
+
+                    mobsIfAny(mobNames, "Mobs in room: ");
+
+                    System.out.println("");
+
+                    System.out.println(mob.getName() + " attacks you as you enter!");
+
+                    combat(player, mob);
+                }
+            }
 
             List<String> mobNames = new ArrayList<>();
 
@@ -1057,9 +1086,38 @@ public class Game {
 
 
 
+    public static void combat(Player player, Mob mob){
+        boolean using = false;
+
+        if (player.getSkills().isEmpty()){
+
+        }
+        else {
+            System.out.println("Would you like to you skills and items in this battle or just use what you already have (y/n) ?");
+            String answer = scanner.next();
+
+            if (answer.substring(0, 1).toLowerCase().equals("y")) {
+                using = true;
+            } else {
+                using = false;
+            }
+        }
     public static void combat(Player player, Mob mob, Hub inRoom){
 
         while (!player.getHealth().isDead() && !mob.getHealth().isDead()){
+
+            if (using == true){
+
+                System.out.println("What skill would you like to use?");
+                for (Skill skill : player.getSkills())  {
+                    System.out.print("[" + skill.getName() + "]  ");
+                }
+                String usingNow = scanner.next();
+                if (usingNow.toLowerCase().equals("stun")){
+                    Skill.StunSkill.apply(player, mob);
+                }
+
+            }
 
             player.attack(mob);
 
@@ -1097,10 +1155,11 @@ public class Game {
                     System.out.println("You have been killed");
                     break;
                 }
+
+                for (Skill skill : player.getSkills()) {
+                    skill.reduceCooldown();
+                }
             }
-
-
-
 
         }
 
