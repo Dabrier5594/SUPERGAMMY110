@@ -22,33 +22,33 @@ public class Game {
         // S FOREST
         Hub forest1 = new Hub("Southern Forest Area #1", "Just outside Tom's cave and just inside The Southern Area of the Great Makiss Forest. but now you have moved to the cave's entrance, where a door stands tall. \nEXITS: (S) (N) " );
 
-        Hub forest2 = new Hub("Southern Forest Area #2" , "The Southern Area of the Great Makiss Forest. Only minor prey lay in wait in this forest. \nEXITS:  " );
+        Hub forest2 = new Hub("Southern Forest Area #2" , "The Southern Area of the Great Makiss Forest. \nOnly minor prey lay in wait in this forest. \nEXITS:  " );
 
-        Hub forest4 = new Hub("Southern Forest Area #4", "The Southern Area of the Great Makiss Forest. The air feels heavy here, and the forest is unusually silent. The ground is littered with broken twigs, as though something recently passed through... \nEXITS: " );
+        Hub forest4 = new Hub("Southern Forest Area #4", "The Southern Area of the Great Makiss Forest. \nThe air feels heavy here, and the forest is unusually silent. The ground is littered with broken twigs, as though something recently passed through... \nEXITS: " );
 
-        Hub forest3 = new Hub("Southern Forest Area #3", "The Southern Area of the Great Makiss Forest. Thorny bushes block much of the way south, their barbs glinting sharply. However, the path seems clearer to the north, where faint sunlight filters through. \nEXITS: " );
+        Hub forest3 = new Hub("Southern Forest Area #3", "The Southern Area of the Great Makiss Forest. \nThorny bushes block much of the way south, their barbs glinting sharply. However, the path seems clearer to the north, where faint sunlight filters through. \nEXITS: " );
 
-        Hub forest5 = new Hub("Southern Forest Area #5", "The Southern Area of the Great Makiss Forest. Reminiscence of something eating a chicken is visible under scattered leaves...\nEXITS: " );
+        Hub forest5 = new Hub("Southern Forest Area #5", "The Southern Area of the Great Makiss Forest. \nReminiscence of something eating a chicken is visible under scattered leaves...\nEXITS: " );
 
-        Hub forest6 = new Hub("Southern Forest Area #6", "The Southern Area of the Great Makiss Forest. The trees grow closer together here, their canopies blotting out much of the sunlight. The air feels damp, and faint rustling can be heard in the underbrush... \nEXITS: ");
+        Hub forest6 = new Hub("Southern Forest Area #6", "The Southern Area of the Great Makiss Forest. \nThe trees grow apart here, their canopies still blotting out much of the sunlight. The air feels damp, and the dull chest#001 sits quietly in the middle of the area... \nEXITS: ");
 
-        Hub forest7 = new Hub("Southern Forest Area #7", "The Southern Area of the Great Makiss Forest. Thick ferns and wildflowers cover the forest floor. A small trail, barely visible, weaves between the towering oaks and leads South. \nEXITS: ");
+        Hub forest7 = new Hub("Southern Forest Area #7", "The Southern Area of the Great Makiss Forest. \nThick ferns and wildflowers cover the forest floor. A small trail, barely visible, weaves between the towering oaks and leads South. \nEXITS: ");
 
-        Hub forest8 = new Hub("Southern Forest Area #8", "The Southern Area of the Great Makiss Forest. The chirping of birds fills the air as soft beams of light break through the leaves. The ground here is softer, marked by faint paw prints. \nEXITS: ");
+        Hub forest8 = new Hub("Southern Forest Area #8", "The Southern Area of the Great Makiss Forest. \nThe chirping of birds fills the air as soft beams of light break through the leaves. The ground here is softer, marked by faint paw prints. \nEXITS: ");
 
-        Hub forest9 = new Hub("Southern Forest Area #9", "The Southern Area of the Great Makiss Forest. A clearing opens up, surrounded by mossy boulders. A faint breeze carries the scent of pine and damp earth. Something moves just beyond sight... \nEXITS: ");
+        Hub forest9 = new Hub("Southern Forest Area #9", "The Southern Area of the Great Makiss Forest. \nA clearing opens up, surrounded by mossy boulders. A faint breeze carries the scent of pine and damp earth. Something moves just beyond sight... \nEXITS: ");
 
-        Hub forest10 = new Hub("Southern Forest Area #10", "The Southern Area of the Great Makiss Forest. Dark vines creep up the tree trunks, their tendrils twisting toward the faint light above. The sound of dripping water echoes through the silence. \nEXITS: ");
+        Hub forest10 = new Hub("Southern Forest Area #10", "The Southern Area of the Great Makiss Forest. \nDark vines creep up the tree trunks, their tendrils twisting toward the faint light above. The sound of dripping water echoes through the silence. \nEXITS: ");
 
-        Hub forest11 = new Hub("Southern Forest Area #11", "The Southern Area of the Great Makiss Forest. The forest floor dips here, forming a shallow hollow where mushrooms glow faintly in the dim light. The atmosphere feels eerily calm. \nEXITS: ");
+        Hub forest11 = new Hub("Southern Forest Area #11", "The Southern Area of the Great Makiss Forest. \nThe forest floor dips here, forming a shallow hollow where mushrooms glow faintly in the dim light. The atmosphere feels eerily calm. \nEXITS: ");
 
-        Hub forest12 = new Hub("Southern Forest Area #12", "The Southern Area of the Great Makiss Forest. Ancient trees dominate this part of the forest, their roots rising like walls of wood. A faint trail of claw marks runs along one of the trunks... \nEXITS: ");
+        Hub forest12 = new Hub("Southern Forest Area #12", "The Southern Area of the Great Makiss Forest. \nAncient trees dominate this part of the forest, their roots rising like walls of wood. A faint trail of claw marks runs along one of the trunks... \nEXITS: ");
 
-        Hub forest13 = new Hub("Southern Forest Area #13", "The Southern Area of the Great Makiss Forest. You find yourself in a foggy grove. The mist curls around your legs and blurs the outlines of the trees. Strange, muffled sounds echo from the distance. \nEXITS: ");
+        Hub forest13 = new Hub("Southern Forest Area #13", "The Southern Area of the Great Makiss Forest. \nYou find yourself in a foggy grove. The mist curls around your legs and blurs the outlines of the trees. Strange, muffled sounds echo from the distance. \nEXITS: ");
 
-        Hub forest14 = new Hub("Southern Forest Area #14", "The Southern Area of the Great Makiss Forest. The terrain here becomes rocky, with exposed roots clawing through the soil. You can hear a faint trickle of water somewhere to the west. \nEXITS: ");
+        Hub forest14 = new Hub("Southern Forest Area #14", "The Southern Area of the Great Makiss Forest. \nThe terrain here becomes rocky, with exposed roots clawing through the soil. You can hear a faint trickle of water somewhere to the west. \nEXITS: ");
 
-        Hub forest15 = new Hub("Southern Forest Area #15", "AThe Southern Area of the Great Makiss Forest.  wide patch of sunlight filters through the canopy, illuminating a small pool of crystal-clear water. Tiny insects hover above its surface. \nEXITS: ");
+        Hub forest15 = new Hub("Southern Forest Area #15", "AThe Southern Area of the Great Makiss Forest.  \nwide patch of sunlight filters through the canopy, illuminating a small pool of crystal-clear water. Tiny insects hover above its surface. \nEXITS: ");
 
         //Toms Cave EXITS:
         cave.setExit("n", caveN);
@@ -82,13 +82,6 @@ public class Game {
         forest9.setExit("n", forest8);
         forest9.setExit("e", forest6);
 
-
-
-
-
-
-
-
         //Doors!!!!
         Door caveDoor = new Door(caveNW, forest1, false);
         caveNW.setDoor("n", caveDoor);
@@ -106,6 +99,13 @@ public class Game {
         for (int ii = 0; ii < 3; ii ++) {
             forest1.addObject("twig");
         }
+
+        List<String> chestContents = Arrays.asList("copper");
+
+        Chest firstChest = new Chest(true, "treasure-token#001", chestContents, "C");
+        forest6.addChest("chest1", firstChest);
+
+        forest6.addObject("treasure-token#001");
 
         Story(cave);
 
@@ -210,9 +210,8 @@ public class Game {
         objects.add("rabbit");
         objects.add("chicken");
         objects.add("squirrel");
-        objects.add("C-chest");
-        objects.add("B-chest");
-        objects.add("A-chest");
+        objects.add("chest");
+        objects.add("treasure-token#001");
 
 
         List<String> look = new ArrayList<>();
@@ -273,7 +272,7 @@ public class Game {
         heal.add("heal");
 
         List<String> chests = new ArrayList<>();
-        chests.add("chests");
+        chests.add("chest");
 
 
 
@@ -547,6 +546,29 @@ public class Game {
 
                             else if (stringContainsWordFromList(action.toLowerCase(), chests.toArray(new String[0]))) {
 
+                                if (inRoom.getChests() != null && !inRoom.getChests().isEmpty()) {
+                                    Chest chest = inRoom.getChests().get("chest1"); // or appropriate chest based on input
+
+                                    if (chest.isOpened()) {
+                                        System.out.println("Nothing happens. The chest's magical lid has already vanished.");
+                                    } else {
+                                        if (chest.requiresKey() && !inventory.contains(chest.getRequiredKeyName())) {
+                                            System.out.println("You need " + chest.getRequiredKeyName() + " to open this chest.");
+                                        } else {
+                                            System.out.println("Magic swirls around the chest and its lid disappears! \n**POOF!!**");
+                                            System.out.print("->> ");
+                                            for (String item : chest.getContents()) {
+                                                inRoom.addObject(item);
+                                                System.out.print("[" + item + "[ ");
+
+                                            }
+                                            System.out.println("");
+                                            chest.open();
+                                        }
+                                    }
+                                } else {
+                                    System.out.println("There is no chest here to open.");
+                                }
 
                             }
 
@@ -1077,7 +1099,7 @@ public class Game {
                 // Random number between 0–3 to decide mob type
                 number = (int)(Math.random() * 7) + 1;
 
-                if (number ==3) {
+                if (number > 0 && number > 4) {
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -1095,7 +1117,7 @@ public class Game {
                     }
                 }
 
-                else if (number == 3) {
+                else if (number > 3 && number < 7) {
 
 
                     List<String> mobCounts = new ArrayList<>();
@@ -1129,7 +1151,7 @@ public class Game {
                     if (squirrelCount < 3) {
                         Mob squirrel = createSquirrelWithRandomStats();
                         inRoom.getMOBS().add(squirrel);
-                        System.out.println("A squirrel falls from the trees.");
+                        System.out.println("A mad squirrel falls from the trees.");
                     }
 
                 }
@@ -1153,12 +1175,12 @@ public class Game {
     }
 
     private static Mob createSquirrelWithRandomStats() {
-        int maxHealth = (int)(Math.random() * 3 + 4); //4-6
+        int maxHealth = (int)(Math.random() * 4 + 5); //5-7
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health squirrelHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int)(Math.random() * 5 + 2); //2-6
+        int attackPower = (int)(Math.random() * 7 + 3); //3-9
         boolean isAggro = true;
 
         return new Mob("Squirrel", squirrelHealth, attackPower, isAggro);
@@ -1272,9 +1294,10 @@ public class Game {
                     break;
                 }
 
-                for (Skill skill : player.getSkills()) {
-                    skill.reduceCooldown();
-                }
+            }
+
+            for (Skill skill : player.getSkills()) {
+                skill.reduceCooldown();
             }
 
         }

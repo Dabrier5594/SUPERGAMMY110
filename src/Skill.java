@@ -35,7 +35,9 @@ public abstract class Skill {
         }
 
         public void reduceCooldown() {
-            if (currentCooldown > 0) currentCooldown--;
+            if (currentCooldown > 0) {
+                currentCooldown--;
+            }
         }
 
         public static boolean canUse() {

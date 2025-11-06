@@ -1,6 +1,5 @@
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Collections;
-import java.util.List;import java.util.Collections;
 import java.util.List;
 
 public class Hub {
@@ -10,6 +9,7 @@ public class Hub {
     private List<String> objects;
     private java.util.Map<String, Door> doors = new java.util.HashMap<>();
     private List<Mob> mobs = new ArrayList<>();
+    private Map<String, Chest> chests = new HashMap<>();
 
 
 
@@ -52,6 +52,13 @@ public class Hub {
 
     public Door getDoor(String direction) {
         return doors.get(direction);
+    }
+
+    public Map<String, Chest> getChests() {
+        return chests;
+    }
+    public void addChest(String key, Chest chest) {
+        chests.put(key, chest);
     }
 
     public List<Mob> getMOBS() {
