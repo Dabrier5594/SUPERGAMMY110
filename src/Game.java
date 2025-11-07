@@ -3,11 +3,11 @@ import java.util.regex.Pattern;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-// 1)  MAKE IT SO YOU ACTUALLY DIE
+// 1) MAKE IT SO YOU GET SPAWN KILL THINGS. ADD XP AND LEVELS
 
-// 2) MAKE IT SO YOU GET SPAWN KILL THINGS. ADD XP AND LEVELS
+// 2) MAKE IT SO YOU CAN EQUIP WEAPONS AND ARMOR
 
-// 3) MAKE IT SO YOU CAN EQUIP WEAPONS AND ARMOR
+// 3)
 
 public class Game {
     static Scanner scanner = new Scanner(System.in);
@@ -300,6 +300,8 @@ public class Game {
 
         Player player =  new Player(namer, 10,10,3, 0);
 
+        XpLv playersStats = new XpLv(1, 0);
+
         System.out.print("Play (yes or no)? \n-> ");
         String play = scanner.nextLine();
 
@@ -320,7 +322,7 @@ public class Game {
                 throw new RuntimeException(e);
             }
 
-            player.displayStats(player);
+            player.displayStats(player, playersStats);
 
             System.out.println("");
 
@@ -342,6 +344,13 @@ public class Game {
 
         //While start is true, run the code
         while (start) {
+
+            if (player.getHealth().isDead()){
+
+                System.out.println("\nThe world becomes dark...");
+                break;
+
+            }
 
             System.out.println("");
 
@@ -370,27 +379,27 @@ public class Game {
 
                         if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
 
-                            inRoom = move(action.toLowerCase(), inRoom, player);
+                            inRoom = move(action.toLowerCase(), inRoom, player, playersStats);
 
 
 
                         }
                         else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
                             // Call the move method and update to inRoom
-                            inRoom = move(action.toLowerCase(), inRoom, player);
+                            inRoom = move(action.toLowerCase(), inRoom, player, playersStats);
 
 
 
                         }
                         else if (action.toLowerCase().equals("w") || action.toLowerCase().equals("west")) {
                             // Call the move method and update to inRoom
-                            inRoom = move(action.toLowerCase(), inRoom, player);
+                            inRoom = move(action.toLowerCase(), inRoom, player, playersStats);
 
 
                         }
                         else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
                             // Call the move method and update to inRoom
-                            inRoom = move(action.toLowerCase(), inRoom, player);
+                            inRoom = move(action.toLowerCase(), inRoom, player, playersStats);
 
 
 
@@ -403,7 +412,7 @@ public class Game {
 
                                     action = "n";
 
-                                    inRoom = move(action.toLowerCase(), inRoom, player);
+                                    inRoom = move(action.toLowerCase(), inRoom, player, playersStats);
 
 
                                 }
@@ -412,7 +421,7 @@ public class Game {
 
                                     action = "s";
 
-                                    inRoom = move(action.toLowerCase(), inRoom, player);
+                                    inRoom = move(action.toLowerCase(), inRoom, player, playersStats);
 
 
                                 }
@@ -421,7 +430,7 @@ public class Game {
 
                                     action = "w";
 
-                                    inRoom = move(action.toLowerCase(), inRoom,player);
+                                    inRoom = move(action.toLowerCase(), inRoom,player, playersStats);
 
 
                                 }
@@ -430,7 +439,7 @@ public class Game {
 
                                     action = "e";
 
-                                    inRoom = move(action.toLowerCase(), inRoom, player);
+                                    inRoom = move(action.toLowerCase(), inRoom, player, playersStats);
 
 
                                 }
@@ -476,7 +485,7 @@ public class Game {
                         }
 
                         else if (stringContainsWordFromList(action.toLowerCase(), stats.toArray(new String[0]))) {
-                            player.displayStats(player);
+                            player.displayStats(player, playersStats);
                         }
 
                         else if (stringContainsWordFromList(action.toLowerCase(), heal.toArray(new String[0]))) {
@@ -721,7 +730,7 @@ public class Game {
 
                                 if (action.toLowerCase().contains(mobNameLower)) {
 
-                                    combat(player, mob , inRoom);
+                                    combat(player, mob , inRoom, playersStats);
 
                                     mobbo = true;
 
@@ -769,7 +778,7 @@ public class Game {
     }
 
     // move method
-    public static Hub move(String direction, Hub currentHub, Player player) {
+    public static Hub move(String direction, Hub currentHub, Player player, XpLv playerStats) {
 
         if (direction.equals("north")) {
             direction = "n";
@@ -828,7 +837,7 @@ public class Game {
 
                     System.out.println(mob.getName() + " is aggro and attacks you as you enter!");
 
-                    combat(player, mob, newRoom);
+                    combat(player, mob, newRoom, playerStats);
 
                     if (newRoom.getMOBS().isEmpty()){
 
@@ -1233,22 +1242,27 @@ public class Game {
 
 
 
-    public static void combat(Player player, Mob mob, Hub inRoom){
+    public static void combat(Player player, Mob mob, Hub inRoom, XpLv playerStats){
         boolean using = false;
 
         if (player.getSkills().isEmpty()){
 
         }
         else {
+
             System.out.println("Would you like to you skills and items in this battle or just use what you already have (y/n) ?");
             System.out.print("-> ");
             String answer = scanner.nextLine();
 
-            if (answer.substring(0, 1).toLowerCase().equals("y")) {
-                using = true;
-            } else {
-                using = false;
+            if (!answer.isEmpty()) {
+                if (answer.substring(0, 1).toLowerCase().equals("y")) {
+                    using = true;
+                } else {
+                    using = false;
+                }
             }
+
+            else {using = false; System.out.println("No input taken...");}
 
             System.out.println("");
         }
@@ -1303,8 +1317,12 @@ public class Game {
                 String targetMobName = mob.getName();
                 inRoom.getMOBS().removeIf(mob1 -> mob.getName().equals(targetMobName)); //remove an object that has the name Rabbit
 
+                playerStats.calculateXp(mob.getName());
 
-                player.displayStats(player);
+                playerStats.calculateLv(playerStats.getXp(), playerStats.getLevel());
+
+                player.displayStats(player, playerStats);
+
                 break;
             }
 
@@ -1320,7 +1338,14 @@ public class Game {
                 }
 
                 if (player.getHealth().isDead()){
-                    System.out.println("You have been killed");
+                    System.out.println("\nYou have been murdered by a " + mob.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
+
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
                     break;
                 }
 

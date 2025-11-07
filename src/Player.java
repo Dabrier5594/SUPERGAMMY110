@@ -52,11 +52,13 @@ public class Player {
         health.takeDamage(damage);
     }
 
-    public void displayStats(Player player) {
+    public void displayStats(Player player, XpLv playerStats) {
         System.out.println("=== Player Stats ===");
         System.out.println("Name: " + name);
         System.out.println("HP: " + health.getHeealth() + "/" + health.getMaxHealth());
         System.out.println("Attack: " + attackPower + " | Defense: " + player.getHealth().getDamageResistance());
+        System.out.print(playerStats.getLevel() + " || ");
+        System.out.println(playerStats.getXp());
         System.out.println("");
     }
 
