@@ -1,8 +1,13 @@
 import java.util.*;
 import java.util.regex.Pattern;
 
+//                    NOTES FOR IMPROVEMENTS:
 
-// MAKE IT SO YOU CAN't MOVE TO A NEW ROOM WHEN YOU HAVE TO GO THRU A CLOSED DOOR
+// 1)  MAKE IT SO YOU ACTUALLY DIE
+
+// 2) MAKE IT SO YOU GET SPAWN KILL THINGS. ADD XP AND LEVELS
+
+// 3) MAKE IT SO YOU CAN EQUIP WEAPONS AND ARMOR
 
 public class Game {
     static Scanner scanner = new Scanner(System.in);
@@ -103,7 +108,7 @@ public class Game {
         List<String> chestContents = Arrays.asList("copper");
 
         Chest firstChest = new Chest(true, "treasure-token#001", chestContents, "C");
-        forest6.addChest("chest1", firstChest);
+        forest6.addChest("chest#001", firstChest);
 
         forest6.addObject("treasure-token#001");
 
@@ -546,33 +551,56 @@ public class Game {
 
                             else if (stringContainsWordFromList(action.toLowerCase(), chests.toArray(new String[0]))) {
 
-                                if (inRoom.getChests() != null && !inRoom.getChests().isEmpty()) {
-                                    Chest chest = inRoom.getChests().get("chest1"); // or appropriate chest based on input
+                                String theChest = "";
+                                List<String> allChests = new ArrayList<>();
 
-                                    if (chest.isOpened()) {
-                                        System.out.println("Nothing happens. The chest's magical lid has already vanished.");
-                                    } else {
-                                        if (chest.requiresKey() && !inventory.contains(chest.getRequiredKeyName())) {
-                                            System.out.println("You need " + chest.getRequiredKeyName() + " to open this chest.");
-                                        } else {
-                                            System.out.println("Magic swirls around the chest and its lid disappears! \n**POOF!!**");
-                                            System.out.print("->> ");
-                                            for (String item : chest.getContents()) {
-                                                inRoom.addObject(item);
-                                                System.out.print("[" + item + "[ ");
+                                for (int i = 1; i <= 100; i++) {
+                                    String chestCode = String.format("chest#%03d", i); //% = formatting to fill in any extra space left empty while width is not full|| 0 Says to fill in with 0, 3 sayd width is 3, d = is integer and should be formatted as continues
+                                    allChests.add(chestCode);
+                                }
 
-                                            }
-                                            System.out.println("");
-                                            chest.open();
-                                        }
+                                for (String haga : allChests) {
+                                    if (action.toLowerCase().contains(haga.toLowerCase())) {
+                                        theChest = haga;
+                                        break;
                                     }
-                                } else {
-                                    System.out.println("There is no chest here to open.");
+                                }
+
+                                if (inRoom.getChests() != null && !inRoom.getChests().isEmpty()) {
+                                    for (String chestName : inRoom.getChests().keySet()) {
+                                        if (chestName.equals(theChest)) {
+                                            Chest chest = inRoom.getChests().get(chestName);
+
+                                            if (chest.isOpened()) {
+                                                System.out.println("Nothing happens. The chest's magical lid has already vanished.");
+                                            } else {
+                                                if (chest.requiresKey() && !inventory.contains(chest.getRequiredKeyName())) {
+                                                    System.out.println("You need " + chest.getRequiredKeyName() + " to open this chest.");
+                                                } else {
+                                                    System.out.println("Magic swirls around the chest and its lid disappears! \n**POOF!!**");
+                                                    System.out.print("->> ");
+                                                    for (String item : chest.getContents()) {
+                                                        inRoom.addObject(item);
+                                                        System.out.print("[" + item + "] ");
+
+                                                    }
+                                                    System.out.println("");
+                                                    chest.open();
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            System.out.println("There is no corresponding chest here to open.");
+                                        }
+
+                                    }
                                 }
 
                             }
 
                         }
+
+
 
                         else if (stringContainsWordFromList(action.toLowerCase(), close.toArray(new String[0]))) {
                             if (inRoom.getRoomName().equals("Tom's Dark Kitchen") && stringContainsWordFromList(action.toLowerCase(), cabinet.toArray(new String[0]))) {
