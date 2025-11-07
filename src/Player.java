@@ -57,7 +57,7 @@ public class Player {
         System.out.println("Name: " + name);
         System.out.println("HP: " + health.getHeealth() + "/" + health.getMaxHealth());
         System.out.println("Attack: " + attackPower + " | Defense: " + player.getHealth().getDamageResistance());
-        System.out.print(playerStats.getLevel() + " || ");
+        System.out.print("Lv: " + playerStats.getLevel() + " || XP: ");
         System.out.println(playerStats.getXp());
         System.out.println("");
     }
