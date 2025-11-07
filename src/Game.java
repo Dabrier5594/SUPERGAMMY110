@@ -577,7 +577,7 @@ public class Game {
                                                 if (chest.requiresKey() && !inventory.contains(chest.getRequiredKeyName())) {
                                                     System.out.println("You need " + chest.getRequiredKeyName() + " to open this chest.");
                                                 } else {
-                                                    System.out.println("Magic swirls around the chest and its lid disappears! \n**POOF!!**");
+                                                    System.out.println("Magic swirls around " + chestName + " and its lid disappears! \n**POOF!!**");
                                                     System.out.print("->> ");
                                                     for (String item : chest.getContents()) {
                                                         inRoom.addObject(item);
@@ -592,6 +592,8 @@ public class Game {
                                         else {
                                             System.out.println("There is no corresponding chest here to open.");
                                         }
+
+                                        break;
 
                                     }
                                 }
@@ -1109,7 +1111,7 @@ public class Game {
 
     public static void help(List<String> verbs) {
 
-        System.out.println("In order to call a command you need to enter in the FOLLOWING FORMAT: \n[VERB] + [OBJECT] = action\nSome verbs will not need an object to be used (e.g., 'look')\nHere are a list of possible commands: \n move, go || open, close || look, listen, wait, read || get, drop, take, remove || kill, attack || stats || help" );
+        System.out.println("In order to call a command you need to enter in the FOLLOWING FORMAT: \n\n[VERB] + [OBJECT] = action\n\nSome verbs will not need an object to be used (e.g., 'look')\nHere are a list of possible commands:\n move, go || open, close || look, listen, wait, read || get, drop, take, remove || \nkill, attack || stats || help" );
 
     }
 
