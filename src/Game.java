@@ -118,6 +118,12 @@ public class Game {
 
     public static void Story(Hub cave) {
 
+        Equipment equipment = new Equipment();
+
+        Item dagger = new Item("dagger", "melee", true);
+
+        List<Item> existingItems = new ArrayList<>();
+        existingItems.add(dagger);
 
         //List of verbs
         List<String> verbs = new ArrayList<>();
@@ -149,6 +155,7 @@ public class Game {
         verbs.add("attack");
         verbs.add("stats");
         verbs.add("heal");
+        verbs.add("equip");
 
 
 
@@ -278,6 +285,11 @@ public class Game {
 
         List<String> chests = new ArrayList<>();
         chests.add("chest");
+
+        List<String> equip = new ArrayList<>();
+        equip.add("equip");
+
+
 
 
 
@@ -742,6 +754,53 @@ public class Game {
 
                             if (mobbo == false){
                                 System.out.println("You couldn't find your target.");
+                            }
+
+                        }
+
+                        else if (stringContainsWordFromList(action.toLowerCase(), equip.toArray(new String[0]))) {
+
+                            boolean validObject = false;
+
+                            for (String obj : objects) {
+                                if (action.toLowerCase().contains(obj) && inventory.contains(obj)) {
+                                    for (Item item : existingItems){
+                                        if (item.getName().equals(obj)){
+                                            equip(item, equipment, player);
+                                            validObject = true;
+                                            break;
+
+                                        }
+                                    }
+
+                                }
+                            }
+
+                            if (!validObject){
+                                System.out.println("You cannot " + action);
+                            }
+
+                        }
+                        else if (stringContainsWordFromList(action.toLowerCase(), equip.toArray(new String[0]))) {
+
+                            boolean validObject = false;
+
+                            for (String obj : objects) {
+                                if (action.toLowerCase().contains(obj) && inventory.contains(obj)) {
+                                    for (Item item : existingItems){
+                                        if (item.getName().equals(obj)){
+                                            equip(item, equipment, player);
+                                            validObject = true;
+                                            break;
+
+                                        }
+                                    }
+
+                                }
+                            }
+
+                            if (!validObject){
+                                System.out.println("You cannot " + action);
                             }
 
                         }
@@ -1319,7 +1378,7 @@ public class Game {
 
                 playerStats.addXp(playerStats.calculateXp(mob.getName()));
 
-                playerStats.calculateLv(playerStats.getXp(), playerStats.getLevel());
+                playerStats.calculateLv(playerStats.getXp(), playerStats.getLevel(), player);
 
                 player.displayStats(player, playerStats);
 
@@ -1391,6 +1450,14 @@ public class Game {
         //Make so chest doesn't keep restorcking, do something like cabinet.
         //MAKE A CLASS THAT CUTS VINES. SO I CAN MAKE THIS CHEST BE COVERED IN VINES AND ONLY BE OPENABLE WHEN CUT BY VINES
 
+    }
+
+    public static void equip(Item item, Equipment equipment, Player player){
+        equipment.equip(item, player);
+    }
+
+    public static void unequip(Item item, String slot){
+        unequip(slot, item);
     }
 
 

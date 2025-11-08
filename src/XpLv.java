@@ -34,11 +34,14 @@ public class XpLv {
         return 0;
     }
 
-    public void calculateLv(int xp, int lv){
+    public void calculateLv(int xp, int lv, Player player){
         while(xp >= lv*100){
             xp -= lv*100;
             lv += 1;
             System.out.println("Your level has increased by one! (->> " + lv + ")");
+            player.getHealth().setMaxHealth(player.getHealth().getMaxHealth() + 5);
+            player.setAttackPower(1);
+
         }
 
         System.out.println("");

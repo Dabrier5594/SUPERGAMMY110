@@ -66,6 +66,10 @@ public class Player {
         return health;
     }
 
+    public void setHealth(){
+        health.setHeealth(health.getHeealth() + 5);
+    }
+
     public boolean getStunned(){
         return isStunned;
     }
@@ -74,5 +78,8 @@ public class Player {
         this.isStunned = stunner;
     }
 
+    public void setAttackPower(int tint){
+        attackPower += tint;
+    }
 
 }
