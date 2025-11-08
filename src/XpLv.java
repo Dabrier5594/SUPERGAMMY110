@@ -20,15 +20,21 @@ public class XpLv {
         xpCount += adding;
     }
 
+    public void setLevel(int l ){
+        level = l;
+    }
+
     public int calculateXp(String mobName){
         if (mobName.equals("Rabbit") || mobName.equals("Chicken")){
-            return (int)(Math.random() * 30 + 25);
+            return (int)(Math.random() * 30 + 25); //24-54
+        } else if (mobName.equals("Squirrel")) {
+            return (int)(Math.random() * 30 + 45); // 44-74
         }
 
         return 0;
     }
 
-    public int calculateLv(int xp, int lv){
+    public void calculateLv(int xp, int lv){
         while(xp >= lv*100){
             xp -= lv*100;
             lv += 1;
@@ -37,7 +43,8 @@ public class XpLv {
 
         System.out.println("");
 
-        return lv;
+        xpCount = xp;
+        level = lv;
     }
 
 }

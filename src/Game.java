@@ -1314,14 +1314,16 @@ public class Game {
 
             if (mob.getHealth().isDead()){
                 System.out.println("The " + mob.getName() + " has died at your hands. \n");
-                String targetMobName = mob.getName();
-                inRoom.getMOBS().removeIf(mob1 -> mob.getName().equals(targetMobName)); //remove an object that has the name Rabbit
 
-                playerStats.calculateXp(mob.getName());
+                String targetMobName = mob.getName();
+
+                playerStats.addXp(playerStats.calculateXp(mob.getName()));
 
                 playerStats.calculateLv(playerStats.getXp(), playerStats.getLevel());
 
                 player.displayStats(player, playerStats);
+
+                inRoom.getMOBS().removeIf(mob1 -> mob.getName().equals(targetMobName)); //remove an object that has the name Rabbit
 
                 break;
             }
