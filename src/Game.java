@@ -3,9 +3,9 @@ import java.util.regex.Pattern;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-// 1) MAKE IT SO YOU GET SPAWN KILL THINGS. ADD XP AND LEVELS
+// 1)
 
-// 2) MAKE IT SO YOU CAN EQUIP WEAPONS AND ARMOR
+// 2)
 
 // 3)
 
@@ -101,6 +101,7 @@ public class Game {
         }
         caveNN.addObject("copper");
         caveNE.addObject("newspaper2");
+        caveNE.addObject("leather armor");
         for (int ii = 0; ii < 3; ii ++) {
             forest1.addObject("twig");
         }
@@ -121,9 +122,11 @@ public class Game {
         Equipment equipment = new Equipment();
 
         Item dagger = new Item("dagger", "melee", true);
+        Item leatherArmor = new Item("leather armor", "body", false);
 
         List<Item> existingItems = new ArrayList<>();
         existingItems.add(dagger);
+        existingItems.add(leatherArmor);
 
         //List of verbs
         List<String> verbs = new ArrayList<>();
@@ -156,7 +159,7 @@ public class Game {
         verbs.add("stats");
         verbs.add("heal");
         verbs.add("equip");
-
+        verbs.add("unequip");
 
 
         List<String> verbsOnly = new ArrayList<>();
@@ -213,6 +216,7 @@ public class Game {
         objects.add("cabinet");
         objects.add("newspaper1");
         objects.add("dagger");
+        objects.add("leather armor");
         objects.add("inventory");
         objects.add("gold");
         objects.add("silver");
@@ -288,6 +292,9 @@ public class Game {
 
         List<String> equip = new ArrayList<>();
         equip.add("equip");
+
+        List<String> unequip = new ArrayList<>();
+        unequip.add("unequip");
 
 
 
@@ -716,7 +723,7 @@ public class Game {
 
                             for (String obj : objects) {
                                 if (action.toLowerCase().contains(obj)) {
-                                    drop(inRoom, obj, inventory);
+                                    drop(inRoom, obj, inventory, player, equipment, existingItems);
                                     validObject = true;
 
                                     break;
@@ -764,7 +771,9 @@ public class Game {
 
                             for (String obj : objects) {
                                 if (action.toLowerCase().contains(obj) && inventory.contains(obj)) {
+
                                     for (Item item : existingItems){
+
                                         if (item.getName().equals(obj)){
                                             equip(item, equipment, player);
                                             validObject = true;
@@ -781,15 +790,14 @@ public class Game {
                             }
 
                         }
-                        else if (stringContainsWordFromList(action.toLowerCase(), equip.toArray(new String[0]))) {
+                        else if (stringContainsWordFromList(action.toLowerCase(), unequip.toArray(new String[0]))) {
 
                             boolean validObject = false;
-
                             for (String obj : objects) {
-                                if (action.toLowerCase().contains(obj) && inventory.contains(obj)) {
+                                if (action.toLowerCase().contains(obj.toLowerCase()) && inventory.contains(obj)) {
                                     for (Item item : existingItems){
                                         if (item.getName().equals(obj)){
-                                            equip(item, equipment, player);
+                                            unequip(item, item.getSlotType(), player, equipment);
                                             validObject = true;
                                             break;
 
@@ -1052,7 +1060,7 @@ public class Game {
 
     }
 
-    public static void drop(Hub inRoom, String item, List<String> inventory){
+    public static void drop(Hub inRoom, String item, List<String> inventory, Player player, Equipment equipment, List<Item> existingItems){
 
         int count = Collections.frequency(inventory, item);
 
@@ -1106,7 +1114,24 @@ public class Game {
 
         if (chosenAmount >= 0){
 
+            Item itemToRemove = null;
+
+            for (Item item1 : existingItems) {
+                if (item1.getName().equals(item)) {
+                    itemToRemove = item1;
+                    break;
+                }
+            }
+
+            Item equippedItem = equipment.getEquipped(itemToRemove.getSlotType());
+            if (equippedItem != null && equippedItem.getName().equalsIgnoreCase(itemToRemove.getName())) {
+                // Unequip first
+                equipment.unequip(itemToRemove.getSlotType(), itemToRemove, player);
+                System.out.println("(Unequipped " + itemToRemove.getName() + " before removing.)");
+            }
+
             System.out.println("You have dropped " + chosenAmount + " " + item + "(s)");
+
 
         }
 
@@ -1456,8 +1481,8 @@ public class Game {
         equipment.equip(item, player);
     }
 
-    public static void unequip(Item item, String slot){
-        unequip(slot, item);
+    public static void unequip(Item item, String slot, Player player, Equipment equipment){
+        equipment.unequip(slot, item, player);
     }
 
 
