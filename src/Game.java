@@ -3,7 +3,7 @@ import java.util.regex.Pattern;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-// 1)
+// 1) ADD THINGS TO CORROSPONDNG PLACES
 
 // 2)
 
@@ -25,35 +25,107 @@ public class Game {
         Hub caveNW = new Hub("Tom's Dark Entrance", "Still in Tom's cave, but now you have moved to the cave's entrance, where a door stands. \nEXITS: (N) (E)" );
 
         // S FOREST
+
         Hub forest1 = new Hub("Southern Forest Area #1", "Just outside Tom's cave and just inside The Southern Area of the Great Makiss Forest. but now you have moved to the cave's entrance, where a door stands tall. \nEXITS: (S) (N) " );
 
-        Hub forest2 = new Hub("Southern Forest Area #2" , "The Southern Area of the Great Makiss Forest. \nOnly minor prey lay in wait in this forest. \nEXITS:  " );
+        Hub forest2 = new Hub("Southern Forest Area #2" , "The Southern Area of the Great Makiss Forest. \nOnly minor prey lay in wait in this forest. \nEXITS: (S) (W) " );
 
-        Hub forest4 = new Hub("Southern Forest Area #4", "The Southern Area of the Great Makiss Forest. \nThe air feels heavy here, and the forest is unusually silent. The ground is littered with broken twigs, as though something recently passed through... \nEXITS: " );
+        Hub forest4 = new Hub("Southern Forest Area #4", "The Southern Area of the Great Makiss Forest. \nThe air feels heavy here, and the forest is unusually silent. The ground is littered with broken twigs, as though something recently passed through... \nEXITS: (E) (W)" );
 
-        Hub forest3 = new Hub("Southern Forest Area #3", "The Southern Area of the Great Makiss Forest. \nThorny bushes block much of the way south, their barbs glinting sharply. However, the path seems clearer to the north, where faint sunlight filters through. \nEXITS: " );
+        Hub forest3 = new Hub("Southern Forest Area #3", "The Southern Area of the Great Makiss Forest. \nThorny bushes block much of the way south, their barbs glinting sharply. However, the path seems clearer to the north, where faint sunlight filters through. \nEXITS: (E) (W)" );
 
-        Hub forest5 = new Hub("Southern Forest Area #5", "The Southern Area of the Great Makiss Forest. \nReminiscence of something eating a chicken is visible under scattered leaves...\nEXITS: " );
+        Hub forest5 = new Hub("Southern Forest Area #5", "The Southern Area of the Great Makiss Forest. \nReminiscence of something eating a chicken is visible under scattered leaves...\nEXITS: (E) (N)" );
 
-        Hub forest6 = new Hub("Southern Forest Area #6", "The Southern Area of the Great Makiss Forest. \nThe trees grow apart here, their canopies still blotting out much of the sunlight. The air feels damp, and the dull chest#001 sits quietly in the middle of the area... \nEXITS: ");
+        Hub forest6 = new Hub("Southern Forest Area #6", "The Southern Area of the Great Makiss Forest. \nThe trees grow apart here, their canopies still blotting out much of the sunlight. The air feels damp, and the dull chest#001 sits quietly in the middle of the area... \nEXITS: (S) (N) (W)");
 
-        Hub forest7 = new Hub("Southern Forest Area #7", "The Southern Area of the Great Makiss Forest. \nThick ferns and wildflowers cover the forest floor. A small trail, barely visible, weaves between the towering oaks and leads South. \nEXITS: ");
+        Hub forest7 = new Hub("Southern Forest Area #7", "The Southern Area of the Great Makiss Forest. \nThick ferns and wildflowers cover the forest floor. A small trail, barely visible, weaves between the towering oaks and leads South. \nEXITS: (S) (W)");
 
-        Hub forest8 = new Hub("Southern Forest Area #8", "The Southern Area of the Great Makiss Forest. \nThe chirping of birds fills the air as soft beams of light break through the leaves. The ground here is softer, marked by faint paw prints. \nEXITS: ");
+        Hub forest8 = new Hub("Southern Forest Area #8", "The Southern Area of the Great Makiss Forest. \nThe chirping of birds fills the air as soft beams of light break through the leaves. The ground here is softer, marked by faint paw prints. \nEXITS: (E) (S)");
 
-        Hub forest9 = new Hub("Southern Forest Area #9", "The Southern Area of the Great Makiss Forest. \nA clearing opens up, surrounded by mossy boulders. A faint breeze carries the scent of pine and damp earth. Something moves just beyond sight... \nEXITS: ");
+        Hub forest9 = new Hub("Southern Forest Area #9", "The Southern Area of the Great Makiss Forest. \nA clearing opens up, surrounded by mossy boulders. A faint breeze carries the scent of pine and damp earth. Something moves just beyond sight... \nEXITS: (N) (E) (W) ");
 
-        Hub forest10 = new Hub("Southern Forest Area #10", "The Southern Area of the Great Makiss Forest. \nDark vines creep up the tree trunks, their tendrils twisting toward the faint light above. The sound of dripping water echoes through the silence. \nEXITS: ");
+        Hub forest10 = new Hub("Southern Forest Area #10", "The Southern Area of the Great Makiss Forest. \nA wooden goblin watchtower overlooks the dense woods, faint sounds echo from its guarded platform. \nEXITS: (E) (W)");
 
-        Hub forest11 = new Hub("Southern Forest Area #11", "The Southern Area of the Great Makiss Forest. \nThe forest floor dips here, forming a shallow hollow where mushrooms glow faintly in the dim light. The atmosphere feels eerily calm. \nEXITS: ");
+        Hub forest11 = new Hub("Southern Forest Area #11", "The Southern Area of the Great Makiss Forest. \nA goblin camp with crudely made tents surrounds a roaring fire, shadows flickering with restless movement. \nEXITS: (E) (N)");
 
-        Hub forest12 = new Hub("Southern Forest Area #12", "The Southern Area of the Great Makiss Forest. \nAncient trees dominate this part of the forest, their roots rising like walls of wood. A faint trail of claw marks runs along one of the trunks... \nEXITS: ");
+        Hub forest12 = new Hub("Southern Forest Area #12", "The Southern Area of the Great Makiss Forest. \nAn open clearing dotted with wildflowers and a calm, shallow pond reflecting the sky above. \nEXITS: (S) (N)");
 
-        Hub forest13 = new Hub("Southern Forest Area #13", "The Southern Area of the Great Makiss Forest. \nYou find yourself in a foggy grove. The mist curls around your legs and blurs the outlines of the trees. Strange, muffled sounds echo from the distance. \nEXITS: ");
+        Hub forest13 = new Hub("Southern Forest Area #13", "The Southern Area of the Great Makiss Forest. \nAn abandoned house overrun with vines and moss, the air heavy with age and forgotten stories. \nEXITS: (S) (E)");
 
-        Hub forest14 = new Hub("Southern Forest Area #14", "The Southern Area of the Great Makiss Forest. \nThe terrain here becomes rocky, with exposed roots clawing through the soil. You can hear a faint trickle of water somewhere to the west. \nEXITS: ");
+        Hub forest14 = new Hub("Southern Forest Area #14", "The Southern Area of the Great Makiss Forest. \nDense thickets and thorn bushes threaten to slow travelers, whispering secrets among the branches. \nEXITS: (W) (N)");
 
-        Hub forest15 = new Hub("Southern Forest Area #15", "AThe Southern Area of the Great Makiss Forest.  \nwide patch of sunlight filters through the canopy, illuminating a small pool of crystal-clear water. Tiny insects hover above its surface. \nEXITS: ");
+        Hub forest15 = new Hub("Southern Forest Area #15", "The Southern Area of the Great Makiss Forest. \nA hidden bandit hideout with makeshift barricades and loot scattered around. \nEXITS: (S) (E)");
+
+        Hub forest16 = new Hub("Southern Forest Area #16", "The Southern Area of the Great Makiss Forest. \nA ruined stone shrine, partially crumbled, radiates a faint mystical glow. \nEXITS: (W) (E) (N)");
+
+        Hub forest17 = new Hub("Southern Forest Area #17", "The Southern Area of the Great Makiss Forest. \nA narrow forest path winds past towering trees and thick underbrush, shadows flickering with every breeze. \nEXITS: (N) (S)");
+
+        Hub forest18 = new Hub("Southern Forest Area #18", "The Southern Area of the Great Makiss Forest. \nA moss-covered cave entrance yawns before you, hinting at mysteries hidden within. \nEXITS: (E) (W)");
+
+        Hub forest19 = new Hub("Southern Forest Area #19", "The Southern Area of the Great Makiss Forest. \nA damp underground tunnel echoes faint droplets, its darkness inviting caution. \nEXITS: (E) (W) (N)");
+
+        Hub forest21 = new Hub("Southern Forest Area #21", "The Southern Area of the Great Makiss Forest. \nA fallen log forms a bridge over a burbling stream, surrounded by vibrant greenery. \nEXITS: (E) (W)");
+
+        Hub forest22 = new Hub("Southern Forest Area #22", "The Southern Area of the Great Makiss Forest. \nA colossal old oak tree hosts nests of owls, its branches creaking with nocturnal life. \nEXITS: (W) (E)");
+
+        Hub forest23 = new Hub("Southern Forest Area #23", "The Southern Area of the Great Makiss Forest. \nA quaint beekeeper’s shack buzzes with activity, hives hung carefully nearby. \nEXITS: (S) ");
+
+        Hub forest24 = new Hub("Southern Forest Area #24", "The Southern Area of the Great Makiss Forest. \nA circle of giant mushrooms gives off an earthy, moist scent, pulsating softly. \nEXITS: (W) (E)");
+
+        Hub forest25 = new Hub("Southern Forest Area #25", "The Southern Area of the Great Makiss Forest. \nA ring of giant oaks forms a natural amphitheater, ancient and majestic. \nEXITS: (W)");
+
+        // N Forest
+
+        Hub forest26 = new Hub("Northern Forest Area #26", "The Northern Area of the Great Makiss Forest. \nA quiet grove filled with whispering leaves, shadows play softly in the breeze. \nEXITS: (S) (N) ");
+
+        Hub forest27 = new Hub("Northern Forest Area #27", "The Northern Area of the Great Makiss Forest. \nA circle of ancient oaks, roots twisting over centuries deep into the earth. \nEXITS: (S) (N) (E)");
+
+        Hub forest28 = new Hub("Northern Forest Area #28", "The Northern Area of the Great Makiss Forest. \nA crystal-clear stream burbles happily beneath stepping stones covered in emerald moss. \nEXITS: (S) (N)");
+
+        Hub forest29 = new Hub("Northern Forest Area #29", "The Northern Area of the Great Makiss Forest. \nA hidden glade glowing faintly with ethereal blue light and glowing plants. \nEXITS: (S) (E)");
+
+        Hub forest30 = new Hub("Northern Forest Area #30", "The Northern Area of the Great Makiss Forest. \nA crooked witch’s hut with twisted branches and pungent herbs drying in the air. \nEXITS: (W)");
+
+        Hub forest31 = new Hub("Northern Forest Area #31", "The Northern Area of the Great Makiss Forest. \nAn abandoned forge filled with rusted tools and a cold, empty furnace. \nEXITS: (E) (W)");
+
+        Hub forest32 = new Hub("Northern Forest Area #32", "The Northern Area of the Great Makiss Forest. \nA ruined tower partially collapsed, its stones littered with ancient runes. \nEXITS: (W) (E) (N)");
+
+        Hub forest33 = new Hub("Northern Forest Area #33", "The Northern Area of the Great Makiss Forest. \nA clearing where faint magical lights flicker at dusk, and mushrooms bloom. \nEXITS: (S) (N) ");
+
+        Hub forest34 = new Hub("Northern Forest Area #34", "The Northern Area of the Great Makiss Forest. \nA rocky outcrop overlooking the vast forest, winds carrying distant calls. \nEXITS: (W)");
+
+        Hub forest35 = new Hub("Northern Forest Area #35", "The Northern Area of the Great Makiss Forest. \nAn ancient burial mound covered in moss and wildflowers, silent and solemn. \nEXITS: (S) (E)");
+
+        Hub forest36 = new Hub("Northern Forest Area #36", "The Northern Area of the Great Makiss Forest. \nA bandit lookout perched atop a tall pine offering views of the forest below. \nEXITS: (E) (W)");
+
+        Hub forest37 = new Hub("Northern Forest Area #37", "The Northern Area of the Great Makiss Forest. \nA forest gate approached by winding paths, threats lurk nearby as you draw closer. \nEXITS: (W) (S)");
+
+        Hub forest38 = new Hub("Northern Forest Area #38", "The Northern Area of the Great Makiss Forest. \nA watch post reinforced with crude barricades and sharp stakes. \nEXITS: (N) (E)");
+
+        Hub forest39 = new Hub("Northern Forest Area #39", "The Northern Area of the Great Makiss Forest. \nA spider-infested clearing with thick webs and ominous silence. \nEXITS: (W) (E)");
+
+        Hub forest40 = new Hub("Northern Forest Area #40", "The Northern Area of the Great Makiss Forest. \nA secret herb garden tucked beneath thick brush, healing scents abound. \nEXITS: (E) (W)");
+
+        Hub forest41 = new Hub("Northern Forest Area #41", "The Northern Area of the Great Makiss Forest. \nA natural spring bubbling into a crystal pool surrounded by lush ferns. \nEXITS: (E) (W) (N)");
+
+        Hub forest42 = new Hub("Northern Forest Area #42", "The Northern Area of the Great Makiss Forest. \nAn ancient oak carved with strange symbols, glowing faintly in moonlight. \nEXITS: (S) (N)");
+
+        Hub forest43 = new Hub("Northern Forest Area #43", "The Northern Area of the Great Makiss Forest. \nA rocky ridge where you can see the whole forest stretching far below. \nEXITS: (W)");
+
+        Hub forest44 = new Hub("Northern Forest Area #44", "The Northern Area of the Great Makiss Forest. \nAn overgrown path leading toward a long-forgotten shrine. \nEXITS: (N) (S)");
+
+        Hub forest45 = new Hub("Northern Forest Area #45", "The Northern Area of the Great Makiss Forest. \nA dense thicket teeming with small wildlife and rustling leaves. \nEXITS: (S) (W)");
+
+        Hub forest46 = new Hub("Northern Forest Area #46", "The Northern Area of the Great Makiss Forest. \nA mossy cave mouth invites exploration into the dark earth beyond. \nEXITS: (E) (N)");
+
+        Hub forest47 = new Hub("Northern Forest Area #47", "The Northern Area of the Great Makiss Forest. \nA ruined chapel with stained glass shattered and walls crumbling. \nEXITS: (S) (N) ");
+
+        Hub forest48 = new Hub("Northern Forest Area #48", "The Northern Area of the Great Makiss Forest. \nA massive tree with ancient roots forming natural arches. \nEXITS: (S) (E)");
+
+        Hub forest49 = new Hub("Northern Forest Area #49", "The Northern Area of the Great Makiss Forest. \nA clearing just before the forest gate, quiet but tense as danger nears. \nEXITS: (W) (N)");
+
+        Hub forest50 = new Hub("Northern Forest Area #50", "The Northern Area of the Great Makiss Forest. \nThe forest gate stands here, guarded by a fierce mini-boss—beyond lies the bridge to new adventures. \nEXITS: ");
+
 
         //Toms Cave EXITS:
         cave.setExit("n", caveN);
@@ -86,6 +158,91 @@ public class Game {
         forest8.setExit("s", forest9);
         forest9.setExit("n", forest8);
         forest9.setExit("e", forest6);
+        forest9.setExit("w", forest10);
+        forest10.setExit("e", forest9);
+        forest10.setExit("w", forest11);
+        forest11.setExit("e", forest10);
+        forest11.setExit("n", forest12);
+        forest12.setExit("n", forest13);
+        forest13.setExit("s", forest12);
+        forest14.setExit("w", forest13);
+        forest14.setExit("n", forest15);
+        forest15.setExit("s", forest14);
+        forest15.setExit("e", forest16);
+        forest16.setExit("w", forest15);
+        forest16.setExit("e", forest18);
+        forest18.setExit("e", forest19);
+        forest18.setExit("w", forest16);
+        forest19.setExit("w", forest18);
+        forest19.setExit("n", forest23);
+        forest19.setExit("e", forest21);
+        forest19.setExit("n", forest23);
+        forest23.setExit("s", forest19);
+        forest19.setExit("n", forest23);
+        forest21.setExit("e", forest22);
+        forest22.setExit("e", forest24);
+        forest24.setExit("e", forest25);
+        forest25.setExit("w", forest24);
+        forest24.setExit("w", forest22);
+        forest22.setExit("w", forest21);
+        forest21.setExit("w", forest19);
+        forest16.setExit("n", forest17);
+        forest17.setExit("s", forest16);
+
+        // N Forest exits
+        forest17.setExit("n", forest26);
+        forest26.setExit("s", forest17);
+        forest26.setExit("n", forest27);
+        forest27.setExit("s", forest26);
+        forest27.setExit("n", forest28);
+        forest28.setExit("s", forest27);
+        forest28.setExit("n", forest29);
+        forest29.setExit("s", forest28);
+        forest27.setExit("e", forest30);
+        forest30.setExit("w", forest27);
+        forest29.setExit("e", forest31);
+        forest31.setExit("w", forest29);
+        forest31.setExit("e", forest32);
+        forest32.setExit("w", forest31);
+        forest32.setExit("e", forest34);
+        forest34.setExit("w", forest32);
+        forest32.setExit("n", forest33);
+        forest33.setExit("s", forest32);
+        forest33.setExit("n", forest35);
+        forest35.setExit("s", forest33);
+        forest35.setExit("e", forest36);
+        forest36.setExit("w", forest35);
+        forest36.setExit("e", forest37);
+        forest37.setExit("w", forest36);
+        forest37.setExit("s", forest38);
+        forest38.setExit("n", forest37);
+        forest38.setExit("e", forest39);
+        forest39.setExit("w", forest38);
+        forest39.setExit("e", forest40);
+        forest40.setExit("w", forest39);
+        forest40.setExit("e", forest41);
+        forest41.setExit("w", forest40);
+        forest41.setExit("e", forest43);
+        forest43.setExit("w", forest41);
+        forest41.setExit("n", forest42);
+        forest42.setExit("s", forest41);
+        forest42.setExit("n", forest44);
+        forest44.setExit("s", forest42);
+        forest44.setExit("n", forest45);
+        forest45.setExit("s", forest44);
+        forest45.setExit("w", forest46);
+        forest46.setExit("e", forest45);
+        forest46.setExit("n", forest47);
+        forest47.setExit("s", forest46);
+        forest47.setExit("n", forest48);
+        forest48.setExit("s", forest47);
+        forest48.setExit("e", forest49);
+        forest49.setExit("w", forest48);
+        forest49.setExit("n", forest50);
+        forest50.setExit("s", forest49);
+
+
+
 
         //Doors!!!!
         Door caveDoor = new Door(caveNW, forest1, false);
@@ -93,18 +250,23 @@ public class Game {
         forest1.setDoor("s", caveDoor);
 
 
-
+        //ADD ITEMS IN TO ROOM
         caveN.addObject("newspaper1");
         caveNN.addObject("gold");
+
         for (int i = 0; i < 2; i ++) {
             caveNN.addObject("silver");
         }
+
         caveNN.addObject("copper");
         caveNE.addObject("newspaper2");
         caveNE.addObject("leather armor");
+
         for (int ii = 0; ii < 3; ii ++) {
             forest1.addObject("twig");
         }
+
+        // MAKE CHEST STUFF HAPPE HERE
 
         List<String> chestContents = Arrays.asList("copper");
 
@@ -113,20 +275,36 @@ public class Game {
 
         forest6.addObject("treasure-token#001");
 
+        // ADD MOBS
+
+        for (int o = 0; o < 2; o++){
+
+            Mob goblin = createGoblinWithRandomStats();
+
+            forest10.getMOBS().add(goblin);
+        }
+
         Story(cave);
 
     }
 
     public static void Story(Hub cave) {
 
+        // Makes the room you are in "cave"
+        Hub inRoom = cave;
+
+        //MAKE ITEMS AND "EQUIPMENT"
+
         Equipment equipment = new Equipment();
 
         Item dagger = new Item("dagger", "melee", true);
         Item leatherArmor = new Item("leather armor", "body", false);
 
+        //MAKE ITEMS EXIST IN ITEMS
         List<Item> existingItems = new ArrayList<>();
         existingItems.add(dagger);
         existingItems.add(leatherArmor);
+
 
         //List of verbs
         List<String> verbs = new ArrayList<>();
@@ -299,12 +477,7 @@ public class Game {
 
 
 
-
-
-        // Makes the room you are in "cave"
         // INSERT ALL CODE THAT SETS A VARIABLE HERE!!!!!
-        Hub inRoom = cave;
-
 
         boolean cabinetCaveN = false;
         boolean cabinetDaggerCaveN = true;
@@ -1298,7 +1471,7 @@ public class Game {
     }
 
     private static Mob createSquirrelWithRandomStats() {
-        int maxHealth = (int)(Math.random() * 4 + 5); //5-7
+        int maxHealth = (int)(Math.random() * 4 + 5); //5-8
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health squirrelHealth = new Health(maxHealth, currentHealth, damageResistance);
@@ -1310,7 +1483,7 @@ public class Game {
     }
 
     private static Mob createChickenWithRandomStats() {
-        int maxHealth = (int)(Math.random() * 3 + 9); //9-11
+        int maxHealth = (int)(Math.random() * 4 + 9); //9-11
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health rabbitHealth = new Health(maxHealth, currentHealth, damageResistance);
@@ -1319,6 +1492,18 @@ public class Game {
         boolean isAggro = false;
 
         return new Mob("Chicken", rabbitHealth, attackPower, isAggro);
+    }
+
+    private static Mob createGoblinWithRandomStats() {
+        int maxHealth = (int)(Math.random() * 6 + 12); //12-17
+        int currentHealth = maxHealth;  // start at full health
+        int damageResistance = 0;       // example damage resistance
+        Health goblinHealth = new Health(maxHealth, currentHealth, damageResistance);
+
+        int attackPower = (int)(Math.random() * 10 + 2);
+        boolean isAggro = false;
+
+        return new Mob("Goblim", goblinHealth, attackPower, isAggro);
     }
 
 
@@ -1467,13 +1652,6 @@ public class Game {
             player.getHealth().setHeealth(player.getHealth().getMaxHealth());
 
         }
-
-    }
-
-    public static void chests(Hub inRoom, String obj){
-
-        //Make so chest doesn't keep restorcking, do something like cabinet.
-        //MAKE A CLASS THAT CUTS VINES. SO I CAN MAKE THIS CHEST BE COVERED IN VINES AND ONLY BE OPENABLE WHEN CUT BY VINES
 
     }
 
