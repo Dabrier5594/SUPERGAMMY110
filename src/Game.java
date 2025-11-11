@@ -50,7 +50,24 @@ public class Game {
 
         Hub forest12 = new Hub("Southern Forest Area #12", "The Southern Area of the Great Makiss Forest. \nAn open clearing dotted with wildflowers and a calm, shallow pond reflecting the sky above. \nEXITS: (S) (N)");
 
-        Hub forest13 = new Hub("Southern Forest Area #13", "The Southern Area of the Great Makiss Forest. \nAn abandoned house overrun with vines and moss, the air heavy with age and forgotten stories. \nEXITS: (S) (E)");
+        Hub forest13 = new Hub("Southern Forest Area #13", "The Southern Area of the Great Makiss Forest. \nAn abandoned house overrun with vines and moss, the air heavy with age and forgotten stories. The house's door is made of heavy steel\nEXITS: (S) (E)");
+
+
+        //S HOUSE ROOMS
+        Hub sHouseEntrance = new Hub("Abandon House's Entrance", "Inside an abandon house located in the Southern part of the forest. \nThe scent of damp wood and dust fills the air, and every creak of the old floorboards echoes through the empty house.\nEXITS: (E) (N) (S)");
+
+        Hub sHouseEntranceLeft = new Hub("Abandon House's Southern Room", "Inside an abandon house located in the Southern part of the forest. \nTorn wallpaper hangs loosely, and a broken chair rests in the corner. The faint sound of wind howling through unseen cracks adds an eerie rhythm.\nEXITS: (N)");
+
+        Hub sHouseEntranceRight = new Hub("Abandon House's Northern Room\"", "Inside an abandon house located in the Southern part of the forest. \nEXITS: The northern room is slightly larger, packed with dust-covered furniture and an old fireplace filled with cold ashes.(S) (W)");
+
+        Hub sHouseHallway = new Hub("Abandon House's Hallway\"", "Inside an abandon house located in the Southern part of the forest. \nA faint draft snakes through cracks in the walls. A closed wooden door separates the hallway from a nearby room to the West.\nEXITS: (E) (S)");
+
+        Hub sHouseRoom = new Hub("Abandon House's Suite Room\"", "Inside an abandon house located in the Southern part of the forest. \nThis was once a grand suite, now fallen to decay.\nEXITS: (N) (S)");
+
+        Hub sHouseStairs = new Hub("Abandon House's Staircase\"", "Inside an abandon house located in the Southern part of the forest. \nThe narrow staircase ascends with a groan at every step. Dust dances in the beams of pale light filtering from above.\nEXITS: (N) (S [upwards])");
+
+        Hub sHouseUpper = new Hub("Abandon House's Upper Room\"", "Inside an abandon house located in the Southern part of the forest. \nThe upper room smells of mildew and forgotten time.\nEXITS: (N [downwards)");
+
 
         Hub forest14 = new Hub("Southern Forest Area #14", "The Southern Area of the Great Makiss Forest. \nDense thickets and thorn bushes threaten to slow travelers, whispering secrets among the branches. \nEXITS: (W) (N)");
 
@@ -164,6 +181,28 @@ public class Game {
         forest11.setExit("e", forest10);
         forest11.setExit("n", forest12);
         forest12.setExit("n", forest13);
+
+        //TO ABONDNOED HOUSE
+        forest12.setExit("w", sHouseEntrance);
+        sHouseEntrance.setExit("e", forest12);
+        sHouseEntrance.setExit("s", sHouseEntranceLeft);
+        sHouseEntrance.setExit("n", sHouseEntranceRight);
+        sHouseEntranceRight.setExit("s", sHouseEntrance);
+        sHouseEntranceLeft.setExit("n", sHouseEntrance);
+        sHouseEntranceRight.setExit("w", sHouseHallway);
+        sHouseHallway.setExit("e", sHouseEntranceRight);
+        sHouseHallway.setExit("s", sHouseRoom);
+        sHouseRoom.setExit("n", sHouseHallway);
+        sHouseRoom.setExit("s", sHouseStairs);
+        sHouseStairs.setExit("n", sHouseHallway);
+        sHouseStairs.setExit("s", sHouseUpper);
+        sHouseUpper.setExit("n", sHouseStairs);
+
+
+
+
+
+
         forest13.setExit("s", forest12);
         forest14.setExit("w", forest13);
         forest14.setExit("n", forest15);
@@ -249,6 +288,15 @@ public class Game {
         caveNW.setDoor("n", caveDoor);
         forest1.setDoor("s", caveDoor);
 
+        Door sHouseEntrance1 = new Door(forest12, sHouseEntrance, false);
+        forest12.setDoor("w", sHouseEntrance1);
+        sHouseEntrance.setDoor("e", sHouseEntrance1);
+
+        Door sHouseHallwayRoom = new Door(sHouseHallway, sHouseRoom, false);
+        sHouseHallway.setDoor("s", sHouseHallwayRoom);
+        sHouseRoom.setDoor("n", sHouseHallwayRoom);
+
+
 
         //ADD ITEMS IN TO ROOM
         caveN.addObject("newspaper1");
@@ -266,7 +314,7 @@ public class Game {
             forest1.addObject("twig");
         }
 
-        // MAKE CHEST STUFF HAPPE HERE
+        // MAKE CHEST STUFF HAPPEN HERE
 
         List<String> chestContents = Arrays.asList("copper");
 
@@ -275,14 +323,23 @@ public class Game {
 
         forest6.addObject("treasure-token#001");
 
+        for (int i = 0; i < 2; i++) {
+            forest12.addObject("white whispberries");
+        }
+
         // ADD MOBS
 
-        for (int o = 0; o < 2; o++){
+        Mob goblin = createGoblinWithRandomStats();
+        forest10.getMOBS().add(goblin);
 
-            Mob goblin = createGoblinWithRandomStats();
+        for (int o = 0; o < 3; o++){
 
-            forest10.getMOBS().add(goblin);
+            goblin = createGoblinWithRandomStats();
+
+            forest11.getMOBS().add(goblin);
         }
+
+
 
         Story(cave);
 
@@ -406,6 +463,8 @@ public class Game {
         objects.add("squirrel");
         objects.add("chest");
         objects.add("treasure-token#001");
+        objects.add("white whispberries");
+
 
 
         List<String> look = new ArrayList<>();
@@ -734,9 +793,15 @@ public class Game {
                                 if (isDoor != null){
 
                                     if (!isDoor.isOpen()) {
-
-                                        System.out.println("You open the door to the " + doorDir.toUpperCase() + ".");
-                                        isDoor.setOpen(true);
+                                        if (inRoom.getRoomName().equals("forest12")){
+                                            if (playersStats.getLevel() > 3){
+                                                System.out.println("You open the door to the " + doorDir.toUpperCase() + ".");
+                                                isDoor.setOpen(true);
+                                            }
+                                            else {
+                                                System.out.println("You are not skilled or strong enough to open this door. Come back with a higher level.");
+                                            }
+                                        }
 
                                     }
 
