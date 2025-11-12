@@ -3,11 +3,15 @@ import java.util.regex.Pattern;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-// 1) ADD THINGS TO CORROSPONDNG PLACES
+// 1) ADD THINGS TO CORRESPONDING PLACES (FOREST & S HOUSE)
 
-// 2)
+// 2) CREATE SKILLS FOR M FOREST BOSS, CREATE BOSS
 
-// 3)
+// 3) CREATE FIRST SMALL TOWN
+
+// 4) CREATE FIRST SMALL TOWN BOSS
+
+// 5) CREATE SECOND TOWN. CREATE GUILD WITH QUESTS AND A CARD AND EVERYTHING
 
 public class Game {
     static Scanner scanner = new Scanner(System.in);
@@ -66,7 +70,7 @@ public class Game {
 
         Hub sHouseStairs = new Hub("Abandon House's Staircase\"", "Inside an abandon house located in the Southern part of the forest. \nThe narrow staircase ascends with a groan at every step. Dust dances in the beams of pale light filtering from above.\nEXITS: (N) (S [upwards])");
 
-        Hub sHouseUpper = new Hub("Abandon House's Upper Room\"", "Inside an abandon house located in the Southern part of the forest. \nThe upper room smells of mildew and forgotten time.\nEXITS: (N [downwards)");
+        Hub sHouseUpper = new Hub("Abandon House's Upper Room\"", "Inside an abandon house located in the Southern part of the forest. \nThe upper room smells of mildew and forgotten time. A rusty chest sits in the corner...\nEXITS: (N [downwards)");
 
 
         Hub forest14 = new Hub("Southern Forest Area #14", "The Southern Area of the Great Makiss Forest. \nDense thickets and thorn bushes threaten to slow travelers, whispering secrets among the branches. \nEXITS: (W) (N)");
@@ -300,18 +304,21 @@ public class Game {
 
         //ADD ITEMS IN TO ROOM
         caveN.addObject("newspaper1");
-        caveNN.addObject("gold");
 
         for (int i = 0; i < 2; i ++) {
-            caveNN.addObject("silver");
+            caveNN.addObject("copper");
         }
 
-        caveNN.addObject("copper");
+        caveNN.addObject("silver");
         caveNE.addObject("newspaper2");
         caveNE.addObject("leather armor");
 
         for (int ii = 0; ii < 3; ii ++) {
             forest1.addObject("twig");
+        }
+
+        for (int i = 0; i < 2; i++) {
+            forest12.addObject("white whispberries");
         }
 
         // MAKE CHEST STUFF HAPPEN HERE
@@ -323,9 +330,12 @@ public class Game {
 
         forest6.addObject("treasure-token#001");
 
-        for (int i = 0; i < 2; i++) {
-            forest12.addObject("white whispberries");
-        }
+        chestContents = Arrays.asList("silver", "silver");
+
+        Chest secondChest = new Chest(true, "treasure-token#002", chestContents, "C");
+        sHouseUpper.addChest("chest#002", secondChest);
+
+        forest26.addObject("treasure-token#002");
 
         // ADD MOBS
 
@@ -463,6 +473,10 @@ public class Game {
         objects.add("squirrel");
         objects.add("chest");
         objects.add("treasure-token#001");
+        objects.add("treasure-token#002");
+        objects.add("treasure-token#003");
+        objects.add("treasure-token#004");
+        objects.add("treasure-token#005");
         objects.add("white whispberries");
 
 
@@ -559,7 +573,7 @@ public class Game {
         System.out.println("");
 
         //Checks if you said yes or not
-        if (play.toLowerCase().equals("yes") || play.toLowerCase().equals("y")) {
+        if (play.equalsIgnoreCase("yes") || play.equalsIgnoreCase("y")) {
 
             start = true;
 
