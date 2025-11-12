@@ -1,5 +1,7 @@
 import java.util.*;
-import java.util.regex.Pattern;
+import java.util.regex.Pattern;import java.util.Timer;
+import java.util.TimerTask;
+
 
 //                    NOTES FOR IMPROVEMENTS:
 
@@ -367,11 +369,17 @@ public class Game {
         Item dagger = new Item("dagger", "melee", true);
         Item leatherArmor = new Item("leather armor", "body", false);
 
+
         //MAKE ITEMS EXIST IN ITEMS
         List<Item> existingItems = new ArrayList<>();
         existingItems.add(dagger);
         existingItems.add(leatherArmor);
 
+        Timer timer = new Timer();
+        long fiveMinutesInMillis = 5 * 60 * 1000; // 5 minutes in milliseconds
+
+        // Schedule the task to run repeatedly every 5 minutes, starting immediately.
+        timer.scheduleAtFixedRate(new MyScheduledTask(), 0, fiveMinutesInMillis);
 
         //List of verbs
         List<String> verbs = new ArrayList<>();
@@ -1741,6 +1749,17 @@ public class Game {
     public static void unequip(Item item, String slot, Player player, Equipment equipment){
         equipment.unequip(slot, item, player);
     }
+
+    //TIMER STUFF HERE
+
+    class MyScheduledTask extends TimerTask {
+        @Override
+        public void run() {
+            if (dayTime == true)
+            System.out.println("I");
+        }
+    }
+
 
 
 
