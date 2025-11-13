@@ -5,17 +5,46 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-// 1) ADD THINGS TO CORRESPONDING PLACES (FOREST & S HOUSE)
+// Make rouge bandits
 
-// 2) CREATE SKILLS FOR M FOREST BOSS, CREATE BOSS
+//  ADD THINGS TO CORRESPONDING PLACES (FOREST & S HOUSE)
 
-// 3) CREATE FIRST SMALL TOWN
+//  CREATE SKILLS FOR M FOREST BOSS, CREATE BOSS
 
-// 4) CREATE FIRST SMALL TOWN BOSS
+//  CREATE FIRST SMALL TOWN
 
-// 5) CREATE SECOND TOWN. CREATE GUILD WITH QUESTS AND A CARD AND EVERYTHING
+//  CREATE FIRST SMALL TOWN BOSS
+
+//  CREATE SECOND TOWN. CREATE GUILD WITH QUESTS AND A CARD AND EVERYTHING
 
 public class Game {
+
+    public static volatile boolean timeOfDay = true; // true = day, false = night
+
+    public static void setupDayNightSchedulers() {
+        long threeMinutes = 3 * 60 * 1000;  // 5 minutes in ms
+
+        Timer dayTimer = new Timer();
+        dayTimer.scheduleAtFixedRate(new TimeDayNotifier(), threeMinutes, threeMinutes);
+    }
+
+    static class TimeDayNotifier extends TimerTask {
+        @Override
+        public void run() {
+            if (!timeOfDay) {
+                System.out.println("(It is turning day...) xxx");
+                System.out.print("-> ");
+                timeOfDay = true;
+            }
+
+            else  {
+                System.out.println("(It is turning night...) xxx");
+                System.out.print("-> ");
+                timeOfDay = false;
+            }
+        }
+    }
+
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -77,7 +106,7 @@ public class Game {
 
         Hub forest14 = new Hub("Southern Forest Area #14", "The Southern Area of the Great Makiss Forest. \nDense thickets and thorn bushes threaten to slow travelers, whispering secrets among the branches. \nEXITS: (W) (N)");
 
-        Hub forest15 = new Hub("Southern Forest Area #15", "The Southern Area of the Great Makiss Forest. \nA hidden bandit hideout with makeshift barricades and loot scattered around. \nEXITS: (S) (E)");
+        Hub forest15 = new Hub("Southern Forest Area #15", "The Southern Area of the Great Makiss Forest. \nA hidden hideout for  rouge bandits with makeshift barricades and loot scattered around. \nEXITS: (S) (E)");
 
         Hub forest16 = new Hub("Southern Forest Area #16", "The Southern Area of the Great Makiss Forest. \nA ruined stone shrine, partially crumbled, radiates a faint mystical glow. \nEXITS: (W) (E) (N)");
 
@@ -375,12 +404,6 @@ public class Game {
         existingItems.add(dagger);
         existingItems.add(leatherArmor);
 
-        Timer timer = new Timer();
-        long fiveMinutesInMillis = 5 * 60 * 1000; // 5 minutes in milliseconds
-
-        // Schedule the task to run repeatedly every 5 minutes, starting immediately.
-        timer.scheduleAtFixedRate(new MyScheduledTask(), 0, fiveMinutesInMillis);
-
         //List of verbs
         List<String> verbs = new ArrayList<>();
         verbs.add("move");
@@ -609,7 +632,8 @@ public class Game {
             System.out.println(cave.getRoomDescription());
 
             player.getSkills().add(new Skill.StunSkill("Stun", "Stuns enemy for one turn. Cooldown: 3 turns.", true, 3));
-        }
+
+            setupDayNightSchedulers();        }
 
         else {
             start = false;
@@ -1749,18 +1773,5 @@ public class Game {
     public static void unequip(Item item, String slot, Player player, Equipment equipment){
         equipment.unequip(slot, item, player);
     }
-
-    //TIMER STUFF HERE
-
-    class MyScheduledTask extends TimerTask {
-        @Override
-        public void run() {
-            if (dayTime == true)
-            System.out.println("I");
-        }
-    }
-
-
-
 
 }
