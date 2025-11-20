@@ -40,7 +40,7 @@ public class Game {
 
             LocalTime waiter = LocalTime.now(); // Get the current time
             System.out.println("HYEU");
-            if (scannerOrNo) { // prints if not scanning
+            if (scannerOrNo) { // prints if not scanning h
                 if (!timeOfDay) {
                     System.out.println("(It is turning day...) xxx ");
                     System.out.print("-> ");
