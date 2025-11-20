@@ -1,3 +1,4 @@
+import java.time.LocalTime;
 import java.util.*;
 import java.util.regex.Pattern;import java.util.Timer;
 import java.util.TimerTask;
@@ -21,27 +22,58 @@ public class Game {
 
     public static volatile boolean timeOfDay = true; // true = day, false = night
 
+    public static volatile boolean scannerOrNo = false; // true = scanning, false = no scanning
+
+
     public static void setupDayNightSchedulers() {
-        long threeMinutes = 3 * 60 * 1000;  // 5 minutes in ms
+        long threeMinutes = 1000;  // 5 minutes in ms
 
         Timer dayTimer = new Timer();
         dayTimer.scheduleAtFixedRate(new TimeDayNotifier(), threeMinutes, threeMinutes);
+
     }
 
     static class TimeDayNotifier extends TimerTask {
         @Override
         public void run() {
-            if (!timeOfDay) {
-                System.out.println("(It is turning day...) xxx");
-                System.out.print("-> ");
-                timeOfDay = true;
+
+
+            LocalTime waiter = LocalTime.now(); // Get the current time
+            System.out.println("HYEU");
+            if (scannerOrNo) { // prints if not scanning
+                if (!timeOfDay) {
+                    System.out.println("(It is turning day...) xxx ");
+                    System.out.print("-> ");
+                    timeOfDay = true;
+                }
+
+                else  {
+                    System.out.println("(It is turning night...) xxx ");
+                    System.out.print("-> ");
+                    timeOfDay = false;
+                }
             }
 
-            else  {
-                System.out.println("(It is turning night...) xxx");
-                System.out.print("-> ");
-                timeOfDay = false;
+            // NEED TO BE SO THAT IF IT PRINTS FROM BELOW CODE, IT JUST PRINTS MOST RECENT TIME CAHNGEW AND SAY HOW LONG AGO IT TURNED THAT TIME.
+
+            else {
+                while(!scannerOrNo){
+
+                }
+
+                if (!timeOfDay) {
+                    System.out.println("(It is turning day...) xxx " + waiter.getSecond());
+                    System.out.print("-> ");
+                    timeOfDay = true;
+                }
+
+                else  {
+                    System.out.println("(It is turning night...) xxx " + waiter.getSecond());
+                    System.out.print("-> ");
+                    timeOfDay = false;
+                }
             }
+
         }
     }
 
@@ -633,11 +665,14 @@ public class Game {
 
             player.getSkills().add(new Skill.StunSkill("Stun", "Stuns enemy for one turn. Cooldown: 3 turns.", true, 3));
 
-            setupDayNightSchedulers();        }
+            setupDayNightSchedulers();
+        }
 
         else {
             start = false;
         }
+
+
 
         //While start is true, run the code
         while (start) {
@@ -650,16 +685,17 @@ public class Game {
             }
 
             System.out.println("");
+            scannerOrNo = false;
 
             System.out.print("-> ");
             String action = scanner.nextLine();
+            scannerOrNo = false;
 
             System.out.println("");
-
+            scannerOrNo = true;
             boolean oneCardinol = oneDirection(action, northways, southways, easyways, westways);
 
             boolean correctFormat = oneObjectOneVerb(action, verbs, objects);
-
             if (oneCardinol){
                 System.out.println("You can't input multiple directions!");
             }
