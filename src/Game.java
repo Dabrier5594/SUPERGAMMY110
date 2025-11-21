@@ -24,7 +24,6 @@ public class Game {
 
     public static volatile boolean scannerOrNo = false; // true = scanning, false = no scanning
 
-
     public static void setupDayNightSchedulers() {
         long threeMinutes = 1000;  // 5 minutes in ms
 
@@ -38,7 +37,6 @@ public class Game {
         public void run() {
 
 
-            LocalTime waiter = LocalTime.now(); // Get the current time
             System.out.println("HYEU");
             if (scannerOrNo) { // prints if not scanning h
                 if (!timeOfDay) {
@@ -57,17 +55,22 @@ public class Game {
             // NEED TO BE SO THAT IF IT PRINTS FROM BELOW CODE, IT JUST PRINTS MOST RECENT TIME CAHNGEW AND SAY HOW LONG AGO IT TURNED THAT TIME.
 
             else {
-                while(!scannerOrNo){
-
-                }
 
                 if (!timeOfDay) {
+                    LocalTime waiter = LocalTime.now(); // Get the current time
+                    while(!scannerOrNo){
+
+                    }
                     System.out.println("(It is turning day...) xxx " + waiter.getSecond());
                     System.out.print("-> ");
                     timeOfDay = true;
                 }
 
                 else  {
+                    LocalTime waiter = LocalTime.now(); // Get the current time
+                    while(!scannerOrNo){
+
+                    }
                     System.out.println("(It is turning night...) xxx " + waiter.getSecond());
                     System.out.print("-> ");
                     timeOfDay = false;
