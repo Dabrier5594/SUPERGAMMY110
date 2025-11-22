@@ -24,8 +24,13 @@ public class Game {
 
     public static volatile boolean scannerOrNo = false; // true = scanning, false = no scanning
 
+    public static volatile String timeChange = null; // day or night
+
+    public static volatile LocalTime changeTime = null; //when change happened
+
     public static void setupDayNightSchedulers() {
-        long threeMinutes = 1000;  // 5 minutes in ms
+
+        long threeMinutes = 3 * 60 * 1000;  // 3 minutes in ms
 
         Timer dayTimer = new Timer();
         dayTimer.scheduleAtFixedRate(new TimeDayNotifier(), threeMinutes, threeMinutes);
@@ -36,45 +41,17 @@ public class Game {
         @Override
         public void run() {
 
+            if (!scannerOrNo) { // SCANNER IS ACTIVE - HOLD LATEST CHANGES
+                timeChange = timeOfDay ? "day" : "night";
+                changeTime = LocalTime.now();
+                timeOfDay = !timeOfDay;
 
-            System.out.println("HYEU");
-            if (scannerOrNo) { // prints if not scanning h
-                if (!timeOfDay) {
-                    System.out.println("(It is turning day...) xxx ");
-                    System.out.print("-> ");
-                    timeOfDay = true;
-                }
+            } else {
 
-                else  {
-                    System.out.println("(It is turning night...) xxx ");
-                    System.out.print("-> ");
-                    timeOfDay = false;
-                }
-            }
+                System.out.println("It is turning " + (timeOfDay ? "day" : "night") + "...");
 
-            // NEED TO BE SO THAT IF IT PRINTS FROM BELOW CODE, IT JUST PRINTS MOST RECENT TIME CAHNGEW AND SAY HOW LONG AGO IT TURNED THAT TIME.
+                timeOfDay = !timeOfDay;
 
-            else {
-
-                if (!timeOfDay) {
-                    LocalTime waiter = LocalTime.now(); // Get the current time
-                    while(!scannerOrNo){
-
-                    }
-                    System.out.println("(It is turning day...) xxx " + waiter.getSecond());
-                    System.out.print("-> ");
-                    timeOfDay = true;
-                }
-
-                else  {
-                    LocalTime waiter = LocalTime.now(); // Get the current time
-                    while(!scannerOrNo){
-
-                    }
-                    System.out.println("(It is turning night...) xxx " + waiter.getSecond());
-                    System.out.print("-> ");
-                    timeOfDay = false;
-                }
             }
 
         }
@@ -689,6 +666,21 @@ public class Game {
 
             System.out.println("");
             scannerOrNo = false;
+
+            if (timeChange != null && changeTime != null){
+
+                long secondsAgo = java.time.Duration.between(changeTime, LocalTime.now()).getSeconds();
+                if (secondsAgo < 500) {
+                    System.out.println("It turned " + timeChange + " " + secondsAgo + "seconds ago.");
+                }
+                else {
+                    secondsAgo /= 60;
+                    System.out.println("It turned " + timeChange + " " + secondsAgo + "min ago.");
+
+                }
+                timeChange = null;
+                changeTime = null;
+            }
 
             System.out.print("-> ");
             String action = scanner.nextLine();
