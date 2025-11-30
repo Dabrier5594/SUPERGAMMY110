@@ -46,7 +46,9 @@ public class Game {
                 changeTime = LocalTime.now();
                 timeOfDay = !timeOfDay;
 
-            } else {
+            }
+
+            else {
 
                 System.out.println("It is turning " + (timeOfDay ? "day" : "night") + "...");
 
@@ -57,9 +59,26 @@ public class Game {
         }
     }
 
+    //LEAFLETS
+
+    // Somewhere central:
+    public static final Map<String, Leaflet> LEAFLETS = new HashMap<>();
+
+    static {
+        LEAFLETS.put("leaflet001",
+                new Leaflet("leaflet001", "leaflet",
+                        "Welcome to the world of Tim","World is one which mysteries and secrets about itself. \nPrepare yourself, to delve deeper into the world of Tim and experience the un-imaginable. \nHint: (Use 'help' to get help)"));
+
+        LEAFLETS.put("leaflet002",
+                new Leaflet("leaflet002", "leaflet",
+                        "The Money Challenges","The world is in a money crisis, and people are going on more dangerous quests to get more money. \nOne gold is 10 silver, 1 silver is 5 copper. \nHint: (More dangerous quests make more money! But they are also much harder to complete...)"));
+    }
+
+
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+
         // TOMS CAVE
         Hub cave = new Hub("Tom's Dark Cave", "The back of the ancient cave where Tom the hermit lived for many years. \nEXITS: (N) ");
 
@@ -343,17 +362,19 @@ public class Game {
         sHouseHallway.setDoor("s", sHouseHallwayRoom);
         sHouseRoom.setDoor("n", sHouseHallwayRoom);
 
+        // ITEMS
+
 
 
         //ADD ITEMS IN TO ROOM
-        caveN.addObject("newspaper1");
+        caveN.addObject("leaflet001");
 
         for (int i = 0; i < 2; i ++) {
             caveNN.addObject("copper");
         }
 
         caveNN.addObject("silver");
-        caveNE.addObject("newspaper2");
+        caveNE.addObject("leaflet002");
         caveNE.addObject("leather armor");
 
         for (int ii = 0; ii < 3; ii ++) {
@@ -502,7 +523,7 @@ public class Game {
 
         List<String> objects = new ArrayList<>();
         objects.add("cabinet");
-        objects.add("newspaper1");
+        objects.add("leaflet");
         objects.add("dagger");
         objects.add("leather armor");
         objects.add("inventory");
@@ -823,7 +844,7 @@ public class Game {
                     }
 
                     else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0]))) {
-
+                        System.out.println("CHECK O!");
                         if (stringContainsWordFromList(action.toLowerCase(), open.toArray(new String[0]))) {
 
                             if (stringContainsWordFromList(action.toLowerCase(), inventory.toArray(new String[0]))){
@@ -1308,6 +1329,69 @@ public class Game {
 
     public static void take(Hub inRoom, String item, List<String> inventory){
 
+        if (item.equalsIgnoreCase("leaflet")) {
+
+            List<String> leafletIds = new ArrayList<>();
+            for (String obj : inRoom.getObjects()) {
+                Leaflet lf = Game.LEAFLETS.get(obj);
+                if (lf != null && lf.getName().equalsIgnoreCase("leaflet")) {
+                    leafletIds.add(obj);
+                }
+            }
+
+            if (leafletIds.isEmpty()) {
+                System.out.println("There is NO leaflet to take.");
+                return;
+            }
+
+            // If more than one, ask which one to take
+            String chosenId;
+            if (leafletIds.size() == 1) {
+                chosenId = leafletIds.get(0);
+            }
+            else {
+                System.out.println("There are several leaflets here:");
+                for (int i = 0; i < leafletIds.size(); i++) {
+                    String id = leafletIds.get(i);
+                    Leaflet chose = Game.LEAFLETS.get(id);
+                    String title = chose != null ? chose.getTitle() : "(unknown title)";
+                    System.out.println((i + 1) + ") [" + id + "] " + title);
+                }
+                System.out.print("Which leaflet do you want to take (number or id)? - ");
+
+                String answer = Game.scanner.nextLine().trim().toLowerCase();
+                String choice = null;
+
+                // Try number
+                try {
+                    int chosen = Integer.parseInt(answer) - 1;
+                    if (chosen >= 0 && chosen < leafletIds.size()) {
+                        choice = leafletIds.get(chosen);
+                    }
+                } catch (NumberFormatException ignored) {}
+
+                // Try id
+                if (choice == null) {
+                    for (String id : leafletIds) {
+                        if (id.toLowerCase().equals(answer)) {
+                            choice = id;
+                            break;
+                        }
+                    }
+                }
+
+                if (choice == null) {
+                    System.out.println("You decide not to take any leaflets.");
+                    return;
+                }
+
+                chosenId = choice;
+            }
+
+            item = chosenId;
+        }
+
+
         List<String> itemos = inRoom.getObjects();
 
         int count = Collections.frequency(itemos, item);
@@ -1377,6 +1461,71 @@ public class Game {
 
     public static void drop(Hub inRoom, String item, List<String> inventory, Player player, Equipment equipment, List<Item> existingItems){
 
+        boolean isLeaflet = false;
+
+        if (item.equalsIgnoreCase("leaflet")) {
+
+            List<String> leafletIds = new ArrayList<>();
+            for (String obj : inventory) {
+                Leaflet lf = Game.LEAFLETS.get(obj);
+                if (lf != null && lf.getName().equalsIgnoreCase("leaflet")) {
+                    leafletIds.add(obj);
+                }
+            }
+
+            if (leafletIds.isEmpty()) {
+                System.out.println("There is NO leaflet to drop.");
+                return;
+            }
+
+            // If more than one, ask which one to drop
+            String chosenId;
+            if (leafletIds.size() == 1) {
+                chosenId = leafletIds.get(0);
+            }
+            else {
+                System.out.println("You have several leaflets in your inventory:");
+                for (int i = 0; i < leafletIds.size(); i++) {
+                    String id = leafletIds.get(i);
+                    Leaflet chose = Game.LEAFLETS.get(id);
+                    String title = chose != null ? chose.getTitle() : "(unknown title)";
+                    System.out.println((i + 1) + ") [" + id + "] " + title);
+                }
+                System.out.print("Which leaflet do you want to drop (number or id)? - ");
+
+                String answer = Game.scanner.nextLine().trim().toLowerCase();
+                String choice = null;
+
+                // Try number
+                try {
+                    int chosen = Integer.parseInt(answer) - 1;
+                    if (chosen >= 0 && chosen < leafletIds.size()) {
+                        choice = leafletIds.get(chosen);
+                    }
+                } catch (NumberFormatException ignored) {}
+
+                // Try id
+                if (choice == null) {
+                    for (String id : leafletIds) {
+                        if (id.toLowerCase().equals(answer)) {
+                            choice = id;
+                            break;
+                        }
+                    }
+                }
+
+                if (choice == null) {
+                    System.out.println("You decide not to drop any leaflet.");
+                    return;
+                }
+
+                chosenId = choice;
+            }
+
+            item = chosenId;
+            isLeaflet = true;
+        }
+
         int count = Collections.frequency(inventory, item);
 
         int chosenAmount = 0;
@@ -1438,6 +1587,12 @@ public class Game {
                 }
             }
 
+            if (isLeaflet) {
+                System.out.println("You have dropped " + chosenAmount + " leaflet" + (chosenAmount > 1 ? "s." : "."));
+                return;
+            }
+
+
             Item equippedItem = equipment.getEquipped(itemToRemove.getSlotType());
             if (equippedItem != null && equippedItem.getName().equalsIgnoreCase(itemToRemove.getName())) {
                 // Unequip first
@@ -1456,28 +1611,76 @@ public class Game {
 
     public static void read(Hub inRoom, List<String> inventory, String item) {
 
+        if (item.equalsIgnoreCase("leaflet")) {
+            List<Leaflet> aqquiredLeaflets = new ArrayList<>();
+
+            for (String leafId : inventory) {
+                Leaflet owned = LEAFLETS.get(leafId);
+                if (owned != null && owned.getName().equalsIgnoreCase("leaflet")) {
+                    aqquiredLeaflets.add(owned);
+                }
+            }
+
+            if (aqquiredLeaflets.isEmpty()) {
+                System.out.println("You do not have any leaflets to read.");
+                return;
+            }
+
+            if (aqquiredLeaflets.size() == 1) {
+                Leaflet owned = aqquiredLeaflets.get(0);
+                printLeaflet(owned);
+                return;
+            }
+
+            System.out.println("You have several leaflets:");
+            for (int i = 0; i < aqquiredLeaflets.size(); i++) {
+                Leaflet owned = aqquiredLeaflets.get(i);
+                System.out.println((i + 1) + ") [" + owned.getId() + "] " + owned.getTitle());
+            }
+            System.out.print("Which leaflet do you want to read (number or id)? - ");
+
+            String answer = scanner.nextLine().trim().toLowerCase();
+
+            Leaflet chosen = null;
+
+            //try number
+            try {
+                int entered = Integer.parseInt(answer) - 1;
+                if (entered >= 0 && entered < aqquiredLeaflets.size()) {
+                    chosen = aqquiredLeaflets.get(entered);
+                }
+            } catch (NumberFormatException ignored) {
+                //NOTHING HAPPENS AND IT WON'T CRASH
+            }
+
+            // Try id
+            if (chosen == null) {
+                for (Leaflet owned : aqquiredLeaflets) {
+                    if (owned.getId().toLowerCase().equals(answer)) {
+                        chosen = owned;
+                        break;
+                    }
+                }
+            }
+
+            if (chosen != null) {
+                printLeaflet(chosen);
+            } else {
+                System.out.println("You decide not to read any leaflet right now.");
+            }
+            return;
+        }
+
+        // user typed a specific id like "leaflet001"
         if (inventory.contains(item)) {
-
-            if (item.toLowerCase().equals("newspaper1")) {
-                System.out.println("[You unfold the newspaper and read its headline:]");
-                System.out.println("Welcome, to the world of Tim.");
-                System.out.println("[You eyes follow the page down...]");
-                System.out.println("world is one which mysteries and secrets about itself. \nPrepare yourself, to delve deeper into the world of Tim and experience the un-imaginable. \nHint: (Use 'help' to get help)");
-            }
-
-            else if (item.toLowerCase().equals("newspaper2")) {
-                System.out.println("[You unfold the newspaper and read its headline:]");
-                System.out.println("The Money Challenges");
-                System.out.println("[You eyes follow the page down...]");
-                System.out.println("The world is in a money crisis, and people are going on more dangerous quests to get more money. \nOne gold is 10 silver, 1 silver is 5 copper. \nHint: (More dangerous quests make more money! But they are also much harder to complete...)");
-            }
-
-            else {
+            Leaflet ha = LEAFLETS.get(item.toLowerCase());
+            if (ha != null) {
+                printLeaflet(ha);
+            } else {
                 System.out.println("You can't read '" + item + "'");
             }
 
-        }
-        else {
+        } else {
 
             if (inRoom.getObjects().contains(item)) {
                 System.out.println("You can only read things in your inventory.");
@@ -1486,6 +1689,14 @@ public class Game {
             }
         }
     }
+
+    private static void printLeaflet(Leaflet chose) {
+        System.out.println("[You unfold the leaflet and read its headline:]");
+        System.out.println(chose.getTitle());
+        System.out.println("[Your eyes follow the page down...]");
+        System.out.println(chose.getBody());
+    }
+
 
     public static void itemsIfAny(List<String> items, String Name) {
         if (items.isEmpty()) {
