@@ -899,7 +899,6 @@ public class Game {
 
                                 if (isDoor != null){
                                     if (!isDoor.isOpen()) {
-                                        System.out.println("OM");
 
 
                                         if (inRoom.getRoomName().equals("Southern Forest Area #12")){
@@ -911,9 +910,7 @@ public class Game {
                                                 System.out.println("You are not skilled or strong enough to open this door. Come back with a higher level.");
                                             }
                                         }
-                                        System.out.println(inRoom.getRoomName()+"hi hi hi");
                                         if (inRoom.getRoomName().equals("Tom's Dark Entrance")){
-                                            System.out.println("WAHOO!");
 
                                             System.out.println("You open the door to the " + doorDir.toUpperCase() + ".");
                                             isDoor.setOpen(true);
