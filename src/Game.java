@@ -4,7 +4,7 @@ import java.util.regex.Pattern;import java.util.Timer;
 import java.util.TimerTask;
 
 
-//                    NOTES FOR IMPROVEMENTS:
+//                    NOTES FOR IMPROVEMENTS: MAKE DOORS OPEN!!!!
 
 // Make rouge bandits
 
@@ -60,8 +60,7 @@ public class Game {
     }
 
     //LEAFLETS
-
-    // Somewhere central:
+    //central = game
     public static final Map<String, Leaflet> LEAFLETS = new HashMap<>();
 
     static {
@@ -74,33 +73,48 @@ public class Game {
                         "The Money Challenges","The world is in a money crisis, and people are going on more dangerous quests to get more money. \nOne gold is 10 silver, 1 silver is 5 copper. \nHint: (More dangerous quests make more money! But they are also much harder to complete...)"));
     }
 
+    //CHEST TOKENS
+
+    public static final Map<String, Token> TOKENS = new HashMap<>();
+
+    static {
+        TOKENS.put("IH001",
+                new Token(001, "IH"));
+
+        TOKENS.put("IH002",
+                new Token(002, "IH"));
+
+    }
+
+
+
 
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
 
         // TOMS CAVE
-        Hub cave = new Hub("Tom's Dark Cave", "The back of the ancient cave where Tom the hermit lived for many years. \nEXITS: (N) ");
+        Hub cave = new Hub("Tom's Dark Cave\n", "The back of the ancient cave where Tom the hermit lived for many years. \nEXITS: (N) ");
 
-        Hub caveN = new Hub("Tom's Dark Kitchen", "Still in Tom's cave, but now you have moved into his kitchen which consists of a cabinet and a counter. \nEXITS: (N) (S)");
+        Hub caveN = new Hub("Tom's Dark Kitchen\n", "Still in Tom's cave, but now you have moved into his kitchen which consists of a cabinet and a counter. \nEXITS: (N) (S)");
 
-        Hub caveNN = new Hub("Tom's Treasure Room", "Still in Tom's cave, but now you have moved into his treasure room which has no furniture. \nEXITS: (W) (E) (S)" );
+        Hub caveNN = new Hub("Tom's Treasure Room\n", "Still in Tom's cave, but now you have moved into his treasure room which has no furniture. \nEXITS: (W) (E) (S)" );
 
-        Hub caveNE = new Hub("Tom's Living Room", "Still in Tom's cave, but now you have moved into his living room which. \nEXITS: (W)" );
+        Hub caveNE = new Hub("Tom's Living Room\n", "Still in Tom's cave, but now you have moved into his living room which. \nEXITS: (W)" );
 
-        Hub caveNW = new Hub("Tom's Dark Entrance", "Still in Tom's cave, but now you have moved to the cave's entrance, where a door stands. \nEXITS: (N) (E)" );
+        Hub caveNW = new Hub("Tom's Dark Entrance\n", "Still in Tom's cave, but now you have moved to the cave's entrance, where a door stands. \nEXITS: (N) (E)" );
 
         // S FOREST
 
-        Hub forest1 = new Hub("Southern Forest Area #1", "Just outside Tom's cave and just inside The Southern Area of the Great Makiss Forest. but now you have moved to the cave's entrance, where a door stands tall. \nEXITS: (S) (N) " );
+        Hub forest1 = new Hub("Southern Forest Area #1\n", "Just outside Tom's cave and just inside The Southern Area of the Great Makiss Forest. but now you have moved to the cave's entrance, where a door stands tall. \nEXITS: (S) (N) " );
 
-        Hub forest2 = new Hub("Southern Forest Area #2" , "The Southern Area of the Great Makiss Forest. \nOnly minor prey lay in wait in this forest. \nEXITS: (S) (W) " );
+        Hub forest2 = new Hub("Southern Forest Area #2\n" , "The Southern Area of the Great Makiss Forest. \nOnly minor prey lay in wait in this forest. \nEXITS: (S) (W) " );
 
-        Hub forest4 = new Hub("Southern Forest Area #4", "The Southern Area of the Great Makiss Forest. \nThe air feels heavy here, and the forest is unusually silent. The ground is littered with broken twigs, as though something recently passed through... \nEXITS: (E) (W)" );
+        Hub forest4 = new Hub("Southern Forest Area #4\n", "The Southern Area of the Great Makiss Forest. \nThe air feels heavy here, and the forest is unusually silent. The ground is littered with broken twigs, as though something recently passed through... \nEXITS: (E) (W)" );
 
-        Hub forest3 = new Hub("Southern Forest Area #3", "The Southern Area of the Great Makiss Forest. \nThorny bushes block much of the way south, their barbs glinting sharply. However, the path seems clearer to the north, where faint sunlight filters through. \nEXITS: (E) (W)" );
+        Hub forest3 = new Hub("Southern Forest Area #3\n", "The Southern Area of the Great Makiss Forest. \nThorny bushes block much of the way south, their barbs glinting sharply. However, the path seems clearer to the north, where faint sunlight filters through. \nEXITS: (E) (W)" );
 
-        Hub forest5 = new Hub("Southern Forest Area #5", "The Southern Area of the Great Makiss Forest. \nReminiscence of something eating a chicken is visible under scattered leaves...\nEXITS: (E) (N)" );
+        Hub forest5 = new Hub("Southern Forest Area #5\n", "The Southern Area of the Great Makiss Forest. \nReminiscence of something eating a chicken is visible under scattered leaves...\nEXITS: (E) (N)" );
 
         Hub forest6 = new Hub("Southern Forest Area #6", "The Southern Area of the Great Makiss Forest. \nThe trees grow apart here, their canopies still blotting out much of the sunlight. The air feels damp, and the dull chest#001 sits quietly in the middle of the area... \nEXITS: (S) (N) (W)");
 
@@ -114,9 +128,9 @@ public class Game {
 
         Hub forest11 = new Hub("Southern Forest Area #11", "The Southern Area of the Great Makiss Forest. \nA goblin camp with crudely made tents surrounds a roaring fire, shadows flickering with restless movement. \nEXITS: (E) (N)");
 
-        Hub forest12 = new Hub("Southern Forest Area #12", "The Southern Area of the Great Makiss Forest. \nAn open clearing dotted with wildflowers and a calm, shallow pond reflecting the sky above. \nEXITS: (S) (N)");
+        Hub forest12 = new Hub("Southern Forest Area #12", "The Southern Area of the Great Makiss Forest. \nAn abandoned house overrun with vines and moss, the air heavy with age and forgotten stories. The house's door is made of heavy steel. \nEXITS: (S) (N) (W)");
 
-        Hub forest13 = new Hub("Southern Forest Area #13", "The Southern Area of the Great Makiss Forest. \nAn abandoned house overrun with vines and moss, the air heavy with age and forgotten stories. The house's door is made of heavy steel\nEXITS: (S) (E)");
+        Hub forest13 = new Hub("Southern Forest Area #13", "The Southern Area of the Great Makiss Forest. \nAn open clearing dotted with wildflowers and a calm, shallow pond reflecting the sky above.\nEXITS: (S) (E)");
 
 
         //S HOUSE ROOMS
@@ -124,15 +138,15 @@ public class Game {
 
         Hub sHouseEntranceLeft = new Hub("Abandon House's Southern Room", "Inside an abandon house located in the Southern part of the forest. \nTorn wallpaper hangs loosely, and a broken chair rests in the corner. The faint sound of wind howling through unseen cracks adds an eerie rhythm.\nEXITS: (N)");
 
-        Hub sHouseEntranceRight = new Hub("Abandon House's Northern Room\"", "Inside an abandon house located in the Southern part of the forest. \nEXITS: The northern room is slightly larger, packed with dust-covered furniture and an old fireplace filled with cold ashes.(S) (W)");
+        Hub sHouseEntranceRight = new Hub("Abandon House's Northern Room", "Inside an abandon house located in the Southern part of the forest. \nThe northern room is slightly larger, packed with dust-covered furniture and an old fireplace filled with cold ashes. \nEXITS: (S) (W)");
 
-        Hub sHouseHallway = new Hub("Abandon House's Hallway\"", "Inside an abandon house located in the Southern part of the forest. \nA faint draft snakes through cracks in the walls. A closed wooden door separates the hallway from a nearby room to the West.\nEXITS: (E) (S)");
+        Hub sHouseHallway = new Hub("Abandon House's Hallway", "Inside an abandon house located in the Southern part of the forest. \nA faint draft snakes through cracks in the walls. A closed wooden door separates the hallway from a nearby room to the West.\nEXITS: (E) (S)");
 
-        Hub sHouseRoom = new Hub("Abandon House's Suite Room\"", "Inside an abandon house located in the Southern part of the forest. \nThis was once a grand suite, now fallen to decay.\nEXITS: (N) (S)");
+        Hub sHouseRoom = new Hub("Abandon House's Suite Room", "Inside an abandon house located in the Southern part of the forest. \nThis was once a grand suite, now fallen to decay.\nEXITS: (N) (S)");
 
-        Hub sHouseStairs = new Hub("Abandon House's Staircase\"", "Inside an abandon house located in the Southern part of the forest. \nThe narrow staircase ascends with a groan at every step. Dust dances in the beams of pale light filtering from above.\nEXITS: (N) (S [upwards])");
+        Hub sHouseStairs = new Hub("Abandon House's Staircase", "Inside an abandon house located in the Southern part of the forest. \nThe narrow staircase ascends with a groan at every step. Dust dances in the beams of pale light filtering from above.\nEXITS: (N) (S [upwards])");
 
-        Hub sHouseUpper = new Hub("Abandon House's Upper Room\"", "Inside an abandon house located in the Southern part of the forest. \nThe upper room smells of mildew and forgotten time. A rusty chest sits in the corner...\nEXITS: (N [downwards)");
+        Hub sHouseUpper = new Hub("Abandon House's Upper Room", "Inside an abandon house located in the Southern part of the forest. \nThe upper room smells of mildew and forgotten time. A rusty chest sits in the corner...\nEXITS: (N [downwards)");
 
 
         Hub forest14 = new Hub("Southern Forest Area #14", "The Southern Area of the Great Makiss Forest. \nDense thickets and thorn bushes threaten to slow travelers, whispering secrets among the branches. \nEXITS: (W) (N)");
@@ -389,17 +403,17 @@ public class Game {
 
         List<String> chestContents = Arrays.asList("copper");
 
-        Chest firstChest = new Chest(true, "treasure-token#001", chestContents, "C");
+        Chest firstChest = new Chest(true, "IH002", chestContents, "C");
         forest6.addChest("chest#001", firstChest);
 
-        forest6.addObject("treasure-token#001");
+        forest6.addObject("IH001");
 
         chestContents = Arrays.asList("silver", "silver");
 
-        Chest secondChest = new Chest(true, "treasure-token#002", chestContents, "C");
+        Chest secondChest = new Chest(true, "IH002", chestContents, "C");
         sHouseUpper.addChest("chest#002", secondChest);
 
-        forest26.addObject("treasure-token#002");
+        forest26.addObject("IH002");
 
         // ADD MOBS
 
@@ -536,11 +550,7 @@ public class Game {
         objects.add("chicken");
         objects.add("squirrel");
         objects.add("chest");
-        objects.add("treasure-token#001");
-        objects.add("treasure-token#002");
-        objects.add("treasure-token#003");
-        objects.add("treasure-token#004");
-        objects.add("treasure-token#005");
+        objects.add("ih");
         objects.add("white whispberries");
 
 
@@ -627,9 +637,9 @@ public class Game {
         String namer = scanner.nextLine();
         System.out.println("");
 
-        Player player =  new Player(namer, 10,10,3, 0);
+        Player player =  new Player(namer, 10,10,3000, 0);
 
-        XpLv playersStats = new XpLv(1, 0);
+        XpLv playersStats = new XpLv(5, 0);
 
         System.out.print("Play (yes or no)? \n-> ");
         String play = scanner.nextLine();
@@ -802,8 +812,8 @@ public class Game {
                         }
 
                         else if (stringContainsWordFromList(action.toLowerCase(), look.toArray(new String[0]))) {
-                            System.out.println(inRoom.getRoomDescription());
                             System.out.println(inRoom.getRoomName());
+                            System.out.println(inRoom.getRoomDescription());
                             System.out.println("");
 
                             itemsIfAny(inRoom.getObjects(), "Items in room: ");
@@ -843,8 +853,8 @@ public class Game {
 
                     }
 
-                    else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0]))) {
-                        System.out.println("CHECK O!");
+                    else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0])) || action.toLowerCase().contains("leaflet") || action.toLowerCase().contains("ih")) {
+                        System.out.println("CHECK O ;)!");
                         if (stringContainsWordFromList(action.toLowerCase(), open.toArray(new String[0]))) {
 
                             if (stringContainsWordFromList(action.toLowerCase(), inventory.toArray(new String[0]))){
@@ -871,7 +881,6 @@ public class Game {
                             }
 
                             else if (stringContainsWordFromList(action.toLowerCase(), door.toArray(new String[0]))) {
-
                                 Door isDoor = null;
                                 String doorDir = null;
 
@@ -889,9 +898,11 @@ public class Game {
                                 }
 
                                 if (isDoor != null){
-
                                     if (!isDoor.isOpen()) {
-                                        if (inRoom.getRoomName().equals("forest12")){
+                                        System.out.println("OM");
+                                        System.out.println(inRoom.getRoomName());
+
+                                        if (inRoom.getRoomName().equals("Southern Forest Area #12")){
                                             if (playersStats.getLevel() > 3){
                                                 System.out.println("You open the door to the " + doorDir.toUpperCase() + ".");
                                                 isDoor.setOpen(true);
@@ -899,6 +910,14 @@ public class Game {
                                             else {
                                                 System.out.println("You are not skilled or strong enough to open this door. Come back with a higher level.");
                                             }
+                                        }
+
+                                        if (inRoom.getRoomName().equals("Tom's Dark Entrance")){
+                                            System.out.println("WAHOO!");
+
+                                            System.out.println("You open the door to the " + doorDir.toUpperCase() + ".");
+                                            isDoor.setOpen(true);
+
                                         }
 
                                     }
@@ -1333,8 +1352,8 @@ public class Game {
 
             List<String> leafletIds = new ArrayList<>();
             for (String obj : inRoom.getObjects()) {
-                Leaflet lf = Game.LEAFLETS.get(obj);
-                if (lf != null && lf.getName().equalsIgnoreCase("leaflet")) {
+                Leaflet a = Game.LEAFLETS.get(obj);
+                if (a != null && a.getName().equalsIgnoreCase("leaflet")) {
                     leafletIds.add(obj);
                 }
             }
@@ -1382,6 +1401,66 @@ public class Game {
 
                 if (choice == null) {
                     System.out.println("You decide not to take any leaflets.");
+                    return;
+                }
+
+                chosenId = choice;
+            }
+
+            item = chosenId;
+        }
+
+        if (item.equalsIgnoreCase("ih")) {
+
+            List<String> tokenIds = new ArrayList<>();
+            for (String obj : inRoom.getObjects()) {
+                Token a = Game.TOKENS.get(obj);
+                if (a != null && a.getName().equalsIgnoreCase("ih")) {
+                    tokenIds.add(obj);
+                }
+            }
+
+            if (tokenIds.isEmpty()) {
+                System.out.println("There is NO token to take.");
+                return;
+            }
+
+            // If more than one, ask which one to take
+            String chosenId;
+            if (tokenIds.size() == 1) {
+                chosenId = tokenIds.get(0);
+            }
+            else {
+                System.out.println("There are several tokens here:");
+                for (int i = 0; i < tokenIds.size(); i++) {
+                    String id = tokenIds.get(i);
+                    System.out.println((i + 1) + ") [" + id + "] ");
+                }
+                System.out.print("Which token do you want to take (number or id)? - ");
+
+                String answer = Game.scanner.nextLine().trim().toLowerCase();
+                String choice = null;
+
+                // Try number
+                try {
+                    int chosen = Integer.parseInt(answer) - 1;
+                    if (chosen >= 0 && chosen < tokenIds.size()) {
+                        choice = tokenIds.get(chosen);
+                    }
+                } catch (NumberFormatException ignored) {}
+
+                // Try id
+                if (choice == null) {
+                    for (String id : tokenIds) {
+                        if (id.toLowerCase().equals(answer)) {
+                            choice = id;
+                            break;
+                        }
+                    }
+                }
+
+                if (choice == null) {
+                    System.out.println("You decide not to take any treasure token [IH] 's.");
                     return;
                 }
 
@@ -1452,7 +1531,7 @@ public class Game {
         }
 
         else {
-            System.out.println("You have reframed from taking anything.");
+            System.out.println("You have re-framed from taking anything.");
         }
 
 
@@ -1526,6 +1605,69 @@ public class Game {
             isLeaflet = true;
         }
 
+        boolean isToken = false;
+
+        if (item.equalsIgnoreCase("ih")) {
+
+            List<String> tokenId = new ArrayList<>();
+            for (String obj : inventory) {
+                Token a = Game.TOKENS.get(obj);
+                if (a != null && a.getName().equalsIgnoreCase("ih")) {
+                    tokenId.add(obj);
+                }
+            }
+
+            if (tokenId.isEmpty()) {
+                System.out.println("There is NO token to drop.");
+                return;
+            }
+
+            // If more than one, ask which one to drop
+            String chosenId;
+            if (tokenId.size() == 1) {
+                chosenId = tokenId.get(0);
+            }
+            else {
+                System.out.println("You have several tokens in your inventory:");
+                for (int i = 0; i < tokenId.size(); i++) {
+                    String id = tokenId.get(i);
+                    System.out.println((i + 1) + ") [" + id + "] ");
+                }
+                System.out.print("Which token do you want to drop (number or id)? - ");
+
+                String answer = Game.scanner.nextLine().trim().toLowerCase();
+                String choice = null;
+
+                // Try number
+                try {
+                    int chosen = Integer.parseInt(answer) - 1;
+                    if (chosen >= 0 && chosen < tokenId.size()) {
+                        choice = tokenId.get(chosen);
+                    }
+                } catch (NumberFormatException ignored) {}
+
+                // Try id
+                if (choice == null) {
+                    for (String id : tokenId) {
+                        if (id.toLowerCase().equals(answer)) {
+                            choice = id;
+                            break;
+                        }
+                    }
+                }
+
+                if (choice == null) {
+                    System.out.println("You decide not to drop any treasure token [IH] 's.");
+                    return;
+                }
+
+                chosenId = choice;
+            }
+
+            item = chosenId;
+            isToken = true;
+        }
+
         int count = Collections.frequency(inventory, item);
 
         int chosenAmount = 0;
@@ -1589,6 +1731,11 @@ public class Game {
 
             if (isLeaflet) {
                 System.out.println("You have dropped " + chosenAmount + " leaflet" + (chosenAmount > 1 ? "s." : "."));
+                return;
+            }
+
+            if (isToken) {
+                System.out.println("You have dropped " + chosenAmount + " token [IH]" + (chosenAmount > 1 ? "s." : "."));
                 return;
             }
 
@@ -1856,7 +2003,7 @@ public class Game {
         int attackPower = (int)(Math.random() * 10 + 2);
         boolean isAggro = false;
 
-        return new Mob("Goblim", goblinHealth, attackPower, isAggro);
+        return new Mob("Goblin", goblinHealth, attackPower, isAggro);
     }
 
 

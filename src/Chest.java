@@ -15,9 +15,39 @@ class Chest {
         this.level = level;
         this.opened = false;
     }
-    public boolean isOpened() { return opened; }
-    public boolean requiresKey() { return requiresKey; }
-    public String getRequiredKeyName() { return requiredKeyName; }
-    public List<String> getContents() { return contents; }
+    public boolean isOpened() {
+        return opened;
+    }
+
+    public boolean requiresKey() {
+        return requiresKey;
+    }
+
+    public String getRequiredKeyName() {
+        return requiredKeyName;
+    }
+
+    public List<String> getContents() {
+        return contents;
+    }
+
     public void open() { this.opened = true; }
+}
+
+class Token {
+    private String name;
+    private int id;
+
+    public Token(int id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
