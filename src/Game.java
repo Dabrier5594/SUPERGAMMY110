@@ -4,7 +4,7 @@ import java.util.regex.Pattern;import java.util.Timer;
 import java.util.TimerTask;
 
 
-//                    NOTES FOR IMPROVEMENTS: MAKE DOORS OPEN!!!!
+//                    NOTES FOR IMPROVEMENTS:
 
 // Make rouge bandits
 
@@ -94,27 +94,27 @@ public class Game {
     public static void main(String[] args) {
 
         // TOMS CAVE
-        Hub cave = new Hub("Tom's Dark Cave\n", "The back of the ancient cave where Tom the hermit lived for many years. \nEXITS: (N) ");
+        Hub cave = new Hub("Tom's Dark Cave", "The back of the ancient cave where Tom the hermit lived for many years. \nEXITS: (N) ");
 
-        Hub caveN = new Hub("Tom's Dark Kitchen\n", "Still in Tom's cave, but now you have moved into his kitchen which consists of a cabinet and a counter. \nEXITS: (N) (S)");
+        Hub caveN = new Hub("Tom's Dark Kitchen", "Still in Tom's cave, but now you have moved into his kitchen which consists of a cabinet and a counter. \nEXITS: (N) (S)");
 
-        Hub caveNN = new Hub("Tom's Treasure Room\n", "Still in Tom's cave, but now you have moved into his treasure room which has no furniture. \nEXITS: (W) (E) (S)" );
+        Hub caveNN = new Hub("Tom's Treasure Room", "Still in Tom's cave, but now you have moved into his treasure room which has no furniture. \nEXITS: (W) (E) (S)" );
 
-        Hub caveNE = new Hub("Tom's Living Room\n", "Still in Tom's cave, but now you have moved into his living room which. \nEXITS: (W)" );
+        Hub caveNE = new Hub("Tom's Living Room", "Still in Tom's cave, but now you have moved into his living room which. \nEXITS: (W)" );
 
-        Hub caveNW = new Hub("Tom's Dark Entrance\n", "Still in Tom's cave, but now you have moved to the cave's entrance, where a door stands. \nEXITS: (N) (E)" );
+        Hub caveNW = new Hub("Tom's Dark Entrance", "Still in Tom's cave, but now you have moved to the cave's entrance, where a door stands. \nEXITS: (N) (E)" );
 
         // S FOREST
 
-        Hub forest1 = new Hub("Southern Forest Area #1\n", "Just outside Tom's cave and just inside The Southern Area of the Great Makiss Forest. but now you have moved to the cave's entrance, where a door stands tall. \nEXITS: (S) (N) " );
+        Hub forest1 = new Hub("Southern Forest Area #1", "Just outside Tom's cave and just inside The Southern Area of the Great Makiss Forest. but now you have moved to the cave's entrance, where a door stands tall. \nEXITS: (S) (N) " );
 
-        Hub forest2 = new Hub("Southern Forest Area #2\n" , "The Southern Area of the Great Makiss Forest. \nOnly minor prey lay in wait in this forest. \nEXITS: (S) (W) " );
+        Hub forest2 = new Hub("Southern Forest Area #2" , "The Southern Area of the Great Makiss Forest. \nOnly minor prey lay in wait in this forest. \nEXITS: (S) (W) " );
 
-        Hub forest4 = new Hub("Southern Forest Area #4\n", "The Southern Area of the Great Makiss Forest. \nThe air feels heavy here, and the forest is unusually silent. The ground is littered with broken twigs, as though something recently passed through... \nEXITS: (E) (W)" );
+        Hub forest4 = new Hub("Southern Forest Area #4", "The Southern Area of the Great Makiss Forest. \nThe air feels heavy here, and the forest is unusually silent. The ground is littered with broken twigs, as though something recently passed through... \nEXITS: (E) (W)" );
 
-        Hub forest3 = new Hub("Southern Forest Area #3\n", "The Southern Area of the Great Makiss Forest. \nThorny bushes block much of the way south, their barbs glinting sharply. However, the path seems clearer to the north, where faint sunlight filters through. \nEXITS: (E) (W)" );
+        Hub forest3 = new Hub("Southern Forest Area #3", "The Southern Area of the Great Makiss Forest. \nThorny bushes block much of the way south, their barbs glinting sharply. However, the path seems clearer to the north, where faint sunlight filters through. \nEXITS: (E) (W)" );
 
-        Hub forest5 = new Hub("Southern Forest Area #5\n", "The Southern Area of the Great Makiss Forest. \nReminiscence of something eating a chicken is visible under scattered leaves...\nEXITS: (E) (N)" );
+        Hub forest5 = new Hub("Southern Forest Area #5", "The Southern Area of the Great Makiss Forest. \nReminiscence of something eating a chicken is visible under scattered leaves...\nEXITS: (E) (N)" );
 
         Hub forest6 = new Hub("Southern Forest Area #6", "The Southern Area of the Great Makiss Forest. \nThe trees grow apart here, their canopies still blotting out much of the sunlight. The air feels damp, and the dull chest#001 sits quietly in the middle of the area... \nEXITS: (S) (N) (W)");
 
@@ -900,7 +900,7 @@ public class Game {
                                 if (isDoor != null){
                                     if (!isDoor.isOpen()) {
                                         System.out.println("OM");
-                                        System.out.println(inRoom.getRoomName());
+
 
                                         if (inRoom.getRoomName().equals("Southern Forest Area #12")){
                                             if (playersStats.getLevel() > 3){
@@ -911,7 +911,7 @@ public class Game {
                                                 System.out.println("You are not skilled or strong enough to open this door. Come back with a higher level.");
                                             }
                                         }
-
+                                        System.out.println(inRoom.getRoomName()+"hi hi hi");
                                         if (inRoom.getRoomName().equals("Tom's Dark Entrance")){
                                             System.out.println("WAHOO!");
 
