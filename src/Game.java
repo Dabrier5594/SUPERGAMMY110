@@ -66,7 +66,7 @@ public class Game {
     static {
         LEAFLETS.put("leaflet001",
                 new Leaflet("leaflet001", "leaflet",
-                        "Welcome to the world of Tim","World is one which mysteries and secrets about itself. \nPrepare yourself, to delve deeper into the world of Tim and experience the un-imaginable. \nHint: (Use 'help' to get help)"));
+                        "Welcome to the world of Tim","This world is one which mysteries and secrets about itself. \nPrepare yourself, to delve deeper into the world of Tim and experience the un-imaginable. \nHint: (Use 'help' to get help)"));
 
         LEAFLETS.put("leaflet002",
                 new Leaflet("leaflet002", "leaflet",
@@ -146,7 +146,7 @@ public class Game {
 
         Hub sHouseStairs = new Hub("Abandon House's Staircase", "Inside an abandon house located in the Southern part of the forest. \nThe narrow staircase ascends with a groan at every step. Dust dances in the beams of pale light filtering from above.\nEXITS: (N) (S [upwards])");
 
-        Hub sHouseUpper = new Hub("Abandon House's Upper Room", "Inside an abandon house located in the Southern part of the forest. \nThe upper room smells of mildew and forgotten time. A rusty chest sits in the corner...\nEXITS: (N [downwards)");
+        Hub sHouseUpper = new Hub("Abandon House's Upper Room", "Inside an abandon house located in the Southern part of the forest. \nThe upper room smells of mildew and forgotten time. A rusty chest sits in the corner...\nEXITS: (N [downwards])");
 
 
         Hub forest14 = new Hub("Southern Forest Area #14", "The Southern Area of the Great Makiss Forest. \nDense thickets and thorn bushes threaten to slow travelers, whispering secrets among the branches. \nEXITS: (W) (N)");
@@ -278,12 +278,8 @@ public class Game {
         sHouseStairs.setExit("s", sHouseUpper);
         sHouseUpper.setExit("n", sHouseStairs);
 
-
-
-
-
-
         forest13.setExit("s", forest12);
+        forest13.setExit("e", forest14);
         forest14.setExit("w", forest13);
         forest14.setExit("n", forest15);
         forest15.setExit("s", forest14);
@@ -403,7 +399,7 @@ public class Game {
 
         List<String> chestContents = Arrays.asList("copper");
 
-        Chest firstChest = new Chest(true, "IH002", chestContents, "C");
+        Chest firstChest = new Chest(true, "IH001", chestContents, "C");
         forest6.addChest("chest#001", firstChest);
 
         forest6.addObject("IH001");
@@ -702,11 +698,11 @@ public class Game {
 
                 long secondsAgo = java.time.Duration.between(changeTime, LocalTime.now()).getSeconds();
                 if (secondsAgo < 500) {
-                    System.out.println("It turned " + timeChange + " " + secondsAgo + "seconds ago.");
+                    System.out.println("It turned " + timeChange + " " + secondsAgo + " seconds ago.");
                 }
                 else {
                     secondsAgo /= 60;
-                    System.out.println("It turned " + timeChange + " " + secondsAgo + "min ago.");
+                    System.out.println("It turned " + timeChange + " " + secondsAgo + " min ago.");
 
                 }
                 timeChange = null;
@@ -854,7 +850,7 @@ public class Game {
                     }
 
                     else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0])) || action.toLowerCase().contains("leaflet") || action.toLowerCase().contains("ih")) {
-                        System.out.println("CHECK O ;)!");
+                        System.out.println("**CHECK-O!**");
                         if (stringContainsWordFromList(action.toLowerCase(), open.toArray(new String[0]))) {
 
                             if (stringContainsWordFromList(action.toLowerCase(), inventory.toArray(new String[0]))){
@@ -897,12 +893,10 @@ public class Game {
                                     }
                                 }
 
-                                if (isDoor != null){
+                                if (isDoor != null) {
                                     if (!isDoor.isOpen()) {
-
-
-                                        if (inRoom.getRoomName().equals("Southern Forest Area #12")){
-                                            if (playersStats.getLevel() > 3){
+                                        if (inRoom.getRoomName().equals("Southern Forest Area #12")) {
+                                            if (playersStats.getLevel() > 3) {
                                                 System.out.println("You open the door to the " + doorDir.toUpperCase() + ".");
                                                 isDoor.setOpen(true);
                                             }
@@ -910,16 +904,12 @@ public class Game {
                                                 System.out.println("You are not skilled or strong enough to open this door. Come back with a higher level.");
                                             }
                                         }
-                                        if (inRoom.getRoomName().equals("Tom's Dark Entrance")){
-
+                                        else {
                                             System.out.println("You open the door to the " + doorDir.toUpperCase() + ".");
                                             isDoor.setOpen(true);
 
                                         }
-
-                                    }
-
-                                    else{
+                                    } else {
                                         System.out.println("The door is already open.");
                                     }
                                 }
@@ -927,57 +917,121 @@ public class Game {
                                 else {
                                     System.out.println("There is no door here.");
                                 }
+
                             }
 
                             else if (stringContainsWordFromList(action.toLowerCase(), chests.toArray(new String[0]))) {
 
-                                String theChest = "";
+                                String theChest = null;
                                 List<String> allChests = new ArrayList<>();
 
                                 for (int i = 1; i <= 100; i++) {
-                                    String chestCode = String.format("chest#%03d", i); //% = formatting to fill in any extra space left empty while width is not full|| 0 Says to fill in with 0, 3 sayd width is 3, d = is integer and should be formatted as continues
+                                    String chestCode = String.format("chest%03d", i);
                                     allChests.add(chestCode);
                                 }
 
-                                for (String haga : allChests) {
-                                    if (action.toLowerCase().contains(haga.toLowerCase())) {
-                                        theChest = haga;
+                                for (String code : allChests) {
+                                    if (action.toLowerCase().contains(code.toLowerCase())) {
+                                        theChest = code;
                                         break;
                                     }
                                 }
 
-                                if (inRoom.getChests() != null && !inRoom.getChests().isEmpty()) {
-                                    for (String chestName : inRoom.getChests().keySet()) {
-                                        if (chestName.equals(theChest)) {
-                                            Chest chest = inRoom.getChests().get(chestName);
+                                if (inRoom.getChests() == null || inRoom.getChests().isEmpty()) {
+                                    System.out.println("There is no chest here to open.");
+                                    return;
+                                }
 
-                                            if (chest.isOpened()) {
-                                                System.out.println("Nothing happens. The chest's magical lid has already vanished.");
-                                            } else {
-                                                if (chest.requiresKey() && !inventory.contains(chest.getRequiredKeyName())) {
-                                                    System.out.println("You need " + chest.getRequiredKeyName() + " to open this chest.");
-                                                } else {
-                                                    System.out.println("Magic swirls around " + chestName + " and its lid disappears! \n**POOF!!**");
-                                                    System.out.print("->> ");
-                                                    for (String item : chest.getContents()) {
-                                                        inRoom.addObject(item);
-                                                        System.out.print("[" + item + "] ");
+                                if (theChest == null && action.toLowerCase().contains("chest")) {
 
-                                                    }
-                                                    System.out.println("");
-                                                    chest.open();
+                                    int chestCount = inRoom.getChests().size();
+
+                                    if (chestCount == 1) {
+                                        theChest = inRoom.getChests().keySet().iterator().next();
+                                    } else {
+                                        // Multiple chests -> ask player which one to open
+                                        System.out.println("There is more than one chest in the room.");
+
+                                        // Make an indexed list of chest ids
+                                        List<String> chestIds = new ArrayList<>(inRoom.getChests().keySet());
+
+
+                                        for (int idx = 0; idx < chestIds.size(); idx++) {
+                                            String chestId = chestIds.get(idx);
+                                            Chest c = inRoom.getChests().get(chestId);
+
+                                            String title = c.getRequiredKeyName();
+                                            title = title.replaceAll("[^0-9]", ""); // digits only
+
+                                            System.out.println((idx + 1) + ") [ ID: " + title + "]");
+                                        }
+
+                                        System.out.print("Which chest do you want to open (number or id)? - ");
+                                        String answer = Game.scanner.nextLine().trim().toLowerCase();
+
+                                        String choiceId = null;
+
+                                        try {
+                                            int chosenIndex = Integer.parseInt(answer) - 1;
+                                            if (chosenIndex >= 0 && chosenIndex < chestIds.size()) {
+                                                choiceId = chestIds.get(chosenIndex);
+                                            }
+                                        } catch (NumberFormatException ignored) {}
+
+                                        if (choiceId == null) {
+                                            for (String chestId : chestIds) {
+                                                if (chestId.toLowerCase().equals(answer)) {
+                                                    choiceId = chestId;
+                                                    break;
                                                 }
                                             }
                                         }
-                                        else {
-                                            System.out.println("There is no corresponding chest here to open.");
+
+                                        if (choiceId == null) {
+                                            System.out.println("You decide not to open any chest.");
+                                            return;
                                         }
 
-                                        break;
+                                        theChest = choiceId;
 
                                     }
                                 }
 
+                                if (theChest == null) {
+                                    System.out.println("There is no corresponding chest here to open.");
+                                    return;
+                                }
+
+                                Chest chest = inRoom.getChests().get(theChest);
+
+                                if (chest == null) {
+                                    System.out.println("There is no corresponding chest here to open.");
+                                    return;
+                                }
+
+                                if (chest.isOpened()) {
+                                    System.out.println("Nothing happens. The chest's magical lid has already vanished.");
+                                }
+
+                                else {
+                                    if (chest.requiresKey() && !inventory.contains(chest.getRequiredKeyName())) {
+                                        System.out.println("You need " + chest.getRequiredKeyName() + " to open this chest.");
+                                    }
+
+                                    else {
+
+                                        System.out.println("Magic swirls around " + theChest + " and its lid disappears! \n**POOF!!**");
+                                        System.out.print("->> ");
+                                        for (String item : chest.getContents()) {
+                                            inRoom.addObject(item);
+                                            System.out.print("[" + item + "] ");
+                                        }
+
+                                        System.out.println();
+                                        chest.open();
+                                    }
+
+                                }
                             }
 
                         }
@@ -1998,7 +2052,7 @@ public class Game {
         Health goblinHealth = new Health(maxHealth, currentHealth, damageResistance);
 
         int attackPower = (int)(Math.random() * 10 + 2);
-        boolean isAggro = false;
+        boolean isAggro = true;
 
         return new Mob("Goblin", goblinHealth, attackPower, isAggro);
     }
