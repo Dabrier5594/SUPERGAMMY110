@@ -37,7 +37,7 @@ class Equipment {
             player.setAttackPower(3); //adds 3 to total attack power
         }
         if (item.getName().equals("leather armor")){
-            player.getHealth().setMaxHealth(player.getHealth().getMaxHealth() + 3);
+            player.getHealth().setMaxHealth(player.getHealth().getDamageResistance() + 3);
         }
 
         return true;
@@ -54,7 +54,7 @@ class Equipment {
             }
 
             if (item.getName().equals("leather armor")){
-                player.getHealth().setMaxHealth(player.getHealth().getMaxHealth() - 3);
+                player.getHealth().setMaxHealth(player.getHealth().getDamageResistance() - 3);
                 if (player.getHealth().getHeealth() > player.getHealth().getMaxHealth()){
                     player.getHealth().setHeealth(player.getHealth().getMaxHealth());
                 }

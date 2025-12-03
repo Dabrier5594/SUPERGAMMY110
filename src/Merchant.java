@@ -14,11 +14,11 @@ public class Merchant {
         return name;
     }
 
-    public List<String> getItems(Player player){
+    public List<String> getItems(Player player, XpLv playerStats){
         return new ArrayList<>(this.prices.keySet());
     }
 
-    public List<Integer> getPrices(Player player) {
+    public List<Integer> getPrices(Player player, XpLv playerStats) {
         return new ArrayList<>(this.prices.values());
     }
 
