@@ -3,8 +3,8 @@ import java.util.*;
 class Chest {
     //hi
     private boolean opened = false;
-    private boolean requiresKey;
-    private String requiredKeyName; // Ex: "ChestKey#001"
+    private boolean requiresKey;//uses key or not(used for anything that needs a key
+    private String requiredKeyName; //name of key if needed Ex: "ChestKey#001"
     private List<String> contents;
     private String level; // C, B, A, AA
 

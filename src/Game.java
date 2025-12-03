@@ -657,9 +657,9 @@ public class Game {
         List<String> door = new ArrayList<>();
         door.add("door");
 
-        List<String> inventory = new ArrayList<>();
+        List<String> inventory = new ArrayList<>();//has items
 
-        List<String> inventoryinventory = new ArrayList<>();
+        List<String> inventoryinventory = new ArrayList<>();//calls inventory
         inventoryinventory.add("inventory");
 
         List<String> help = new ArrayList<>();

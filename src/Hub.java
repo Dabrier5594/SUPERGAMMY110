@@ -18,7 +18,7 @@ public class Hub {
         this.roomDescription = description;
         this.exits = new java.util.HashMap<>();
         this.objects = new ArrayList<>();
-        allHubs.add(this);
+        allHubs.add(this);//adds room when made
 
     }
 
@@ -57,6 +57,7 @@ public class Hub {
     public Map<String, Chest> getChests() {
         return chests;
     }
+
     public void addChest(String key, Chest chest) {
         chests.put(key, chest);
     }
