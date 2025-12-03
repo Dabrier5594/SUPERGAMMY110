@@ -101,6 +101,8 @@ public class Game {
                         if (!nextRoom.getRoomName().equalsIgnoreCase("Abandon House's Entrance") && !nextRoom.getRoomName().equalsIgnoreCase("Tom's Dark Entrance")) {
                             nextRoom.getMOBS().add(mob);
                             hub.getMOBS().remove(mob);
+
+                            System.out.println(mob.getName() + " | " + hub.getRoomName() +  " -> " + nextRoom.getRoomName());
                         }
 
                     }
@@ -111,7 +113,6 @@ public class Game {
     }
 
     //LEAFLETS
-    //central = game
     public static final Map<String, Leaflet> LEAFLETS = new HashMap<>();
 
     static {
@@ -143,6 +144,13 @@ public class Game {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+
+        //QUESTS
+
+        Player.QUESTS.put("MQ1", new Quest("MQ1", "Escape Cave", 3, "Southern Forest Area #1", 1, 50, 5));  // main quest - go outside cave
+        Player.QUESTS.put("SQ1", new Quest("SQ1", "Kill Goblins", 1, "goblin", 3, 30, 15));                 // side quest - kill 3 goblins
+        Player.QUESTS.put("SQ2", new Quest("SQ2", "Collect Twigs", 2, "twig", 5, 20, 10));                  // side quest - get 5 twigs
+        Player.QUESTS.put("SQ3", new Quest("SQ3", "Find House Treasure", 3, "Abandon House's Upper Room", 1, 40, 25)); // side quest - go upstairs
 
         // TOMS CAVE
         Hub cave = new Hub("Tom's Dark Cave", "The back of the ancient cave where Tom the hermit lived for many years. \nEXITS: (N) ");
@@ -311,6 +319,7 @@ public class Game {
         forest10.setExit("w", forest11);
         forest11.setExit("e", forest10);
         forest11.setExit("n", forest12);
+        forest12.setExit("s", forest11);
         forest12.setExit("n", forest13);
 
         //TO ABONDNOED HOUSE
@@ -514,6 +523,7 @@ public class Game {
         verbs.add("lock");
         verbs.add("close");
         verbs.add("help");
+        verbs.add("coins");
         verbs.add("n");
         verbs.add("s");
         verbs.add("w");
@@ -530,6 +540,7 @@ public class Game {
         verbs.add("heal");
         verbs.add("equip");
         verbs.add("unequip");
+        verbs.add("quests");
 
 
         List<String> verbsOnly = new ArrayList<>();
@@ -537,8 +548,10 @@ public class Game {
         verbsOnly.add("s");
         verbsOnly.add("w");
         verbsOnly.add("e");
+        verbsOnly.add("coins");
         verbsOnly.add("north");
         verbsOnly.add("south");
+        verbsOnly.add("quests");
         verbsOnly.add("west");
         verbsOnly.add("east");
         verbsOnly.add("look");
@@ -685,7 +698,7 @@ public class Game {
         String namer = scanner.nextLine();
         System.out.println("");
 
-        Player player =  new Player(namer, 100000,10000,0, 0);
+        Player player =  new Player(namer, 100000,10000,10, 0);
 
         XpLv playersStats = new XpLv(5, 0);
 
@@ -785,33 +798,72 @@ public class Game {
 
             else {
 
+                if (action.equalsIgnoreCase("coins")){
+                    System.out.println("COINS: " + player.getCoins());
+                }
+
+                if (action.equalsIgnoreCase("quests")) {
+
+                    int totalQuests = Player.QUESTS.size();
+                    int completed = 0;
+
+                    for (Quest q : Player.QUESTS.values()) {
+                        if (q.done) completed++;
+                    }
+
+                    System.out.println("=== YOUR QUESTS (" + totalQuests + "/4 quests acquired) ==="); // RIGHT NOW THERE AREE ONLY 4 POSSIBLE QUESTS
+
+                    System.out.println("\nCOMPLETED (" + completed + "/" + totalQuests + "):");
+                    for (Quest q : Player.QUESTS.values()) {
+                        if (q.done) {
+                            System.out.println("  ✓ " + q.status());
+                        }
+                    }
+                    System.out.println("\nNOT COMPLETED:");
+                    for (Quest q : Player.QUESTS.values()) {
+                        if (!q.done) {
+                            System.out.println("  - " + q.status());
+                        }
+                    }
+
+                    System.out.println("========================");
+                }
+
+
                 if (stringContainsWordFromList(action.toLowerCase(), verbs.toArray(new String[0]))) {
 
                     if (stringContainsWordFromList(action.toLowerCase(), verbsOnly.toArray(new String[0]))) {
 
                         if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
 
-                            inRoom = move(action.toLowerCase(), inRoom, player, playersStats);
-
+                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                            inRoom = newRoom;
+                            Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
 
                         }
                         else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
                             // Call the move method and update to inRoom
-                            inRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                            inRoom = newRoom;
+                            Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
 
 
                         }
                         else if (action.toLowerCase().equals("w") || action.toLowerCase().equals("west")) {
                             // Call the move method and update to inRoom
-                            inRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                            inRoom = newRoom;
+                            Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
 
                         }
                         else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
                             // Call the move method and update to inRoom
-                            inRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                            inRoom = newRoom;
+                            Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
 
 
@@ -824,7 +876,9 @@ public class Game {
 
                                     action = "n";
 
-                                    inRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                    inRoom = newRoom;
+                                    Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
 
                                 }
@@ -833,7 +887,9 @@ public class Game {
 
                                     action = "s";
 
-                                    inRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                    inRoom = newRoom;
+                                    Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
 
                                 }
@@ -842,7 +898,9 @@ public class Game {
 
                                     action = "w";
 
-                                    inRoom = move(action.toLowerCase(), inRoom,player, playersStats);
+                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                    inRoom = newRoom;
+                                    Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
 
                                 }
@@ -851,7 +909,9 @@ public class Game {
 
                                     action = "e";
 
-                                    inRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                    inRoom = newRoom;
+                                    Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
 
                                 }
@@ -1149,7 +1209,7 @@ public class Game {
 
                             for (String obj : objects) {
                                 if (action.toLowerCase().contains(obj)) {
-                                    take(inRoom, obj, inventory);
+                                    take(inRoom, obj, inventory, player);
                                     validObject = true;
                                     break;
                                 }
@@ -1347,9 +1407,9 @@ public class Game {
 
 
 
-            for (Mob mob : newRoom.getMOBS()) {
+            for (Mob mob : new ArrayList<>(newRoom.getMOBS())) {
 
-                if (mob.isAggro() && !mob.getHealth().isDead()) {
+                if (mob.isAggro() && !mob.getHealth().isDead() && newRoom.containsMob(mob)) {
 
                     System.out.println("");
 
@@ -1368,7 +1428,6 @@ public class Game {
                     System.out.println(mob.getName() + " is aggro and attacks you as you enter!");
 
                     combat(player, mob, newRoom, playerStats);
-
                     if (newRoom.getMOBS().isEmpty()){
 
                         break; // If I change stuff then before the for I should see what the newRoom.getMOBS's length is, and then do a "for (int i = (the length of the list)"
@@ -1454,7 +1513,7 @@ public class Game {
         }
     }
 
-    public static void take(Hub inRoom, String item, List<String> inventory){
+    public static void take(Hub inRoom, String item, List<String> inventory, Player player){
 
         if (item.equalsIgnoreCase("leaflet")) {
 
@@ -1629,6 +1688,8 @@ public class Game {
 
             inventory.add(item);
             inRoom.getObjects().remove(item);
+            String takenItem = item;
+            Player.QUESTS.forEach((id, q) -> q.check("COLLECT_ITEM", takenItem, player));
 
         }
 
@@ -1985,7 +2046,7 @@ public class Game {
 
     public static void help(List<String> verbs) {
 
-        System.out.println("In order to call a command you need to enter in the FOLLOWING FORMAT: \n\n[VERB] + [OBJECT] = action\n\nSome verbs will not need an object to be used (e.g., 'look')\nHere are a list of possible commands:\n move, go || open, close || look, listen, wait, read || get, drop, take, remove || \nkill, attack || stats || help" );
+        System.out.println("In order to call a command you need to enter in the FOLLOWING FORMAT: \n\n[VERB] + [OBJECT] = action\n\nSome verbs will not need an object to be used (e.g., 'look')\nHere are a list of possible commands:\n    -> move, go || open, close || look, listen, wait, read || get, drop, take, remove \n       kill, attack || stats, inventory, coins, quests || help" );
 
     }
 
@@ -2144,6 +2205,10 @@ public class Game {
             System.out.println("");
         }
 
+        if (!inRoom.containsMob(mob)){
+            System.out.println("The " + mob.getName() + " has fled to another room.");
+            return;
+        }
 
         while (!player.getHealth().isDead() && !mob.getHealth().isDead()){
 
@@ -2197,15 +2262,17 @@ public class Game {
             if (mob.getHealth().isDead()){
                 System.out.println("The " + mob.getName() + " has died at your hands. \n");
 
-                String targetMobName = mob.getName();
-
                 playerStats.addXp(playerStats.calculateXp(mob.getName()));
 
                 playerStats.calculateLv(playerStats.getXp(), playerStats.getLevel(), player);
 
                 player.displayStats(player, playerStats);
 
-                inRoom.getMOBS().removeIf(mob1 -> mob.getName().equals(targetMobName)); //remove an object that has the name Rabbit
+                inRoom.getMOBS().remove(mob); //remove an object that has the name Rabbit
+
+                String killedMob = mob.getName();
+
+                Player.QUESTS.forEach((id, q) -> q.check("KILL_MOB", killedMob, player));
 
                 break;
             }

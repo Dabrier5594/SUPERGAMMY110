@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Player {
 
@@ -13,6 +15,11 @@ public class Player {
 
     private List<Skill> skills = new ArrayList<>();
 
+    public static final Map<String, Quest> QUESTS = new HashMap<>();
+
+    private int coins = 0;
+
+
     public Player(String name, int maxHealth, int health, int power, int damageResistance) {
 
         this.name = name;
@@ -20,6 +27,10 @@ public class Player {
         this.attackPower = power;
 
     }
+
+    public int getCoins(){ return coins; }
+
+    public void addCoins(int a){coins += a;}
 
     public String getName(){
         return name;
