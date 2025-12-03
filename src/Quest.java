@@ -16,6 +16,10 @@ class Quest {
         this.rewardGold = gold;
     }
 
+    public String getId(){
+        return id;
+    }
+
     public void check(String typeStr, String targetStr, Player player) {
         if (done || !target.equalsIgnoreCase(targetStr)) return;  // if already done OR wrong target, skip
 
@@ -29,6 +33,11 @@ class Quest {
                 done = true;                                      // mark quest done
                 System.out.println(name + " COMPLETE! +" + rewardGold + " coins (to be used in playerBAG only) **"); // tell player they won
                 player.addCoins(rewardGold);
+
+                if (this.getId().equals("MQ1"));{
+                    Player.QUESTS.put("MQ2", new Quest("MQ2", "Leave Southern Forest", 3, "Northern Forest Area #26", 1, 50, 5));  // main quest - go outside cave
+                    System.out.println("You have unlocked a new quest! [type: 'quests'] to see quests]");
+                }
             }
         }
 

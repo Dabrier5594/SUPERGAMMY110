@@ -811,7 +811,7 @@ public class Game {
                         if (q.done) completed++;
                     }
 
-                    System.out.println("=== YOUR QUESTS (" + totalQuests + "/4 quests acquired) ==="); // RIGHT NOW THERE AREE ONLY 4 POSSIBLE QUESTS
+                    System.out.println("=== YOUR QUESTS (" + totalQuests + "/5 quests acquired) ==="); // RIGHT NOW THERE AREE ONLY 5 POSSIBLE QUESTS
 
                     System.out.println("\nCOMPLETED (" + completed + "/" + totalQuests + "):");
                     for (Quest q : Player.QUESTS.values()) {
