@@ -8,9 +8,11 @@ import java.util.TimerTask;
 
 // Make rouge bandits
 
-//  ADD THINGS TO CORRESPONDING PLACES (FOREST & S HOUSE)
+//  ADD THINGS TO PLACES
 
 //  CREATE SKILLS FOR M FOREST BOSS, CREATE BOSS
+
+// MAKE ENCHANCEMENTS AND ITEMS
 
 //  CREATE FIRST SMALL TOWN
 
@@ -101,7 +103,6 @@ public class Game {
                         if (!nextRoom.getRoomName().equalsIgnoreCase("Abandon House's Entrance") && !nextRoom.getRoomName().equalsIgnoreCase("Tom's Dark Entrance")) {
                             nextRoom.getMOBS().add(mob);
                             hub.getMOBS().remove(mob);
-
                             System.out.println(mob.getName() + " | " + hub.getRoomName() +  " -> " + nextRoom.getRoomName());
                         }
 
