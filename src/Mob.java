@@ -1,11 +1,13 @@
+import java.util.List;
+
 public class Mob {
 
     private String name;
     private int attackPower;
     private Health health;
     private boolean isStunned = false;
-
     private boolean isAggro;
+    private List<Mob> mobsInWorld;
 
 
     public Mob (String name, Health health, int attackPower, boolean isAggro ){
@@ -52,6 +54,18 @@ public class Mob {
 
     public void setStunned(boolean hm){
         this.isStunned = hm;
+    }
+
+    public void addMobToWorld(Mob mob){
+        mobsInWorld.add(mob);
+    }
+
+    public void removeMobInWorld(Mob mob){
+        mobsInWorld.remove(mob);
+    }
+
+    public List<Mob> getMobsInWorld(){
+        return mobsInWorld;
     }
 
 }

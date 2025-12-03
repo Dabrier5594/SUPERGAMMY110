@@ -37,6 +37,15 @@ public class Game {
 
     }
 
+    public static void movingTheMobs() {
+
+        long oneMin =  88 * 1000;  // 1  minutes in ms
+
+        Timer dayTimer = new Timer();
+        dayTimer.scheduleAtFixedRate(new MoveMob(), oneMin, oneMin);
+
+    }
+
     static class TimeDayNotifier extends TimerTask {
         @Override
         public void run() {
@@ -54,6 +63,48 @@ public class Game {
 
                 timeOfDay = !timeOfDay;
 
+            }
+
+        }
+    }
+
+    static class MoveMob extends TimerTask {
+        @Override
+        public void run() {
+            for (Hub hub : Hub.getAllHubs()){
+                for (Mob mob : new ArrayList<>(hub.getMOBS())){
+                    int a = (int)(Math.random() * 2 + 1);
+
+                    if (a == 1){
+
+                    }
+
+                    else {
+
+                        List<String> exits = new ArrayList<>();
+
+                        for (String dir : Arrays.asList("n", "s", "e", "w")){
+
+                            if (hub.getExit(dir) != null){
+
+                                exits.add(dir);
+
+                            }
+                        }
+
+                        Random rand = new Random();
+
+                        String randomString = exits.get(rand.nextInt(exits.size()));
+
+                        Hub nextRoom = hub.getExit(randomString);
+
+                        if (!nextRoom.getRoomName().equalsIgnoreCase("Abandon House's Entrance") && !nextRoom.getRoomName().equalsIgnoreCase("Tom's Dark Entrance")) {
+                            nextRoom.getMOBS().add(mob);
+                            hub.getMOBS().remove(mob);
+                        }
+
+                    }
+                }
             }
 
         }
@@ -545,6 +596,7 @@ public class Game {
         objects.add("rabbit");
         objects.add("chicken");
         objects.add("squirrel");
+        objects.add("goblin");
         objects.add("chest");
         objects.add("ih");
         objects.add("white whispberries");
@@ -633,7 +685,7 @@ public class Game {
         String namer = scanner.nextLine();
         System.out.println("");
 
-        Player player =  new Player(namer, 10,10,3000, 0);
+        Player player =  new Player(namer, 100000,10000,0, 0);
 
         XpLv playersStats = new XpLv(5, 0);
 
@@ -673,6 +725,8 @@ public class Game {
             player.getSkills().add(new Skill.StunSkill("Stun", "Stuns enemy for one turn. Cooldown: 3 turns.", true, 3));
 
             setupDayNightSchedulers();
+
+            movingTheMobs();
         }
 
         else {
@@ -697,7 +751,8 @@ public class Game {
             if (timeChange != null && changeTime != null){
 
                 long secondsAgo = java.time.Duration.between(changeTime, LocalTime.now()).getSeconds();
-                if (secondsAgo < 500) {
+
+                if (secondsAgo < 60) {
                     System.out.println("It turned " + timeChange + " " + secondsAgo + " seconds ago.");
                 }
                 else {
@@ -708,6 +763,8 @@ public class Game {
                 timeChange = null;
                 changeTime = null;
             }
+
+
 
             System.out.print("-> ");
             String action = scanner.nextLine();
@@ -2089,6 +2146,11 @@ public class Game {
 
 
         while (!player.getHealth().isDead() && !mob.getHealth().isDead()){
+
+            if (!inRoom.containsMob(mob)){
+                System.out.println("The " + mob.getName() + " has fled to another room.");
+                break;
+            }
 
             if (using == true){
 
