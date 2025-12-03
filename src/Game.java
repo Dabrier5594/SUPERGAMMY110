@@ -698,9 +698,9 @@ public class Game {
         String namer = scanner.nextLine();
         System.out.println("");
 
-        Player player =  new Player(namer, 100000,10000,10, 0);
+        Player player =  new Player(namer, 10,10,5, 0);
 
-        XpLv playersStats = new XpLv(5, 0);
+        XpLv playersStats = new XpLv(1, 0);
 
         System.out.print("Play (yes or no)? \n-> ");
         String play = scanner.nextLine();
@@ -838,16 +838,16 @@ public class Game {
 
                             Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                             inRoom = newRoom;
-                            Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
-
+                            Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
                         }
                         else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
                             // Call the move method and update to inRoom
                             Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                             inRoom = newRoom;
-                            Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
-
+                            Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
 
                         }
@@ -855,16 +855,16 @@ public class Game {
                             // Call the move method and update to inRoom
                             Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                             inRoom = newRoom;
-                            Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
-
+                            Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
                         }
                         else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
                             // Call the move method and update to inRoom
                             Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                             inRoom = newRoom;
-                            Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
-
+                            Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
 
                         }
@@ -878,8 +878,8 @@ public class Game {
 
                                     Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                                     inRoom = newRoom;
-                                    Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
-
+                                    Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
                                 }
 
@@ -889,8 +889,8 @@ public class Game {
 
                                     Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                                     inRoom = newRoom;
-                                    Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
-
+                                    Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
                                 }
 
@@ -900,8 +900,8 @@ public class Game {
 
                                     Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                                     inRoom = newRoom;
-                                    Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
-
+                                    Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
                                 }
 
@@ -911,8 +911,8 @@ public class Game {
 
                                     Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                                     inRoom = newRoom;
-                                    Player.QUESTS.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
-
+                                    Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
 
                                 }
 
@@ -2174,11 +2174,6 @@ public class Game {
 
         return new Mob("Goblin", goblinHealth, attackPower, isAggro);
     }
-
-
-
-
-
 
     public static void combat(Player player, Mob mob, Hub inRoom, XpLv playerStats){
         boolean using = false;
