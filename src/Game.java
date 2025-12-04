@@ -139,7 +139,15 @@ public class Game {
 
     }
 
+    //MERCHANTS!!!
 
+    String[] merchantDialogue = {
+            "Welcome, traveler. Looking to buy or sell?",  // index 0
+            "I only deal in quality goods, sucker.",               // index 1
+            "Come back if you change your mind."           // index 2
+    };
+
+    Merchant Ragger = new Merchant("Ragger", merchantDialogue, Arrays.asList("Iron Sword", "Health Potion", "Leather Armor"));
 
 
     static Scanner scanner = new Scanner(System.in);
