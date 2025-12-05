@@ -9,6 +9,7 @@ public class Hub {
     private List<String> objects;
     private java.util.Map<String, Door> doors = new java.util.HashMap<>();
     private List<Mob> mobs = new ArrayList<>();
+    private List<Npca> npc = new ArrayList<>();
     private Map<String, Chest> chests = new HashMap<>();
     private static final List<Hub> allHubs = new ArrayList<>();
 
@@ -66,6 +67,10 @@ public class Hub {
         return mobs;
     }
 
+    public List<Npca> getNpc() {
+        return npc;
+    }
+
     public static List<Hub> getAllHubs() {
         return allHubs;
     }
@@ -73,6 +78,15 @@ public class Hub {
     public boolean containsMob(Mob specificMob) {
         for (Mob mob : this.getMOBS()) {
             if (mob == specificMob) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean containsNpc(Npca specificNpc) {
+        for (Npca npc : this.getNpc()) {
+            if (npc == specificNpc) {
                 return true;
             }
         }
