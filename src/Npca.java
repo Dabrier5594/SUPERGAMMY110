@@ -108,15 +108,13 @@ class Guard extends Npca{
 
 
     public Guard(String name, String[] lines, Health health, int attackPower, Item helmet, Item chestplate, Item leggings, Item boots){
-        super(name, "Guard", lines, health, attackPower);
+        super(name, "Guard", lines, attackPower, health);
         this.helmet = helmet;
         this.chestplate = chestplate;
         this.leggings = leggings;
         this.boots = boots;
     }
-    public guardFight(){
 
-    }
 
 }
 

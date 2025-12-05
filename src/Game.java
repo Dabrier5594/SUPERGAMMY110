@@ -174,6 +174,7 @@ public class Game {
         Player.QUESTS.put("SQ3", new Quest("SQ3", "Find House Treasure", 3, "Abandon House's Upper Room", 1, 40, 25)); // side quest - go upstairs
 
         // TOMS CAVE
+
         Hub cave = new Hub("Tom's Dark Cave", "The back of the ancient cave where Tom the hermit lived for many years. \nEXITS: (N) ");
 
         Hub caveN = new Hub("Tom's Dark Kitchen", "Still in Tom's cave, but now you have moved into his kitchen which consists of a cabinet and a counter. \nEXITS: (N) (S)");
@@ -303,7 +304,9 @@ public class Game {
 
         Hub forest50 = new Hub("Northern Forest Area #50", "The Northern Area of the Great Makiss Forest. \nThe forest gate stands here, guarded by a fierce mini-boss—beyond lies the bridge to new adventures. \nEXITS: ");
 
+        Hub forestClearing = new Hub("Town Forest Gate", "The Gate to the Town Known as FirstVille.\nYou see a clearing open up from the darkness of the forest\nEXITS: () ()");
 
+        Hub townSquare = new Hub("Town Square", "A Big Square Just Outside the Gate. \nThe main congregation area for the locals");
         //Toms Cave EXITS:
         cave.setExit("n", caveN);
         caveN.setExit("s", cave);
@@ -437,7 +440,8 @@ public class Game {
         forest49.setExit("n", forest50);
         forest50.setExit("s", forest49);
 
-
+        //Town exits
+        forestClearing.setExit("n", forest38);
 
 
         //Doors!!!!
@@ -453,6 +457,8 @@ public class Game {
         sHouseHallway.setDoor("s", sHouseHallwayRoom);
         sHouseRoom.setDoor("n", sHouseHallwayRoom);
 
+
+        LockedDoors gateDoor = new LockedDoors(true, "Guard Key", forestClearing, townSquare);
         // ITEMS
 
 
@@ -495,7 +501,11 @@ public class Game {
         // ADD MOBS
 
         Mob goblin = createGoblinWithRandomStats();
+
         forest10.getMOBS().add(goblin);
+
+        Mob forestGod = forestGodStats();
+        forestClearing.getMOBS().add(forestGod);
 
         for (int o = 0; o < 3; o++){
 
@@ -2194,6 +2204,18 @@ public class Game {
         boolean isAggro = true;
 
         return new Mob("Goblin", goblinHealth, attackPower, isAggro);
+    }
+
+    private static Mob forestGodStats() {
+        int maxHealth = 100; //
+        int currentHealth = maxHealth;  // start at full health
+        int damageResistance = 15;       // example damage resistance
+        Health forestGodHealth = new Health(maxHealth, currentHealth, damageResistance);
+
+        int attackPower = 25;
+        boolean isAggro = true;
+
+        return new Mob("Forest God", forestGodHealth, attackPower, isAggro);
     }
 
     public static void combat(Player player, Mob mob, Hub inRoom, XpLv playerStats){
