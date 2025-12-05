@@ -5,15 +5,11 @@ public class Npca {
     private String name;
     private String prof; // e.g., "Merchant", "Guild persin"
     private String[] lines;
-    private int attackPower;
-    private Health health;
-    private boolean isStunned = false;
 
-    public Npca(String name, String role, String[] lines, int health, int attackPower) {
+    public Npca(String name, String role, String[] lines) {
         this.name = name;
         this.prof = role;
         this.lines = lines;
-        this.attackPower = attackPower;
     }
 
     public String getName() {
@@ -22,35 +18,6 @@ public class Npca {
 
     public String getRole() {
         return prof;
-    }
-
-    public boolean isStunned(){
-        return isStunned;
-    }
-
-    public void setStunned(boolean hm){
-        this.isStunned = hm;
-    }
-
-    public Health getHealth() {
-        return health;
-    }
-
-    public void attack(Player player){
-
-        if (isStunned()) {
-            System.out.println(name + " is stunned and skips its turn!");
-            setStunned(false);
-            // Reset stun after skipping one turn
-
-        }
-        else {
-
-            System.out.println(name + " attacks you for " + attackPower + " damage!");
-
-            player.getHealth().takeDamage(attackPower);
-        }
-
     }
 
     public void talk() { // SAY ALL LINES
@@ -97,6 +64,25 @@ class Merchant extends Npca {
         )
     }
     // later add buy/sell methods
+}
+
+class Guard extends Npca{
+    private Item helmet;
+    private Item chestplate;
+    private Item leggings;
+    private Item boots;
+    private Item weapon;
+
+
+    public Guard(String name, String[] lines, int health, int attackpower, Item helmet, Item chestplate, Item leggings, Item boots){
+        super(name, "Guard", lines, health, attackpower);
+        this.helmet = helmet;
+        this.chestplate = chestplate;
+        this.leggings = leggings;
+        this.boots = boots;
+    }
+
+
 }
 
 
