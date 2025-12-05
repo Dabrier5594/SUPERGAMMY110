@@ -3,8 +3,8 @@ import java.util.Map;
 
 public class Npca {
     private String name;
-    private String prof; // e.g., "Merchant", "Guild persin"
-    private String[] lines;
+    private String prof; // e.g., "Merchant", "Guild person"
+    private String[] lines;//dialogue
 
     public Npca(String name, String role, String[] lines) {
         this.name = name;
@@ -41,7 +41,7 @@ class Merchant extends Npca {
     private Map<String, Integer> stock;  // "Iron Sword" -> 50
 
     public Merchant(String name, String[] lines, Map<String, Integer> stock) {
-        super(name, "Merchant", lines);
+        super(name, "Merchant", lines);//super allows for instance variable to be accessed from parent class
         this.stock = stock;
     }
 
@@ -59,6 +59,28 @@ class Merchant extends Npca {
 
     }
     // later add buy/sell methods
+}
+
+class Guard extends Npca{
+    private Item helmet;
+    private Item chestplate;
+    private Item leggings;
+    private Item boots;
+    private Item weapon;
+
+
+    public Guard(String name, String[] lines, int health, int attackpower, Item helmet, Item chestplate, Item leggings, Item boots, Item weapon){
+        super(name, "Guard", lines, health, attackpower);
+        this.helmet = helmet;
+        this.chestplate = chestplate;
+        this.leggings = leggings;
+        this.boots = boots;
+        this.weapon = weapon;
+
+    }
+
+
+
 }
 
 
