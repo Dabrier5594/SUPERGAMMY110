@@ -5,6 +5,11 @@ public class Npca {
     private String name;
     private String prof; // e.g., "Merchant", "Guild persin"
     private String[] lines;
+    private int attackPower;
+    private Health health;
+    private boolean isStunned = false;
+
+
 
     public Npca(String name, String role, String[] lines) {
         this.name = name;
@@ -18,6 +23,35 @@ public class Npca {
 
     public String getRole() {
         return prof;
+    }
+
+    public boolean isStunned(){
+        return isStunned;
+    }
+
+    public void setStunned(boolean hm){
+        this.isStunned = hm;
+    }
+
+    public Health getHealth() {
+        return health;
+    }
+
+    public void attack(Player player){
+
+        if (isStunned()) {
+            System.out.println(name + " is stunned and skips its turn!");
+            setStunned(false);
+            // Reset stun after skipping one turn
+
+        }
+        else {
+
+            System.out.println(name + " attacks you for " + attackPower + " damage!");
+
+            player.getHealth().takeDamage(attackPower);
+        }
+
     }
 
     public void talk() { // SAY ALL LINES
@@ -41,7 +75,7 @@ class Merchant extends Npca {
     private Map<String, Integer> stock;  // "Iron Sword" -> 50
 
     public Merchant(String name, String[] lines, Map<String, Integer> stock, int hp, int attk) {
-        super(name, "Merchant", lines, hp, attk);
+        super(name, "Merchant", lines);
         this.stock = stock;
     }
 
@@ -59,10 +93,7 @@ class Merchant extends Npca {
 
     }
 
-    public Item buy(Map.Entry<String, Integer> entry : stock.entrySet(){
 
-        )
-    }
     // later add buy/sell methods
 }
 
@@ -75,7 +106,7 @@ class Guard extends Npca{
 
 
     public Guard(String name, String[] lines, int health, int attackpower, Item helmet, Item chestplate, Item leggings, Item boots){
-        super(name, "Guard", lines, health, attackpower);
+        super(name, "Guard", lines);
         this.helmet = helmet;
         this.chestplate = chestplate;
         this.leggings = leggings;
