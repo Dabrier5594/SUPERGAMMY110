@@ -61,5 +61,24 @@ class Merchant extends Npca {
     // later add buy/sell methods
 }
 
+class Guard extends Npca{
+    private Item helmet;
+    private Item chestplate;
+    private Item leggings;
+    private Item boots;
+    private Item weapon;
+
+
+    public Guard(String name, String[] lines, int health, int attackpower, Item helmet, Item chestplate, Item leggings, Item boots){
+        super(name, "Guard", lines, health, attackpower);
+        this.helmet = helmet;
+        this.chestplate = chestplate;
+        this.leggings = leggings;
+        this.boots = boots;
+    }
+
+
+}
+
 
 
