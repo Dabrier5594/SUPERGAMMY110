@@ -11,10 +11,12 @@ public class Npca {
 
 
 
-    public Npca(String name, String role, String[] lines) {
+    public Npca(String name, String role, String[] lines, int attackPower, Health health) {
         this.name = name;
         this.prof = role;
         this.lines = lines;
+        this.attackPower = attackPower;
+        this.health = health;
     }
 
     public String getName() {
