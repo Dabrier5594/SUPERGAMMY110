@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Map;
 
 public class Npca {
     private String name;
@@ -36,21 +37,29 @@ public class Npca {
 //ALL NPCS SHOULD ALL HAVE THE SAME INDEX 0-2 LINES (LIKE LIKE SIMPLE ONES).
 
 class Merchant extends Npca {
-    private List<String> stock; // for now, just item names
 
-    public Merchant(String name, String[] lines, List<String> stock) {
+    private Map<String, Integer> stock;  // "Iron Sword" -> 50
+
+    public Merchant(String name, String[] lines, Map<String, Integer> stock) {
         super(name, "Merchant", lines);
         this.stock = stock;
     }
 
     public void showStock() {
         System.out.println(getName() + "'s stock:");
-        for (String item : stock) {
-            System.out.println(" - " + item);
+        for (Map.Entry<String, Integer> entry : stock.entrySet()) {
+            System.out.println(" - " + entry.getKey() + " (" + entry.getValue() + " gold)");
         }
     }
 
+    // Returns price or -1 if item not found
+    public int getPrice(String item) {
+        Integer price = stock.get(item);
+        return price != null ? price : -1;
+
+    }
     // later add buy/sell methods
 }
+
 
 

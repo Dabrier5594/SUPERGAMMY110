@@ -140,14 +140,26 @@ public class Game {
     }
 
     //MERCHANTS!!!
-
-    String[] merchantDialogue = {
+    //Ragger
+    String[] raggerLines = {
             "Welcome, traveler. Looking to buy or sell?",  // index 0
             "I only deal in quality goods, sucker.",               // index 1
             "Come back if you change your mind."           // index 2
     };
 
-    Merchant Ragger = new Merchant("Ragger", merchantDialogue, Arrays.asList("Iron Sword", "Health Potion", "Leather Armor"));
+    public static Map<String, Integer> raggerStock = new HashMap<>();
+
+    static {
+        raggerStock.put("Iron Sword", 50);
+        raggerStock.put("Health Potion", 20);
+        raggerStock.put("Leather Armor", 80);
+    }
+
+
+    Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock);
+
+
+
 
 
     static Scanner scanner = new Scanner(System.in);
