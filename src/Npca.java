@@ -73,8 +73,8 @@ class Merchant extends Npca {
 
     private Map<String, Integer> stock;  // "Iron Sword" -> 50
 
-    public Merchant(String name, String[] lines, Map<String, Integer> stock) {
-        super(name, "Merchant", lines);
+    public Merchant(String name, String[] lines, Map<String, Integer> stock, int hp, int attk) {
+        super(name, "Merchant", lines, hp, attk);
         this.stock = stock;
     }
 
@@ -91,8 +91,15 @@ class Merchant extends Npca {
         return price != null ? price : -1;
 
     }
+
+    public Item buy(Map.Entry<String, Integer> entry : stock.entrySet(){
+
+        )
+    }
     // later add buy/sell methods
 }
+
+
 
 
 
