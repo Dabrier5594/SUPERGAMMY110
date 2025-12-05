@@ -155,11 +155,8 @@ public class Game {
         raggerStock.put("Leather Armor", 80);
     }
 
-
-    Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock);
-
-
-
+    Health raggerH = new Health(180, 180, 0);
+    Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock, raggerH , 2);
 
 
     static Scanner scanner = new Scanner(System.in);
@@ -1295,7 +1292,23 @@ public class Game {
 
                         else if (stringContainsWordFromList(action.toLowerCase(), attack.toArray(new String[0])) ||stringContainsWordFromList(action.toLowerCase(), kill.toArray(new String[0]))) {
 
-                            boolean mobbo = false;
+                            boolean mobbo = false; // 47 more questions
+
+                            for (Npca mob : inRoom.getNpc()) {
+
+                                String mobNameLower = mob.getName().toLowerCase();
+
+                                if (action.toLowerCase().contains(mobNameLower)) {
+
+                                    combatNpc(player, mob , inRoom, playersStats);
+
+                                    mobbo = true;
+
+                                    break;
+
+                                }
+
+                            }
 
                             for (Mob mob : inRoom.getMOBS()) {
 
@@ -2328,6 +2341,125 @@ public class Game {
 
                 if (player.getHealth().isDead()){
                     System.out.println("\nYou have been murdered by a " + mob.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
+
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    break;
+                }
+
+            }
+
+            for (Skill skill : player.getSkills()) {
+                skill.reduceCooldown();
+            }
+
+        }
+
+
+
+    }
+
+    public static void combatNpc(Player player, Npca npc, Hub inRoom, XpLv playerStats){
+
+        boolean using = false;
+
+        if (player.getSkills().isEmpty()){
+
+        }
+        else {
+
+            System.out.println("Would you like to you skills and items in this battle or just use what you already have (y/n) ?");
+            System.out.print("-> ");
+            String answer = scanner.nextLine();
+
+            if (!answer.isEmpty()) {
+                if (answer.substring(0, 1).toLowerCase().equals("y")) {
+                    using = true;
+                } else {
+                    using = false;
+                }
+            }
+
+            else {using = false; System.out.println("No input taken...");}
+
+            System.out.println("");
+        }
+
+        while (!player.getHealth().isDead() && !npc.getHealth().isDead()){
+
+            if (using == true){
+
+                System.out.println("What skill would you like to use?");
+                for (Skill skill : player.getSkills())  {
+                    System.out.print("[" + skill.getName() + "]  ");
+                }
+                System.out.println("");
+                System.out.print("-> ");
+
+                String usingNow = scanner.nextLine();
+                if (usingNow.toLowerCase().equals("stun")){
+                    Skill.StunSkill.applyNpc(player, npc);
+                }
+
+                else {
+                    int chop = 0;
+                    for (Skill skiller : player.getSkills())  {
+                        if (usingNow.toLowerCase().equals(skiller.getName())){
+                            chop++;
+                        }
+                    }
+
+                    if (chop <= 0){
+                        System.out.println("Unknown input.");
+                    }
+                }
+
+
+            }
+
+            System.out.println("");
+
+            player.attackNpc(npc);
+
+            System.out.println("");
+
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (npc.getHealth().isDead()){
+                System.out.println("The " + npc.getName() + " has died at your hands. \n");
+
+                playerStats.addXp(playerStats.calculateXp(npc.getName()));
+
+                playerStats.calculateLv(playerStats.getXp(), playerStats.getLevel(), player);
+
+                player.displayStats(player, playerStats);
+
+                inRoom.getMOBS().remove(npc); //remove an object that has the name Rabbit
+
+                break;
+            }
+
+            else {
+
+                npc.attack(player);
+                System.out.println("");
+
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (player.getHealth().isDead()){
+                    System.out.println("\nYou have been murdered by " + npc.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
 
                     try {
                         Thread.sleep(500);
