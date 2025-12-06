@@ -156,7 +156,7 @@ public class Game {
     }
 
     Health raggerH = new Health(180, 180, 0);
-    Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock, raggerH , 2);
+    Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock, raggerH , 2, "SQ0", Npca.QuestState.NONE);
 
 
     static Scanner scanner = new Scanner(System.in);
@@ -1388,13 +1388,13 @@ public class Game {
 
                             boolean talked = false; // 47 more questions
 
-                            for (Npca npc : inRoom.getNpc()) {
+                            for (Guard npc : inRoom.getGuard()) {
 
                                 String npcNameLower = npc.getName().toLowerCase();
 
                                 if (action.toLowerCase().contains(npcNameLower)) {
 
-                                    //TALK METHOD GOES HERE
+                                    talkGuard(inRoom, inventory, playersStats, npc, player);
 
                                     talked = true;
 
@@ -1402,6 +1402,42 @@ public class Game {
 
                                 }
 
+                            }
+
+                            if (!talked) {
+                                for (Merchant npc : inRoom.getMerchant()) {
+
+                                    String npcNameLower = npc.getName().toLowerCase();
+
+                                    if (action.toLowerCase().contains(npcNameLower)) {
+
+                                        //talkMerchant(inRoom, inventory, playersStats, npc, player);
+
+                                        talked = true;
+
+                                        break;
+
+                                    }
+
+                                }
+                            }
+
+                            if (!talked) {
+                                for (Npca npc : inRoom.getNpc()) {
+
+                                    String npcNameLower = npc.getName().toLowerCase();
+
+                                    if (action.toLowerCase().contains(npcNameLower)) {
+
+                                        talkNpc(inRoom, inventory, playersStats, npc, player);
+
+                                        talked = true;
+
+                                        break;
+
+                                    }
+
+                                }
                             }
 
                             if (talked == false){
@@ -2465,7 +2501,7 @@ public class Game {
             }
 
             if (npc.getHealth().isDead()){
-                System.out.println("The " + npc.getName() + " has died at your hands. \n");
+                System.out.println( npc.getName() + " has died at your hands. \n");
 
                 playerStats.addXp(playerStats.calculateXp(npc.getName()));
 
@@ -2473,7 +2509,134 @@ public class Game {
 
                 player.displayStats(player, playerStats);
 
-                inRoom.getMOBS().remove(npc); //remove an object that has the name Rabbit
+                inRoom.getNpc().remove(npc); //remove an object that has the name Rabbit
+
+                break;
+            }
+
+            else {
+
+                npc.attack(player);
+                System.out.println("");
+
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (player.getHealth().isDead()){
+                    System.out.println("\nYou have been murdered by " + npc.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
+
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    break;
+                }
+
+            }
+
+            for (Skill skill : player.getSkills()) {
+                skill.reduceCooldown();
+            }
+
+        }
+
+
+
+    }
+
+    public static void combatGuard(Player player, Guard npc, Hub inRoom, XpLv playerStats, List<Item> existingItems){
+
+        boolean using = false;
+
+        if (player.getSkills().isEmpty()){
+
+        }
+        else {
+
+            System.out.println("Would you like to you skills and items in this battle or just use what you already have (y/n) ?");
+            System.out.print("-> ");
+            String answer = scanner.nextLine();
+
+            if (!answer.isEmpty()) {
+                if (answer.substring(0, 1).toLowerCase().equals("y")) {
+                    using = true;
+                } else {
+                    using = false;
+                }
+            }
+
+            else {using = false; System.out.println("No input taken...");}
+
+            System.out.println("");
+        }
+
+        while (!player.getHealth().isDead() && !npc.getHealth().isDead()){
+
+            if (using == true){
+
+                System.out.println("What skill would you like to use?");
+                for (Skill skill : player.getSkills())  {
+                    System.out.print("[" + skill.getName() + "]  ");
+                }
+                System.out.println("");
+                System.out.print("-> ");
+
+                String usingNow = scanner.nextLine();
+                if (usingNow.toLowerCase().equals("stun")){
+                    Skill.StunSkill.applyGuard(player, npc);
+                }
+
+                else {
+                    int chop = 0;
+                    for (Skill skiller : player.getSkills())  {
+                        if (usingNow.toLowerCase().equals(skiller.getName())){
+                            chop++;
+                        }
+                    }
+
+                    if (chop <= 0){
+                        System.out.println("Unknown input.");
+                    }
+                }
+
+
+            }
+
+            System.out.println("");
+
+            player.attackNpc(npc);
+
+            System.out.println("");
+
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (npc.getHealth().isDead()){
+
+                System.out.println( npc.getName() + " has died at your hands. \n");
+
+                if (npc.getName().equalsIgnoreCase("Oliver")) {
+                    Item z = npc.getItem();
+                    existingItems.add(z);
+                    inRoom.getObjects().add(z.getName().toLowerCase());
+                }
+
+
+                playerStats.addXp(playerStats.calculateXp(npc.getName()));
+
+                playerStats.calculateLv(playerStats.getXp(), playerStats.getLevel(), player);
+
+                player.displayStats(player, playerStats);
+
+                inRoom.getNpc().remove(npc); //remove an object that has the name Rabbit
 
                 break;
             }
@@ -2544,22 +2707,84 @@ public class Game {
         equipment.unequip(slot, item, player);
     }
 
-    public static void talk(Hub inRoom, List<String> inventory, XpLv playerStats, Npca npc){
+    public static List<String> talkGuard(Hub inRoom, List<String> inventory, XpLv playerStats, Guard npc, Player player){
 
-        if (npc.getName().equalsIgnoreCase("Oliver")){ //Check to see if the NPC just gives a quest once.
-            //Make code that
-            System.out.println("Type 'a' to accept the quest and 'b' to decline");
+        // normal NPCs
+        if (!npc.getName().equalsIgnoreCase("Oliver")) {
+            npc.talk();
+            return inventory;
         }
 
-        if (!npc.getRole().equalsIgnoreCase("Guard")){ //Check to see if it's an npc that can say any rando line
+        Quest oliverQuest = Player.QUESTS.get(npc.getQuestId()); // e.g. "SQ2" #syncing quests
+        boolean done = oliverQuest.done;
 
+        // 1) First time → full 3 lines + choice
+        if (npc.getQuestState() == Npca.QuestState.NONE) {
+            npc.sayLine(0);
+            npc.sayLine(1);
+            npc.sayLine(2); // "Would you like to take on my quest?"
+
+            System.out.print("Type a to accept the quest and b to decline: ");
+            String a = Game.scanner.nextLine().trim().toLowerCase();
+
+            if (a.startsWith("a") && !done) {
+                npc.setQuestState(Npca.QuestState.ACCEPTED);
+                System.out.println("Quest added: " + oliverQuest.status());
+                Player.QUESTS.put("MQ3", new Quest("MQ3", "Collect 3 SnarkFlowers", 2, "SnarkFlowers", 5, 20, 2)); // main quest - get flowers
+            } else {
+                npc.setQuestState(Npca.QuestState.OFFERED);
+                    npc.sayLine(3);
+            }
+            return inventory;
         }
 
-        if (!npc.getRole().equalsIgnoreCase("OldMan")){ //Check to see if it's an npc that can say all lines and then leave
+        // 2) Player declined earlier (OFFERED): only last 2 lines
+        if (npc.getQuestState() == Npca.QuestState.OFFERED) {
+            npc.sayLine(1);
+            npc.sayLine(2); // you can change this to a “still here if you want help” line
+            System.out.print("Type a to accept the quest and b to decline: ");
+            String a = Game.scanner.nextLine().trim().toLowerCase();
 
+            if (a.startsWith("a") && !done) {
+                npc.setQuestState(Npca.QuestState.ACCEPTED);
+                System.out.println("Quest added: " + oliverQuest.status());
+            } else {
+                npc.sayLine(3);
+            }
+            return inventory;
         }
 
-        // IF I WANT TO CHEAT AND SAY "GUARD LOOKS AT YOU SUS and walks awau", you can use the move mob code from the timer.
+        // 3) Player accepted but not done yet
+        if (npc.getQuestState() == Npca.QuestState.ACCEPTED && !done) {
+
+            if (oliverQuest.isDone()) {
+                // Mark quest done and reward
+                oliverQuest.done = true;
+                npc.setQuestState(Npca.QuestState.COMPLETED);
+
+                System.out.println("Oliver says: \"Awesome, thanks!\"");
+                // Give guard pass
+                inventory.add("guard pass");
+                System.out.println("You received a Guard Pass.");
+            } else {
+                System.out.println("Oliver says: \"Come back when you have enough.\"");
+            }
+            return inventory;
+        }
+
+        // 4) After completion → simple thank‑you / post‑quest line
+        if (npc.getQuestState() == Npca.QuestState.COMPLETED) {
+            System.out.println("Oliver nods. \"Thanks again for the help.\"");
+            return inventory;
+        }
+
+        return inventory;
+    }
+
+    public static void talkNpc(Hub inRoom, List<String> inventory, XpLv playerStats, Npca npc, Player player){
+        npc.sayLine(0);
+        npc.sayLine(1);
+        npc.sayLine(2);
     }
 
 }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,16 +9,31 @@ public class Npca {
     private int attackPower;
     private Health health;
     private boolean isStunned = false;
+    private String questId;        // e.g. "SQ2" for Collect Twigs
+    private QuestState questState;
 
+    public enum QuestState {
+        NONE,        // no quest
+        OFFERED,     // user has seen the offer but did not accepted
+        ACCEPTED,    // quest is in the Player.QUESTS just not done yet
+        COMPLETED    // quest completed, NPC in post‑quest mode
+    }
 
-
-    public Npca(String name, String role, String[] lines, int attackPower, Health health) {
+    public Npca(String name, String role, String[] lines, int attackPower, Health health, String questId, QuestState questState) {
         this.name = name;
         this.prof = role;
         this.lines = lines;
         this.attackPower = attackPower;
         this.health = health;
+        this.questId = questId;
+        this.questState = questState;
     }
+
+    public String getQuestId() { return questId; }
+
+    public QuestState getQuestState() { return questState; }
+
+    public void setQuestState(QuestState s) { this.questState = s; }
 
     public String getName() {
         return name;
@@ -76,8 +92,8 @@ class Merchant extends Npca {
 
     private Map<String, Integer> stock;  // "Iron Sword" -> 50
 
-    public Merchant(String name, String[] lines, Map<String, Integer> stock, Health hp, int attk) {
-        super(name, "Merchant", lines, attk, hp);
+    public Merchant(String name, String[] lines, Map<String, Integer> stock, Health hp, int attk, String questId, QuestState questState) {
+        super(name, "Merchant", lines, attk, hp, questId, questState);
         this.stock = stock;
     }
 
@@ -107,12 +123,31 @@ class Guard extends Npca{
     private Item weapon;
 
 
-    public Guard(String name, String[] lines, Health health, int attackPower, Item helmet, Item chestplate, Item leggings, Item boots){
-        super(name, "Guard", lines, attackPower, health);
+    public Guard(String name, String[] lines, Health health, int attackPower, Item helmet, Item chestplate, Item leggings, Item boots, String questId, QuestState questState){
+        super(name, "Guard", lines, attackPower, health, questId, questState);
         this.helmet = helmet;
         this.chestplate = chestplate;
         this.leggings = leggings;
         this.boots = boots;
+    }
+
+    public Item getItem(){
+        int a = (int) (Math.random() * 5 + 1);
+        if (a == 1){
+            return helmet;
+        }
+
+        else if (a == 2){
+            return boots;
+        }
+
+        else if (a == 3){
+            return chestplate;
+        }
+
+        else {
+            return leggings;
+        }
     }
 
 

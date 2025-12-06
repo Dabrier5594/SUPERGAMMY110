@@ -75,7 +75,23 @@ public abstract class Skill {
             target.setStunned(true);
             currentCooldown = cooldownTurns; // reset cooldown
         }
+
+        public static void applyGuard(Player user, Guard target) {
+            if (!canUse()) {
+                System.out.println("Skill is recharging for use.");
+                return;
+            }
+
+            if (target == null || target.getHealth().isDead()) {
+                System.out.println("No valid target to stun.");
+                return;
+            }
+
+            System.out.println(user.getName() + " uses " + getName() + " to stun " + target.getName() + "!");
+            target.setStunned(true);
+            currentCooldown = cooldownTurns; // reset cooldown
+        }
     }
 
-
 }
+

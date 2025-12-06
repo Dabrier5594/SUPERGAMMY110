@@ -46,4 +46,8 @@ class Quest {
     public String status() {
         return name + ": " + current + "/" + needed + " [" + target + "]" +  (done ? " - (DONE)" : " - (NOT-DONE) "); // make string like "Escape Cave: 1/1 Southern Forest Area #1 (DONE)"
     }
+
+    public boolean isDone(){
+        return done;
+    }
 }
