@@ -299,11 +299,12 @@ public class Game {
 
         Hub forest49 = new Hub("Northern Forest Area #49", "The Northern Area of the Great Makiss Forest. \nA clearing just before the forest gate, quiet but tense as danger nears. \nEXITS: (W) (N)");
 
-        Hub forest50 = new Hub("Northern Forest Area #50", "The Northern Area of the Great Makiss Forest. \nThe forest gate stands here, guarded by a fierce mini-boss—beyond lies the bridge to new adventures. \nEXITS: ");
+        Hub forest50 = new Hub("Northern Forest Area #50", "The Northern Area of the Great Makiss Forest. \nThe forest gate stands here, guarded by a fierce mini-boss—beyond lies the bridge to new adventures. \nEXITS: (S) (N)");
 
-        Hub forestClearing = new Hub("Town Forest Gate", "The Gate to the Town Known as FirstVille.\nYou see a clearing open up from the darkness of the forest\nEXITS: () ()");
+        Hub forestClearing = new Hub("Gate of FirstVille", "The Great Gate of FirstVille.\nYou stand in a clearing, opposite from the forest, in front of a great booming gate: (S) (N)");
 
-        Hub townSquare = new Hub("Town Square", "A Big Square Just Outside the Gate. \nThe main congregation area for the locals");
+        Hub townSquare = new Hub("The Great Passage into FirstVille", "A short passage that reaches the Great Gate and the town square. \nTo the south stand wood line gates, to the north you see bustling people and lights. \nEXITS: (N) (S)");
+
         //Toms Cave EXITS:
         cave.setExit("n", caveN);
         caveN.setExit("s", cave);
@@ -438,7 +439,7 @@ public class Game {
         forest50.setExit("s", forest49);
 
         //Town exits
-        forestClearing.setExit("n", forest38);
+        forestClearing.setExit("n", townSquare);
 
 
         //Doors!!!!
@@ -454,11 +455,9 @@ public class Game {
         sHouseHallway.setDoor("s", sHouseHallwayRoom);
         sHouseRoom.setDoor("n", sHouseHallwayRoom);
 
-
         LockedDoors gateDoor = new LockedDoors(true, "Guard Key", forestClearing, townSquare);
+
         // ITEMS
-
-
 
         //ADD ITEMS IN TO ROOM
         caveN.addObject("leaflet001");
@@ -501,8 +500,9 @@ public class Game {
 
         forest10.getMOBS().add(goblin);
 
+        //CHANGE SO THAT THE CLASS THAT MAKES BOSSES CAN BE USED OVER AND OVER. THE CLASS SHOLUD GIVE THE BOSS SPECIAL SKILLS, DROP ITEMS, HEALTH ETC.
         Mob forestGod = forestGodStats();
-        forestClearing.getMOBS().add(forestGod);
+        forest50.getMOBS().add(forestGod);
 
         for (int o = 0; o < 3; o++){
 

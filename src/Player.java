@@ -19,6 +19,8 @@ public class Player {
 
     private int coins = 0;
 
+    private int fame = 0;
+
 
     public Player(String name, int maxHealth, int health, int power, int damageResistance) {
 
@@ -110,6 +112,14 @@ public class Player {
 
     public void setAttackPower(int tint){
         attackPower += tint;
+    }
+
+    public int getFame(){
+        return fame;
+    }
+
+    public void addFame(int a){
+        fame += a;
     }
 
 }
