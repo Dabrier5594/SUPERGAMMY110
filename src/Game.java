@@ -6,6 +6,8 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
+// NOW ADD option where if you enter f anytime  when you are fighting you flee
+
 // Make rouge bandits
 
 //  ADD THINGS TO PLACES
@@ -47,6 +49,26 @@ public class Game {
         dayTimer.scheduleAtFixedRate(new MoveMob(), oneMin, oneMin);
 
     }
+
+    public static void setupHealthRegen(Player player) {
+        long threeSeconds = 3 * 1000;
+        Timer healthTimer = new Timer(true);
+
+        healthTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                // Skip healing during combat
+                if (player.isInCombat()) {
+                    return;
+                }
+
+                if (player.getHealth().getHeealth() < player.getHealth().getMaxHealth()) {
+                    player.getHealth().setHeealth(player.getHealth().getHeealth() + 1);
+                }
+            }
+        }, threeSeconds, threeSeconds); //Can start using this for other timers too (add',' and connect the rest)
+    }
+
 
     static class TimeDayNotifier extends TimerTask {
         @Override
@@ -586,7 +608,6 @@ public class Game {
         verbs.add("kill");
         verbs.add("attack");
         verbs.add("stats");
-        verbs.add("heal");
         verbs.add("equip");
         verbs.add("unequip");
         verbs.add("quests");
@@ -610,8 +631,6 @@ public class Game {
         verbsOnly.add("listen");
         verbsOnly.add("help");
         verbsOnly.add("stats");
-        verbsOnly.add("heal");
-
 
 
         List<String> directions = new ArrayList<>();
@@ -721,9 +740,6 @@ public class Game {
         List<String> attack = new ArrayList<>();
         attack.add("attack");
 
-        List<String> heal = new ArrayList<>();
-        heal.add("heal");
-
         List<String> chests = new ArrayList<>();
         chests.add("chest");
 
@@ -794,6 +810,8 @@ public class Game {
             setupDayNightSchedulers();
 
             movingTheMobs();
+
+            setupHealthRegen(player);
         }
 
         else {
@@ -1012,10 +1030,6 @@ public class Game {
 
                         else if (stringContainsWordFromList(action.toLowerCase(), stats.toArray(new String[0]))) {
                             player.displayStats(player, playersStats);
-                        }
-
-                        else if (stringContainsWordFromList(action.toLowerCase(), heal.toArray(new String[0]))) {
-                            heal(player);
                         }
 
                     }
@@ -1326,7 +1340,11 @@ public class Game {
 
                                 if (action.toLowerCase().contains(mobNameLower)) {
 
+                                    player.setInCombat(true);
+
                                     combatNpc(player, mob , inRoom, playersStats);
+
+                                    player.setInCombat(false);
 
                                     mobbo = true;
 
@@ -1342,7 +1360,11 @@ public class Game {
 
                                 if (action.toLowerCase().contains(mobNameLower)) {
 
+                                    player.setInCombat(true);
+
                                     combatGuard(player, mob , inRoom, playersStats, existingItems);
+
+                                    player.setInCombat(false);
 
                                     mobbo = true;
 
@@ -1360,7 +1382,11 @@ public class Game {
 
                                 if (action.toLowerCase().contains(mobNameLower)) {
 
+                                    player.setInCombat(true);
+
                                     combat(player, mob , inRoom, playersStats);
+
+                                    player.setInCombat(false);
 
                                     mobbo = true;
 
@@ -2051,7 +2077,7 @@ public class Game {
 
             if (isLeaflet) {
                 System.out.println("You have dropped " + chosenAmount + " leaflet" + (chosenAmount > 1 ? "s." : "."));
-                return;
+                return; // HOW DOES ITEMS COME INTO PLAY?
             }
 
             if (isToken) {
@@ -2197,7 +2223,7 @@ public class Game {
 
     public static void help(List<String> verbs) {
 
-        System.out.println("In order to call a command you need to enter in the FOLLOWING FORMAT: \n\n[VERB] + [OBJECT] = action\n\nSome verbs will not need an object to be used (e.g., 'look')\nHere are a list of possible commands:\n    -> move, go || open, close || look, listen, wait, read || get, drop, take, remove \n       kill, attack || stats, inventory, coins, quests || help" );
+        System.out.println("In order to call a command you need to enter in the FOLLOWING FORMAT: \n\n[VERB] + [OBJECT] = action\n\nSome verbs will not need an object to be used (e.g., 'look')\nHere are a list of possible commands:\n    -> move, go || open, close || look, listen, wait, read || get, drop, take, remove \n       kill, attack || stats, inventory, coins, quests || help || ..." );
 
     }
 
@@ -2714,29 +2740,6 @@ public class Game {
         }
 
 
-
-    }
-
-    public static void heal(Player player) {
-
-        if (player.getHealth().getHeealth() == player.getHealth().getMaxHealth()){
-            System.out.println("You are already maxed out in health.");
-        }
-
-        else{
-
-            System.out.println("You drop into unconsciousness and begin to heal...");
-            try {
-                Thread.sleep(3500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
-            System.out.println("You have healed!");
-
-            player.getHealth().setHeealth(player.getHealth().getMaxHealth());
-
-        }
 
     }
 

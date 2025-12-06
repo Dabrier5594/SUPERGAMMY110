@@ -21,6 +21,8 @@ public class Player {
 
     private int fame = 0;
 
+    private boolean inCombat = false;
+
 
     public Player(String name, int maxHealth, int health, int power, int damageResistance) {
 
@@ -29,6 +31,11 @@ public class Player {
         this.attackPower = power;
 
     }
+
+
+    public boolean isInCombat() { return inCombat; }
+
+    public void setInCombat(boolean combat) { this.inCombat = combat; }
 
     public int getCoins(){ return coins; }
 
