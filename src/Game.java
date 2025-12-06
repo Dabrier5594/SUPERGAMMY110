@@ -141,7 +141,7 @@ public class Game {
 
     //MERCHANTS!!!
     //Ragger
-    String[] raggerLines = {
+    static String[] raggerLines = {
             "Welcome, traveler. Looking to buy or sell?",  // index 0
             "I only deal in quality goods, sucker.",               // index 1
             "Come back if you change your mind."           // index 2
@@ -155,8 +155,20 @@ public class Game {
         raggerStock.put("Leather Armor", 80);
     }
 
-    Health raggerH = new Health(180, 180, 0);
-    Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock, raggerH , 2, "SQ0", Npca.QuestState.NONE);
+    static Health raggerH = new Health(180, 180, 0);
+
+    //GUARD!!
+    //Oliver
+    static String[] oliverLines = {
+            "Wow! I have never seen anybody come from that forest before!",  // index 0
+            "Unfortunately, you can only pass this gate to FirstVille with a guard pass or by being a guard...",               // index 1
+            "Would you like to complete a quest for me in return for a guard pass?",           // index 2
+            "That's too bad. Come back if you change your mind!"
+
+    };
+
+    static Health oliverP = new Health(100, 100, 0);
+
 
 
     static Scanner scanner = new Scanner(System.in);
@@ -169,6 +181,8 @@ public class Game {
         Player.QUESTS.put("SQ1", new Quest("SQ1", "Kill Goblins", 1, "goblin", 3, 30, 15));                 // side quest - kill 3 goblins
         Player.QUESTS.put("SQ2", new Quest("SQ2", "Collect Twigs", 2, "twig", 5, 20, 10));                  // side quest - get 5 twigs
         Player.QUESTS.put("SQ3", new Quest("SQ3", "Find House Treasure", 3, "Abandon House's Upper Room", 1, 40, 25)); // side quest - go upstairs
+
+
 
         // TOMS CAVE
 
@@ -511,29 +525,36 @@ public class Game {
             forest11.getMOBS().add(goblin);
         }
 
-
-
-        Story(cave);
-
-    }
-
-    public static void Story(Hub cave) {
-
-        // Makes the room you are in "cave"
-        Hub inRoom = cave;
-
         //MAKE ITEMS AND "EQUIPMENT"
 
         Equipment equipment = new Equipment();
 
         Item dagger = new Item("dagger", "melee", true);
         Item leatherArmor = new Item("leather armor", "body", false);
+        Item FirstVillePlate = new Item("firstville guards plate", "body", false);
+        Item FirstVilleHelm = new Item("firstville guards helm", "head", false);
+        Item FirstVilleLegs = new Item("firstville guards legs", "legging", false);
+        Item FirstVilleBoots = new Item("firstville guards boots", "boots", false);
 
+        Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock, raggerH , 2, "SQ0", Npca.QuestState.NONE);
+        Guard Oliver = new Guard("Oliver", oliverLines, oliverP, 8, FirstVilleHelm, FirstVillePlate, FirstVilleLegs, FirstVilleBoots, "MQ3", Npca.QuestState.NONE);
+
+        forestClearing.getGuard().add(Oliver);
 
         //MAKE ITEMS EXIST IN ITEMS
         List<Item> existingItems = new ArrayList<>();
         existingItems.add(dagger);
         existingItems.add(leatherArmor);
+
+
+        Story(forestClearing, existingItems, equipment);
+
+    }
+
+    public static void Story(Hub cave, List<Item> existingItems, Equipment equipment) {
+
+        // Makes the room you are in "cave"
+        Hub inRoom = cave;
 
         //List of verbs
         List<String> verbs = new ArrayList<>();
@@ -642,6 +663,7 @@ public class Game {
         objects.add("chest");
         objects.add("ih");
         objects.add("white whispberries");
+        objects.add("oliver");
 
 
 
@@ -730,7 +752,7 @@ public class Game {
         String namer = scanner.nextLine();
         System.out.println("");
 
-        Player player =  new Player(namer, 10,10,5, 0);
+        Player player =  new Player(namer, 10,10,90, 0);
 
         XpLv playersStats = new XpLv(1, 0);
 
@@ -1313,6 +1335,24 @@ public class Game {
                                 }
 
                             }
+
+                            for (Guard mob : inRoom.getGuard()) {
+
+                                String mobNameLower = mob.getName().toLowerCase();
+
+                                if (action.toLowerCase().contains(mobNameLower)) {
+
+                                    combatGuard(player, mob , inRoom, playersStats, existingItems);
+
+                                    mobbo = true;
+
+                                    break;
+
+                                }
+
+                            }
+
+
 
                             for (Mob mob : inRoom.getMOBS()) {
 
@@ -2627,6 +2667,7 @@ public class Game {
                     Item z = npc.getItem();
                     existingItems.add(z);
                     inRoom.getObjects().add(z.getName().toLowerCase());
+                    System.out.println("The only salvaged item from the battle lays on the ground.");
                 }
 
 
@@ -2716,7 +2757,8 @@ public class Game {
         }
 
         Quest oliverQuest = Player.QUESTS.get(npc.getQuestId()); // e.g. "SQ2" #syncing quests
-        boolean done = oliverQuest.done;
+        boolean hasQuest = (oliverQuest != null);
+        boolean done = hasQuest && oliverQuest.done;
 
         // 1) First time → full 3 lines + choice
         if (npc.getQuestState() == Npca.QuestState.NONE) {
@@ -2724,13 +2766,14 @@ public class Game {
             npc.sayLine(1);
             npc.sayLine(2); // "Would you like to take on my quest?"
 
-            System.out.print("Type a to accept the quest and b to decline: ");
+            System.out.print("Type 'a' to accept the quest and 'b' to decline: ");
             String a = Game.scanner.nextLine().trim().toLowerCase();
 
             if (a.startsWith("a") && !done) {
                 npc.setQuestState(Npca.QuestState.ACCEPTED);
+                oliverQuest = new Quest("MQ3", "Collect 3 SnarkFlowers", 2, "SnarkFlowers", 5, 20, 2); // main quest - get flowers
+                Player.QUESTS.put("MQ3", oliverQuest);
                 System.out.println("Quest added: " + oliverQuest.status());
-                Player.QUESTS.put("MQ3", new Quest("MQ3", "Collect 3 SnarkFlowers", 2, "SnarkFlowers", 5, 20, 2)); // main quest - get flowers
             } else {
                 npc.setQuestState(Npca.QuestState.OFFERED);
                     npc.sayLine(3);
