@@ -28,8 +28,6 @@ public class LockedDoors {
         return requiredKeyName;
     }
 
-
-
     public void open() { this.opened = true; }
 
     public Hub getOtherSide(Hub current) {

@@ -569,6 +569,7 @@ public class Game {
         verbs.add("equip");
         verbs.add("unequip");
         verbs.add("quests");
+        verbs.add("talk");
 
 
         List<String> verbsOnly = new ArrayList<>();
@@ -709,6 +710,9 @@ public class Game {
 
         List<String> unequip = new ArrayList<>();
         unequip.add("unequip");
+
+        List<String> talk = new ArrayList<>();
+        talk.add("talk");
 
 
 
@@ -1379,6 +1383,33 @@ public class Game {
                             }
 
                         }
+
+                        else if (stringContainsWordFromList(action.toLowerCase(), talk.toArray(new String[0])) ||stringContainsWordFromList(action.toLowerCase(), kill.toArray(new String[0]))) {
+
+                            boolean talked = false; // 47 more questions
+
+                            for (Npca npc : inRoom.getNpc()) {
+
+                                String npcNameLower = npc.getName().toLowerCase();
+
+                                if (action.toLowerCase().contains(npcNameLower)) {
+
+                                    //TALK METHOD GOES HERE
+
+                                    talked = true;
+
+                                    break;
+
+                                }
+
+                            }
+
+                            if (talked == false){
+                                System.out.println("[When you want to talk, you must define your target.]");
+                            }
+
+                        }
+
 
 
                         else {
@@ -2511,6 +2542,24 @@ public class Game {
 
     public static void unequip(Item item, String slot, Player player, Equipment equipment){
         equipment.unequip(slot, item, player);
+    }
+
+    public static void talk(Hub inRoom, List<String> inventory, XpLv playerStats, Npca npc){
+
+        if (npc.getName().equalsIgnoreCase("Oliver")){ //Check to see if the NPC just gives a quest once.
+            //Make code that
+            System.out.println("Type 'a' to accept the quest and 'b' to decline");
+        }
+
+        if (!npc.getRole().equalsIgnoreCase("Guard")){ //Check to see if it's an npc that can say any rando line
+
+        }
+
+        if (!npc.getRole().equalsIgnoreCase("OldMan")){ //Check to see if it's an npc that can say all lines and then leave
+
+        }
+
+        // IF I WANT TO CHEAT AND SAY "GUARD LOOKS AT YOU SUS and walks awau", you can use the move mob code from the timer.
     }
 
 }
