@@ -20,6 +20,10 @@ public class LockedDoors {
         return opened;
     }
 
+    public void setOpened(boolean a){
+        opened = a;
+    }
+
     public boolean requiresKey() {
         return requiresKey;
     }

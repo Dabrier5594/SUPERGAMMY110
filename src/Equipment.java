@@ -30,6 +30,7 @@ class Equipment {
             return false;
 
         }
+
         equippedItems.put(slot, item);
         System.out.println("You have equipped '" + item.getName() + "'!\n");
 
@@ -67,6 +68,8 @@ class Equipment {
     public Item getEquipped(String slot) {
         return equippedItems.get(slot.toLowerCase());
     }
+
+    public Map<String, Item> getEquippedItems(){ return equippedItems;}
 
 }
 

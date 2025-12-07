@@ -20,7 +20,7 @@ class Quest {
         return id;
     }
 
-    public void check(String typeStr, String targetStr, Player player) {
+    public void check(String typeStr, String targetStr, Player player, XpLv xpLv) {
         if (done || !target.equalsIgnoreCase(targetStr)) return;  // if already done OR wrong target, skip
 
 
@@ -31,8 +31,9 @@ class Quest {
             current++;                                            // add 1 to their progress
             if (current >= needed) {                              // if they hit the goal number
                 done = true;                                      // mark quest done
-                System.out.println(name + " COMPLETE! +" + rewardGold + " coins (to be used in playerBAG only) **"); // tell player they won
+                System.out.println(name + " COMPLETE! +" +rewardXp + " // +" + rewardGold + " coins (to be used in playerBAG only) **"); // tell player they won
                 player.addCoins(rewardGold);
+                xpLv.addXp(rewardXp);
 
                 if (this.getId().equals("MQ1")){
                     Player.QUESTS.put("MQ2", new Quest("MQ2", "Leave Southern Forest", 3, "Northern Forest Area #26", 1, 50, 5));  // main quest - go outside cave

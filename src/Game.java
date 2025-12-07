@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-// NOW ADD option where if you enter f anytime  when you are fighting you flee
+// IF YOU START AN ITEM QUEST, IF YOU ALREADY HAVE THE ITEMS, THEN IT COUNTS AS COMPLETE. ALSO, WHAT DOES GATE NOT OPEN W PASS??
 
 // Make rouge bandits
 
@@ -337,9 +337,9 @@ public class Game {
 
         Hub forest50 = new Hub("Northern Forest Area #50", "The Northern Area of the Great Makiss Forest. \nThe forest gate stands here, guarded by a fierce mini-boss—beyond lies the bridge to new adventures. \nEXITS: (S) (N)");
 
-        Hub forestClearing = new Hub("Gate of FirstVille", "The Great Gate of FirstVille.\nYou stand in a clearing, opposite from the forest, in front of a great booming gate: (S) (N)");
+        Hub firstVilleGate = new Hub("Gate of FirstVille", "The Great Gate of FirstVille.\nYou stand in a clearing, opposite from the forest, in front of a great booming gate: (S) (N)");
 
-        Hub townSquare = new Hub("The Great Passage into FirstVille", "A short passage that reaches the Great Gate and the town square. \nTo the south stand wood line gates, to the north you see bustling people and lights. \nEXITS: (N) (S)");
+        Hub firstVillePassage = new Hub("The Great Passage into FirstVille", "A short passage that reaches the Great Gate and the town square. \nTo the south stand wood line gates, to the north you see bustling people and lights. \nEXITS: (N) (S)");
 
         //Toms Cave EXITS:
         cave.setExit("n", caveN);
@@ -473,13 +473,13 @@ public class Game {
         forest49.setExit("w", forest48);
         forest49.setExit("n", forest50);
         forest50.setExit("s", forest49);
-        forest50.setExit("n", forestClearing);
+        forest50.setExit("n", firstVilleGate);
 
 
         //Town exits
-        forestClearing.setExit("n", townSquare);
-        forestClearing.setExit("s", forest50);
-        townSquare.setExit("s", forestClearing);
+        firstVilleGate.setExit("n", firstVillePassage);
+        firstVilleGate.setExit("s", forest50);
+        firstVillePassage.setExit("s", firstVilleGate);
 
 
 
@@ -496,7 +496,10 @@ public class Game {
         sHouseHallway.setDoor("s", sHouseHallwayRoom);
         sHouseRoom.setDoor("n", sHouseHallwayRoom);
 
-        LockedDoors gateDoor = new LockedDoors(true, "Guard Key", forestClearing, townSquare);
+        LockedDoors gateDoor = new LockedDoors(true, "Guard Key", firstVilleGate, firstVillePassage);
+
+        firstVilleGate.setLockedDoor("n", gateDoor);
+        firstVillePassage.setLockedDoor("s", gateDoor);
 
         // ITEMS
 
@@ -516,8 +519,24 @@ public class Game {
         }
 
         for (int i = 0; i < 2; i++) {
-            forest12.addObject("white whispberries");
+            forest12.addObject("white whispberry");
         }
+
+
+        firstVilleGate.addObject("snarkflower");
+        firstVilleGate.addObject("snarkflower");
+
+        firstVilleGate.addObject("snarkflower");
+
+        firstVilleGate.addObject("snarkflower");
+
+        firstVilleGate.addObject("snarkflower");
+
+        forest16.addObject("snarkflower");
+        forest21.addObject("snarkflower");
+        forest47.addObject("snarkflower");
+        forest29.addObject("snarkflower");
+        forest13.addObject("snarkflower");
 
         // MAKE CHEST STUFF HAPPEN HERE
 
@@ -566,7 +585,7 @@ public class Game {
         Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock, raggerH , 2, "SQ0", Npca.QuestState.NONE);
         Guard Oliver = new Guard("Oliver", oliverLines, oliverP, 8, FirstVilleHelm, FirstVillePlate, FirstVilleLegs, FirstVilleBoots, "MQ3", Npca.QuestState.NONE);
 
-        forestClearing.getGuard().add(Oliver);
+        firstVilleGate.getGuard().add(Oliver);
 
         //MAKE ITEMS EXIST IN ITEMS
         List<Item> existingItems = new ArrayList<>();
@@ -574,7 +593,7 @@ public class Game {
         existingItems.add(leatherArmor);
 
 
-        Story(forestClearing, existingItems, equipment);
+        Story(firstVilleGate, existingItems, equipment);
 
     }
 
@@ -679,6 +698,7 @@ public class Game {
         objects.add("silver");
         objects.add("copper");
         objects.add("twig");
+        objects.add("snarkflower");
         objects.add("door");
         objects.add("rabbit");
         objects.add("chicken");
@@ -688,6 +708,8 @@ public class Game {
         objects.add("ih");
         objects.add("white whispberries");
         objects.add("oliver");
+        objects.add("gate");
+
 
 
 
@@ -756,6 +778,9 @@ public class Game {
 
         List<String> talk = new ArrayList<>();
         talk.add("talk");
+
+        List<String> gate = new ArrayList<>();
+        gate.add("gate");
 
 
 
@@ -888,7 +913,7 @@ public class Game {
                         if (q.done) completed++;
                     }
 
-                    System.out.println("=== YOUR QUESTS (" + totalQuests + "/5 quests acquired) ==="); // RIGHT NOW THERE AREE ONLY 5 POSSIBLE QUESTS
+                    System.out.println("=== YOUR QUESTS (" + totalQuests + "/6 quests acquired) ==="); // RIGHT NOW THERE AREE ONLY 5 POSSIBLE QUESTS
 
                     System.out.println("\nCOMPLETED (" + completed + "/" + totalQuests + "):");
                     for (Quest q : Player.QUESTS.values()) {
@@ -916,7 +941,7 @@ public class Game {
                             Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                             inRoom = newRoom;
                             Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
+                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
                         }
                         else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
@@ -924,7 +949,7 @@ public class Game {
                             Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                             inRoom = newRoom;
                             Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
+                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
 
                         }
@@ -933,7 +958,7 @@ public class Game {
                             Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                             inRoom = newRoom;
                             Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
+                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
                         }
                         else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
@@ -941,7 +966,7 @@ public class Game {
                             Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                             inRoom = newRoom;
                             Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
+                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
 
                         }
@@ -956,7 +981,7 @@ public class Game {
                                     Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                                     inRoom = newRoom;
                                     Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
+                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
                                 }
 
@@ -967,7 +992,7 @@ public class Game {
                                     Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                                     inRoom = newRoom;
                                     Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
+                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
                                 }
 
@@ -978,7 +1003,7 @@ public class Game {
                                     Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                                     inRoom = newRoom;
                                     Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
+                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
                                 }
 
@@ -989,7 +1014,7 @@ public class Game {
                                     Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                                     inRoom = newRoom;
                                     Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player));
+                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
                                 }
 
@@ -1101,6 +1126,71 @@ public class Game {
                                         }
                                     } else {
                                         System.out.println("The door is already open.");
+                                    }
+                                }
+
+                                else {
+                                    System.out.println("There is no door here.");
+                                }
+
+                            }
+
+                            else if (stringContainsWordFromList(action.toLowerCase(), gate.toArray(new String[0]))) {
+                                LockedDoors isGate = null;
+                                String gateDir = null;
+
+                                for (String dir : Arrays.asList("n", "s", "e", "w")){
+
+                                    if (inRoom.getLockedDoor(dir) != null){
+
+                                        isGate = inRoom.getLockedDoor(dir);
+
+                                        gateDir = dir;
+
+                                        break;
+
+                                    }
+                                }
+
+                                if (isGate != null) {
+                                    if (!isGate.isOpened()) {
+                                        boolean opened = false;
+                                        if (inRoom.getRoomName().equals("Gate of FirstVille")) {
+                                            System.out.println("check 1");
+                                            for (String item : inventoryinventory){
+                                                if (item.equalsIgnoreCase("guard pass")){
+                                                    System.out.println("You open the gate to the " + gateDir.toUpperCase() + ".");
+                                                    isGate.setOpened(true);
+                                                    opened = true;
+                                                    break;
+                                                }
+                                            }
+
+                                            if (!opened){
+                                                Map<String, Item> equipped = equipment.getEquippedItems();
+                                                for (Item item : equipped.values()){
+                                                    if (item.getName().equalsIgnoreCase("firstville guards boots") || item.getName().equalsIgnoreCase("firstville guards legs") || item.getName().equalsIgnoreCase("firstville guards plate") || item.getName().equalsIgnoreCase("firstville guards helm")){
+                                                        System.out.println("You open the gate to the " + gateDir.toUpperCase() + ".");
+                                                        isGate.setOpened(true);
+                                                        opened = true;
+                                                        break;
+
+                                                    }
+                                                }
+                                            }
+
+                                            if (!opened){
+                                                System.out.println("You cannot open this gate.");
+                                            }
+                                        }
+                                        else {
+                                            System.out.println("You open the gate to the " + gateDir.toUpperCase() + ".");
+                                            isGate.setOpened(true);
+                                        }
+
+                                    }
+                                    else {
+                                        System.out.println("The gate is already open.");
                                     }
                                 }
 
@@ -1282,7 +1372,7 @@ public class Game {
 
                             for (String obj : objects) {
                                 if (action.toLowerCase().contains(obj)) {
-                                    take(inRoom, obj, inventory, player);
+                                    take(inRoom, obj, inventory, player, playersStats);
                                     validObject = true;
                                     break;
                                 }
@@ -1575,6 +1665,13 @@ public class Game {
             return currentHub;
         }
 
+        LockedDoors lockedDoors = currentHub.getLockedDoor(direction);
+
+        if (lockedDoors != null && !lockedDoors.isOpened()) {
+            System.out.println("There is a locked gate in your way.");
+            return currentHub;
+        }
+
         Hub newRoom = currentHub.getExit(direction);
 
         // If there is a new area where user tries to go, update it
@@ -1695,7 +1792,7 @@ public class Game {
         }
     }
 
-    public static void take(Hub inRoom, String item, List<String> inventory, Player player){
+    public static void take(Hub inRoom, String item, List<String> inventory, Player player, XpLv playerStats){
 
         if (item.equalsIgnoreCase("leaflet")) {
 
@@ -1870,8 +1967,8 @@ public class Game {
 
             inventory.add(item);
             inRoom.getObjects().remove(item);
-            String takenItem = item;
-            Player.QUESTS.forEach((id, q) -> q.check("COLLECT_ITEM", takenItem, player));
+            String takenItem = item.toLowerCase();
+            Player.QUESTS.forEach((id, q) -> q.check("COLLECT_ITEM", takenItem, player, playerStats));
 
         }
 
@@ -2461,7 +2558,7 @@ public class Game {
 
                 String killedMob = mob.getName();
 
-                Player.QUESTS.forEach((id, q) -> q.check("KILL_MOB", killedMob, player));
+                Player.QUESTS.forEach((id, q) -> q.check("KILL_MOB", killedMob, player, playerStats));
 
                 break;
             }
@@ -2757,7 +2854,6 @@ public class Game {
     }
 
     public static List<String> talkGuard(Hub inRoom, List<String> inventory, XpLv playerStats, Guard npc, Player player){
-
         // normal NPCs
         if (!npc.getName().equalsIgnoreCase("Oliver")) {
             npc.talk();
@@ -2779,7 +2875,7 @@ public class Game {
 
             if (a.startsWith("a") && !done) {
                 npc.setQuestState(Npca.QuestState.ACCEPTED);
-                oliverQuest = new Quest("MQ3", "Collect 3 SnarkFlowers", 2, "SnarkFlowers", 5, 20, 2); // main quest - get flowers
+                oliverQuest = new Quest("MQ3", "Collect 5 SnarkFlowers", 2, "snarkflower", 5, 20, 2); // main quest - get flowers
                 Player.QUESTS.put("MQ3", oliverQuest);
                 System.out.println("Quest added: " + oliverQuest.status());
             } else {
@@ -2806,7 +2902,7 @@ public class Game {
         }
 
         // 3) Player accepted but not done yet
-        if (npc.getQuestState() == Npca.QuestState.ACCEPTED && !done) {
+        if (npc.getQuestState() == Npca.QuestState.ACCEPTED && !inventory.contains("guard pass")) {
 
             if (oliverQuest.isDone()) {
                 // Mark quest done and reward
