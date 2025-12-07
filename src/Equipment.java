@@ -41,7 +41,28 @@ class Equipment {
             player.getHealth().setMaxHealth(player.getHealth().getDamageResistance() + 3);
         }
 
+        if (item.getName().equals("firstville guards plate")){
+            player.getHealth().setMaxHealth(player.getHealth().getDamageResistance() + 5);
+            System.out.println("Observers think you are a guard of FirstVille!");
+        }
+
+        if (item.getName().equals("firstville guards helm")){
+            player.getHealth().setMaxHealth(player.getHealth().getDamageResistance() + 2);
+            System.out.println("Observers think you are a guard of FirstVille!");
+        }
+
+        if (item.getName().equals("firstville guards legs")){
+            player.getHealth().setMaxHealth(player.getHealth().getDamageResistance() + 3);
+            System.out.println("Observers think you are a guard of FirstVille!");
+        }
+
+        if (item.getName().equals("firstville guards boots")){
+            player.getHealth().setMaxHealth(player.getHealth().getDamageResistance() + 2);
+            System.out.println("Observers think you are a guard of FirstVille!");
+        }
+
         return true;
+
     }
 
     public void unequip(String slot, Item item, Player player) {
@@ -56,6 +77,38 @@ class Equipment {
 
             if (item.getName().equals("leather armor")){
                 player.getHealth().setMaxHealth(player.getHealth().getDamageResistance() - 3);
+                if (player.getHealth().getHeealth() > player.getHealth().getMaxHealth()){
+                    player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+                }
+            }
+
+            if (item.getName().equals("firstville guards helm")){
+                player.getHealth().setMaxHealth(player.getHealth().getDamageResistance() - 2);
+                System.out.println("Observers begin losing faith you are a guard of FirstVille!");
+                if (player.getHealth().getHeealth() > player.getHealth().getMaxHealth()){
+                    player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+                }
+            }
+
+            if (item.getName().equals("firstville guards plate")){
+                player.getHealth().setMaxHealth(player.getHealth().getDamageResistance() - 5);
+                System.out.println("Observers begin losing faith you are a guard of FirstVille!");
+                if (player.getHealth().getHeealth() > player.getHealth().getMaxHealth()){
+                    player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+                }
+            }
+
+            if (item.getName().equals("firstville guards legs")){
+                player.getHealth().setMaxHealth(player.getHealth().getDamageResistance() - 3);
+                System.out.println("Observers begin losing faith you are a guard of FirstVille!");
+                if (player.getHealth().getHeealth() > player.getHealth().getMaxHealth()){
+                    player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+                }
+            }
+
+            if (item.getName().equals("firstville guards boots")){
+                player.getHealth().setMaxHealth(player.getHealth().getDamageResistance() - 2);
+                System.out.println("Observers begin losing faith you are a guard of FirstVille!");
                 if (player.getHealth().getHeealth() > player.getHealth().getMaxHealth()){
                     player.getHealth().setHeealth(player.getHealth().getMaxHealth());
                 }

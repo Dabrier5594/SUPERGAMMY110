@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-// WHY DOES GATE NOT OPEN W PASS??
+// MAKE IT SO IF YOU ARE INSIDE FIRSTVILLE AND YOU TAKE OFF ARMOR, PEOPLE WILL KICK YOU OUT.
 
 // Make rouge bandits
 
@@ -524,16 +524,7 @@ public class Game {
 
 
         firstVilleGate.addObject("snarkflower");
-        firstVilleGate.addObject("snarkflower");
-
-        firstVilleGate.addObject("snarkflower");
-
-        firstVilleGate.addObject("snarkflower");
-
-        firstVilleGate.addObject("snarkflower");
-
         forest16.addObject("snarkflower");
-        forest21.addObject("snarkflower");
         forest47.addObject("snarkflower");
         forest29.addObject("snarkflower");
         forest13.addObject("snarkflower");
@@ -709,6 +700,12 @@ public class Game {
         objects.add("white whispberries");
         objects.add("oliver");
         objects.add("gate");
+        objects.add("firstville guards plate");
+        objects.add("firstville guards helm");
+        objects.add("firstville guards boots");
+        objects.add("firstville guards legs");
+
+
 
 
 
@@ -798,7 +795,7 @@ public class Game {
         String namer = scanner.nextLine();
         System.out.println("");
 
-        Player player =  new Player(namer, 10,10,90, 0);
+        Player player =  new Player(namer, 10,2000,120812, 0);
 
         XpLv playersStats = new XpLv(1, 0);
 
@@ -1065,7 +1062,6 @@ public class Game {
                     }
 
                     else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0])) || action.toLowerCase().contains("leaflet") || action.toLowerCase().contains("ih")) {
-                        System.out.println("**CHECK-O!**");
                         if (stringContainsWordFromList(action.toLowerCase(), open.toArray(new String[0]))) {
 
                             if (stringContainsWordFromList(action.toLowerCase(), inventory.toArray(new String[0]))){
@@ -1156,8 +1152,7 @@ public class Game {
                                     if (!isGate.isOpened()) {
                                         boolean opened = false;
                                         if (inRoom.getRoomName().equals("Gate of FirstVille")) {
-                                            System.out.println("check 1");
-                                            for (String item : inventoryinventory){
+                                            for (String item : inventory){
                                                 if (item.equalsIgnoreCase("guard pass")){
                                                     System.out.println("You open the gate to the " + gateDir.toUpperCase() + ".");
                                                     isGate.setOpened(true);
@@ -1361,6 +1356,41 @@ public class Game {
 
                                 else {
                                     System.out.println("There is no door here.");
+                                }
+                            }
+
+                            else if (stringContainsWordFromList(action.toLowerCase(), gate.toArray(new String[0]))) {
+
+                                LockedDoors isGate = null;
+                                String gateDir = null;
+
+                                for (String dir : Arrays.asList("n", "s", "e", "w")){
+
+                                    if (inRoom.getLockedDoor(dir) != null){
+
+                                        isGate = inRoom.getLockedDoor(dir);
+
+                                        gateDir = dir;
+
+                                        break;
+
+                                    }
+                                }
+
+                                if (isGate != null){
+                                    if (isGate.isOpened()) {
+                                        System.out.println("You close the gate to the " + gateDir.toUpperCase() + ".");
+                                        isGate.setOpened(false);
+
+                                    }
+
+                                    else{
+                                        System.out.println("The gate is already closed.");
+                                    }
+                                }
+
+                                else {
+                                    System.out.println("There is no gate here.");
                                 }
                             }
 
