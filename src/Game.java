@@ -473,9 +473,14 @@ public class Game {
         forest49.setExit("w", forest48);
         forest49.setExit("n", forest50);
         forest50.setExit("s", forest49);
+        forest50.setExit("n", forestClearing);
+
 
         //Town exits
         forestClearing.setExit("n", townSquare);
+        forestClearing.setExit("s", forest50);
+        townSquare.setExit("s", forestClearing);
+
 
 
         //Doors!!!!

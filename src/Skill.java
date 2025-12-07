@@ -91,6 +91,7 @@ public abstract class Skill {
             target.setStunned(true);
             currentCooldown = cooldownTurns; // reset cooldown
         }
+
     }
 
 }
