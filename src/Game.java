@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-// IF YOU START AN ITEM QUEST, IF YOU ALREADY HAVE THE ITEMS, THEN IT COUNTS AS COMPLETE. ALSO, WHAT DOES GATE NOT OPEN W PASS??
+// WHY DOES GATE NOT OPEN W PASS??
 
 // Make rouge bandits
 
@@ -2871,18 +2871,29 @@ public class Game {
             npc.sayLine(2); // "Would you like to take on my quest?"
 
             System.out.print("Type 'a' to accept the quest and 'b' to decline: ");
-            String a = Game.scanner.nextLine().trim().toLowerCase();
+            String a = scanner.nextLine().trim().toLowerCase();
 
             if (a.startsWith("a") && !done) {
                 npc.setQuestState(Npca.QuestState.ACCEPTED);
-                oliverQuest = new Quest("MQ3", "Collect 5 SnarkFlowers", 2, "snarkflower", 5, 20, 2); // main quest - get flowers
+                oliverQuest = new Quest("MQ3", "Collect 5 SnarkFlowers for Oliver", 2, "snarkflower", 5, 20, 2); // main quest - get flowers
                 Player.QUESTS.put("MQ3", oliverQuest);
                 System.out.println("Quest added: " + oliverQuest.status());
-            } else {
-                npc.setQuestState(Npca.QuestState.OFFERED);
-                    npc.sayLine(3);
+                //CHECK IF QUEST IS ALReADY COMPLETED
+                if (Collections.frequency(inventory, "snarkflower") >= 5){
+                    oliverQuest.setSkip();
+                    oliverQuest.check("COLLECT_ITEM", "snarkflower", player, playerStats);
+                }
+                else{
+                    return inventory;
+                }
             }
-            return inventory;
+
+            else {
+                npc.setQuestState(Npca.QuestState.OFFERED);
+                npc.sayLine(3);
+                return inventory;
+
+            }
         }
 
         // 2) Player declined earlier (OFFERED): only last 2 lines
@@ -2890,30 +2901,54 @@ public class Game {
             npc.sayLine(1);
             npc.sayLine(2); // you can change this to a “still here if you want help” line
             System.out.print("Type a to accept the quest and b to decline: ");
-            String a = Game.scanner.nextLine().trim().toLowerCase();
+            String a = scanner.nextLine().trim().toLowerCase();
 
             if (a.startsWith("a") && !done) {
                 npc.setQuestState(Npca.QuestState.ACCEPTED);
+                oliverQuest = new Quest("MQ3", "Collect 5 SnarkFlowers for Oliver", 2, "snarkflower", 5, 20, 2); // main quest - get flowers
+                Player.QUESTS.put("MQ3", oliverQuest);
                 System.out.println("Quest added: " + oliverQuest.status());
-            } else {
-                npc.sayLine(3);
+                //CHECK IF QUEST IS ALReADY COMPLETED
+                if (Collections.frequency(inventory, "snarkflower") >= 5){
+                    oliverQuest.setSkip();
+                    oliverQuest.check("COLLECT_ITEM", "snarkflower", player, playerStats);
+                }
+                else{
+                    return inventory;
+                }
             }
-            return inventory;
+            else {
+                npc.sayLine(3);
+                return inventory;
+            }
         }
 
         // 3) Player accepted but not done yet
         if (npc.getQuestState() == Npca.QuestState.ACCEPTED && !inventory.contains("guard pass")) {
 
             if (oliverQuest.isDone()) {
-                // Mark quest done and reward
-                oliverQuest.done = true;
-                npc.setQuestState(Npca.QuestState.COMPLETED);
 
-                System.out.println("Oliver says: \"Awesome, thanks!\"");
-                // Give guard pass
-                inventory.add("guard pass");
-                System.out.println("You received a Guard Pass.");
-            } else {
+                System.out.println("Oliver says: \"Awesome, you already have them!\"");
+                System.out.println("Oliver says: \"Trade them for the guard pass?\" ");
+                System.out.println("Type 'a' to accept the quest and 'b' to decline: ");
+                String a = scanner.nextLine().trim().toLowerCase();
+                if (a.equalsIgnoreCase("a")){
+                    inventory.add("guard pass");
+                    System.out.println("You received a Guard Pass for 5 SnarkFlowers");
+                    // Mark quest done and reward
+                    oliverQuest.done = true;
+                    npc.setQuestState(Npca.QuestState.COMPLETED);
+                    for (int i = 0; i < 5; i++){
+                        inventory.remove("snarkflower");
+                    }
+                    return inventory;
+                }
+                else {
+                    System.out.println("Oliver says: \"Aw shucks, that's too bad. Maybe later...\"");
+                    return inventory;
+                }
+            }
+            else {
                 System.out.println("Oliver says: \"Come back when you have enough.\"");
             }
             return inventory;
