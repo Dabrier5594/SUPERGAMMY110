@@ -125,7 +125,6 @@ public class Game {
                         if (!nextRoom.getRoomName().equalsIgnoreCase("Abandon House's Entrance") && !nextRoom.getRoomName().equalsIgnoreCase("Tom's Dark Entrance")) {
                             nextRoom.getMOBS().add(mob);
                             hub.getMOBS().remove(mob);
-                            System.out.println(mob.getName() + " | " + hub.getRoomName() +  " -> " + nextRoom.getRoomName());
                         }
 
                     }
@@ -189,7 +188,7 @@ public class Game {
 
     };
 
-    static Health oliverP = new Health(100, 100, 0);
+    static Health oliverP = new Health(60, 60, 0);
 
 
 
@@ -333,9 +332,9 @@ public class Game {
 
         Hub forest48 = new Hub("Northern Forest Area #48", "The Northern Area of the Great Makiss Forest. \nA massive tree with ancient roots forming natural arches. \nEXITS: (S) (E)");
 
-        Hub forest49 = new Hub("Northern Forest Area #49", "The Northern Area of the Great Makiss Forest. \nA clearing just before the forest gate, quiet but tense as danger nears. \nEXITS: (W) (N)");
+        Hub forest49 = new Hub("Northern Forest Area #49", "The Northern Area of the Great Makiss Forest. \nA clearing just before the forest exit, quiet but tense as danger nears. \nEXITS: (W) (N)");
 
-        Hub forest50 = new Hub("Northern Forest Area #50", "The Northern Area of the Great Makiss Forest. \nThe forest gate stands here, guarded by a fierce mini-boss—beyond lies the bridge to new adventures. \nEXITS: (S) (N)");
+        Hub forest50 = new Hub("Northern Forest Area #50", "The Northern Area of the Great Makiss Forest. \nThe forest exit, hints of a fierce mini-boss—beyond lay in the area. \nEXITS: (S) (N)");
 
         Hub firstVilleGate = new Hub("Gate of FirstVille", "The Great Gate of FirstVille.\nYou stand in a clearing, opposite from the forest, in front of a great booming gate: (S) (N)");
 
@@ -584,7 +583,7 @@ public class Game {
         existingItems.add(leatherArmor);
 
 
-        Story(firstVilleGate, existingItems, equipment);
+        Story(cave, existingItems, equipment);
 
     }
 
@@ -795,7 +794,7 @@ public class Game {
         String namer = scanner.nextLine();
         System.out.println("");
 
-        Player player =  new Player(namer, 10,2000,120812, 0);
+        Player player =  new Player(namer, 10,10,5, 0);
 
         XpLv playersStats = new XpLv(1, 0);
 
@@ -1028,7 +1027,9 @@ public class Game {
                             System.out.println(inRoom.getRoomDescription());
                             System.out.println("");
 
-                            itemsIfAny(inRoom.getObjects(), "Items in room: ");
+                            if (!inRoom.getObjects().isEmpty()) {
+                                itemsIfAny(inRoom.getObjects(), "Items in room: ");
+                            }
                             System.out.println("");
 
                             List<String> mobNames = new ArrayList<>();
@@ -1039,7 +1040,27 @@ public class Game {
 
                             }
 
-                            mobsIfAny(mobNames, "Mobs in room: ");
+                            if (!mobNames.isEmpty()) {
+                                mobsIfAny(mobNames, "Mobs in room: ");
+                            }
+
+                            List<String> npcNames = new ArrayList<>();
+
+                            for (Npca npc : inRoom.getNpc()){
+                                npcNames.add(npc.getName());
+                            }
+
+                            for (Guard npc : inRoom.getGuard()){
+                                npcNames.add(npc.getName());
+                            }
+
+                            for (Merchant npc : inRoom.getMerchant()){
+                                npcNames.add(npc.getName());
+                            }
+
+                            if (!npcNames.isEmpty()){
+                                npcIfAny(npcNames, "NPC's in room: ");
+                            }
 
                         }
 
@@ -1710,7 +1731,9 @@ public class Game {
             System.out.println(newRoom.getRoomName());
             System.out.println(newRoom.getRoomDescription());
 
-            itemsIfAny(newRoom.getObjects(), "Items in room: ");
+            if (!newRoom.getObjects().isEmpty()) {
+                itemsIfAny(newRoom.getObjects(), "Items in room: ");
+            }
 
             Mobs(newRoom);
 
@@ -1755,7 +1778,28 @@ public class Game {
 
             }
 
-            mobsIfAny(mobNames, "Mobs in room: ");
+            if (!mobNames.isEmpty()) {
+                mobsIfAny(mobNames, "Mobs in room: ");
+            }
+
+            List<String> npcNames = new ArrayList<>();
+
+            for (Npca npc : newRoom.getNpc()){
+                npcNames.add(npc.getName());
+            }
+
+            for (Guard npc : newRoom.getGuard()){
+                npcNames.add(npc.getName());
+            }
+
+            for (Merchant npc : newRoom.getMerchant()){
+                npcNames.add(npc.getName());
+            }
+
+            if (!npcNames.isEmpty()){
+                npcIfAny(npcNames, "NPC's in room: ");
+            }
+
             return newRoom; // Return the new Hub object (room)
 
         }
@@ -2348,6 +2392,19 @@ public class Game {
         for (String mob : new ArrayList<>(new java.util.HashSet<>(mobs))) {
             int count = Collections.frequency(mobs, mob);
             System.out.print("[" + mob + (count > 1 ? " (x" + count + ")] " : "] "));
+        }
+        System.out.println("");
+    }
+
+    public static void npcIfAny(List<String> mobs, String name) {
+        if (mobs.isEmpty()) {
+            System.out.println(name + " []");
+            return;
+        }
+
+        System.out.print(name + "");
+        for (String mob : new ArrayList<>(new java.util.HashSet<>(mobs))) {
+            System.out.print("[" + mob +  "] ");
         }
         System.out.println("");
     }
@@ -2958,8 +3015,8 @@ public class Game {
 
             if (oliverQuest.isDone()) {
 
-                System.out.println("Oliver says: \"Awesome, you already have them!\"");
-                System.out.println("Oliver says: \"Trade them for the guard pass?\" ");
+                System.out.println("Oliver (Guard) says: \"Awesome, you already have them!\"");
+                System.out.println("Oliver (Guard) says: \"Trade them for the guard pass?\" ");
                 System.out.println("Type 'a' to accept the quest and 'b' to decline: ");
                 String a = scanner.nextLine().trim().toLowerCase();
                 if (a.equalsIgnoreCase("a")){
@@ -2974,19 +3031,19 @@ public class Game {
                     return inventory;
                 }
                 else {
-                    System.out.println("Oliver says: \"Aw shucks, that's too bad. Maybe later...\"");
+                    System.out.println("Oliver (Guard) says: \"Aw shucks, that's too bad. Maybe later...\"");
                     return inventory;
                 }
             }
             else {
-                System.out.println("Oliver says: \"Come back when you have enough.\"");
+                System.out.println("Oliver (Guard) says: \"Come back when you have enough.\"");
             }
             return inventory;
         }
 
         // 4) After completion → simple thank‑you / post‑quest line
         if (npc.getQuestState() == Npca.QuestState.COMPLETED) {
-            System.out.println("Oliver nods. \"Thanks again for the help.\"");
+            System.out.println("Oliver (Guard) nods. \"Thanks again for the help.\"");
             return inventory;
         }
 

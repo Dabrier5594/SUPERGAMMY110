@@ -81,7 +81,7 @@ public class Npca {
 
     public void sayLine(int a) { // SAY SPECIFIC LINE
         if (a >= 0 && a < lines.length) {
-            System.out.println(name + " says: \"" + lines[a] + "\"");
+            System.out.println(name + " (" + prof + ")  says: \"" + lines[a] + "\"");
         }
     }
 }
