@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Npca {
     private String name;
@@ -150,6 +148,69 @@ class Guard extends Npca{
         }
     }
 
+}
+
+class ShopOwner extends Npca {
+
+    private Hub.FirstVilleShop myShop;
+
+    private String currency;
+
+    public ShopOwner(String currency, String name, String[] lines, Health health, int attackPower, Hub.FirstVilleShop myShop, String questId, QuestState questState) {
+        super(name, "Shop Owner", lines, attackPower, health, questId, questState);
+        this.myShop = myShop;
+        this.currency = currency;
+    }
+
+    public List<String> buyItem(Player player, List<String> invin) {
+        Scanner scanner = new Scanner(System.in);
+        String answer;
+
+        List<Map.Entry<Item, Integer>> stockList = new ArrayList<>(myShop.getStock().entrySet());
+
+        if (stockList.isEmpty()) {
+            System.out.println("Shop is empty! Nothing to buy.");
+            return invin;
+        }
+
+        System.out.println(getName() + "'s SHOP:");
+        for (int i = 0; i < stockList.size(); i++) {
+            Map.Entry<Item, Integer> entry = stockList.get(i);  // GET ith entry!
+            System.out.println((i + 1) + ") " + entry.getKey().getName() +
+                    ": " + entry.getValue() + " copper");
+        }
+
+        System.out.print("Which item? (number) - ");
+        answer = scanner.nextLine().trim();
+
+        Item chosen = null;
+        int price = 0;
+
+        try {
+            int index = Integer.parseInt(answer) - 1;
+            if (index >= 0 && index < stockList.size()) {
+                chosen = stockList.get(index).getKey();
+                price = stockList.get(index).getValue();
+            }
+        } catch (NumberFormatException e) {
+            return invin;
+        }
+
+        if (chosen != null) {
+            if (Collections.frequency(invin, currency) > price) {
+                for (int i = 0; i < price; i++){
+                    invin.remove(currency);
+                }
+                invin.add(chosen.getName());  // add to inventory
+                System.out.println("Bought " + chosen.getName() + " for " + price + " copper!");
+            }
+            else {
+                System.out.println("Need " + price + " copper! You got... not enough! ");
+            }
+        }
+
+        return invin;
+    }
 
 }
 

@@ -112,5 +112,80 @@ public class Hub {
         }
         return false;
     }
+
+    public class FirstVilleShop extends Hub {
+        private Map<Item, Integer> shopStock;  // item name -> price in copper
+        private ShopOwner shopOwner;  // who's running this joint
+
+        public FirstVilleShop(String name, String description, ShopOwner owner) {
+            super(name, description);  // call Hub constructor cuz we want all that room stuff
+            this.shopStock = new HashMap<>();
+            this.shopOwner = owner;  // who owns the shop
+        }
+
+        public void addStock(Item item, int price) {
+            shopStock.put(item, price);  // adds item to shop, price is how much it costs yo
+        }
+
+        public Map<Item, Integer> getStock() {
+            return new HashMap<>(shopStock); // return COPY so nobody messes with shop data!
+        }
+
+        public String getShopOwnerName() {
+            return shopOwner.getName();
+        }
+
+        public void displayStock() {
+            System.out.println("=== " + shopOwner.getName() + "'s SHOP STOCK ===");
+            for (Map.Entry<Item, Integer> entry : shopStock.entrySet()) {
+                // loops through EVERY item in shop and prints it with price
+                System.out.println("- " + entry.getKey() + ": " + entry.getValue() + " copper");
+            }
+            System.out.println("================================");
+        }
+    }
+
+    public class Guild extends Hub {
+        private List<String> availableQuests;  // quest IDs players can get
+        private Map<String, String> guildMembers; // playerName -> their rank (Noob -> Legend)
+
+        public Guild(String name, String description) {
+            super(name, description);
+            this.availableQuests = new ArrayList<>();  // empty quest list to fill later
+            this.guildMembers = new HashMap<>();  // who's in the guild and their rank
+        }
+
+        public void addQuest(String questId) {
+            availableQuests.add(questId);  // adds quest to the board, players see this
+        }
+
+        public void removeQuest(String questId) {
+            availableQuests.remove(questId);  // adds quest to the board, players see this
+        }
+
+        public List<String> getAvailableQuests() {
+            return new ArrayList<>(availableQuests);  // copy so they can't hack the quest list
+        }
+
+        public void joinGuild(String playerName) {
+            guildMembers.put(playerName, "Novice");  // new guy starts at bottom, grind time!
+            System.out.println(playerName + " joined the guild as Novice!");
+        }
+
+        public void displayQuestBoard() {
+            System.out.println("🏛GUILD QUEST BOARD");
+            if (availableQuests.isEmpty()) {
+                System.out.println("No quests right now... come back later!");
+            } else {
+                for (int i = 0; i < availableQuests.size(); i++) {
+                    // shows numbered quests, makes it easy to pick one
+                    System.out.println((i+1) + ". " + availableQuests.get(i));
+                }
+            }
+            System.out.println("Talk to guild master to accept quests!");
+        }
+    }
+
+
 }
 
