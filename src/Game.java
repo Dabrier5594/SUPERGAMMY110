@@ -551,8 +551,8 @@ public class Game {
         forest10.getMOBS().add(goblin);
 
         //CHANGE SO THAT THE CLASS THAT MAKES BOSSES CAN BE USED OVER AND OVER. THE CLASS SHOLUD GIVE THE BOSS SPECIAL SKILLS, DROP ITEMS, HEALTH ETC.
-        Mob forestGod = forestGodStats();
-        forest50.getMOBS().add(forestGod);
+
+
 
         for (int o = 0; o < 3; o++){
 
@@ -777,7 +777,6 @@ public class Game {
 
         List<String> gate = new ArrayList<>();
         gate.add("gate");
-
 
 
 
@@ -2541,17 +2540,7 @@ public class Game {
         return new Mob("Goblin", goblinHealth, attackPower, isAggro);
     }
 
-    private static Mob forestGodStats() {
-        int maxHealth = 100; //
-        int currentHealth = maxHealth;  // start at full health
-        int damageResistance = 15;       // example damage resistance
-        Health forestGodHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = 25;
-        boolean isAggro = true;
-
-        return new Mob("Forest God", forestGodHealth, attackPower, isAggro);
-    }
 
     public static void combat(Player player, Mob mob, Hub inRoom, XpLv playerStats){
         boolean using = false;
@@ -3055,5 +3044,6 @@ public class Game {
         npc.sayLine(1);
         npc.sayLine(2);
     }
+
 
 }
