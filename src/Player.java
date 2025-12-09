@@ -108,6 +108,25 @@ public class Player {
 
     }
 
+    public void attackBoss(Boss npc) {
+
+        if (isStunned == true){
+            System.out.println("You are stunned and cannot do anything.");
+            setStunned(false);
+            return;
+        }
+
+        if (npc == null) {
+            System.out.println("There is nothing to attack.");
+            return;
+        }
+
+        System.out.println(name + " attacks " + npc.getName() + " for " + attackPower + " damage!");
+
+        npc.getHealth().mobTakeDamage(attackPower);
+
+    }
+
     public void takeDamage(int damage) {
         health.takeDamage(damage);
     }

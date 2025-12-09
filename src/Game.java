@@ -2874,7 +2874,7 @@ public class Game {
 
             System.out.println("");
 
-            player.attackNpc(npc);
+            player.attackGuard(npc);
 
             System.out.println("");
 
@@ -2942,8 +2942,9 @@ public class Game {
 
     }
 
-    public static void combatBoss(Player player, Boss boss, Hub inRoom, XpLv playerStats, List<Item> existingItems){
+    public static void combatBoss(Player player, Boss boss, Hub inRoom, XpLv playerStats, List<Item> existingItems, Map<String, Item> eqI, Equipment eq){
 
+        System.out.println("THE GREAT " + boss.getName() + " RECOGNIZES YOU AS IT'S PREY.");
         boolean using = false;
 
         if (player.getSkills().isEmpty()){
@@ -2981,7 +2982,7 @@ public class Game {
 
                 String usingNow = scanner.nextLine();
                 if (usingNow.toLowerCase().equals("stun")){
-                    Skill.StunSkill.applyGuard(player, boss);
+                    Skill.StunSkill.applyBoss(player, boss);
                 }
 
                 else {
@@ -3002,7 +3003,7 @@ public class Game {
 
             System.out.println("");
 
-            player.attackNpc(npc);
+            player.attackBoss(boss);
 
             System.out.println("");
 
@@ -3012,32 +3013,24 @@ public class Game {
                 throw new RuntimeException(e);
             }
 
-            if (npc.getHealth().isDead()){
+            if (boss.getHealth().isDead()){
 
-                System.out.println( npc.getName() + " has died at your hands. \n");
+                System.out.println( boss.getName() + " has died at your hands. \n");
 
-                if (npc.getName().equalsIgnoreCase("Oliver")) {
-                    Item z = npc.getItem();
-                    existingItems.add(z);
-                    inRoom.getObjects().add(z.getName().toLowerCase());
-                    System.out.println("The only salvaged item from the battle lays on the ground.");
-                }
-
-
-                playerStats.addXp(playerStats.calculateXp(npc.getName()));
+                playerStats.addXp(playerStats.calculateXp(boss.getName()));
 
                 playerStats.calculateLv(playerStats.getXp(), playerStats.getLevel(), player);
 
                 player.displayStats(player, playerStats);
 
-                inRoom.getNpc().remove(npc); //remove an object that has the name Rabbit
+                inRoom.getBoss().remove(boss); //remove an object that has the name Rabbit
 
                 break;
             }
 
             else {
 
-                npc.attack(player);
+                boss.attack(player, eq, eqI);
                 System.out.println("");
 
                 try {
@@ -3047,7 +3040,7 @@ public class Game {
                 }
 
                 if (player.getHealth().isDead()){
-                    System.out.println("\nYou have been murdered by " + npc.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
+                    System.out.println("\nYou have been murdered by " + boss.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
 
                     try {
                         Thread.sleep(500);

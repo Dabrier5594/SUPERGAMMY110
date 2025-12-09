@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Boss {
     private String name;
@@ -62,19 +63,22 @@ public class Boss {
 
     public void setDead(boolean isDead){this.isDead = isDead;}
 
-    public void attack(Player player){
+    public void attack(Player player, Equipment eq, Map<String, Item> eqI){
 
         if (getStunned()) {
-            System.out.println(name + " is stunned and skips its turn!");
+            System.out.println("The GREAT " + name + " is stunned and skips its turn!");
             setStunned(false);
             // Reset stun after skipping one turn
 
         }
         else {
 
-            System.out.println(name + " attacks you for " + attackPower + " damage!");
+            System.out.println("The GREAT " + name + " attacks you for " + attackPower + " damage!");
 
             player.getHealth().takeDamage(attackPower);
+
+            MobSkill.VineSkill.apply( player, this, eqI, eq);
+
         }
 
     }
