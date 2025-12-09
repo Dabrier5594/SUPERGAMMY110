@@ -574,6 +574,14 @@ public class Game {
         Item FirstVilleLegs = new Item("firstville guards legs", "legging", false);
         Item FirstVilleBoots = new Item("firstville guards boots", "boots", false);
 
+
+        //Boss Drops
+        //forest boss
+        Item thornShield = new Item("the shield of the forest boss","melee",true);
+
+
+
+
         Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock, raggerH , 2, "SQ0", Npca.QuestState.NONE);
         Guard Oliver = new Guard("Oliver", oliverLines, oliverP, 8, FirstVilleHelm, FirstVillePlate, FirstVilleLegs, FirstVilleBoots, "MQ3", Npca.QuestState.NONE);
 

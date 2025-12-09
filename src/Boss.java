@@ -40,6 +40,8 @@ public class Boss {
         return health;
     }
 
+    public String getName(){return name;}
+
     public void setHealth(){
         health.setHeealth(health.getHeealth() + 5);
     }
