@@ -44,11 +44,11 @@ public abstract class MobSkill {
 
 
     public static class VineSkill extends MobSkill {
-
+        private Item takeItem;
         private int cooldownTurns; // number of turns needed to wait after use
         private int currentCooldown; // tracks cooldown progress
 
-        public VineSkill(String name) {
+        public VineSkill(String name, int cooldownTurns) {
             super(name);
             this.cooldownTurns = cooldownTurns;
             this.currentCooldown = 0;
@@ -64,12 +64,22 @@ public abstract class MobSkill {
 
         public void apply(Player player, Boss boss, Map<String, Item> equippedItems, Equipment equipment) {
             if (!canUse()) {
-                return;
+                if(equipment.getItemBasedOnSlot("melee",equippedItems ) == null) {
+                    equipment.equip(takeItem, player);
+                    return;
+                }
             }
 
             System.out.println(boss.getName() + " uses " + getName() + " to take " + player.getName() + "'s weapon!");
+            Item thing = new Item("null", "null", false);
+
+            thing = equipment.getItemBasedOnSlot("melee",equippedItems);
+            equipment.unequip("melee", thing, player);
+            player.setAttackPower(player.getAttackPower()/2);
+            takeItem = thing;
 
             currentCooldown = cooldownTurns; // reset cooldown
+
         }
 
 

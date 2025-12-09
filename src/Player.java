@@ -49,6 +49,8 @@ public class Player {
         return skills;
     }
 
+    public int getAttackPower(){return attackPower;}
+
     public void attack(Mob mob) {
 
         if (isStunned == true){
