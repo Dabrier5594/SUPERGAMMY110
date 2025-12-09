@@ -10,6 +10,7 @@ public class Hub {
     private java.util.Map<String, Door> doors = new java.util.HashMap<>();
     private List<Mob> mobs = new ArrayList<>();
     private List<Npca> npc = new ArrayList<>();
+    private List<Boss> boss = new ArrayList<>();
     private List<Guard> guard = new ArrayList<>();
     private List<Merchant> merchant = new ArrayList<>();
     private Map<String, Chest> chests = new HashMap<>();
@@ -76,6 +77,10 @@ public class Hub {
 
     public List<Mob> getMOBS() {
         return mobs;
+    }
+
+    public List<Boss> getBoss() {
+        return boss;
     }
 
     public List<Npca> getNpc() {
