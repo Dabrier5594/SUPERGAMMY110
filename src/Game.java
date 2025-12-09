@@ -342,6 +342,17 @@ public class Game {
 
         Hub firstVillePassage = new Hub("The Great Passage into FirstVille", "A short passage that reaches the Great Gate and the town square. \nTo the south stand wood line gates, to the north you see bustling people and lights. \nEXITS: (N) (S)");
 
+        Hub townSquare = new Hub("The Town Square", "A great bustling area full of local people. \nTo the south you see the path from the gate to the town square, to the north you see a long line of shops, to the east you see lots of hotels and smell food, to the west you see a great lot of places to get yourself equipped.\nEXITS: (N) (S) (E) (W)");
+
+        Hub butcherShop = new Hub("The Butcher Shop", "The place to buy an assortment of meats" );
+
+        Hub shopPath1 = new Hub("Just north of the town hall","A path full of shops with an assortment of things to buy with two shops of either side. \nEXITS: (N) (S)");
+
+        Hub travelerPath1 = new Hub("","");//just east of the town square
+
+        Hub equipmentPath1 = new Hub("","");//just west of the town square
+
+
         //Toms Cave EXITS:
         cave.setExit("n", caveN);
         caveN.setExit("s", cave);
