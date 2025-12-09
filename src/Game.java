@@ -2931,6 +2931,135 @@ public class Game {
 
     }
 
+    public static void combatBoss(Player player, Boss boss, Hub inRoom, XpLv playerStats, List<Item> existingItems){
+
+        boolean using = false;
+
+        if (player.getSkills().isEmpty()){
+
+        }
+        else {
+
+            System.out.println("Would you like to you skills and items in this battle or just use what you already have (y/n) ?");
+            System.out.print("-> ");
+            String answer = scanner.nextLine();
+
+            if (!answer.isEmpty()) {
+                if (answer.substring(0, 1).toLowerCase().equals("y")) {
+                    using = true;
+                } else {
+                    using = false;
+                }
+            }
+
+            else {using = false; System.out.println("No input taken...");}
+
+            System.out.println("");
+        }
+
+        while (!player.getHealth().isDead() && !boss.getHealth().isDead()){
+
+            if (using == true){
+
+                System.out.println("What skill would you like to use?");
+                for (Skill skill : player.getSkills())  {
+                    System.out.print("[" + skill.getName() + "]  ");
+                }
+                System.out.println("");
+                System.out.print("-> ");
+
+                String usingNow = scanner.nextLine();
+                if (usingNow.toLowerCase().equals("stun")){
+                    Skill.StunSkill.applyGuard(player, boss);
+                }
+
+                else {
+                    int chop = 0;
+                    for (Skill skiller : player.getSkills())  {
+                        if (usingNow.toLowerCase().equals(skiller.getName())){
+                            chop++;
+                        }
+                    }
+
+                    if (chop <= 0){
+                        System.out.println("Unknown input.");
+                    }
+                }
+
+
+            }
+
+            System.out.println("");
+
+            player.attackNpc(npc);
+
+            System.out.println("");
+
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (npc.getHealth().isDead()){
+
+                System.out.println( npc.getName() + " has died at your hands. \n");
+
+                if (npc.getName().equalsIgnoreCase("Oliver")) {
+                    Item z = npc.getItem();
+                    existingItems.add(z);
+                    inRoom.getObjects().add(z.getName().toLowerCase());
+                    System.out.println("The only salvaged item from the battle lays on the ground.");
+                }
+
+
+                playerStats.addXp(playerStats.calculateXp(npc.getName()));
+
+                playerStats.calculateLv(playerStats.getXp(), playerStats.getLevel(), player);
+
+                player.displayStats(player, playerStats);
+
+                inRoom.getNpc().remove(npc); //remove an object that has the name Rabbit
+
+                break;
+            }
+
+            else {
+
+                npc.attack(player);
+                System.out.println("");
+
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (player.getHealth().isDead()){
+                    System.out.println("\nYou have been murdered by " + npc.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
+
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    break;
+                }
+
+            }
+
+            for (Skill skill : player.getSkills()) {
+                skill.reduceCooldown();
+            }
+
+        }
+
+
+
+    }
+
+
     public static void equip(Item item, Equipment equipment, Player player){
         equipment.equip(item, player);
     }

@@ -20,7 +20,19 @@ class Item {
 }
 
 class Equipment {
+
     private Map<String, Item> equippedItems = new HashMap<>();
+
+    public Item getItemBasedOnSlot(String slotType, Map<String, Item> equippedItems){
+        for (Map.Entry<String, Item> entry: equippedItems.entrySet()){
+            Item name = entry.getValue();
+            if (name.getSlotType().equalsIgnoreCase(slotType)){
+                return name;
+            }
+        }
+
+        return null;
+    }
 
     public boolean equip(Item item, Player player) {
         String slot = item.getSlotType();
