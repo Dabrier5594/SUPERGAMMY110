@@ -342,15 +342,17 @@ public class Game {
 
         Hub firstVillePassage = new Hub("The Great Passage into FirstVille", "A short passage that reaches the Great Gate and the town square. \nTo the south stand wood line gates, to the north you see bustling people and lights. \nEXITS: (N) (S)");
 
-        Hub townSquare = new Hub("The Town Square", "A great bustling area full of local people. \nTo the south you see the path from the gate to the town square, to the north you see a long line of shops, to the east you see lots of hotels and smell food, to the west you see a great lot of places to get yourself equipped.\nEXITS: (N) (S) (E) (W)");
+        Hub firstVilleTownSquare = new Hub("The Town Square", "A great bustling area full of local people. \nTo the south you see the path from the gate to the town square, to the north you see a long line of shops, to the east you see lots of hotels and smell food, to the west you see a great lot of places to get yourself equipped.\nEXITS: (N) (S) (E) (W)");
 
-        Hub butcherShop = new Hub("The Butcher Shop", "The place to buy an assortment of meats" );
+        Hub firstVilleMarketPath1 = new Hub("Just north of the town hall","A path full of shops with an assortment of things to buy with two shops of either side. \nEXITS: (N) (S)");
 
-        Hub shopPath1 = new Hub("Just north of the town hall","A path full of shops with an assortment of things to buy with two shops of either side. \nEXITS: (N) (S)");
+        Hub firstVilleEnchancementsPath = new Hub("","");//just east of the town square
 
-        Hub travelerPath1 = new Hub("","");//just east of the town square
+        Hub firstVille = new Hub("","");//just west of the town square
 
-        Hub equipmentPath1 = new Hub("","");//just west of the town square
+        //THIS IS WRONG, WHEN WE ACTAULLY MAKE SHOPS, I AM GONNA MAKE A BUTCHER SHOP CLASS, SO DON'T WORRY ABOUT STORES YET
+        Hub firstVilleButcherShop = new Hub("The Butcher Shop", "The place to buy an assortment of meats" );
+
 
 
         //Toms Cave EXITS:
@@ -563,16 +565,21 @@ public class Game {
 
         forest10.getMOBS().add(goblin);
 
-        //CHANGE SO THAT THE CLASS THAT MAKES BOSSES CAN BE USED OVER AND OVER. THE CLASS SHOLUD GIVE THE BOSS SPECIAL SKILLS, DROP ITEMS, HEALTH ETC.
-
-
-
         for (int o = 0; o < 3; o++){
 
             goblin = createGoblinWithRandomStats();
 
             forest11.getMOBS().add(goblin);
         }
+
+        List<String> FGoddrops = new ArrayList<>();
+
+        FGoddrops.add("thorn shield");
+        Boss forestGod = new Boss("ForestGod", 100, 100, 8, 2, "The forest god", false, FGoddrops);
+        forest50.getBoss().add(forestGod);
+
+        forestGod.getSkills().add(new MobSkill.StunSkill("Stun", 3));
+        forestGod.getSkills().add(new MobSkill.VineSkill("VineSkill", 3));
 
         //MAKE ITEMS AND "EQUIPMENT"
 
@@ -3055,6 +3062,11 @@ public class Game {
 
             for (Skill skill : player.getSkills()) {
                 skill.reduceCooldown();
+            }
+
+            for (MobSkill skill : boss.getSkills()) {
+                skill.reduceCooldown();
+                System.out.println(skill.getCurrentCooldown());
             }
 
         }

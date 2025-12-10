@@ -15,7 +15,7 @@ public class Boss {
 
     private List<String> drops;//what the boss drops
 
-    private List<Skill> skills = new ArrayList<>();
+    private List<MobSkill> skills = new ArrayList<>();
 
     private int bossLevel;//could be used for later if we want to add boss levels as the player progresses
 
@@ -79,10 +79,16 @@ public class Boss {
 
             MobSkill.VineSkill.apply( player, this, eqI, eq);
 
+            MobSkill.StunSkill.apply(player, this);
+
         }
 
     }
     public void drops(List<String> drops){
 
+    }
+
+    public List<MobSkill> getSkills(){
+        return skills;
     }
 }

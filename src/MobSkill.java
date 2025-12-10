@@ -8,16 +8,20 @@ public abstract class MobSkill {
 
     }
 
+    public abstract void reduceCooldown();
+
+    public abstract int getCurrentCooldown();
+
     public String getName() {
         return name;
     }
 
     public static class StunSkill extends MobSkill {
 
-        private int cooldownTurns; // number of turns needed to wait after use
-        private int currentCooldown; // tracks cooldown progress
+        private static int cooldownTurns; // number of turns needed to wait after use
+        private static int currentCooldown; // tracks cooldown progress
 
-        public StunSkill(String name) {
+        public StunSkill(String name, int cooldownTurns) {
             super(name);
             this.cooldownTurns = cooldownTurns;
             this.currentCooldown = 0;
@@ -27,18 +31,22 @@ public abstract class MobSkill {
             if (currentCooldown > 0) currentCooldown--;
         }
 
-        public boolean canUse() {
+        public static boolean canUse() {
             return currentCooldown <= 0;
         }
 
-        public void apply(Player player, Mob mob) {
+        public static void apply(Player player, Boss mob) {
             if (!canUse()) {
                 return;
             }
 
-            System.out.println(mob.getName() + " uses " + getName() + " to stun " + player.getName() + "!");
+            System.out.println(mob.getName() + " uses StunSkill to stun " + player.getName() + "!");
             player.setStunned(true);
             currentCooldown = cooldownTurns; // reset cooldown
+        }
+
+        public int getCurrentCooldown(){
+            return currentCooldown;
         }
     }
 
@@ -80,6 +88,10 @@ public abstract class MobSkill {
 
             currentCooldown = cooldownTurns; // reset cooldown
 
+        }
+
+        public int getCurrentCooldown(){
+            return currentCooldown;
         }
 
 
