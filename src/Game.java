@@ -3030,6 +3030,12 @@ public class Game {
 
                 player.displayStats(player, playerStats);
 
+                List<String> drops = boss.getDrops();
+
+                for (String string : drops){
+                    inRoom.getObjects().add(string);
+                }
+
                 inRoom.getBoss().remove(boss); //remove an object that has the name Rabbit
 
                 break;

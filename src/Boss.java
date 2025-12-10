@@ -91,4 +91,8 @@ public class Boss {
     public List<MobSkill> getSkills(){
         return skills;
     }
+
+    public List<String> getDrops(){
+        return drops;
+    }
 }
