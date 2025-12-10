@@ -336,7 +336,7 @@ public class Game {
 
         Hub forest49 = new Hub("Northern Forest Area #49", "The Northern Area of the Great Makiss Forest. \nA clearing just before the forest exit, quiet but tense as danger nears. \nEXITS: (W) (N)");
 
-        Hub forest50 = new Hub("Northern Forest Area #50", "The Northern Area of the Great Makiss Forest. \nThe forest exit, hints of a fierce mini-boss—beyond lay in the area. \nEXITS: (S) (N)");
+        Hub forest50 = new Hub("Northern Forest Area #50", "The Northern Area of the Great Makiss Forest. \nThe forest exit are within an arms reach. Hints of a fierce mini-boss—beyond lay in the area. \nEXITS: (S) (N)");
 
         Hub firstVilleGate = new Hub("Gate of FirstVille", "The Great Gate of FirstVille.\nYou stand in a clearing, opposite from the forest, in front of a great booming gate: (S) (N)");
 
@@ -1718,7 +1718,7 @@ public class Game {
     }
 
     // move method
-    public static Hub move(String direction, Hub currentHub, Player player, XpLv playerStats) {
+    public static Hub move(String direction, Hub currentHub, Player player, XpLv playerStats, List<Item> existingI, Map<String, Item> eqI, Equipment eq) {
 
         if (direction.equals("north")) {
             direction = "n";
@@ -1796,6 +1796,36 @@ public class Game {
 
             }
 
+            for (Boss boss : new ArrayList<>(newRoom.getBoss())) {
+
+                if (boss.isAggro() && !boss.getHealth().isDead() && newRoom.containsBoss(boss)) {
+
+                    System.out.println("");
+
+                    List<String> mobNames = new ArrayList<>();
+
+                    for (Boss boss1 : newRoom.getBoss()){
+
+                        mobNames.add(boss1.getName());
+
+                    }
+
+                    mobsIfAny(mobNames, "Bosses in room: ");
+
+                    System.out.println("");
+
+                    System.out.println(boss.getName() + " is aggro and attacks you as you enter!");
+
+                    combatBoss(player, boss, newRoom, playerStats, existingI, eqI, eq);
+                    if (newRoom.getMOBS().isEmpty()){
+
+                        break; // If I change stuff then before the for I should see what the newRoom.getMOBS's length is, and then do a "for (int i = (the length of the list)"
+                    }
+
+                }
+
+            }
+
             List<String> mobNames = new ArrayList<>();
 
 
@@ -1808,6 +1838,21 @@ public class Game {
             if (!mobNames.isEmpty()) {
                 mobsIfAny(mobNames, "Mobs in room: ");
             }
+
+            List<String> mobNames = new ArrayList<>();
+
+
+            for (Mob mob : newRoom.getMOBS()){
+
+                mobNames.add(mob.getName());
+
+            }
+
+            if (!mobNames.isEmpty()) {
+                mobsIfAny(mobNames, "Mobs in room: ");
+            }
+
+
 
             List<String> npcNames = new ArrayList<>();
 

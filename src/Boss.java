@@ -17,6 +17,8 @@ public class Boss {
 
     private List<MobSkill> skills = new ArrayList<>();
 
+    private boolean isAgrro = true;
+
     private int bossLevel;//could be used for later if we want to add boss levels as the player progresses
 
     private boolean isDead;
@@ -30,6 +32,7 @@ public class Boss {
 
 
     }
+
     public void displayStats(Boss boss) {
         System.out.println("=== Boss Stats ===");
         System.out.println("Name: " + name);
@@ -37,6 +40,11 @@ public class Boss {
         System.out.println("Attack: " + attackPower + " | Defense: " + boss.getHealth().getDamageResistance());
         System.out.println("");
     }
+
+    public boolean isAggro(){
+        return isAgrro;
+    }
+
     public Health getHealth() {
         return health;
     }
