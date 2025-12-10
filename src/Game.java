@@ -578,7 +578,7 @@ public class Game {
         Boss forestGod = new Boss("ForestGod", 100, 100, 8, 2, "The forest god", false, FGoddrops);
         forest50.getBoss().add(forestGod);
 
-        forestGod.getSkills().add(new MobSkill.StunSkill("Stun", 3));
+        forestGod.getSkills().add(new MobSkill.StunSkill("StunSkill", 3));
         forestGod.getSkills().add(new MobSkill.VineSkill("VineSkill", 3));
 
         //MAKE ITEMS AND "EQUIPMENT"
@@ -611,7 +611,7 @@ public class Game {
         existingItems.add(leatherArmor);
 
 
-        Story(cave, existingItems, equipment);
+        Story(firstVilleGate, existingItems, equipment);
 
     }
 
@@ -961,7 +961,7 @@ public class Game {
 
                         if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
 
-                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, existingItems, equipment.getEquippedItems(), equipment);
                             inRoom = newRoom;
                             Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                             snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -969,7 +969,7 @@ public class Game {
                         }
                         else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
                             // Call the move method and update to inRoom
-                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, existingItems, equipment.getEquippedItems(), equipment);
                             inRoom = newRoom;
                             Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                             snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -978,7 +978,7 @@ public class Game {
                         }
                         else if (action.toLowerCase().equals("w") || action.toLowerCase().equals("west")) {
                             // Call the move method and update to inRoom
-                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, existingItems, equipment.getEquippedItems(), equipment);
                             inRoom = newRoom;
                             Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                             snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -986,7 +986,7 @@ public class Game {
                         }
                         else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
                             // Call the move method and update to inRoom
-                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, existingItems, equipment.getEquippedItems(), equipment);
                             inRoom = newRoom;
                             Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                             snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1001,7 +1001,7 @@ public class Game {
 
                                     action = "n";
 
-                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, existingItems, equipment.getEquippedItems(), equipment);
                                     inRoom = newRoom;
                                     Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                                     snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1012,7 +1012,7 @@ public class Game {
 
                                     action = "s";
 
-                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, existingItems, equipment.getEquippedItems(), equipment);
                                     inRoom = newRoom;
                                     Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                                     snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1023,7 +1023,7 @@ public class Game {
 
                                     action = "w";
 
-                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, existingItems, equipment.getEquippedItems(), equipment);
                                     inRoom = newRoom;
                                     Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                                     snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1034,7 +1034,7 @@ public class Game {
 
                                     action = "e";
 
-                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, existingItems, equipment.getEquippedItems(), equipment);
                                     inRoom = newRoom;
                                     Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                                     snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1839,12 +1839,11 @@ public class Game {
                 mobsIfAny(mobNames, "Mobs in room: ");
             }
 
-            List<String> mobNames = new ArrayList<>();
-
+            List<String> mobNames1 = new ArrayList<>();
 
             for (Mob mob : newRoom.getMOBS()){
 
-                mobNames.add(mob.getName());
+                mobNames1.add(mob.getName());
 
             }
 
@@ -2996,6 +2995,8 @@ public class Game {
 
     public static void combatBoss(Player player, Boss boss, Hub inRoom, XpLv playerStats, List<Item> existingItems, Map<String, Item> eqI, Equipment eq){
 
+
+
         System.out.println("THE GREAT " + boss.getName() + " RECOGNIZES YOU AS IT'S PREY.");
         boolean using = false;
 
@@ -3020,6 +3021,10 @@ public class Game {
 
             System.out.println("");
         }
+
+        System.out.println("(Type '1' for x1 speed || Type '2' for x2 speed || Type '0' to skip to the battle credits");
+        System.out.print("-> ");
+        String speed = scanner.nextLine();
 
         while (!player.getHealth().isDead() && !boss.getHealth().isDead()){
 
@@ -3059,10 +3064,20 @@ public class Game {
 
             System.out.println("");
 
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            if (speed.equals("1")) {
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            else if (speed.equals("2")) {
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             if (boss.getHealth().isDead()){
@@ -3087,23 +3102,44 @@ public class Game {
             }
 
             else {
-
                 boss.attack(player, eq, eqI);
                 System.out.println("");
 
-                try {
-                    Thread.sleep(300);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+
+                if (speed.equals("1")) {
+                    try {
+                        Thread.sleep(300);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
+
+                else if (speed.equals("2")) {
+                    try {
+                        Thread.sleep(150);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
 
                 if (player.getHealth().isDead()){
                     System.out.println("\nYou have been murdered by " + boss.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
 
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                    if (speed.equals("1")) {
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                    else if (speed.equals("2")) {
+                        try {
+                            Thread.sleep(150);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
 
                     break;
@@ -3117,7 +3153,6 @@ public class Game {
 
             for (MobSkill skill : boss.getSkills()) {
                 skill.reduceCooldown();
-                System.out.println(skill.getCurrentCooldown());
             }
 
         }

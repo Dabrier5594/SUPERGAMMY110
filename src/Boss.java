@@ -79,14 +79,13 @@ public class Boss {
             // Reset stun after skipping one turn
 
         }
+
         else {
 
             System.out.println("The GREAT " + name + " attacks you for " + attackPower + " damage!");
 
             player.getHealth().takeDamage(attackPower);
-
-            MobSkill.VineSkill.apply( player, this, eqI, eq);
-
+            MobSkill.VineSkill.apply(player, this, eqI, eq);
             MobSkill.StunSkill.apply(player, this);
 
         }
