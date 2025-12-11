@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-//
+//killing oliver still lets oliver be in room
 
 // MAKE IT SO IF YOU ARE INSIDE FIRSTVILLE AND YOU TAKE OFF ARMOR, PEOPLE WILL KICK YOU OUT.
 
@@ -821,7 +821,7 @@ public class Game {
         String namer = scanner.nextLine();
         System.out.println("");
 
-        Player player =  new Player(namer, 10,10,5, 0);
+        Player player =  new Player(namer, 10,100,100, 0);
 
         XpLv playersStats = new XpLv(1, 0);
 
@@ -2946,14 +2946,13 @@ public class Game {
                     System.out.println("The only salvaged item from the battle lays on the ground.");
                 }
 
-
                 playerStats.addXp(playerStats.calculateXp(npc.getName()));
 
                 playerStats.calculateLv(playerStats.getXp(), playerStats.getLevel(), player);
 
                 player.displayStats(player, playerStats);
 
-                inRoom.getNpc().remove(npc); //remove an object that has the name Rabbit
+                inRoom.getGuard().remove(npc); //remove an object that has the name Rabbit
 
                 break;
             }
