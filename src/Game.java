@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-// pick up, inspect, move n, in battle your health becomes 7/3
+//
 
 // MAKE IT SO IF YOU ARE INSIDE FIRSTVILLE AND YOU TAKE OFF ARMOR, PEOPLE WILL KICK YOU OUT.
 
@@ -803,7 +803,7 @@ public class Game {
         String namer = scanner.nextLine();
         System.out.println("");
 
-        Player player =  new Player(namer, 10,9894645,50, 0);
+        Player player =  new Player(namer, 10,10,5, 0);
 
         XpLv playersStats = new XpLv(1, 0);
 

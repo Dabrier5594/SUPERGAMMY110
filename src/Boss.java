@@ -15,7 +15,9 @@ public class Boss {
 
     private List<String> drops;//what the boss drops
 
-    private List<Skill> skills = new ArrayList<>();
+    private List<MobSkill> skills = new ArrayList<>();
+
+    private boolean isAgrro = true;
 
     private int bossLevel;//could be used for later if we want to add boss levels as the player progresses
 
@@ -30,6 +32,7 @@ public class Boss {
 
 
     }
+
     public void displayStats(Boss boss) {
         System.out.println("=== Boss Stats ===");
         System.out.println("Name: " + name);
@@ -37,6 +40,11 @@ public class Boss {
         System.out.println("Attack: " + attackPower + " | Defense: " + boss.getHealth().getDamageResistance());
         System.out.println("");
     }
+
+    public boolean isAggro(){
+        return isAgrro;
+    }
+
     public Health getHealth() {
         return health;
     }
@@ -71,18 +79,27 @@ public class Boss {
             // Reset stun after skipping one turn
 
         }
+
         else {
 
             System.out.println("The GREAT " + name + " attacks you for " + attackPower + " damage!");
 
             player.getHealth().takeDamage(attackPower);
-
-            MobSkill.VineSkill.apply( player, this, eqI, eq);
+            MobSkill.VineSkill.apply(player, this, eqI, eq);
+            MobSkill.StunSkill.apply(player, this);
 
         }
 
     }
     public void drops(List<String> drops){
 
+    }
+
+    public List<MobSkill> getSkills(){
+        return skills;
+    }
+
+    public List<String> getDrops(){
+        return drops;
     }
 }

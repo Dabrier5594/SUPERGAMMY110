@@ -8,16 +8,20 @@ public abstract class MobSkill {
 
     }
 
+    public abstract void reduceCooldown();
+
+    public abstract int getCurrentCooldown();
+
     public String getName() {
         return name;
     }
 
     public static class StunSkill extends MobSkill {
 
-        private int cooldownTurns; // number of turns needed to wait after use
-        private int currentCooldown; // tracks cooldown progress
+        private static int cooldownTurns; // number of turns needed to wait after use
+        private static int currentCooldown; // tracks cooldown progress
 
-        public StunSkill(String name) {
+        public StunSkill(String name, int cooldownTurns) {
             super(name);
             this.cooldownTurns = cooldownTurns;
             this.currentCooldown = 0;
@@ -27,24 +31,28 @@ public abstract class MobSkill {
             if (currentCooldown > 0) currentCooldown--;
         }
 
-        public boolean canUse() {
+        public static boolean canUse() {
             return currentCooldown <= 0;
         }
 
-        public void apply(Player player, Mob mob) {
+        public static void apply(Player player, Boss mob) {
             if (!canUse()) {
                 return;
             }
 
-            System.out.println(mob.getName() + " uses " + getName() + " to stun " + player.getName() + "!");
+            System.out.println(mob.getName() + " uses StunSkill to stun " + player.getName() + "!");
             player.setStunned(true);
             currentCooldown = cooldownTurns; // reset cooldown
+        }
+
+        public int getCurrentCooldown(){
+            return currentCooldown;
         }
     }
 
 
     public static class VineSkill extends MobSkill {
-        private static Item takeItem;
+        private static Item takeItem = null;
         private static int cooldownTurns; // number of turns needed to wait after use
         private static int currentCooldown; // tracks cooldown progress
 
@@ -63,23 +71,32 @@ public abstract class MobSkill {
         }
 
         public static void apply(Player player, Boss boss, Map<String, Item> equippedItems, Equipment equipment) {
+
             if (!canUse()) {
-                if(equipment.getItemBasedOnSlot("melee",equippedItems ) == null) {
+                if(equipment.getItemBasedOnSlot("melee", equippedItems ) == null && takeItem != null) {
                     equipment.equip(takeItem, player);
                     return;
                 }
             }
 
-            System.out.println(boss.getName() + " uses  VineSkill to take " + player.getName() + "'s weapon!");
-            Item thing = new Item("null", "null", false);
+            Item thing;
 
             thing = equipment.getItemBasedOnSlot("melee",equippedItems);
-            equipment.unequip("melee", thing, player);
-            player.setAttackPower(player.getAttackPower()/2);
-            takeItem = thing;
+            if (thing != null) {
 
-            currentCooldown = cooldownTurns; // reset cooldown
+                System.out.println(boss.getName() + " uses  VineSkill to take " + player.getName() + "'s weapon!");
 
+                equipment.unequip("melee", thing, player);
+
+                takeItem = thing;
+
+                currentCooldown = cooldownTurns; // reset cooldown
+            }
+
+        }
+
+        public int getCurrentCooldown(){
+            return currentCooldown;
         }
 
 

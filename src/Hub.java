@@ -109,6 +109,15 @@ public class Hub {
         return false;
     }
 
+    public boolean containsBoss(Boss specificBoss) {
+        for (Boss mob : this.getBoss()) {
+            if (mob == specificBoss) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean containsNpc(Npca specificNpc) {
         for (Npca npc : this.getNpc()) {
             if (npc == specificNpc) {

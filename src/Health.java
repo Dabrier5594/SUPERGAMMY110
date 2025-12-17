@@ -38,7 +38,7 @@ public class Health {
 
         int finalDamage = amount - damageResistance;
 
-        if (damageResistance> 1){
+        if (damageResistance > 0){
             System.out.println("The damage has been muffled by " + damageResistance + " due to damage resistance.");
         }
 
