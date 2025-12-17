@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-// pick up, grab, inspect, armor - chest plate, fix prints, IH = something,add a take ALL
+// pick up, grab, inspect, armor - chest plate, fix prints, IH = something,add a take ALL, map,
 
 // MAKE IT SO IF YOU ARE INSIDE FIRSTVILLE AND YOU TAKE OFF ARMOR, PEOPLE WILL KICK YOU OUT.
 
