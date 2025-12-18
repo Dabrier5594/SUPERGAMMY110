@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-// inspect (create an array for items with mini descriptions), armor - chest plate, fix prints, IH = something,add a take ALL, map,
+//fix prints, IH = something,add a take ALL, map,
 
 // MAKE IT SO IF YOU ARE INSIDE FIRSTVILLE AND YOU TAKE OFF ARMOR, PEOPLE WILL KICK YOU OUT.
 
@@ -602,6 +602,39 @@ public class Game {
         // Makes the room you are in "cave"
         Hub inRoom = cave;
 
+        //Descriptions array
+        String[] thingDescriptions = {
+                // twig
+                "A thin, brittle twig snapped from a larger branch. It looks weak, but could still be useful in the right situation.",
+
+                // leaflet
+                "A small, dry leaflet, its veins clearly visible. It crumbles slightly at the edges, as if it has been here for a long time.",
+
+                // copper coin
+                "A worn copper coin dulled by age and countless hands. It bears faint markings of a forgotten mint.",
+
+                // silver coin
+                "A polished silver coin that catches the light. Though old, its craftsmanship suggests it once held real value.",
+
+                // dagger
+                "A short, sharp dagger with a simple hilt. Balanced and deadly, it feels made for quick, close combat.",
+
+                // leather armor
+                "Sturdy leather armor reinforced at the seams. It offers modest protection without sacrificing mobility.",
+
+                // gold coin
+                "A heavy gold coin stamped with an ornate crest. Its weight alone speaks of wealth and power.",
+
+                // snarkflower
+                "A strange flower with jagged petals and a sharp scent. It seems almost hostile, as if watching you.",
+
+                // door
+                "A solid wooden door scarred by age and use. It stands firmly in place, separating what is known from what lies beyond.",
+
+                // gate
+                "A tall iron gate streaked with rust. Though imposing, it looks like it might yield to the right force or key."
+        };
+
         //List of verbs
         List<String> verbs = new ArrayList<>();
         verbs.add("move");
@@ -638,6 +671,7 @@ public class Game {
         verbs.add("unequip");
         verbs.add("quests");
         verbs.add("talk");
+        verbs.add("inspect");
 
 
         List<String> verbsOnly = new ArrayList<>();
@@ -715,11 +749,14 @@ public class Game {
         objects.add("firstville guards helm");
         objects.add("firstville guards boots");
         objects.add("firstville guards legs");
-
-
-
-
-
+        objects.add("w");
+        objects.add("e");
+        objects.add("s");
+        objects.add("n");
+        objects.add("west");
+        objects.add("east");
+        objects.add("south");
+        objects.add("north");
 
         List<String> look = new ArrayList<>();
         look.add("l");
@@ -730,6 +767,8 @@ public class Game {
 
         List<String> stats = new ArrayList<>();
         stats.add("stats");
+        stats.add("stat");
+
 
         List<String> listen = new ArrayList<>();
         listen.add("listen");
@@ -752,6 +791,9 @@ public class Game {
 
         List<String> read = new ArrayList<>();
         read.add("read");
+
+        List<String> inspect = new ArrayList<>();
+        inspect.add("inspect");
 
         List<String> drop = new ArrayList<>();
         drop.add("drop");
@@ -901,6 +943,7 @@ public class Game {
             boolean oneCardinol = oneDirection(action, northways, southways, easyways, westways);
 
             boolean correctFormat = oneObjectOneVerb(action, verbs, objects);
+
             if (oneCardinol){
                 System.out.println("You can't input multiple directions!");
             }
@@ -1102,6 +1145,7 @@ public class Game {
 
                             if (stringContainsWordFromList(action.toLowerCase(), inventory.toArray(new String[0]))){
                                 itemsIfAny(inventory, "Items in inventory: ");
+
                             }
 
                             else if (inRoom.getRoomName().equals("Tom's Dark Kitchen") && stringContainsWordFromList(action.toLowerCase(), cabinet.toArray(new String[0]))) {
@@ -1347,7 +1391,56 @@ public class Game {
 
                         }
 
+                        else if (stringContainsWordFromList(action.toLowerCase(), inspect.toArray(new String[0]))) {
+                            if (action.contains("twig")) {
+                                for (String a : inRoom.getObjects()) {
+                                    if (a == "twig"){
+                                        System.out.println(thingDescriptions[0]);
+                                        break;
+                                    }
+                               }
+                            }
 
+                            else if (action.contains("leaflet")) {
+                                for (String a : inRoom.getObjects()) {
+                                    if (a.contains("leaflet")){
+                                        System.out.println(thingDescriptions[1]);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            else if (action.contains("copper")) {
+                                for (String a : inRoom.getObjects()) {
+                                    if (a.contains("copper")){
+                                        System.out.println(thingDescriptions[2]);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            else if (action.contains("silver")) {
+                                for (String a : inRoom.getObjects()) {
+                                    if (a.contains("silver")){
+                                        System.out.println(thingDescriptions[3]);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            else if (action.contains("dagger")) {
+                                for (String a : inRoom.getObjects()) {
+                                    if (a.contains("silver")){
+                                        System.out.println(thingDescriptions[4]);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            else {
+                                System.out.println("You are not gonna learn much by inspecting...");
+                            }
+                        }
 
                         else if (stringContainsWordFromList(action.toLowerCase(), close.toArray(new String[0]))) {
                             if (inRoom.getRoomName().equals("Tom's Dark Kitchen") && stringContainsWordFromList(action.toLowerCase(), cabinet.toArray(new String[0]))) {
