@@ -6,6 +6,8 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
+//add enchanment level caps at each village but bosses can drop items/enchantments that are 1-2 lvels higher than the village
+
 // inspect (create an array for items with mini descriptions), armor - chest plate, fix prints, IH = something,add a take ALL, map,
 
 // MAKE IT SO IF YOU ARE INSIDE FIRSTVILLE AND YOU TAKE OFF ARMOR, PEOPLE WILL KICK YOU OUT.
@@ -13,8 +15,6 @@ import java.util.TimerTask;
 // Make rouge bandits
 
 //  ADD THINGS TO PLACES
-
-//  CREATE SKILLS FOR M FOREST BOSS, CREATE BOSS
 
 // MAKE ENCHANCEMENTS AND ITEMS
 
@@ -567,17 +567,17 @@ public class Game {
 
         Equipment equipment = new Equipment();
 
-        Item dagger = new Item("dagger", "melee", true);
-        Item leatherArmor = new Item("leather armor", "body", false);
-        Item FirstVillePlate = new Item("firstville guards plate", "body", false);
-        Item FirstVilleHelm = new Item("firstville guards helm", "head", false);
-        Item FirstVilleLegs = new Item("firstville guards legs", "legging", false);
-        Item FirstVilleBoots = new Item("firstville guards boots", "boots", false);
+        Item dagger = new Item("dagger", "melee", true, null);
+        Item leatherArmor = new Item("leather armor", "body", false, null);
+        Item FirstVillePlate = new Item("firstville guards plate", "body", false, null);
+        Item FirstVilleHelm = new Item("firstville guards helm", "head", false, null);
+        Item FirstVilleLegs = new Item("firstville guards legs", "legging", false, null);
+        Item FirstVilleBoots = new Item("firstville guards boots", "boots", false, null);
 
 
         //Boss Drops
         //forest boss
-        Item thornShield = new Item("the shield of the forest boss","melee",true);
+        Item thornShield = new Item("the shield of the forest boss","melee",true, null);
 
 
 
@@ -2557,7 +2557,6 @@ public class Game {
     }
 
 
-
     public static void combat(Player player, Mob mob, Hub inRoom, XpLv playerStats){
         boolean using = false;
 
@@ -2628,6 +2627,7 @@ public class Game {
             System.out.println("");
 
             player.attack(mob);
+
 
             System.out.println("");
 
