@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-// pick up, grab, inspect, armor - chest plate, fix prints, IH = something,add a take ALL, map,
+// inspect (create an array for items with mini descriptions), armor - chest plate, fix prints, IH = something,add a take ALL, map,
 
 // MAKE IT SO IF YOU ARE INSIDE FIRSTVILLE AND YOU TAKE OFF ARMOR, PEOPLE WILL KICK YOU OUT.
 
@@ -606,6 +606,8 @@ public class Game {
         List<String> verbs = new ArrayList<>();
         verbs.add("move");
         verbs.add("go");
+        verbs.add("pick up");
+        verbs.add("grab");
         verbs.add("look");
         verbs.add("open");
         verbs.add("drop");
@@ -740,6 +742,10 @@ public class Game {
 
         List<String> take = new ArrayList<>();
         take.add("take");
+        take.add("pick up");
+        take.add("grab");
+
+
 
         List<String> get = new ArrayList<>();
         get.add("get");
