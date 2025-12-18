@@ -6,6 +6,8 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
+//ADD INSPECT STUFF
+
 //add enchanment level caps at each village but bosses can drop items/enchantments that are 1-2 lvels higher than the village
 
 // inspect (create an array for items with mini descriptions), armor - chest plate, fix prints, IH = something,add a take ALL, map,
