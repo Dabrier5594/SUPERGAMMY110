@@ -23,6 +23,18 @@ public class Player {
 
     private boolean inCombat = false;
 
+    private Item meleeSlot;
+
+    private Item helmetSlot;
+
+    private Item chestSlot;
+
+    private Item leggingSlot;
+
+    private Item bootSlot;
+
+    private Item rangedSlot;
+
 
     public Player(String name, int maxHealth, int health, int power, int damageResistance) {
 
@@ -51,7 +63,35 @@ public class Player {
 
     public int getAttackPower(){return attackPower;}
 
+    public void setMeleeSlot(Item meleeSlot){this.meleeSlot = meleeSlot;}
+
+    public void setHelmetSlot(Item helmetSlot){this.helmetSlot = helmetSlot;}
+
+    public void setChestSlot(Item chestSlot){this.chestSlot = chestSlot;}
+
+    public void setLeggingSlot(Item leggingSlot){this.leggingSlot = leggingSlot;}
+
+    public void setBootSlot(Item bootSlot){this.bootSlot = bootSlot;}
+
+    public void setRangedSlot(Item rangedSlot){this.rangedSlot = rangedSlot;}
+
+    public Item getMeleeSlot(){return meleeSlot;}
+
+    public Item getHelmetSlot(){return helmetSlot;}
+
+    public Item getChestSlot(){return chestSlot;}
+
+    public Item getLeggingSlot(){return leggingSlot;}
+
+    public Item getBootSlot(){return bootSlot;}
+
+    public Item getRangedSlot(){return rangedSlot;}
+
+
+
     public void attack(Mob mob) {
+
+
 
         if (isStunned == true){
             System.out.println("You are stunned and cannot do anything.");
@@ -64,13 +104,16 @@ public class Player {
             return;
         }
 
+
         System.out.println(name + " attacks " + mob.getName() + " for " + attackPower + " damage!");
+
 
         mob.getHealth().mobTakeDamage(attackPower);
 
     }
 
     public void attackNpc(Npca npc) {
+
 
         if (isStunned == true){
             System.out.println("You are stunned and cannot do anything.");

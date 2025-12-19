@@ -575,7 +575,7 @@ public class Game {
         Item FirstVilleHelm = new Item("firstville guards helm", "head", false, null);
         Item FirstVilleLegs = new Item("firstville guards legs", "legging", false, null);
         Item FirstVilleBoots = new Item("firstville guards boots", "boots", false, null);
-
+        Enchantments fire = new Enchantments("Fire", "Lights enemies on fire", 1);
 
         //Boss Drops
         //forest boss
@@ -2518,8 +2518,9 @@ public class Game {
 
         int attackPower = (int)(Math.random() * 4 + 1);
         boolean isAggro = false;
+        boolean onFire = false;
 
-        return new Mob("Rabbit", rabbitHealth, attackPower, isAggro);
+        return new Mob("Rabbit", rabbitHealth, attackPower, isAggro, onFire);
     }
 
     private static Mob createSquirrelWithRandomStats() {
@@ -2530,8 +2531,9 @@ public class Game {
 
         int attackPower = (int)(Math.random() * 7 + 3); //3-9
         boolean isAggro = true;
+        boolean onFire = false;
 
-        return new Mob("Squirrel", squirrelHealth, attackPower, isAggro);
+        return new Mob("Squirrel", squirrelHealth, attackPower, isAggro, onFire);
     }
 
     private static Mob createChickenWithRandomStats() {
@@ -2542,8 +2544,10 @@ public class Game {
 
         int attackPower = (int)(Math.random() * 3 + 1);
         boolean isAggro = false;
+        boolean onFire = false;
 
-        return new Mob("Chicken", rabbitHealth, attackPower, isAggro);
+
+        return new Mob("Chicken", rabbitHealth, attackPower, isAggro, onFire);
     }
 
     private static Mob createGoblinWithRandomStats() {
@@ -2554,8 +2558,9 @@ public class Game {
 
         int attackPower = (int)(Math.random() * 10 + 2);
         boolean isAggro = true;
+        boolean onFire = false;
 
-        return new Mob("Goblin", goblinHealth, attackPower, isAggro);
+        return new Mob("Goblin", goblinHealth, attackPower, isAggro, onFire);
     }
 
 
@@ -2629,6 +2634,8 @@ public class Game {
             System.out.println("");
 
             player.attack(mob);
+
+
 
 
             System.out.println("");

@@ -8,6 +8,7 @@ public class Enchantments {
         this.description = description;
         this.level = level;
     }
+    public String getName(){return name;}
 
 
 }
