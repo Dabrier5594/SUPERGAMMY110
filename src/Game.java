@@ -595,7 +595,7 @@ public class Game {
         existingItems.add(leatherArmor);
 
 
-        Story(cave, existingItems, equipment);
+        Story(firstVilleGate, existingItems, equipment);
 
     }
 
