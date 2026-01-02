@@ -100,6 +100,15 @@ public class Hub {
         return allHubs;
     }
 
+    public static Hub get(String name) {
+        for (Hub hub : getAllHubs()) {
+            if (hub.getRoomName().equalsIgnoreCase(name)) {
+                return hub;
+            }
+        }
+        return null;
+    }
+
     public boolean containsMob(Mob specificMob) {
         for (Mob mob : this.getMOBS()) {
             if (mob == specificMob) {

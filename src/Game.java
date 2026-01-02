@@ -215,9 +215,9 @@ public class Game {
 
         Hub caveN = new Hub("Tom's Dark Kitchen", "Still in Tom's cave, but now you have moved into his kitchen which consists of a cabinet and a counter. \nEXITS: (N) (S)");
 
-        Hub caveNN = new Hub("Tom's Treasure Room", "Still in Tom's cave, but now you have moved into his treasure room which has no furniture. \nEXITS: (W) (E) (S)" );
+        Hub caveNN = new Hub("Tom's Dark Treasure Room", "Still in Tom's cave, but now you have moved into his treasure room which has no furniture. \nEXITS: (W) (E) (S)" );
 
-        Hub caveNE = new Hub("Tom's Living Room", "Still in Tom's cave, but now you have moved into his living room which. \nEXITS: (W)" );
+        Hub caveNE = new Hub("Tom's Dark Living Room", "Still in Tom's cave, but now you have moved into his living room which. \nEXITS: (W)" );
 
         Hub caveNW = new Hub("Tom's Dark Entrance", "Still in Tom's cave, but now you have moved to the cave's entrance, where a door stands. \nEXITS: (N) (E)" );
 
@@ -837,7 +837,18 @@ public class Game {
                 for(int i = 0; i<200; i++){
                     inRoom.getObjects().add("gold");
                 }
+                scanner.nextLine();
+                System.out.println("(12 is next to sHouse) Southern Forest Area #--");
+                System.out.println("(50 is close to firstville) Northern Forest Area #--");
+                System.out.println("(living room/kitchen etc.) Tom's Dark ---");
+                System.out.print("Enter target room\n-> ");
+                String gotoRoomBlah = scanner.nextLine();
+                if (gotoRoomBlah != null) {
+                    inRoom = Hub.get(gotoRoomBlah);
+                    System.out.println("Boom. You're There.");
+                }
                 System.out.println("$#bonus stats have been successfully distributed");
+                scanner.nextLine();
             }
 
             start = true;
@@ -863,7 +874,7 @@ public class Game {
             }
 
 
-            System.out.println(cave.getRoomDescription());
+            System.out.println(inRoom.getRoomDescription());
 
             player.getSkills().add(new Skill.StunSkill("Stun", "Stuns enemy for one turn. Cooldown: 3 turns.", true, 3));
 
