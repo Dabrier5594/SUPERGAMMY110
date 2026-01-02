@@ -821,7 +821,24 @@ public class Game {
         System.out.println("");
 
         //Checks if you said yes or not
-        if (play.equalsIgnoreCase("yes") || play.equalsIgnoreCase("y")) {
+        if (play.equalsIgnoreCase("yes") || play.equalsIgnoreCase("y" ) || play.equalsIgnoreCase("admin0")) {
+
+            if (play.equalsIgnoreCase("admin0")){
+                System.out.println("Admin Code received.");
+                System.out.print("Enter MAX health \n-> ");
+                int setHealthMAX = scanner.nextInt();
+                player.getHealth().setMaxHealth(setHealthMAX);
+                System.out.print("Enter damage \n-> ");
+                int setDamage = scanner.nextInt();
+                player.setAttackPower(setDamage);
+                System.out.print("Enter damage resistance\n-> ");
+                int setresistance = scanner.nextInt();
+                player.getHealth().setDamageResistance(setresistance);
+                for(int i = 0; i<200; i++){
+                    inRoom.getObjects().add("gold");
+                }
+                System.out.println("$#bonus stats have been successfully distributed");
+            }
 
             start = true;
 
