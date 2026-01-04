@@ -623,14 +623,6 @@ public class Game {
         verbs.add("close");
         verbs.add("help");
         verbs.add("coins");
-        verbs.add("n");
-        verbs.add("s");
-        verbs.add("w");
-        verbs.add("e");
-        verbs.add("north");
-        verbs.add("south");
-        verbs.add("west");
-        verbs.add("east");
         verbs.add("l");
         verbs.add("inventory");
         verbs.add("kill");
@@ -972,162 +964,161 @@ public class Game {
                     System.out.println("========================");
                 }
 
+                if (stringContainsWordFromList(action.toLowerCase(), verbsOnly.toArray(new String[0]))) {
 
-                if (stringContainsWordFromList(action.toLowerCase(), verbs.toArray(new String[0]))) {
+                    if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
 
-                    if (stringContainsWordFromList(action.toLowerCase(), verbsOnly.toArray(new String[0]))) {
+                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                        inRoom = newRoom;
+                        Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                        snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
-                        if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
-
-                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
-                            inRoom = newRoom;
-                            Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
-
-                        }
-                        else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
-                            // Call the move method and update to inRoom
-                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
-                            inRoom = newRoom;
-                            Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
+                    }
+                    else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
+                        // Call the move method and update to inRoom
+                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                        inRoom = newRoom;
+                        Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                        snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
 
-                        }
-                        else if (action.toLowerCase().equals("w") || action.toLowerCase().equals("west")) {
-                            // Call the move method and update to inRoom
-                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
-                            inRoom = newRoom;
-                            Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
+                    }
+                    else if (action.toLowerCase().equals("w") || action.toLowerCase().equals("west")) {
+                        // Call the move method and update to inRoom
+                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                        inRoom = newRoom;
+                        Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                        snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
-                        }
-                        else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
-                            // Call the move method and update to inRoom
-                            Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
-                            inRoom = newRoom;
-                            Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                            snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
+                    }
+                    else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
+                        // Call the move method and update to inRoom
+                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                        inRoom = newRoom;
+                        Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                        snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
 
-                        }
-                        else if (stringContainsWordFromList(action.toLowerCase(), movements.toArray(new String[0]))) {
+                    }
+                    else if (stringContainsWordFromList(action.toLowerCase(), movements.toArray(new String[0]))) {
 
-                            if (stringContainsWordFromList(action.toLowerCase(), directions.toArray(new String[0]))) {
+                        if (stringContainsWordFromList(action.toLowerCase(), directions.toArray(new String[0]))) {
 
-                                if (stringContainsWordFromList(action.toLowerCase(), northways.toArray(new String[0]))) {
+                            if (stringContainsWordFromList(action.toLowerCase(), northways.toArray(new String[0]))) {
 
-                                    action = "n";
+                                action = "n";
 
-                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
-                                    inRoom = newRoom;
-                                    Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
-
-                                }
-
-                                if (stringContainsWordFromList(action.toLowerCase(), southways.toArray(new String[0]))) {
-
-                                    action = "s";
-
-                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
-                                    inRoom = newRoom;
-                                    Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
-
-                                }
-
-                                if (stringContainsWordFromList(action.toLowerCase(), westways.toArray(new String[0]))) {
-
-                                    action = "w";
-
-                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
-                                    inRoom = newRoom;
-                                    Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
-
-                                }
-
-                                if (stringContainsWordFromList(action.toLowerCase(), easyways.toArray(new String[0]))) {
-
-                                    action = "e";
-
-                                    Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
-                                    inRoom = newRoom;
-                                    Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
-                                    snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
-
-                                }
+                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                inRoom = newRoom;
+                                Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                                snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
                             }
 
-                            else {
-                                System.out.println("You can't just '" + action + "'");
+                            if (stringContainsWordFromList(action.toLowerCase(), southways.toArray(new String[0]))) {
+
+                                action = "s";
+
+                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                inRoom = newRoom;
+                                Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                                snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
+
+                            }
+
+                            if (stringContainsWordFromList(action.toLowerCase(), westways.toArray(new String[0]))) {
+
+                                action = "w";
+
+                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                inRoom = newRoom;
+                                Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                                snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
+
+                            }
+
+                            if (stringContainsWordFromList(action.toLowerCase(), easyways.toArray(new String[0]))) {
+
+                                action = "e";
+
+                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                inRoom = newRoom;
+                                Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                                snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
+
                             }
 
                         }
 
-                        else if (stringContainsWordFromList(action.toLowerCase(), look.toArray(new String[0]))) {
-                            System.out.println(inRoom.getRoomName());
-                            System.out.println(inRoom.getRoomDescription());
-                            System.out.println("");
-
-                            if (!inRoom.getObjects().isEmpty()) {
-                                itemsIfAny(inRoom.getObjects(), "Items in room: ");
-                            }
-                            System.out.println("");
-
-                            List<String> mobNames = new ArrayList<>();
-
-                            for (Mob mob : inRoom.getMOBS()){
-
-                                mobNames.add(mob.getName());
-
-                            }
-
-                            if (!mobNames.isEmpty()) {
-                                mobsIfAny(mobNames, "Mobs in room: ");
-                            }
-
-                            List<String> npcNames = new ArrayList<>();
-
-                            for (Npca npc : inRoom.getNpc()){
-                                npcNames.add(npc.getName());
-                            }
-
-                            for (Guard npc : inRoom.getGuard()){
-                                npcNames.add(npc.getName());
-                            }
-
-                            for (Merchant npc : inRoom.getMerchant()){
-                                npcNames.add(npc.getName());
-                            }
-
-                            if (!npcNames.isEmpty()){
-                                npcIfAny(npcNames, "NPC's in room: ");
-                            }
-
-                        }
-
-                        else if (stringContainsWordFromList(action.toLowerCase(), wait.toArray(new String[0]))) {
-                            System.out.println("You are waiting (hint: nothing happens by waiting)...");
-                        }
-
-                        else if (stringContainsWordFromList(action.toLowerCase(), listen.toArray(new String[0]))) {
-                            listening(inRoom);
-                        }
-
-                        else if (stringContainsWordFromList(action.toLowerCase(), help.toArray(new String[0]))) {
-                            help(verbs);
-                        }
-
-                        else if (stringContainsWordFromList(action.toLowerCase(), stats.toArray(new String[0]))) {
-                            player.displayStats(player, playersStats);
+                        else {
+                            System.out.println("You can't just '" + action + "'");
                         }
 
                     }
 
-                    else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0])) || action.toLowerCase().contains("leaflet") || action.toLowerCase().contains("ih")) {
+                    else if (stringContainsWordFromList(action.toLowerCase(), look.toArray(new String[0]))) {
+                        System.out.println(inRoom.getRoomName());
+                        System.out.println(inRoom.getRoomDescription());
+                        System.out.println("");
+
+                        if (!inRoom.getObjects().isEmpty()) {
+                            itemsIfAny(inRoom.getObjects(), "Items in room: ");
+                        }
+                        System.out.println("");
+
+                        List<String> mobNames = new ArrayList<>();
+
+                        for (Mob mob : inRoom.getMOBS()){
+
+                            mobNames.add(mob.getName());
+
+                        }
+
+                        if (!mobNames.isEmpty()) {
+                            mobsIfAny(mobNames, "Mobs in room: ");
+                        }
+
+                        List<String> npcNames = new ArrayList<>();
+
+                        for (Npca npc : inRoom.getNpc()){
+                            npcNames.add(npc.getName());
+                        }
+
+                        for (Guard npc : inRoom.getGuard()){
+                            npcNames.add(npc.getName());
+                        }
+
+                        for (Merchant npc : inRoom.getMerchant()){
+                            npcNames.add(npc.getName());
+                        }
+
+                        if (!npcNames.isEmpty()){
+                            npcIfAny(npcNames, "NPC's in room: ");
+                        }
+
+                    }
+
+                    else if (stringContainsWordFromList(action.toLowerCase(), wait.toArray(new String[0]))) {
+                        System.out.println("You are waiting (hint: nothing happens by waiting)...");
+                    }
+
+                    else if (stringContainsWordFromList(action.toLowerCase(), listen.toArray(new String[0]))) {
+                        listening(inRoom);
+                    }
+
+                    else if (stringContainsWordFromList(action.toLowerCase(), help.toArray(new String[0]))) {
+                        help(verbs);
+                    }
+
+                    else if (stringContainsWordFromList(action.toLowerCase(), stats.toArray(new String[0]))) {
+                        player.displayStats(player, playersStats);
+                    }
+
+                }
+
+                else if (stringContainsWordFromList(action.toLowerCase(), verbs.toArray(new String[0]))) {
+
+                    if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0])) || action.toLowerCase().contains("leaflet") || action.toLowerCase().contains("ih")) {
                         if (stringContainsWordFromList(action.toLowerCase(), open.toArray(new String[0]))) {
 
                             if (stringContainsWordFromList(action.toLowerCase(), inventory.toArray(new String[0]))){
