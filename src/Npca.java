@@ -150,23 +150,31 @@ class Guard extends Npca{
 
 }
 
-class ShopOwner extends Npca {
+class FirstShopOwner extends Npca {
 
     private Hub.FirstVilleShop myShop;
 
     private String currency;
 
-    public ShopOwner(String currency, String name, String[] lines, Health health, int attackPower, Hub.FirstVilleShop myShop, String questId, QuestState questState) {
+    public FirstShopOwner(String currency, String name, String[] lines, Health health, int attackPower, Hub.FirstVilleShop myShop, String questId, QuestState questState) {
         super(name, "Shop Owner", lines, attackPower, health, questId, questState);
         this.myShop = myShop;
         this.currency = currency;
     }
 
+    public void setMyShop(Hub.FirstVilleShop shop) {
+        this.myShop = shop;
+    }
+
     public List<String> buyItem(Player player, List<String> invin) {
+
         Scanner scanner = new Scanner(System.in);
         String answer;
+        List<Map.Entry<Item, Integer>> stockList = Collections.emptyList();
 
-        List<Map.Entry<Item, Integer>> stockList = new ArrayList<>(myShop.getStock().entrySet());
+        if (!myShop.getStock().isEmpty()) {
+            stockList = new ArrayList<>(myShop.getStock().entrySet());
+        }
 
         if (stockList.isEmpty()) {
             System.out.println("Shop is empty! Nothing to buy.");
@@ -186,27 +194,45 @@ class ShopOwner extends Npca {
         Item chosen = null;
         int price = 0;
 
+        if (answer == ""){
+            System.out.println("Aren't you a smarty pants, go eat some sourdough bread. *you are shoo-ed out of the store.");
+            return invin;
+        }
+
         try {
             int index = Integer.parseInt(answer) - 1;
             if (index >= 0 && index < stockList.size()) {
                 chosen = stockList.get(index).getKey();
                 price = stockList.get(index).getValue();
             }
+
         } catch (NumberFormatException e) {
             return invin;
         }
 
-        if (chosen != null) {
+        int to = 0;
+
+        if (chosen != null)  {
+
             if (Collections.frequency(invin, currency) > price) {
                 for (int i = 0; i < price; i++){
                     invin.remove(currency);
                 }
                 invin.add(chosen.getName());  // add to inventory
                 System.out.println("Bought " + chosen.getName() + " for " + price + " copper!");
-            }
-            else {
+                to = 1;
+
+
+            } else {
                 System.out.println("Need " + price + " copper! You got... not enough! ");
+                to = 1;
             }
+
+
+        }
+
+        if (to == 0){
+            System.out.println("Aren't you a smarty pants, go eat some sourdough bread. *you are shoo-ed out of the store.");
         }
 
         return invin;

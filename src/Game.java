@@ -6,6 +6,8 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
+// MAKE SO IF YOU ENTER NOTHING WHEN TALKING TO BAGGER YOU GET ATTACKED.
+
 //ADD INSPECT STUFF
 
 //add enchanment level caps at each village but bosses can drop items/enchantments that are 1-2 lvels higher than the village
@@ -47,7 +49,7 @@ public class Game {
 
     public static void movingTheMobs() {
 
-        long oneMin =  88 * 1000;  // 1  minutes in ms
+        long oneMin = 88 * 1000;  // 1  minutes in ms
 
         Timer dayTimer = new Timer();
         dayTimer.scheduleAtFixedRate(new MoveMob(), oneMin, oneMin);
@@ -83,9 +85,7 @@ public class Game {
                 changeTime = LocalTime.now();
                 timeOfDay = !timeOfDay;
 
-            }
-
-            else {
+            } else {
 
                 System.out.println("It is turning " + (timeOfDay ? "day" : "night") + "...");
 
@@ -99,21 +99,19 @@ public class Game {
     static class MoveMob extends TimerTask {
         @Override
         public void run() {
-            for (Hub hub : Hub.getAllHubs()){
-                for (Mob mob : new ArrayList<>(hub.getMOBS())){
-                    int a = (int)(Math.random() * 2 + 1);
+            for (Hub hub : Hub.getAllHubs()) {
+                for (Mob mob : new ArrayList<>(hub.getMOBS())) {
+                    int a = (int) (Math.random() * 2 + 1);
 
-                    if (a == 1){
+                    if (a == 1) {
 
-                    }
-
-                    else {
+                    } else {
 
                         List<String> exits = new ArrayList<>();
 
-                        for (String dir : Arrays.asList("n", "s", "e", "w")){
+                        for (String dir : Arrays.asList("n", "s", "e", "w")) {
 
-                            if (hub.getExit(dir) != null){
+                            if (hub.getExit(dir) != null) {
 
                                 exits.add(dir);
 
@@ -144,11 +142,11 @@ public class Game {
     static {
         LEAFLETS.put("leaflet001",
                 new Leaflet("leaflet001", "leaflet",
-                        "Welcome to the world of Tim","This world is one which mysteries and secrets about itself. \nPrepare yourself, to delve deeper into the world of Tim and experience the un-imaginable. \nHint: (Use 'help' to get help)"));
+                        "Welcome to the world of Tim", "This world is one which mysteries and secrets about itself. \nPrepare yourself, to delve deeper into the world of Tim and experience the un-imaginable. \nHint: (Use 'help' to get help)"));
 
         LEAFLETS.put("leaflet002",
                 new Leaflet("leaflet002", "leaflet",
-                        "The Money Challenges","The world is in a money crisis, and people are going on more dangerous quests to get more money. \nOne gold is 10 silver, 1 silver is 5 copper. \nHint: (More dangerous quests make more money! But they are also much harder to complete...)"));
+                        "The Money Challenges", "The world is in a money crisis, and people are going on more dangerous quests to get more money. \nOne gold is 10 silver, 1 silver is 5 copper. \nHint: (More dangerous quests make more money! But they are also much harder to complete...)"));
     }
 
     //CHEST TOKENS
@@ -194,8 +192,6 @@ public class Game {
 
     static Health oliverP = new Health(60, 60, 0);
 
-
-
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -208,30 +204,29 @@ public class Game {
         Player.QUESTS.put("SQ3", new Quest("SQ3", "Find House Treasure", 3, "Abandon House's Upper Room", 1, 40, 25)); // side quest - go upstairs
 
 
-
         // TOMS CAVE
 
         Hub cave = new Hub("Tom's Dark Cave", "The back of the ancient cave where Tom the hermit lived for many years. \nEXITS: (N) ");
 
         Hub caveN = new Hub("Tom's Dark Kitchen", "Still in Tom's cave, but now you have moved into his kitchen which consists of a cabinet and a counter. \nEXITS: (N) (S)");
 
-        Hub caveNN = new Hub("Tom's Dark Treasure Room", "Still in Tom's cave, but now you have moved into his treasure room which has no furniture. \nEXITS: (W) (E) (S)" );
+        Hub caveNN = new Hub("Tom's Dark Treasure Room", "Still in Tom's cave, but now you have moved into his treasure room which has no furniture. \nEXITS: (W) (E) (S)");
 
-        Hub caveNE = new Hub("Tom's Dark Living Room", "Still in Tom's cave, but now you have moved into his living room which. \nEXITS: (W)" );
+        Hub caveNE = new Hub("Tom's Dark Living Room", "Still in Tom's cave, but now you have moved into his living room which. \nEXITS: (W)");
 
-        Hub caveNW = new Hub("Tom's Dark Entrance", "Still in Tom's cave, but now you have moved to the cave's entrance, where a door stands. \nEXITS: (N) (E)" );
+        Hub caveNW = new Hub("Tom's Dark Entrance", "Still in Tom's cave, but now you have moved to the cave's entrance, where a door stands. \nEXITS: (N) (E)");
 
         // S FOREST
 
-        Hub forest1 = new Hub("Southern Forest Area #1", "Just outside Tom's cave and just inside The Southern Area of the Great Makiss Forest. but now you have moved to the cave's entrance, where a door stands tall. \nEXITS: (S) (N) " );
+        Hub forest1 = new Hub("Southern Forest Area #1", "Just outside Tom's cave and just inside The Southern Area of the Great Makiss Forest. but now you have moved to the cave's entrance, where a door stands tall. \nEXITS: (S) (N) ");
 
-        Hub forest2 = new Hub("Southern Forest Area #2" , "The Southern Area of the Great Makiss Forest. \nOnly minor prey lay in wait in this forest. \nEXITS: (S) (W) " );
+        Hub forest2 = new Hub("Southern Forest Area #2", "The Southern Area of the Great Makiss Forest. \nOnly minor prey lay in wait in this forest. \nEXITS: (S) (W) ");
 
-        Hub forest4 = new Hub("Southern Forest Area #4", "The Southern Area of the Great Makiss Forest. \nThe air feels heavy here, and the forest is unusually silent. The ground is littered with broken twigs, as though something recently passed through... \nEXITS: (E) (W)" );
+        Hub forest4 = new Hub("Southern Forest Area #4", "The Southern Area of the Great Makiss Forest. \nThe air feels heavy here, and the forest is unusually silent. The ground is littered with broken twigs, as though something recently passed through... \nEXITS: (E) (W)");
 
-        Hub forest3 = new Hub("Southern Forest Area #3", "The Southern Area of the Great Makiss Forest. \nThorny bushes block much of the way south, their barbs glinting sharply. However, the path seems clearer to the north, where faint sunlight filters through. \nEXITS: (E) (W)" );
+        Hub forest3 = new Hub("Southern Forest Area #3", "The Southern Area of the Great Makiss Forest. \nThorny bushes block much of the way south, their barbs glinting sharply. However, the path seems clearer to the north, where faint sunlight filters through. \nEXITS: (E) (W)");
 
-        Hub forest5 = new Hub("Southern Forest Area #5", "The Southern Area of the Great Makiss Forest. \nReminiscence of something eating a chicken is visible under scattered leaves...\nEXITS: (E) (N)" );
+        Hub forest5 = new Hub("Southern Forest Area #5", "The Southern Area of the Great Makiss Forest. \nReminiscence of something eating a chicken is visible under scattered leaves...\nEXITS: (E) (N)");
 
         Hub forest6 = new Hub("Southern Forest Area #6", "The Southern Area of the Great Makiss Forest. \nThe trees grow apart here, their canopies still blotting out much of the sunlight. The air feels damp, and the dull chest#001 sits quietly in the middle of the area... \nEXITS: (S) (N) (W)");
 
@@ -343,6 +338,15 @@ public class Game {
         Hub firstVilleGate = new Hub("Gate of FirstVille", "The Great Gate of FirstVille.\nYou stand in a clearing, opposite from the forest, in front of a great booming gate: (S) (N)");
 
         Hub firstVillePassage = new Hub("The Great Passage into FirstVille", "A short passage that reaches the Great Gate and the town square. \nTo the south stand wood line gates, to the north you see bustling people and lights. \nEXITS: (N) (S)");
+
+        Hub firstVilleSquare = new Hub("FirstVille Square", "The bustling heart of FirstVille. Merchants shout their wares and townsfolk mill about. \nEXITS: (N) (S)");
+
+        Hub firstVilleLane1 = new Hub("FirstVille Streets #1", "North of the Town Square, houses line the streets, children can be seen playing in them. \nEXITS: (N) (S)");
+
+        Hub firstVilleLane2 = new Hub("FirstVille Streets #2", "The bustling heart of FirstVille. Merchants shout their wares and townsfolk mill about. \nEXITS: (W) (S) (E)");
+
+        Hub firstVilleLane3 = new Hub("FirstVille Streets #3", "The bustling heart of FirstVille. Merchants shout their wares and townsfolk mill about. \nEXITS: (E)");
+
 
         //Toms Cave EXITS:
         cave.setExit("n", caveN);
@@ -483,6 +487,15 @@ public class Game {
         firstVilleGate.setExit("n", firstVillePassage);
         firstVilleGate.setExit("s", forest50);
         firstVillePassage.setExit("s", firstVilleGate);
+        firstVillePassage.setExit("n", firstVilleSquare);
+        firstVilleSquare.setExit("s", firstVillePassage);
+        firstVilleSquare.setExit("n", firstVilleLane1);
+        firstVilleLane1.setExit("s", firstVilleSquare);
+        firstVilleLane1.setExit("n", firstVilleLane2);
+        firstVilleLane2.setExit("s", firstVilleLane1);
+        firstVilleLane2.setExit("w", firstVilleLane3);
+        firstVilleLane3.setExit("e", firstVilleLane2);
+
 
 
 
@@ -509,7 +522,7 @@ public class Game {
         //ADD ITEMS IN TO ROOM
         caveN.addObject("leaflet001");
 
-        for (int i = 0; i < 2; i ++) {
+        for (int i = 0; i < 2; i++) {
             caveNN.addObject("copper");
         }
 
@@ -517,7 +530,7 @@ public class Game {
         caveNE.addObject("leaflet002");
         caveNE.addObject("leather armor");
 
-        for (int ii = 0; ii < 3; ii ++) {
+        for (int ii = 0; ii < 3; ii++) {
             forest1.addObject("twig");
         }
 
@@ -548,17 +561,13 @@ public class Game {
 
         forest26.addObject("IH002");
 
-        // ADD MOBS
+        // ADD MOBS to room
 
         Mob goblin = createGoblinWithRandomStats();
 
         forest10.getMOBS().add(goblin);
 
-        //CHANGE SO THAT THE CLASS THAT MAKES BOSSES CAN BE USED OVER AND OVER. THE CLASS SHOLUD GIVE THE BOSS SPECIAL SKILLS, DROP ITEMS, HEALTH ETC.
-
-
-
-        for (int o = 0; o < 3; o++){
+        for (int o = 0; o < 3; o++) {
 
             goblin = createGoblinWithRandomStats();
 
@@ -575,16 +584,29 @@ public class Game {
         Item FirstVilleHelm = new Item("firstville guards helm", "head", false, null);
         Item FirstVilleLegs = new Item("firstville guards legs", "legging", false, null);
         Item FirstVilleBoots = new Item("firstville guards boots", "boots", false, null);
+
+        //enchancements
         Enchantments fire = new Enchantments("Fire", "Lights enemies on fire", 1);
 
         //Boss Drops
+        Item thornShield = new Item("the shield of the forest boss", "melee", true, null);
+
         //forest boss
-        Item thornShield = new Item("the shield of the forest boss","melee",true, null);
+
+        //NPCS
+        Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock, raggerH, 2, "SQ0", Npca.QuestState.NONE);
+
+        FirstShopOwner baggerOwner = new FirstShopOwner("copper", "Bagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
+        Hub.FirstVilleShop baggerShop = new Hub("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and armor. Ragger watches you closely.\n").new FirstVilleShop("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and armor. Ragger watches you closely. \nEXITS: (S)", baggerOwner);
+        Item copperSword = new Item("Copper Sword", "melee", true, null);
+        baggerShop.addStock(copperSword, 20);
+        baggerOwner.setMyShop(baggerShop);
+        baggerShop.getFirstShopOwners().add(baggerOwner);
+        baggerShop.setExit("w", firstVilleLane2);
+        firstVilleLane2.setExit("e", baggerShop);
 
 
 
-
-        Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock, raggerH , 2, "SQ0", Npca.QuestState.NONE);
         Guard Oliver = new Guard("Oliver", oliverLines, oliverP, 8, FirstVilleHelm, FirstVillePlate, FirstVilleLegs, FirstVilleBoots, "MQ3", Npca.QuestState.NONE);
 
         firstVilleGate.getGuard().add(Oliver);
@@ -595,7 +617,7 @@ public class Game {
         existingItems.add(leatherArmor);
 
 
-        Story(firstVilleGate, existingItems, equipment);
+        Story(firstVilleLane2, existingItems, equipment);
 
     }
 
@@ -704,15 +726,13 @@ public class Game {
         objects.add("ih");
         objects.add("white whispberries");
         objects.add("oliver");
+        objects.add("bagger");
+        objects.add("ragger");
         objects.add("gate");
         objects.add("firstville guards plate");
         objects.add("firstville guards helm");
         objects.add("firstville guards boots");
         objects.add("firstville guards legs");
-
-
-
-
 
 
         List<String> look = new ArrayList<>();
@@ -738,7 +758,6 @@ public class Game {
         take.add("take");
         take.add("pick up");
         take.add("grab");
-
 
 
         List<String> get = new ArrayList<>();
@@ -789,7 +808,6 @@ public class Game {
         gate.add("gate");
 
 
-
         // INSERT ALL CODE THAT SETS A VARIABLE HERE!!!!!
 
         boolean cabinetCaveN = false;
@@ -803,7 +821,7 @@ public class Game {
         String namer = scanner.nextLine();
         System.out.println("");
 
-        Player player =  new Player(namer, 10,10,5, 0);
+        Player player = new Player(namer, 10, 10, 5, 0);
 
         XpLv playersStats = new XpLv(1, 0);
 
@@ -813,9 +831,9 @@ public class Game {
         System.out.println("");
 
         //Checks if you said yes or not
-        if (play.equalsIgnoreCase("yes") || play.equalsIgnoreCase("y" ) || play.equalsIgnoreCase("admin0")) {
+        if (play.equalsIgnoreCase("yes") || play.equalsIgnoreCase("y") || play.equalsIgnoreCase("admin0")) {
 
-            if (play.equalsIgnoreCase("admin0")){
+            if (play.equalsIgnoreCase("admin0")) {
                 System.out.println("Admin Code received.");
                 System.out.print("Enter MAX health \n-> ");
                 int setHealthMAX = scanner.nextInt();
@@ -826,7 +844,7 @@ public class Game {
                 System.out.print("Enter damage resistance\n-> ");
                 int setresistance = scanner.nextInt();
                 player.getHealth().setDamageResistance(setresistance);
-                for(int i = 0; i<200; i++){
+                for (int i = 0; i < 200; i++) {
                     inRoom.getObjects().add("gold");
                 }
                 scanner.nextLine();
@@ -875,18 +893,15 @@ public class Game {
             movingTheMobs();
 
             setupHealthRegen(player);
-        }
-
-        else {
+        } else {
             start = false;
         }
-
 
 
         //While start is true, run the code
         while (start) {
 
-            if (player.getHealth().isDead()){
+            if (player.getHealth().isDead()) {
 
                 System.out.println("\nThe world becomes dark...");
                 break;
@@ -896,14 +911,13 @@ public class Game {
             System.out.println("");
             scannerOrNo = false;
 
-            if (timeChange != null && changeTime != null){
+            if (timeChange != null && changeTime != null) {
 
                 long secondsAgo = java.time.Duration.between(changeTime, LocalTime.now()).getSeconds();
 
                 if (secondsAgo < 60) {
                     System.out.println("It turned " + timeChange + " " + secondsAgo + " seconds ago.");
-                }
-                else {
+                } else {
                     secondsAgo /= 60;
                     System.out.println("It turned " + timeChange + " " + secondsAgo + " min ago.");
 
@@ -911,7 +925,6 @@ public class Game {
                 timeChange = null;
                 changeTime = null;
             }
-
 
 
             System.out.print("-> ");
@@ -923,17 +936,13 @@ public class Game {
             boolean oneCardinol = oneDirection(action, northways, southways, easyways, westways);
 
             boolean correctFormat = oneObjectOneVerb(action, verbs, objects);
-            if (oneCardinol){
+            if (oneCardinol) {
                 System.out.println("You can't input multiple directions!");
-            }
-
-            else if (!correctFormat) {
+            } else if (!correctFormat) {
                 System.out.println("Max verbs: 1   ||   Max objects: 1   ||  Try again");
-            }
+            } else {
 
-            else {
-
-                if (action.equalsIgnoreCase("coins")){
+                if (action.equalsIgnoreCase("coins")) {
                     System.out.println("COINS: " + player.getCoins());
                 }
 
@@ -973,8 +982,7 @@ public class Game {
                         Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                         snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
-                    }
-                    else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
+                    } else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
                         // Call the move method and update to inRoom
                         Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                         inRoom = newRoom;
@@ -982,16 +990,14 @@ public class Game {
                         snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
 
-                    }
-                    else if (action.toLowerCase().equals("w") || action.toLowerCase().equals("west")) {
+                    } else if (action.toLowerCase().equals("w") || action.toLowerCase().equals("west")) {
                         // Call the move method and update to inRoom
                         Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                         inRoom = newRoom;
                         Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                         snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
-                    }
-                    else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
+                    } else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
                         // Call the move method and update to inRoom
                         Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
                         inRoom = newRoom;
@@ -999,8 +1005,7 @@ public class Game {
                         snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
 
-                    }
-                    else if (stringContainsWordFromList(action.toLowerCase(), movements.toArray(new String[0]))) {
+                    } else if (stringContainsWordFromList(action.toLowerCase(), movements.toArray(new String[0]))) {
 
                         if (stringContainsWordFromList(action.toLowerCase(), directions.toArray(new String[0]))) {
 
@@ -1048,15 +1053,11 @@ public class Game {
 
                             }
 
-                        }
-
-                        else {
+                        } else {
                             System.out.println("You can't just '" + action + "'");
                         }
 
-                    }
-
-                    else if (stringContainsWordFromList(action.toLowerCase(), look.toArray(new String[0]))) {
+                    } else if (stringContainsWordFromList(action.toLowerCase(), look.toArray(new String[0]))) {
                         System.out.println(inRoom.getRoomName());
                         System.out.println(inRoom.getRoomDescription());
                         System.out.println("");
@@ -1068,7 +1069,7 @@ public class Game {
 
                         List<String> mobNames = new ArrayList<>();
 
-                        for (Mob mob : inRoom.getMOBS()){
+                        for (Mob mob : inRoom.getMOBS()) {
 
                             mobNames.add(mob.getName());
 
@@ -1080,77 +1081,66 @@ public class Game {
 
                         List<String> npcNames = new ArrayList<>();
 
-                        for (Npca npc : inRoom.getNpc()){
+                        for (Npca npc : inRoom.getNpc()) {
                             npcNames.add(npc.getName());
                         }
 
-                        for (Guard npc : inRoom.getGuard()){
+                        for (Guard npc : inRoom.getGuard()) {
                             npcNames.add(npc.getName());
                         }
 
-                        for (Merchant npc : inRoom.getMerchant()){
+                        for (Merchant npc : inRoom.getMerchant()) {
                             npcNames.add(npc.getName());
                         }
 
-                        if (!npcNames.isEmpty()){
+                        for (FirstShopOwner npc : inRoom.getFirstShopOwners()) {
+                            npcNames.add(npc.getName());
+                        }
+
+                        if (!npcNames.isEmpty()) {
                             npcIfAny(npcNames, "NPC's in room: ");
                         }
 
-                    }
-
-                    else if (stringContainsWordFromList(action.toLowerCase(), wait.toArray(new String[0]))) {
+                    } else if (stringContainsWordFromList(action.toLowerCase(), wait.toArray(new String[0]))) {
                         System.out.println("You are waiting (hint: nothing happens by waiting)...");
-                    }
-
-                    else if (stringContainsWordFromList(action.toLowerCase(), listen.toArray(new String[0]))) {
+                    } else if (stringContainsWordFromList(action.toLowerCase(), listen.toArray(new String[0]))) {
                         listening(inRoom);
-                    }
-
-                    else if (stringContainsWordFromList(action.toLowerCase(), help.toArray(new String[0]))) {
+                    } else if (stringContainsWordFromList(action.toLowerCase(), help.toArray(new String[0]))) {
                         help(verbs);
-                    }
-
-                    else if (stringContainsWordFromList(action.toLowerCase(), stats.toArray(new String[0]))) {
+                    } else if (stringContainsWordFromList(action.toLowerCase(), stats.toArray(new String[0]))) {
                         player.displayStats(player, playersStats);
                     }
 
-                }
-
-                else if (stringContainsWordFromList(action.toLowerCase(), verbs.toArray(new String[0]))) {
+                } else if (stringContainsWordFromList(action.toLowerCase(), verbs.toArray(new String[0]))) {
 
                     if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0])) || action.toLowerCase().contains("leaflet") || action.toLowerCase().contains("ih")) {
                         if (stringContainsWordFromList(action.toLowerCase(), open.toArray(new String[0]))) {
 
-                            if (stringContainsWordFromList(action.toLowerCase(), inventory.toArray(new String[0]))){
+                            if (stringContainsWordFromList(action.toLowerCase(), inventory.toArray(new String[0]))) {
                                 itemsIfAny(inventory, "Items in inventory: ");
-                            }
+                            } else if (inRoom.getRoomName().equals("Tom's Dark Kitchen") && stringContainsWordFromList(action.toLowerCase(), cabinet.toArray(new String[0]))) {
 
-                            else if (inRoom.getRoomName().equals("Tom's Dark Kitchen") && stringContainsWordFromList(action.toLowerCase(), cabinet.toArray(new String[0]))) {
-
-                                if (!cabinetCaveN){
+                                if (!cabinetCaveN) {
                                     System.out.println("You open the cabinet.");
                                     cabinetCaveN = true;
 
-                                    if (cabinetDaggerCaveN){
+                                    if (cabinetDaggerCaveN) {
                                         System.out.println("A dagger falls out and clatters to the floor...");
                                         inRoom.addObject("dagger");
                                         cabinetDaggerCaveN = false;
                                     }
 
-                                }
-                                else {
+                                } else {
                                     System.out.println("The cabinet is already open.");
                                 }
                                 //If dagger is not in room and not in inventory, it falls out and is added to room (SO MAKE SURE TO REMOVE It FROM THE ROOM AT THE START!!!!!
-                            }
-
-                            else if (stringContainsWordFromList(action.toLowerCase(), door.toArray(new String[0]))) {
+                            } else if (stringContainsWordFromList(action.toLowerCase(), door.toArray(new String[0]))) {
                                 Door isDoor = null;
                                 String doorDir = null;
 
-                                for (String dir : Arrays.asList("n", "s", "e", "w")){
+                                for (String dir : Arrays.asList("n", "s", "e", "w")) {
 
-                                    if (inRoom.getDoor(dir) != null){
+                                    if (inRoom.getDoor(dir) != null) {
 
                                         isDoor = inRoom.getDoor(dir);
 
@@ -1167,12 +1157,10 @@ public class Game {
                                             if (playersStats.getLevel() > 3) {
                                                 System.out.println("You open the door to the " + doorDir.toUpperCase() + ".");
                                                 isDoor.setOpen(true);
-                                            }
-                                            else {
+                                            } else {
                                                 System.out.println("You are not skilled or strong enough to open this door. Come back with a higher level.");
                                             }
-                                        }
-                                        else {
+                                        } else {
                                             System.out.println("You open the door to the " + doorDir.toUpperCase() + ".");
                                             isDoor.setOpen(true);
 
@@ -1180,21 +1168,17 @@ public class Game {
                                     } else {
                                         System.out.println("The door is already open.");
                                     }
-                                }
-
-                                else {
+                                } else {
                                     System.out.println("There is no door here.");
                                 }
 
-                            }
-
-                            else if (stringContainsWordFromList(action.toLowerCase(), gate.toArray(new String[0]))) {
+                            } else if (stringContainsWordFromList(action.toLowerCase(), gate.toArray(new String[0]))) {
                                 LockedDoors isGate = null;
                                 String gateDir = null;
 
-                                for (String dir : Arrays.asList("n", "s", "e", "w")){
+                                for (String dir : Arrays.asList("n", "s", "e", "w")) {
 
-                                    if (inRoom.getLockedDoor(dir) != null){
+                                    if (inRoom.getLockedDoor(dir) != null) {
 
                                         isGate = inRoom.getLockedDoor(dir);
 
@@ -1209,8 +1193,8 @@ public class Game {
                                     if (!isGate.isOpened()) {
                                         boolean opened = false;
                                         if (inRoom.getRoomName().equals("Gate of FirstVille")) {
-                                            for (String item : inventory){
-                                                if (item.equalsIgnoreCase("guard pass")){
+                                            for (String item : inventory) {
+                                                if (item.equalsIgnoreCase("guard pass")) {
                                                     System.out.println("You open the gate to the " + gateDir.toUpperCase() + ".");
                                                     isGate.setOpened(true);
                                                     opened = true;
@@ -1218,10 +1202,10 @@ public class Game {
                                                 }
                                             }
 
-                                            if (!opened){
+                                            if (!opened) {
                                                 Map<String, Item> equipped = equipment.getEquippedItems();
-                                                for (Item item : equipped.values()){
-                                                    if (item.getName().equalsIgnoreCase("firstville guards boots") || item.getName().equalsIgnoreCase("firstville guards legs") || item.getName().equalsIgnoreCase("firstville guards plate") || item.getName().equalsIgnoreCase("firstville guards helm")){
+                                                for (Item item : equipped.values()) {
+                                                    if (item.getName().equalsIgnoreCase("firstville guards boots") || item.getName().equalsIgnoreCase("firstville guards legs") || item.getName().equalsIgnoreCase("firstville guards plate") || item.getName().equalsIgnoreCase("firstville guards helm")) {
                                                         System.out.println("You open the gate to the " + gateDir.toUpperCase() + ".");
                                                         isGate.setOpened(true);
                                                         opened = true;
@@ -1231,28 +1215,22 @@ public class Game {
                                                 }
                                             }
 
-                                            if (!opened){
+                                            if (!opened) {
                                                 System.out.println("You cannot open this gate.");
                                             }
-                                        }
-                                        else {
+                                        } else {
                                             System.out.println("You open the gate to the " + gateDir.toUpperCase() + ".");
                                             isGate.setOpened(true);
                                         }
 
-                                    }
-                                    else {
+                                    } else {
                                         System.out.println("The gate is already open.");
                                     }
-                                }
-
-                                else {
+                                } else {
                                     System.out.println("There is no door here.");
                                 }
 
-                            }
-
-                            else if (stringContainsWordFromList(action.toLowerCase(), chests.toArray(new String[0]))) {
+                            } else if (stringContainsWordFromList(action.toLowerCase(), chests.toArray(new String[0]))) {
 
                                 String theChest = null;
                                 List<String> allChests = new ArrayList<>();
@@ -1308,7 +1286,8 @@ public class Game {
                                             if (chosenIndex >= 0 && chosenIndex < chestIds.size()) {
                                                 choiceId = chestIds.get(chosenIndex);
                                             }
-                                        } catch (NumberFormatException ignored) {}
+                                        } catch (NumberFormatException ignored) {
+                                        }
 
                                         if (choiceId == null) {
                                             for (String chestId : chestIds) {
@@ -1343,14 +1322,10 @@ public class Game {
 
                                 if (chest.isOpened()) {
                                     System.out.println("Nothing happens. The chest's magical lid has already vanished.");
-                                }
-
-                                else {
+                                } else {
                                     if (chest.requiresKey() && !inventory.contains(chest.getRequiredKeyName())) {
                                         System.out.println("You need " + chest.getRequiredKeyName() + " to open this chest.");
-                                    }
-
-                                    else {
+                                    } else {
 
                                         System.out.println("Magic swirls around " + theChest + " and its lid disappears! \n**POOF!!**");
                                         System.out.print("->> ");
@@ -1366,29 +1341,22 @@ public class Game {
                                 }
                             }
 
-                        }
-
-
-
-                        else if (stringContainsWordFromList(action.toLowerCase(), close.toArray(new String[0]))) {
+                        } else if (stringContainsWordFromList(action.toLowerCase(), close.toArray(new String[0]))) {
                             if (inRoom.getRoomName().equals("Tom's Dark Kitchen") && stringContainsWordFromList(action.toLowerCase(), cabinet.toArray(new String[0]))) {
                                 if (cabinetCaveN) {
                                     System.out.println("You close the cabinet.");
                                     cabinetCaveN = false;
-                                }
-                                else {
+                                } else {
                                     System.out.println("The cabinet is already closed.");
                                 }
-                            }
-
-                            else if (stringContainsWordFromList(action.toLowerCase(), door.toArray(new String[0]))) {
+                            } else if (stringContainsWordFromList(action.toLowerCase(), door.toArray(new String[0]))) {
 
                                 Door isDoor = null;
                                 String doorDir = null;
 
-                                for (String dir : Arrays.asList("n", "s", "e", "w")){
+                                for (String dir : Arrays.asList("n", "s", "e", "w")) {
 
-                                    if (inRoom.getDoor(dir) != null){
+                                    if (inRoom.getDoor(dir) != null) {
 
                                         isDoor = inRoom.getDoor(dir);
 
@@ -1399,31 +1367,25 @@ public class Game {
                                     }
                                 }
 
-                                if (isDoor != null){
+                                if (isDoor != null) {
                                     if (isDoor.isOpen()) {
                                         System.out.println("You close the door to the " + doorDir.toUpperCase() + ".");
                                         isDoor.setOpen(false);
 
-                                    }
-
-                                    else{
+                                    } else {
                                         System.out.println("The door is already closed.");
                                     }
-                                }
-
-                                else {
+                                } else {
                                     System.out.println("There is no door here.");
                                 }
-                            }
-
-                            else if (stringContainsWordFromList(action.toLowerCase(), gate.toArray(new String[0]))) {
+                            } else if (stringContainsWordFromList(action.toLowerCase(), gate.toArray(new String[0]))) {
 
                                 LockedDoors isGate = null;
                                 String gateDir = null;
 
-                                for (String dir : Arrays.asList("n", "s", "e", "w")){
+                                for (String dir : Arrays.asList("n", "s", "e", "w")) {
 
-                                    if (inRoom.getLockedDoor(dir) != null){
+                                    if (inRoom.getLockedDoor(dir) != null) {
 
                                         isGate = inRoom.getLockedDoor(dir);
 
@@ -1434,27 +1396,21 @@ public class Game {
                                     }
                                 }
 
-                                if (isGate != null){
+                                if (isGate != null) {
                                     if (isGate.isOpened()) {
                                         System.out.println("You close the gate to the " + gateDir.toUpperCase() + ".");
                                         isGate.setOpened(false);
 
-                                    }
-
-                                    else{
+                                    } else {
                                         System.out.println("The gate is already closed.");
                                     }
-                                }
-
-                                else {
+                                } else {
                                     System.out.println("There is no gate here.");
                                 }
                             }
 
 
-                        }
-
-                        else if (stringContainsWordFromList(action.toLowerCase(), take.toArray(new String[0])) || stringContainsWordFromList(action.toLowerCase(), get.toArray(new String[0]))) {
+                        } else if (stringContainsWordFromList(action.toLowerCase(), take.toArray(new String[0])) || stringContainsWordFromList(action.toLowerCase(), get.toArray(new String[0]))) {
                             boolean validObject = false;
 
                             for (String obj : objects) {
@@ -1465,12 +1421,10 @@ public class Game {
                                 }
                             }
 
-                            if (!validObject){
+                            if (!validObject) {
                                 System.out.println("You can't just '" + action + "'");
                             }
-                        }
-
-                        else if (stringContainsWordFromList(action.toLowerCase(), read.toArray(new String[0]))) {
+                        } else if (stringContainsWordFromList(action.toLowerCase(), read.toArray(new String[0]))) {
 
                             boolean validObject = false;
 
@@ -1484,12 +1438,10 @@ public class Game {
                                 }
                             }
 
-                            if (!validObject){
+                            if (!validObject) {
                                 System.out.println("You can't just '" + action + "'");
                             }
-                        }
-
-                        else if (stringContainsWordFromList(action.toLowerCase(), drop.toArray(new String[0])) || stringContainsWordFromList(action.toLowerCase(), remove.toArray(new String[0]))) {
+                        } else if (stringContainsWordFromList(action.toLowerCase(), drop.toArray(new String[0])) || stringContainsWordFromList(action.toLowerCase(), remove.toArray(new String[0]))) {
 
                             boolean validObject = false;
 
@@ -1503,16 +1455,12 @@ public class Game {
                                 }
                             }
 
-                            if (!validObject){
+                            if (!validObject) {
                                 System.out.println("You can't just '" + action + "'");
                             }
-                        }
-
-                        else if (stringContainsWordFromList(action.toLowerCase(), inventoryinventory.toArray(new String[0]))){
+                        } else if (stringContainsWordFromList(action.toLowerCase(), inventoryinventory.toArray(new String[0]))) {
                             itemsIfAny(inventory, "Items in inventory: ");
-                        }
-
-                        else if (stringContainsWordFromList(action.toLowerCase(), attack.toArray(new String[0])) ||stringContainsWordFromList(action.toLowerCase(), kill.toArray(new String[0]))) {
+                        } else if (stringContainsWordFromList(action.toLowerCase(), attack.toArray(new String[0])) || stringContainsWordFromList(action.toLowerCase(), kill.toArray(new String[0]))) {
 
                             boolean mobbo = false; // 47 more questions
 
@@ -1524,7 +1472,7 @@ public class Game {
 
                                     player.setInCombat(true);
 
-                                    combatNpc(player, mob , inRoom, playersStats);
+                                    combatNpc(player, mob, inRoom, playersStats);
 
                                     player.setInCombat(false);
 
@@ -1544,7 +1492,7 @@ public class Game {
 
                                     player.setInCombat(true);
 
-                                    combatGuard(player, mob , inRoom, playersStats, existingItems);
+                                    combatGuard(player, mob, inRoom, playersStats, existingItems);
 
                                     player.setInCombat(false);
 
@@ -1555,7 +1503,6 @@ public class Game {
                                 }
 
                             }
-
 
 
                             for (Mob mob : inRoom.getMOBS()) {
@@ -1566,7 +1513,7 @@ public class Game {
 
                                     player.setInCombat(true);
 
-                                    combat(player, mob , inRoom, playersStats);
+                                    combat(player, mob, inRoom, playersStats);
 
                                     player.setInCombat(false);
 
@@ -1578,22 +1525,20 @@ public class Game {
 
                             }
 
-                            if (mobbo == false){
+                            if (mobbo == false) {
                                 System.out.println("You couldn't find your target.");
                             }
 
-                        }
-
-                        else if (stringContainsWordFromList(action.toLowerCase(), equip.toArray(new String[0]))) {
+                        } else if (stringContainsWordFromList(action.toLowerCase(), equip.toArray(new String[0]))) {
 
                             boolean validObject = false;
 
                             for (String obj : objects) {
                                 if (action.toLowerCase().contains(obj) && inventory.contains(obj)) {
 
-                                    for (Item item : existingItems){
+                                    for (Item item : existingItems) {
 
-                                        if (item.getName().equals(obj)){
+                                        if (item.getName().equals(obj)) {
                                             equip(item, equipment, player);
                                             validObject = true;
                                             break;
@@ -1604,18 +1549,17 @@ public class Game {
                                 }
                             }
 
-                            if (!validObject){
+                            if (!validObject) {
                                 System.out.println("You cannot " + action);
                             }
 
-                        }
-                        else if (stringContainsWordFromList(action.toLowerCase(), unequip.toArray(new String[0]))) {
+                        } else if (stringContainsWordFromList(action.toLowerCase(), unequip.toArray(new String[0]))) {
 
                             boolean validObject = false;
                             for (String obj : objects) {
                                 if (action.toLowerCase().contains(obj.toLowerCase()) && inventory.contains(obj)) {
-                                    for (Item item : existingItems){
-                                        if (item.getName().equals(obj)){
+                                    for (Item item : existingItems) {
+                                        if (item.getName().equals(obj)) {
                                             unequip(item, item.getSlotType(), player, equipment);
                                             validObject = true;
                                             break;
@@ -1626,13 +1570,11 @@ public class Game {
                                 }
                             }
 
-                            if (!validObject){
+                            if (!validObject) {
                                 System.out.println("You cannot " + action);
                             }
 
-                        }
-
-                        else if (stringContainsWordFromList(action.toLowerCase(), talk.toArray(new String[0])) ||stringContainsWordFromList(action.toLowerCase(), kill.toArray(new String[0]))) {
+                        } else if (stringContainsWordFromList(action.toLowerCase(), talk.toArray(new String[0])) || stringContainsWordFromList(action.toLowerCase(), kill.toArray(new String[0]))) {
 
                             boolean talked = false; // 47 more questions
 
@@ -1688,24 +1630,34 @@ public class Game {
                                 }
                             }
 
-                            if (talked == false){
+                            if (!talked) {
+                                for (FirstShopOwner npc : inRoom.getFirstShopOwners()) {
+
+                                    String npcNameLower = npc.getName().toLowerCase();
+
+                                    if (action.toLowerCase().contains(npcNameLower)) {
+
+                                        talkShopFirst(inRoom, inventory, playersStats, npc, player);
+
+                                        talked = true;
+
+                                        break;
+
+                                    }
+
+                                }
+                            }
+
+                            if (talked == false) {
                                 System.out.println("[When you want to talk, you must define your target.]");
                             }
 
-                        }
-
-
-
-                        else {
+                        } else {
                             System.out.println("You can't '" + action + "' ");
                         }
 
 
-                    }
-
-
-
-                    else {
+                    } else {
                         //need object to do that!
 
                         System.out.println("You need something to receive this action (e.g., Open -> door)!");
@@ -1713,12 +1665,10 @@ public class Game {
                     }
 
 
-
                 } else if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0]))) {
 
                     System.out.println("You need a verb to do something!");
-                }
-                else {
+                } else {
                     System.out.println("I don't know that word.");
                 }
 
@@ -1774,7 +1724,6 @@ public class Game {
             Mobs(newRoom);
 
 
-
             for (Mob mob : new ArrayList<>(newRoom.getMOBS())) {
 
                 if (mob.isAggro() && !mob.getHealth().isDead() && newRoom.containsMob(mob)) {
@@ -1783,7 +1732,7 @@ public class Game {
 
                     List<String> mobNames = new ArrayList<>();
 
-                    for (Mob mob1 : newRoom.getMOBS()){
+                    for (Mob mob1 : newRoom.getMOBS()) {
 
                         mobNames.add(mob1.getName());
 
@@ -1796,7 +1745,7 @@ public class Game {
                     System.out.println(mob.getName() + " is aggro and attacks you as you enter!");
 
                     combat(player, mob, newRoom, playerStats);
-                    if (newRoom.getMOBS().isEmpty()){
+                    if (newRoom.getMOBS().isEmpty()) {
 
                         break; // If I change stuff then before the for I should see what the newRoom.getMOBS's length is, and then do a "for (int i = (the length of the list)"
                     }
@@ -1808,7 +1757,7 @@ public class Game {
             List<String> mobNames = new ArrayList<>();
 
 
-            for (Mob mob : newRoom.getMOBS()){
+            for (Mob mob : newRoom.getMOBS()) {
 
                 mobNames.add(mob.getName());
 
@@ -1820,19 +1769,19 @@ public class Game {
 
             List<String> npcNames = new ArrayList<>();
 
-            for (Npca npc : newRoom.getNpc()){
+            for (Npca npc : newRoom.getNpc()) {
                 npcNames.add(npc.getName());
             }
 
-            for (Guard npc : newRoom.getGuard()){
+            for (Guard npc : newRoom.getGuard()) {
                 npcNames.add(npc.getName());
             }
 
-            for (Merchant npc : newRoom.getMerchant()){
+            for (Merchant npc : newRoom.getMerchant()) {
                 npcNames.add(npc.getName());
             }
 
-            if (!npcNames.isEmpty()){
+            if (!npcNames.isEmpty()) {
                 npcIfAny(npcNames, "NPC's in room: ");
             }
 
@@ -1858,23 +1807,22 @@ public class Game {
 
     public static boolean oneDirection(String action, List<String> northways, List<String> southways, List<String> eastways, List<String> westways) {
         int directionCounter = 0;
-        if (stringContainsWordFromList(action.toLowerCase(), northways.toArray(new String[0]))){
-            directionCounter ++;
+        if (stringContainsWordFromList(action.toLowerCase(), northways.toArray(new String[0]))) {
+            directionCounter++;
         }
-        if (stringContainsWordFromList(action.toLowerCase(), southways.toArray(new String[0]))){
-            directionCounter ++;
+        if (stringContainsWordFromList(action.toLowerCase(), southways.toArray(new String[0]))) {
+            directionCounter++;
         }
-        if (stringContainsWordFromList(action.toLowerCase(), eastways.toArray(new String[0]))){
-            directionCounter ++;
+        if (stringContainsWordFromList(action.toLowerCase(), eastways.toArray(new String[0]))) {
+            directionCounter++;
         }
-        if (stringContainsWordFromList(action.toLowerCase(), westways.toArray(new String[0]))){
-            directionCounter ++;
+        if (stringContainsWordFromList(action.toLowerCase(), westways.toArray(new String[0]))) {
+            directionCounter++;
         }
 
-        if (directionCounter > 1){
+        if (directionCounter > 1) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -1897,12 +1845,12 @@ public class Game {
     }
 
     public static void listening(Hub inRoom) {
-        if (inRoom.getRoomName().equals("Tom's Dark Cave")){
+        if (inRoom.getRoomName().equals("Tom's Dark Cave")) {
             System.out.println("You hear absolutely nothing but your own breathing");
         }
     }
 
-    public static void take(Hub inRoom, String item, List<String> inventory, Player player, XpLv playerStats){
+    public static void take(Hub inRoom, String item, List<String> inventory, Player player, XpLv playerStats) {
 
         if (item.equalsIgnoreCase("leaflet")) {
 
@@ -1923,8 +1871,7 @@ public class Game {
             String chosenId;
             if (leafletIds.size() == 1) {
                 chosenId = leafletIds.get(0);
-            }
-            else {
+            } else {
                 System.out.println("There are several leaflets here:");
                 for (int i = 0; i < leafletIds.size(); i++) {
                     String id = leafletIds.get(i);
@@ -1943,7 +1890,8 @@ public class Game {
                     if (chosen >= 0 && chosen < leafletIds.size()) {
                         choice = leafletIds.get(chosen);
                     }
-                } catch (NumberFormatException ignored) {}
+                } catch (NumberFormatException ignored) {
+                }
 
                 // Try id
                 if (choice == null) {
@@ -1985,8 +1933,7 @@ public class Game {
             String chosenId;
             if (tokenIds.size() == 1) {
                 chosenId = tokenIds.get(0);
-            }
-            else {
+            } else {
                 System.out.println("There are several tokens here:");
                 for (int i = 0; i < tokenIds.size(); i++) {
                     String id = tokenIds.get(i);
@@ -2003,7 +1950,8 @@ public class Game {
                     if (chosen >= 0 && chosen < tokenIds.size()) {
                         choice = tokenIds.get(chosen);
                     }
-                } catch (NumberFormatException ignored) {}
+                } catch (NumberFormatException ignored) {
+                }
 
                 // Try id
                 if (choice == null) {
@@ -2033,16 +1981,14 @@ public class Game {
 
         int chosenAmount = 0;
 
-        if (count == 0){
+        if (count == 0) {
             System.out.println("There is no " + item + " (single-form) to take here");
 
-        }
-
-        else {
+        } else {
             chosenAmount = 1;
         }
 
-        if (count > 1){
+        if (count > 1) {
             System.out.println("There are " + count + " " + item + "(s) here. How many do you want to take?");
             System.out.print("-> ");
 
@@ -2051,21 +1997,16 @@ public class Game {
                 int amountToTake = scanner.nextInt();
                 scanner.nextLine();
 
-                if (amountToTake > count){
+                if (amountToTake > count) {
                     System.out.println("You are trying to take more items than there are. \nTaking 1 by default.");
 
-                }
-                else if (amountToTake < 0) {
+                } else if (amountToTake < 0) {
                     System.out.println("You are trying to take a negative amount. \nTaking 1 by default.");
-                }
-
-                else {
+                } else {
                     chosenAmount = amountToTake;
                 }
 
-            }
-
-            else {
+            } else {
 
                 System.out.println("You are trying to take an invalid amount. \nTaking 1 by default.");
                 scanner.nextLine();
@@ -2073,7 +2014,7 @@ public class Game {
 
         }
 
-        for (int i = 0; i < chosenAmount; i++){
+        for (int i = 0; i < chosenAmount; i++) {
 
             inventory.add(item);
             inRoom.getObjects().remove(item);
@@ -2082,21 +2023,18 @@ public class Game {
 
         }
 
-        if (chosenAmount > 0){
+        if (chosenAmount > 0) {
 
             System.out.println("You have taken " + chosenAmount + " " + item + "(s)");
 
-        }
-
-        else {
+        } else {
             System.out.println("You have re-framed from taking anything.");
         }
 
 
-
     }
 
-    public static void drop(Hub inRoom, String item, List<String> inventory, Player player, Equipment equipment, List<Item> existingItems){
+    public static void drop(Hub inRoom, String item, List<String> inventory, Player player, Equipment equipment, List<Item> existingItems) {
 
         boolean isLeaflet = false;
 
@@ -2119,8 +2057,7 @@ public class Game {
             String chosenId;
             if (leafletIds.size() == 1) {
                 chosenId = leafletIds.get(0);
-            }
-            else {
+            } else {
                 System.out.println("You have several leaflets in your inventory:");
                 for (int i = 0; i < leafletIds.size(); i++) {
                     String id = leafletIds.get(i);
@@ -2139,7 +2076,8 @@ public class Game {
                     if (chosen >= 0 && chosen < leafletIds.size()) {
                         choice = leafletIds.get(chosen);
                     }
-                } catch (NumberFormatException ignored) {}
+                } catch (NumberFormatException ignored) {
+                }
 
                 // Try id
                 if (choice == null) {
@@ -2184,8 +2122,7 @@ public class Game {
             String chosenId;
             if (tokenId.size() == 1) {
                 chosenId = tokenId.get(0);
-            }
-            else {
+            } else {
                 System.out.println("You have several tokens in your inventory:");
                 for (int i = 0; i < tokenId.size(); i++) {
                     String id = tokenId.get(i);
@@ -2202,7 +2139,8 @@ public class Game {
                     if (chosen >= 0 && chosen < tokenId.size()) {
                         choice = tokenId.get(chosen);
                     }
-                } catch (NumberFormatException ignored) {}
+                } catch (NumberFormatException ignored) {
+                }
 
                 // Try id
                 if (choice == null) {
@@ -2230,16 +2168,15 @@ public class Game {
 
         int chosenAmount = 0;
 
-        if (count == 0){
+        if (count == 0) {
             System.out.println("There is no " + item + " (single-form) in you inventory");
 
-        }
-        else {
+        } else {
 
             chosenAmount = 1;
         }
 
-        if (count > 1){
+        if (count > 1) {
             System.out.println("You have " + count + " " + item + "(s). How many do you want to drop? \n->");
 
             if (scanner.hasNextInt()) {
@@ -2247,21 +2184,16 @@ public class Game {
                 int amountToTake = scanner.nextInt();
                 scanner.nextLine();
 
-                if (amountToTake > count){
+                if (amountToTake > count) {
                     System.out.println("You are trying to drop more items than there you have. \nDropping 1 by default.");
 
-                }
-                else if (amountToTake < 0) {
+                } else if (amountToTake < 0) {
                     System.out.println("You are trying to drop a negative amount. \nDropping 1 by default.");
-                }
-
-                else {
+                } else {
                     chosenAmount = amountToTake;
                 }
 
-            }
-
-            else {
+            } else {
 
                 System.out.println("You are trying to drop an invalid amount. \nDropping 1 by default.");
                 scanner.nextLine();
@@ -2269,14 +2201,14 @@ public class Game {
 
         }
 
-        for (int i = 0; i < chosenAmount; i++){
+        for (int i = 0; i < chosenAmount; i++) {
 
             inventory.remove(item);
             inRoom.getObjects().add(item);
 
         }
 
-        if (chosenAmount >= 0){
+        if (chosenAmount >= 0) {
 
             Item itemToRemove = null;
 
@@ -2309,7 +2241,6 @@ public class Game {
 
 
         }
-
 
 
     }
@@ -2440,7 +2371,7 @@ public class Game {
 
         System.out.print(name + "");
         for (String mob : new ArrayList<>(new java.util.HashSet<>(mobs))) {
-            System.out.print("[" + mob +  "] ");
+            System.out.print("[" + mob + "] ");
         }
         System.out.println("");
     }
@@ -2448,7 +2379,7 @@ public class Game {
 
     public static void help(List<String> verbs) {
 
-        System.out.println("In order to call a command you need to enter in the FOLLOWING FORMAT: \n\n[VERB] + [OBJECT] = action\n\nSome verbs will not need an object to be used (e.g., 'look')\nHere are a list of possible commands:\n    -> move, go || open, close || look, listen, wait, read || get, drop, take, remove \n       kill, attack || stats, inventory, coins, quests || help || ..." );
+        System.out.println("In order to call a command you need to enter in the FOLLOWING FORMAT: \n\n[VERB] + [OBJECT] = action\n\nSome verbs will not need an object to be used (e.g., 'look')\nHere are a list of possible commands:\n    -> move, go || open, close || look, listen, wait, read || get, drop, take, remove \n       kill, attack || stats, inventory, coins, quests || help || ...");
 
     }
 
@@ -2459,12 +2390,12 @@ public class Game {
         // Only run this code if player is in a Southern Forest room
         if (inRoom.getRoomName().contains("Southern Forest")) {
 
-            chancer = (int)(Math.random() * 101);
+            chancer = (int) (Math.random() * 101);
 
             if (chancer < 20) {
 
                 // Random number between 0–3 to decide mob type
-                number = (int)(Math.random() * 7) + 1;
+                number = (int) (Math.random() * 7) + 1;
 
                 if (number > 0 && number > 4) {
 
@@ -2482,9 +2413,7 @@ public class Game {
                         inRoom.getMOBS().add(rabbit);
                         System.out.println("A rabbit hops out from the bushes.");
                     }
-                }
-
-                else if (number > 3 && number < 7) {
+                } else if (number > 3 && number < 7) {
 
 
                     List<String> mobCounts = new ArrayList<>();
@@ -2502,9 +2431,7 @@ public class Game {
                         System.out.println("A chicken clucks into the area in confusion.");
                     }
 
-                }
-
-                else {
+                } else {
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -2524,18 +2451,17 @@ public class Game {
                 }
 
 
-
             }
         }
     }
 
     private static Mob createRabbitWithRandomStats() {
-        int maxHealth = (int)(Math.random() * 2 + 6); //6-7
+        int maxHealth = (int) (Math.random() * 2 + 6); //6-7
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health rabbitHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int)(Math.random() * 4 + 1);
+        int attackPower = (int) (Math.random() * 4 + 1);
         boolean isAggro = false;
         boolean onFire = false;
 
@@ -2543,12 +2469,12 @@ public class Game {
     }
 
     private static Mob createSquirrelWithRandomStats() {
-        int maxHealth = (int)(Math.random() * 4 + 5); //5-8
+        int maxHealth = (int) (Math.random() * 4 + 5); //5-8
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health squirrelHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int)(Math.random() * 7 + 3); //3-9
+        int attackPower = (int) (Math.random() * 7 + 3); //3-9
         boolean isAggro = true;
         boolean onFire = false;
 
@@ -2556,12 +2482,12 @@ public class Game {
     }
 
     private static Mob createChickenWithRandomStats() {
-        int maxHealth = (int)(Math.random() * 4 + 9); //9-11
+        int maxHealth = (int) (Math.random() * 4 + 9); //9-11
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health rabbitHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int)(Math.random() * 3 + 1);
+        int attackPower = (int) (Math.random() * 3 + 1);
         boolean isAggro = false;
         boolean onFire = false;
 
@@ -2570,12 +2496,12 @@ public class Game {
     }
 
     private static Mob createGoblinWithRandomStats() {
-        int maxHealth = (int)(Math.random() * 6 + 12); //12-17
+        int maxHealth = (int) (Math.random() * 6 + 12); //12-17
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health goblinHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int)(Math.random() * 10 + 2);
+        int attackPower = (int) (Math.random() * 10 + 2);
         boolean isAggro = true;
         boolean onFire = false;
 
@@ -2583,13 +2509,12 @@ public class Game {
     }
 
 
-    public static void combat(Player player, Mob mob, Hub inRoom, XpLv playerStats){
+    public static void combat(Player player, Mob mob, Hub inRoom, XpLv playerStats) {
         boolean using = false;
 
-        if (player.getSkills().isEmpty()){
+        if (player.getSkills().isEmpty()) {
 
-        }
-        else {
+        } else {
 
             System.out.println("Would you like to you skills and items in this battle or just use what you already have (y/n) ?");
             System.out.print("-> ");
@@ -2601,48 +2526,47 @@ public class Game {
                 } else {
                     using = false;
                 }
+            } else {
+                using = false;
+                System.out.println("No input taken...");
             }
-
-            else {using = false; System.out.println("No input taken...");}
 
             System.out.println("");
         }
 
-        if (!inRoom.containsMob(mob)){
+        if (!inRoom.containsMob(mob)) {
             System.out.println("The " + mob.getName() + " has fled to another room.");
             return;
         }
 
-        while (!player.getHealth().isDead() && !mob.getHealth().isDead()){
+        while (!player.getHealth().isDead() && !mob.getHealth().isDead()) {
 
-            if (!inRoom.containsMob(mob)){
+            if (!inRoom.containsMob(mob)) {
                 System.out.println("The " + mob.getName() + " has fled to another room.");
                 break;
             }
 
-            if (using == true){
+            if (using == true) {
 
                 System.out.println("What skill would you like to use?");
-                for (Skill skill : player.getSkills())  {
+                for (Skill skill : player.getSkills()) {
                     System.out.print("[" + skill.getName() + "]  ");
                 }
                 System.out.println("");
                 System.out.print("-> ");
 
                 String usingNow = scanner.nextLine();
-                if (usingNow.toLowerCase().equals("stun")){
+                if (usingNow.toLowerCase().equals("stun")) {
                     Skill.StunSkill.apply(player, mob);
-                }
-
-                else {
+                } else {
                     int chop = 0;
-                    for (Skill skiller : player.getSkills())  {
-                        if (usingNow.toLowerCase().equals(skiller.getName())){
+                    for (Skill skiller : player.getSkills()) {
+                        if (usingNow.toLowerCase().equals(skiller.getName())) {
                             chop++;
                         }
                     }
 
-                    if (chop <= 0){
+                    if (chop <= 0) {
                         System.out.println("Unknown input.");
                     }
                 }
@@ -2655,8 +2579,6 @@ public class Game {
             player.attack(mob);
 
 
-
-
             System.out.println("");
 
             try {
@@ -2665,7 +2587,7 @@ public class Game {
                 throw new RuntimeException(e);
             }
 
-            if (mob.getHealth().isDead()){
+            if (mob.getHealth().isDead()) {
                 System.out.println("The " + mob.getName() + " has died at your hands. \n");
 
                 playerStats.addXp(playerStats.calculateXp(mob.getName()));
@@ -2681,9 +2603,7 @@ public class Game {
                 Player.QUESTS.forEach((id, q) -> q.check("KILL_MOB", killedMob, player, playerStats));
 
                 break;
-            }
-
-            else {
+            } else {
 
                 mob.attack(player);
                 System.out.println("");
@@ -2694,7 +2614,7 @@ public class Game {
                     throw new RuntimeException(e);
                 }
 
-                if (player.getHealth().isDead()){
+                if (player.getHealth().isDead()) {
                     System.out.println("\nYou have been murdered by a " + mob.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
 
                     try {
@@ -2715,17 +2635,15 @@ public class Game {
         }
 
 
-
     }
 
-    public static void combatNpc(Player player, Npca npc, Hub inRoom, XpLv playerStats){
+    public static void combatNpc(Player player, Npca npc, Hub inRoom, XpLv playerStats) {
 
         boolean using = false;
 
-        if (player.getSkills().isEmpty()){
+        if (player.getSkills().isEmpty()) {
 
-        }
-        else {
+        } else {
 
             System.out.println("Would you like to you skills and items in this battle or just use what you already have (y/n) ?");
             System.out.print("-> ");
@@ -2737,38 +2655,37 @@ public class Game {
                 } else {
                     using = false;
                 }
+            } else {
+                using = false;
+                System.out.println("No input taken...");
             }
-
-            else {using = false; System.out.println("No input taken...");}
 
             System.out.println("");
         }
 
-        while (!player.getHealth().isDead() && !npc.getHealth().isDead()){
+        while (!player.getHealth().isDead() && !npc.getHealth().isDead()) {
 
-            if (using == true){
+            if (using == true) {
 
                 System.out.println("What skill would you like to use?");
-                for (Skill skill : player.getSkills())  {
+                for (Skill skill : player.getSkills()) {
                     System.out.print("[" + skill.getName() + "]  ");
                 }
                 System.out.println("");
                 System.out.print("-> ");
 
                 String usingNow = scanner.nextLine();
-                if (usingNow.toLowerCase().equals("stun")){
+                if (usingNow.toLowerCase().equals("stun")) {
                     Skill.StunSkill.applyNpc(player, npc);
-                }
-
-                else {
+                } else {
                     int chop = 0;
-                    for (Skill skiller : player.getSkills())  {
-                        if (usingNow.toLowerCase().equals(skiller.getName())){
+                    for (Skill skiller : player.getSkills()) {
+                        if (usingNow.toLowerCase().equals(skiller.getName())) {
                             chop++;
                         }
                     }
 
-                    if (chop <= 0){
+                    if (chop <= 0) {
                         System.out.println("Unknown input.");
                     }
                 }
@@ -2788,8 +2705,8 @@ public class Game {
                 throw new RuntimeException(e);
             }
 
-            if (npc.getHealth().isDead()){
-                System.out.println( npc.getName() + " has died at your hands. \n");
+            if (npc.getHealth().isDead()) {
+                System.out.println(npc.getName() + " has died at your hands. \n");
 
                 playerStats.addXp(playerStats.calculateXp(npc.getName()));
 
@@ -2800,9 +2717,7 @@ public class Game {
                 inRoom.getNpc().remove(npc); //remove an object that has the name Rabbit
 
                 break;
-            }
-
-            else {
+            } else {
 
                 npc.attack(player);
                 System.out.println("");
@@ -2813,7 +2728,7 @@ public class Game {
                     throw new RuntimeException(e);
                 }
 
-                if (player.getHealth().isDead()){
+                if (player.getHealth().isDead()) {
                     System.out.println("\nYou have been murdered by " + npc.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
 
                     try {
@@ -2834,17 +2749,15 @@ public class Game {
         }
 
 
-
     }
 
-    public static void combatGuard(Player player, Guard npc, Hub inRoom, XpLv playerStats, List<Item> existingItems){
+    public static void combatGuard(Player player, Guard npc, Hub inRoom, XpLv playerStats, List<Item> existingItems) {
 
         boolean using = false;
 
-        if (player.getSkills().isEmpty()){
+        if (player.getSkills().isEmpty()) {
 
-        }
-        else {
+        } else {
 
             System.out.println("Would you like to you skills and items in this battle or just use what you already have (y/n) ?");
             System.out.print("-> ");
@@ -2856,38 +2769,37 @@ public class Game {
                 } else {
                     using = false;
                 }
+            } else {
+                using = false;
+                System.out.println("No input taken...");
             }
-
-            else {using = false; System.out.println("No input taken...");}
 
             System.out.println("");
         }
 
-        while (!player.getHealth().isDead() && !npc.getHealth().isDead()){
+        while (!player.getHealth().isDead() && !npc.getHealth().isDead()) {
 
-            if (using == true){
+            if (using == true) {
 
                 System.out.println("What skill would you like to use?");
-                for (Skill skill : player.getSkills())  {
+                for (Skill skill : player.getSkills()) {
                     System.out.print("[" + skill.getName() + "]  ");
                 }
                 System.out.println("");
                 System.out.print("-> ");
 
                 String usingNow = scanner.nextLine();
-                if (usingNow.toLowerCase().equals("stun")){
+                if (usingNow.toLowerCase().equals("stun")) {
                     Skill.StunSkill.applyGuard(player, npc);
-                }
-
-                else {
+                } else {
                     int chop = 0;
-                    for (Skill skiller : player.getSkills())  {
-                        if (usingNow.toLowerCase().equals(skiller.getName())){
+                    for (Skill skiller : player.getSkills()) {
+                        if (usingNow.toLowerCase().equals(skiller.getName())) {
                             chop++;
                         }
                     }
 
-                    if (chop <= 0){
+                    if (chop <= 0) {
                         System.out.println("Unknown input.");
                     }
                 }
@@ -2907,9 +2819,9 @@ public class Game {
                 throw new RuntimeException(e);
             }
 
-            if (npc.getHealth().isDead()){
+            if (npc.getHealth().isDead()) {
 
-                System.out.println( npc.getName() + " has died at your hands. \n");
+                System.out.println(npc.getName() + " has died at your hands. \n");
 
                 if (npc.getName().equalsIgnoreCase("Oliver")) {
                     Item z = npc.getItem();
@@ -2928,9 +2840,7 @@ public class Game {
                 inRoom.getNpc().remove(npc); //remove an object that has the name Rabbit
 
                 break;
-            }
-
-            else {
+            } else {
 
                 npc.attack(player);
                 System.out.println("");
@@ -2941,7 +2851,7 @@ public class Game {
                     throw new RuntimeException(e);
                 }
 
-                if (player.getHealth().isDead()){
+                if (player.getHealth().isDead()) {
                     System.out.println("\nYou have been murdered by " + npc.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
 
                     try {
@@ -2962,18 +2872,16 @@ public class Game {
         }
 
 
-
     }
 
-    public static void combatBoss(Player player, Boss boss, Hub inRoom, XpLv playerStats, List<Item> existingItems, Map<String, Item> eqI, Equipment eq){
+    public static void combatBoss(Player player, Boss boss, Hub inRoom, XpLv playerStats, List<Item> existingItems, Map<String, Item> eqI, Equipment eq) {
 
         System.out.println("THE GREAT " + boss.getName() + " RECOGNIZES YOU AS IT'S PREY.");
         boolean using = false;
 
-        if (player.getSkills().isEmpty()){
+        if (player.getSkills().isEmpty()) {
 
-        }
-        else {
+        } else {
 
             System.out.println("Would you like to you skills and items in this battle or just use what you already have (y/n) ?");
             System.out.print("-> ");
@@ -2985,38 +2893,37 @@ public class Game {
                 } else {
                     using = false;
                 }
+            } else {
+                using = false;
+                System.out.println("No input taken...");
             }
-
-            else {using = false; System.out.println("No input taken...");}
 
             System.out.println("");
         }
 
-        while (!player.getHealth().isDead() && !boss.getHealth().isDead()){
+        while (!player.getHealth().isDead() && !boss.getHealth().isDead()) {
 
-            if (using == true){
+            if (using == true) {
 
                 System.out.println("What skill would you like to use?");
-                for (Skill skill : player.getSkills())  {
+                for (Skill skill : player.getSkills()) {
                     System.out.print("[" + skill.getName() + "]  ");
                 }
                 System.out.println("");
                 System.out.print("-> ");
 
                 String usingNow = scanner.nextLine();
-                if (usingNow.toLowerCase().equals("stun")){
+                if (usingNow.toLowerCase().equals("stun")) {
                     Skill.StunSkill.applyBoss(player, boss);
-                }
-
-                else {
+                } else {
                     int chop = 0;
-                    for (Skill skiller : player.getSkills())  {
-                        if (usingNow.toLowerCase().equals(skiller.getName())){
+                    for (Skill skiller : player.getSkills()) {
+                        if (usingNow.toLowerCase().equals(skiller.getName())) {
                             chop++;
                         }
                     }
 
-                    if (chop <= 0){
+                    if (chop <= 0) {
                         System.out.println("Unknown input.");
                     }
                 }
@@ -3036,9 +2943,9 @@ public class Game {
                 throw new RuntimeException(e);
             }
 
-            if (boss.getHealth().isDead()){
+            if (boss.getHealth().isDead()) {
 
-                System.out.println( boss.getName() + " has died at your hands. \n");
+                System.out.println(boss.getName() + " has died at your hands. \n");
 
                 playerStats.addXp(playerStats.calculateXp(boss.getName()));
 
@@ -3049,9 +2956,7 @@ public class Game {
                 inRoom.getBoss().remove(boss); //remove an object that has the name Rabbit
 
                 break;
-            }
-
-            else {
+            } else {
 
                 boss.attack(player, eq, eqI);
                 System.out.println("");
@@ -3062,7 +2967,7 @@ public class Game {
                     throw new RuntimeException(e);
                 }
 
-                if (player.getHealth().isDead()){
+                if (player.getHealth().isDead()) {
                     System.out.println("\nYou have been murdered by " + boss.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
 
                     try {
@@ -3083,20 +2988,18 @@ public class Game {
         }
 
 
-
     }
 
 
-    public static void equip(Item item, Equipment equipment, Player player){
+    public static void equip(Item item, Equipment equipment, Player player) {
         equipment.equip(item, player);
     }
 
-    public static void unequip(Item item, String slot, Player player, Equipment equipment){
+    public static void unequip(Item item, String slot, Player player, Equipment equipment) {
         equipment.unequip(slot, item, player);
     }
 
-    public static List<String> talkGuard(Hub inRoom, List<String> inventory, XpLv playerStats, Guard npc, Player player){
-        // normal NPCs
+    public static List<String> talkGuard(Hub inRoom, List<String> inventory, XpLv playerStats, Guard npc, Player player) {
         if (!npc.getName().equalsIgnoreCase("Oliver")) {
             npc.talk();
             return inventory;
@@ -3121,16 +3024,13 @@ public class Game {
                 Player.QUESTS.put("MQ3", oliverQuest);
                 System.out.println("Quest added: " + oliverQuest.status());
                 //CHECK IF QUEST IS ALReADY COMPLETED
-                if (Collections.frequency(inventory, "snarkflower") >= 5){
+                if (Collections.frequency(inventory, "snarkflower") >= 5) {
                     oliverQuest.setSkip();
                     oliverQuest.check("COLLECT_ITEM", "snarkflower", player, playerStats);
-                }
-                else{
+                } else {
                     return inventory;
                 }
-            }
-
-            else {
+            } else {
                 npc.setQuestState(Npca.QuestState.OFFERED);
                 npc.sayLine(3);
                 return inventory;
@@ -3151,15 +3051,13 @@ public class Game {
                 Player.QUESTS.put("MQ3", oliverQuest);
                 System.out.println("Quest added: " + oliverQuest.status());
                 //CHECK IF QUEST IS ALReADY COMPLETED
-                if (Collections.frequency(inventory, "snarkflower") >= 5){
+                if (Collections.frequency(inventory, "snarkflower") >= 5) {
                     oliverQuest.setSkip();
                     oliverQuest.check("COLLECT_ITEM", "snarkflower", player, playerStats);
-                }
-                else{
+                } else {
                     return inventory;
                 }
-            }
-            else {
+            } else {
                 npc.sayLine(3);
                 return inventory;
             }
@@ -3171,26 +3069,28 @@ public class Game {
             if (oliverQuest.isDone()) {
 
                 System.out.println("Oliver (Guard) says: \"Awesome, you already have them!\"");
+                scanner.nextLine();
+
                 System.out.println("Oliver (Guard) says: \"Trade them for the guard pass?\" ");
+                scanner.nextLine();
+
                 System.out.println("Type 'a' to accept the quest and 'b' to decline: ");
                 String a = scanner.nextLine().trim().toLowerCase();
-                if (a.equalsIgnoreCase("a")){
+                if (a.equalsIgnoreCase("a")) {
                     inventory.add("guard pass");
                     System.out.println("You received a Guard Pass for 5 SnarkFlowers");
                     // Mark quest done and reward
                     oliverQuest.done = true;
                     npc.setQuestState(Npca.QuestState.COMPLETED);
-                    for (int i = 0; i < 5; i++){
+                    for (int i = 0; i < 5; i++) {
                         inventory.remove("snarkflower");
                     }
                     return inventory;
-                }
-                else {
+                } else {
                     System.out.println("Oliver (Guard) says: \"Aw shucks, that's too bad. Maybe later...\"");
                     return inventory;
                 }
-            }
-            else {
+            } else {
                 System.out.println("Oliver (Guard) says: \"Come back when you have enough.\"");
             }
             return inventory;
@@ -3205,11 +3105,36 @@ public class Game {
         return inventory;
     }
 
-    public static void talkNpc(Hub inRoom, List<String> inventory, XpLv playerStats, Npca npc, Player player){
+    public static void talkNpc(Hub inRoom, List<String> inventory, XpLv playerStats, Npca npc, Player player) {
         npc.sayLine(0);
+        scanner.nextLine();
+
         npc.sayLine(1);
+        scanner.nextLine();
+
         npc.sayLine(2);
     }
 
+    public static List<String> talkShopFirst(Hub inRoom, List<String> inventory, XpLv playerStats, FirstShopOwner npc, Player player) {
+
+        System.out.println(npc.getName() + " (Shop Keeper): \"Welcome to my shop!\"");
+        System.out.println("[1] Buy  [2] Sell  [3] Leave");
+
+        String choice = scanner.nextLine().trim();
+
+        if (choice.equals("1")) {
+            npc.buyItem(player, inventory);
+            return inventory;
+
+        } else if (choice.equals("2")) {
+            System.out.println("Selling not ready yet. Come back later!");
+            return inventory;
+
+        } else {
+            System.out.println("Thanks for visiting " + player.getName() + "! *you are shoo-ed away...");
+            return inventory;
+        }
+
+    }
 
 }

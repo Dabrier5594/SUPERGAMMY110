@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Collections;
 import java.util.List;
 
 public class Hub {
@@ -13,6 +12,7 @@ public class Hub {
     private List<Boss> boss = new ArrayList<>();
     private List<Guard> guard = new ArrayList<>();
     private List<Merchant> merchant = new ArrayList<>();
+    private List<FirstShopOwner> firstShopOwners = new ArrayList<>();
     private Map<String, Chest> chests = new HashMap<>();
     private static final List<Hub> allHubs = new ArrayList<>();
     private java.util.Map<String, LockedDoors> lockedDoors = new java.util.HashMap<>();
@@ -26,6 +26,8 @@ public class Hub {
         allHubs.add(this);//adds room when made
 
     }
+
+    public List<FirstShopOwner> getFirstShopOwners(){return firstShopOwners;}
 
     public void setLockedDoor(String direction, LockedDoors gate) {
         lockedDoors.put(direction, gate);
@@ -138,9 +140,9 @@ public class Hub {
 
     public class FirstVilleShop extends Hub {
         private Map<Item, Integer> shopStock;  // item name -> price in copper
-        private ShopOwner shopOwner;  // who's running this joint
+        private FirstShopOwner shopOwner;  // who's running this joint
 
-        public FirstVilleShop(String name, String description, ShopOwner owner) {
+        public FirstVilleShop(String name, String description, FirstShopOwner owner) {
             super(name, description);  // call Hub constructor cuz we want all that room stuff
             this.shopStock = new HashMap<>();
             this.shopOwner = owner;  // who owns the shop
