@@ -597,7 +597,7 @@ public class Game {
         Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock, raggerH, 2, "SQ0", Npca.QuestState.NONE);
 
         FirstShopOwner baggerOwner = new FirstShopOwner("copper", "Bagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
-        Hub.FirstVilleShop baggerShop = new Hub("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and armor. Ragger watches you closely.\n").new FirstVilleShop("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and armor. Ragger watches you closely. \nEXITS: (S)", baggerOwner);
+        Hub.FirstVilleShop baggerShop = new Hub("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and armor. Bagger watches you closely.\n").new FirstVilleShop("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and armor. Ragger watches you closely. \nEXITS: (S)", baggerOwner);
         Item copperSword = new Item("Copper Sword", "melee", true, null);
         baggerShop.addStock(copperSword, 20);
         baggerOwner.setMyShop(baggerShop);
