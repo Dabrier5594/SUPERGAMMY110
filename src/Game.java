@@ -811,7 +811,8 @@ public class Game {
         String namer = scanner.nextLine();
         System.out.println("");
 
-        Player player =  new Player(namer, 10,10,5, 0);
+        Player player =  new Player(namer, 10,10,5, 0, 20);
+        int critChance = (int)(Math.random()*player.getCiritcalChance());
 
         XpLv playersStats = new XpLv(1, 0);
 

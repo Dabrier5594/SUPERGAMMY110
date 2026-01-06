@@ -35,12 +35,15 @@ public class Player {
 
     private Item rangedSlot;
 
+    private int ciritcalChance;
 
-    public Player(String name, int maxHealth, int health, int power, int damageResistance) {
+
+    public Player(String name, int maxHealth, int health, int power, int damageResistance, int criticalChance) {
 
         this.name = name;
         this.health = new Health(maxHealth, health, damageResistance);
         this.attackPower = power;
+        this.ciritcalChance = criticalChance;
 
     }
 
@@ -86,6 +89,8 @@ public class Player {
     public Item getBootSlot(){return bootSlot;}
 
     public Item getRangedSlot(){return rangedSlot;}
+
+    public int getCiritcalChance(){return ciritcalChance;}
 
 
 
