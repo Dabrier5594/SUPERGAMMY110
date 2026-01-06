@@ -49,9 +49,12 @@ class Equipment {
 
         equippedItems.put(slot, item);
         System.out.println("You have equipped '" + item.getName() + "'!\n");
-        if(item.getEnchantment().equals("fire")){
-            player.setAttackPower(0);
+        if(item.getEnchantment() != null){
+            if (item.getEnchantment().equals("fire")){
+                player.setAttackPower(0);
+            }
         }
+
         if (item.getName().equals("dagger")){
             player.setAttackPower(3); //adds 3 to total attack power
 
