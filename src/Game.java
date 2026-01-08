@@ -2463,9 +2463,8 @@ public class Game {
 
         int attackPower = (int) (Math.random() * 4 + 1);
         boolean isAggro = false;
-        boolean onFire = false;
 
-        return new Mob("Rabbit", rabbitHealth, attackPower, isAggro, onFire);
+        return new Mob("Rabbit", rabbitHealth, attackPower, isAggro);
     }
 
     private static Mob createSquirrelWithRandomStats() {
@@ -2476,9 +2475,8 @@ public class Game {
 
         int attackPower = (int) (Math.random() * 7 + 3); //3-9
         boolean isAggro = true;
-        boolean onFire = false;
 
-        return new Mob("Squirrel", squirrelHealth, attackPower, isAggro, onFire);
+        return new Mob("Squirrel", squirrelHealth, attackPower, isAggro);
     }
 
     private static Mob createChickenWithRandomStats() {
@@ -2492,7 +2490,7 @@ public class Game {
         boolean onFire = false;
 
 
-        return new Mob("Chicken", rabbitHealth, attackPower, isAggro, onFire);
+        return new Mob("Chicken", rabbitHealth, attackPower, isAggro);
     }
 
     private static Mob createGoblinWithRandomStats() {
@@ -2503,9 +2501,8 @@ public class Game {
 
         int attackPower = (int) (Math.random() * 10 + 2);
         boolean isAggro = true;
-        boolean onFire = false;
 
-        return new Mob("Goblin", goblinHealth, attackPower, isAggro, onFire);
+        return new Mob("Goblin", goblinHealth, attackPower, isAggro);
     }
 
 

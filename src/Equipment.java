@@ -7,9 +7,9 @@ class Item {
     private String name;
     private String slotType; //bow, melee, head, body,legs
     private boolean isOffensive;
-    private String enchantment;
+    private Enchantments enchantment;
 
-    public Item(String name, String slotType, boolean isOffensive, String enchantment) {
+    public Item(String name, String slotType, boolean isOffensive, Enchantments enchantment) {
         this.name = name;
         this.slotType = slotType.toLowerCase();
         this.isOffensive = isOffensive;
@@ -18,8 +18,8 @@ class Item {
     public String getName() { return name; }
     public String getSlotType() { return slotType; }
     public boolean isOffensive() { return isOffensive; }
-    public String getEnchantment(){ return enchantment; }
-    public void setEnchantment(String enchantment){ this.enchantment = enchantment; }
+    public Enchantments getEnchantment(){ return enchantment; }
+    public void setEnchantment(Enchantments enchantment){ this.enchantment = enchantment; }
 
 }
 
