@@ -19,7 +19,7 @@ public class Enchantments {
             }
 
             if (mob.isOnFire()){
-                mob.h
+                mob.burning(mob, d);
             }
 
         }
