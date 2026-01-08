@@ -8,16 +8,17 @@ public class Mob {
     private boolean isStunned = false;
     private boolean isAggro;
     private List<Mob> mobsInWorld;
-    private boolean onFire;
+    private boolean onFire = false;
+    private int burnTurns = 3;
 
 
-    public Mob (String name, Health health, int attackPower, boolean isAggro, boolean onFire ){
+    public Mob (String name, Health health, int attackPower, boolean isAggro){
 
         this.name = name;
         this.attackPower = attackPower;
         this.health = health;
         this.isAggro = isAggro;
-        this.onFire = onFire;
+
 
     }
 
@@ -38,11 +39,22 @@ public class Mob {
 
     }
 
-    public void burning(Mob mob){
-        int burnTurns = 3;
+    public boolean isOnFire(){
+        return onFire;
+    }
+    public void setBurnTurns ( int i ){
+        burnTurns = i;
+    }
+
+    public void burning(Mob mob, int d){
+
         if(onFire == true){
-            mob.getHealth().takeDamage(2);
+            mob.getHealth().takeDamage(d);
             burnTurns--;
+        }
+
+        if (burnTurns == 0){
+            onFire = false;
         }
     }
 

@@ -6,9 +6,11 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-// MAKE SO IF YOU ENTER NOTHING WHEN TALKING TO BAGGER YOU GET ATTACKED.
+//KILL OLIVER? HE DISSAPEARS
 
-//ADD INSPECT STUFF
+//ADD INSPECT STUFF - checkovs gun bonus stuff too
+
+// MAKE SO IF YOU ENTER NOTHING WHEN TALKING TO BAGGER YOU GET ATTACKED.
 
 //add enchanment level caps at each village but bosses can drop items/enchantments that are 1-2 lvels higher than the village
 
@@ -208,7 +210,7 @@ public class Game {
 
         Hub cave = new Hub("Tom's Dark Cave", "The back of the ancient cave where Tom the hermit lived for many years. \nEXITS: (N) ");
 
-        Hub caveN = new Hub("Tom's Dark Kitchen", "Still in Tom's cave, but now you have moved into his kitchen which consists of a cabinet and a counter. \nEXITS: (N) (S)");
+        Hub caveN = new Hub("Tom's Dark Kitchen", "Still in Tom's cave, but now you have moved into his kitchen which consists of a counter and just a counter. \nEXITS: (N) (S)");
 
         Hub caveNN = new Hub("Tom's Dark Treasure Room", "Still in Tom's cave, but now you have moved into his treasure room which has no furniture. \nEXITS: (W) (E) (S)");
 
@@ -218,7 +220,7 @@ public class Game {
 
         // S FOREST
 
-        Hub forest1 = new Hub("Southern Forest Area #1", "Just outside Tom's cave and just inside The Southern Area of the Great Makiss Forest. but now you have moved to the cave's entrance, where a door stands tall. \nEXITS: (S) (N) ");
+        Hub forest1 = new Hub("Southern Forest Area #1", "Just outside Tom's cave and just inside The Southern Area of the Great Makiss Forest. but now you have moved to the cave's entrance. \nEXITS: (S) (N) ");
 
         Hub forest2 = new Hub("Southern Forest Area #2", "The Southern Area of the Great Makiss Forest. \nOnly minor prey lay in wait in this forest. \nEXITS: (S) (W) ");
 
@@ -760,7 +762,7 @@ public class Game {
         objects.add("goblin");
         objects.add("chest");
         objects.add("ih");
-        objects.add("white whispberries");
+        objects.add("white whispberry");
         objects.add("oliver");
         objects.add("bagger");
         objects.add("ragger");
@@ -833,6 +835,7 @@ public class Game {
 
         List<String> equip = new ArrayList<>();
         equip.add("equip");
+        equip.add("use");
 
         List<String> unequip = new ArrayList<>();
         unequip.add("unequip");
@@ -2499,9 +2502,8 @@ public class Game {
 
         int attackPower = (int) (Math.random() * 4 + 1);
         boolean isAggro = false;
-        boolean onFire = false;
 
-        return new Mob("Rabbit", rabbitHealth, attackPower, isAggro, onFire);
+        return new Mob("Rabbit", rabbitHealth, attackPower, isAggro);
     }
 
     private static Mob createSquirrelWithRandomStats() {
@@ -2512,9 +2514,8 @@ public class Game {
 
         int attackPower = (int) (Math.random() * 7 + 3); //3-9
         boolean isAggro = true;
-        boolean onFire = false;
 
-        return new Mob("Squirrel", squirrelHealth, attackPower, isAggro, onFire);
+        return new Mob("Squirrel", squirrelHealth, attackPower, isAggro);
     }
 
     private static Mob createChickenWithRandomStats() {
@@ -2528,7 +2529,7 @@ public class Game {
         boolean onFire = false;
 
 
-        return new Mob("Chicken", rabbitHealth, attackPower, isAggro, onFire);
+        return new Mob("Chicken", rabbitHealth, attackPower, isAggro);
     }
 
     private static Mob createGoblinWithRandomStats() {
@@ -2539,9 +2540,8 @@ public class Game {
 
         int attackPower = (int) (Math.random() * 10 + 2);
         boolean isAggro = true;
-        boolean onFire = false;
 
-        return new Mob("Goblin", goblinHealth, attackPower, isAggro, onFire);
+        return new Mob("Goblin", goblinHealth, attackPower, isAggro);
     }
 
 
@@ -2552,7 +2552,7 @@ public class Game {
 
         } else {
 
-            System.out.println("Would you like to you skills and items in this battle or just use what you already have (y/n) ?");
+            System.out.println("Would you like to your skills in this battle (y/n) ?");
             System.out.print("-> ");
             String answer = scanner.nextLine();
 
@@ -2632,6 +2632,10 @@ public class Game {
 
                 player.displayStats(player, playerStats);
 
+                System.out.println("New max health -> " + player.getHealth().getMaxHealth());
+
+                System.out.println("New attack damage -> " + player.getAttackPower());
+
                 inRoom.getMOBS().remove(mob); //remove an object that has the name Rabbit
 
                 String killedMob = mob.getName();
@@ -2681,7 +2685,7 @@ public class Game {
 
         } else {
 
-            System.out.println("Would you like to you skills and items in this battle or just use what you already have (y/n) ?");
+            System.out.println("Would you like to your skills in this battle (y/n) ?");
             System.out.print("-> ");
             String answer = scanner.nextLine();
 
@@ -2795,7 +2799,7 @@ public class Game {
 
         } else {
 
-            System.out.println("Would you like to you skills and items in this battle or just use what you already have (y/n) ?");
+            System.out.println("Would you like to your skills in this battle (y/n) ?");
             System.out.print("-> ");
             String answer = scanner.nextLine();
 
@@ -2919,7 +2923,7 @@ public class Game {
 
         } else {
 
-            System.out.println("Would you like to you skills and items in this battle or just use what you already have (y/n) ?");
+            System.out.println("Would you like to your skills in this battle (y/n) ?");
             System.out.print("-> ");
             String answer = scanner.nextLine();
 
@@ -3048,7 +3052,11 @@ public class Game {
         // 1) First time → full 3 lines + choice
         if (npc.getQuestState() == Npca.QuestState.NONE) {
             npc.sayLine(0);
+            scanner.nextLine();
+
             npc.sayLine(1);
+            scanner.nextLine();
+
             npc.sayLine(2); // "Would you like to take on my quest?"
 
             System.out.print("Type 'a' to accept the quest and 'b' to decline: ");
@@ -3154,6 +3162,8 @@ public class Game {
     public static List<String> talkShopFirst(Hub inRoom, List<String> inventory, XpLv playerStats, FirstShopOwner npc, Player player) {
 
         System.out.println(npc.getName() + " (Shop Keeper): \"Welcome to my shop!\"");
+        scanner.nextLine();
+
         System.out.println("[1] Buy  [2] Sell  [3] Leave");
 
         String choice = scanner.nextLine().trim();

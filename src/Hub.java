@@ -153,7 +153,7 @@ public class Hub {
         }
 
         public Map<Item, Integer> getStock() {
-            return new HashMap<>(shopStock); // return COPY so nobody messes with shop data!
+            return new HashMap<>(shopStock); // return COPY so nobody messes with the shop data!
         }
 
         public String getShopOwnerName() {
