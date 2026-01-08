@@ -3016,7 +3016,11 @@ public class Game {
         // 1) First time → full 3 lines + choice
         if (npc.getQuestState() == Npca.QuestState.NONE) {
             npc.sayLine(0);
+            scanner.nextLine();
+
             npc.sayLine(1);
+            scanner.nextLine();
+
             npc.sayLine(2); // "Would you like to take on my quest?"
 
             System.out.print("Type 'a' to accept the quest and 'b' to decline: ");
@@ -3122,6 +3126,8 @@ public class Game {
     public static List<String> talkShopFirst(Hub inRoom, List<String> inventory, XpLv playerStats, FirstShopOwner npc, Player player) {
 
         System.out.println(npc.getName() + " (Shop Keeper): \"Welcome to my shop!\"");
+        scanner.nextLine();
+
         System.out.println("[1] Buy  [2] Sell  [3] Leave");
 
         String choice = scanner.nextLine().trim();
