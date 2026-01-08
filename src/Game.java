@@ -585,12 +585,18 @@ public class Game {
             forest11.getMOBS().add(goblin);
         }
 
+
+
+        //enchancements
+        Enchantments fire = new Enchantments("Fire", "Lights enemies on fire", 1);
+        Enchantments healthBoost = new Enchantments("Health Boost", "Gives you a higher max health", 1);
+
         //MAKE ITEMS AND "EQUIPMENT"
 
         Equipment equipment = new Equipment();
 
 
-        Item baggerDagger = new Item("Bagger's Dagger", "melee", true, "fire");
+        Item baggerDagger = new Item("Bagger's Dagger", "melee", true, null);
         Item sickles = new Item("Sickles", "melee", true,null);
         Item knightBoots = new Item("Knights Footwear", "boots",false, null);
         Item knightChest = new Item("Knights Breastplate", "body",false, null);
@@ -603,9 +609,6 @@ public class Game {
         Item FirstVilleLegs = new Item("firstville guards legs", "legging", false, null);
         Item FirstVilleBoots = new Item("firstville guards boots", "boots", false, null);
 
-        //enchancements
-        Enchantments fire = new Enchantments("Fire", "Lights enemies on fire", 1);
-        Enchantments healthBoost = new Enchantments("Health Boost", "Gives you a higher max health", 1);
 
 
         //Boss Drops
