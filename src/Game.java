@@ -347,6 +347,14 @@ public class Game {
 
         Hub firstVilleLane3 = new Hub("FirstVille Streets #3", "The bustling heart of FirstVille. Merchants shout their wares and townsfolk mill about. \nEXITS: (E)");
 
+        Hub firstVilleLane4 = new Hub("FirstVille Streets #4", "You hear the clanging of hammers on metal \nEXITS: (E) (S) (N)");
+
+        Hub firstVilleLane5 = new Hub("FirstVille Streets #5", "You see smoke rising from chimneys and smell smoke and molten metal \nEXITS: (E) (S) (N)");
+
+
+
+
+
 
         //Toms Cave EXITS:
         cave.setExit("n", caveN);
@@ -495,6 +503,7 @@ public class Game {
         firstVilleLane2.setExit("s", firstVilleLane1);
         firstVilleLane2.setExit("w", firstVilleLane3);
         firstVilleLane3.setExit("e", firstVilleLane2);
+        firstVilleLane4.setExit("n", firstVilleLane5);
 
 
 
@@ -578,6 +587,13 @@ public class Game {
 
         Equipment equipment = new Equipment();
 
+
+        Item baggerDagger = new Item("Bagger's Dagger", "melee", true, "fire");
+        Item sickles = new Item("Sickles", "melee", true,null);
+        Item knightBoots = new Item("Knights Footwear", "boots",false, null);
+        Item knightChest = new Item("Knights Breastplate", "body",false, null);
+        Item knightLeggings = new Item("Knights Leggings", "legging",false, null);
+        Item knightHelmet = new Item("Knights Helm", "head",false, null);
         Item dagger = new Item("dagger", "melee", true, null);
         Item leatherArmor = new Item("leather armor", "body", false, null);
         Item FirstVillePlate = new Item("firstville guards plate", "body", false, null);
@@ -587,6 +603,8 @@ public class Game {
 
         //enchancements
         Enchantments fire = new Enchantments("Fire", "Lights enemies on fire", 1);
+        Enchantments healthBoost = new Enchantments("Health Boost", "Gives you a higher max health", 1);
+
 
         //Boss Drops
         Item thornShield = new Item("the shield of the forest boss", "melee", true, null);
@@ -597,13 +615,31 @@ public class Game {
         Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock, raggerH, 2, "SQ0", Npca.QuestState.NONE);
 
         FirstShopOwner baggerOwner = new FirstShopOwner("copper", "Bagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
-        Hub.FirstVilleShop baggerShop = new Hub("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and armor. Bagger watches you closely.\n").new FirstVilleShop("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and armor. Ragger watches you closely. \nEXITS: (S)", baggerOwner);
+        Hub.FirstVilleShop baggerShop = new Hub("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and an anvil sits in a corner. Bagger watches you closely.\n").new FirstVilleShop("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and an anvil sits in a corner. Ragger watches you closely. \nEXITS: (S)", baggerOwner);
         Item copperSword = new Item("Copper Sword", "melee", true, null);
         baggerShop.addStock(copperSword, 20);
+        baggerShop.addStock(sickles, 30);
         baggerOwner.setMyShop(baggerShop);
         baggerShop.getFirstShopOwners().add(baggerOwner);
         baggerShop.setExit("w", firstVilleLane2);
         firstVilleLane2.setExit("e", baggerShop);
+
+
+        FirstShopOwner laggerOwner = new FirstShopOwner("copper", "Lagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
+        Hub.FirstVilleShop laggerShop = new Hub("Bagger's brother in law's Armory Shop (LAGGER)", "Cluttered shelves hold weapons and armor. Lagger starts washing a new helmet.\n").new FirstVilleShop("Bagger's brother in law's Armory Shop (LAGGER)", "Cluttered shelves hold weapons and armor. Lagger starts washing a new helmet.\nEXITS: (S)", laggerOwner);
+        laggerShop.addStock(knightHelmet,15);
+        laggerShop.addStock(knightLeggings,25);
+        laggerShop.addStock(knightChest,30);
+        laggerShop.addStock(knightBoots,15);
+
+        //Shop Exits
+        firstVilleLane4.setExit("s", baggerShop);
+        firstVilleLane2.setExit("e", baggerShop);
+        baggerShop.setExit("n", firstVilleLane4);
+        baggerShop.setExit("w", firstVilleLane2);
+        firstVilleLane5.setExit("e", laggerShop);
+        laggerShop.setExit("w", firstVilleLane5);
+
 
 
 

@@ -55,6 +55,19 @@ class Equipment {
             }
         }
 
+        if(item.getName().equals("knights helm")){
+            player.getHealth().setDamageResistance(player.getHealth().getDamageResistance() + 3);
+        }
+        if(item.getName().equals("knights breastplate")){
+            player.getHealth().setDamageResistance(player.getHealth().getDamageResistance() + 6);
+        }
+        if(item.getName().equals("knights leggings")){
+            player.getHealth().setDamageResistance(player.getHealth().getDamageResistance() + 5);
+        }
+        if(item.getName().equals("knights footwear")){
+            player.getHealth().setDamageResistance(player.getHealth().getDamageResistance() + 3);
+        }
+
         if (item.getName().equals("dagger")){
             player.setAttackPower(3); //adds 3 to total attack power
 
