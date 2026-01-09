@@ -8,7 +8,7 @@ import java.util.TimerTask;
 
 // MAKE IT SO THAT MOBS RESPAWN AFTER 5 NIGHTS
 
-//ADD INSPECT STUFF - checkovs gun bonus stuff too
+//checkovs gun bonus stuff too!!!!
 
 // MAKE SO IF YOU ENTER NOTHING WHEN TALKING TO BAGGER YOU GET ATTACKED.
 
@@ -43,6 +43,25 @@ public class Game {
         INSPECT_DESCRIPTIONS.put("copper", "Shiny copper coins. 5 make 1 silver.");
         INSPECT_DESCRIPTIONS.put("silver", "Silver coins. 10 make 1 gold.");
         INSPECT_DESCRIPTIONS.put("gold", "Gold coins. The real deal.");
+        INSPECT_DESCRIPTIONS.put("cabinet", "A sturdy wooden cabinet. Might be hiding something useful inside.");
+        INSPECT_DESCRIPTIONS.put("leaflet", "A crumpled leaflet with faded ink. It mentions something about Firstville’s annual fair.");
+        INSPECT_DESCRIPTIONS.put("twig", "Just a brittle twig. Maybe useful for starting a fire... or poking something suspicious.");
+        INSPECT_DESCRIPTIONS.put("snarkflower", "A rare flower that seems to glare at you. Smells faintly of sarcasm.");
+        INSPECT_DESCRIPTIONS.put("door", "A sturdy door. It doesn’t seem too eager to open for strangers.");
+        INSPECT_DESCRIPTIONS.put("rabbit", "A small rabbit munching on grass. It looks harmless—probably.");
+        INSPECT_DESCRIPTIONS.put("chicken", "A plump chicken strutting around proudly. Clearly unaware of its place on the food chain.");
+        INSPECT_DESCRIPTIONS.put("squirrel", "A jittery squirrel. It eyes your pockets as if it knows you’ve got nuts.");
+        INSPECT_DESCRIPTIONS.put("goblin", "A foul little goblin. Smells like spoiled mushrooms and bad decisions.");
+        INSPECT_DESCRIPTIONS.put("chest", "A heavy chest. It radiates the promise of treasure and the danger of traps.");
+        INSPECT_DESCRIPTIONS.put("ih", "A strange insignia etched with the letters ‘IH’. Feels oddly important.");
+        INSPECT_DESCRIPTIONS.put("white whispberry", "A glowing white berry that hums softly. It’s said to restore focus to the weary.");
+        INSPECT_DESCRIPTIONS.put("bagger", "A shady fellow with too many bags. Hard to tell what’s in them—or if you want to know.");
+        INSPECT_DESCRIPTIONS.put("ragger", "A rough-looking traveler wrapped in tattered rags. His eyes burn with stubborn will.");
+        INSPECT_DESCRIPTIONS.put("gate", "A large iron gate, locked and imposing. Beyond it lies unknown trouble—or freedom.");
+        INSPECT_DESCRIPTIONS.put("firstville guards plate", "Reinforced plate armor issued to Firstville’s guards. Reliable and shiny.");
+        INSPECT_DESCRIPTIONS.put("firstville guards helm", "A steel helm with the Firstville crest. Offers good protection and limited vision.");
+        INSPECT_DESCRIPTIONS.put("firstville guards boots", "Heavy boots that clank with every step. Ideal for patrols, not stealth missions.");
+        INSPECT_DESCRIPTIONS.put("firstville guards legs", "Solid metal greaves made to withstand a goblin’s blade or a villager’s kick.");
     }
 
     // OTHER CLASS SCOPE VARIABLES!
