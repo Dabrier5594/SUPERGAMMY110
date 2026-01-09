@@ -2880,7 +2880,7 @@ public class Game {
 
                 player.displayStats(player, playerStats);
 
-                inRoom.getNpc().remove(npc); //remove an object that has the name Rabbit
+                inRoom.getGuard().remove(npc); //remove an object that has the name Rabbit
 
                 break;
             } else {
