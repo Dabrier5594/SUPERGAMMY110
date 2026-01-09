@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-//KILL OLIVER? HE DISSAPEARS
+// MAKE IT SO THAT MOBS RESPAWN AFTER 5 NIGHTS
 
 //ADD INSPECT STUFF - checkovs gun bonus stuff too
 
@@ -32,6 +32,20 @@ import java.util.TimerTask;
 
 public class Game {
 
+    //DESCRIPTIONS:
+
+    public static final Map<String, String> INSPECT_DESCRIPTIONS = new HashMap<>();
+
+    static {
+        INSPECT_DESCRIPTIONS.put("dagger", "A simple dagger. Not very fancy, but it gets the stabbing done.");
+        INSPECT_DESCRIPTIONS.put("leather armor", "Light leather armor. Better than going shirtless into a goblin nest.");
+        INSPECT_DESCRIPTIONS.put("thornshield", "The shield of the forest boss. Covered in sharp thorns that deter attackers.");
+        INSPECT_DESCRIPTIONS.put("copper", "Shiny copper coins. 5 make 1 silver.");
+        INSPECT_DESCRIPTIONS.put("silver", "Silver coins. 10 make 1 gold.");
+        INSPECT_DESCRIPTIONS.put("gold", "Gold coins. The real deal.");
+    }
+
+    // OTHER CLASS SCOPE VARIABLES!
     public static volatile boolean timeOfDay = true; // true = day, false = night
 
     public static volatile boolean scannerOrNo = false; // true = scanning, false = no scanning
@@ -39,6 +53,9 @@ public class Game {
     public static volatile String timeChange = null; // day or night
 
     public static volatile LocalTime changeTime = null; //when change happened
+
+    public static volatile int nightCounter = 0; // true = day, false = night
+
 
     public static void setupDayNightSchedulers() {
 
@@ -86,6 +103,7 @@ public class Game {
                 timeChange = timeOfDay ? "day" : "night";
                 changeTime = LocalTime.now();
                 timeOfDay = !timeOfDay;
+
 
             } else {
 
@@ -813,6 +831,11 @@ public class Game {
         List<String> remove = new ArrayList<>();
         remove.add("remove");
 
+        List<String> inspect = new ArrayList<>();
+        inspect.add("inspect");
+        inspect.add("examine");   // alt word
+        inspect.add("look at");
+
         List<String> cabinet = new ArrayList<>();
         cabinet.add("cabinet");
 
@@ -899,6 +922,13 @@ public class Game {
                     inRoom = Hub.get(gotoRoomBlah);
                     System.out.println("Boom. You're There.");
                 }
+
+                System.out.print("Enter gold in room\n-> ");
+                int setGold = scanner.nextInt();
+                for (int i = setGold; i > 0; i++){
+                    inRoom.getObjects().add("gold");
+                }
+
                 System.out.println("$#bonus stats have been successfully distributed");
                 scanner.nextLine();
             }
@@ -1016,6 +1046,8 @@ public class Game {
                 }
 
                 if (stringContainsWordFromList(action.toLowerCase(), verbsOnly.toArray(new String[0]))) {
+
+                    System.out.println("test1");
 
                     if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
 
@@ -1156,7 +1188,58 @@ public class Game {
                 } else if (stringContainsWordFromList(action.toLowerCase(), verbs.toArray(new String[0]))) {
 
                     if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0])) || action.toLowerCase().contains("leaflet") || action.toLowerCase().contains("ih")) {
-                        if (stringContainsWordFromList(action.toLowerCase(), open.toArray(new String[0]))) {
+
+                        if (stringContainsWordFromList(action.toLowerCase(), inspect.toArray(new String[0]))) {
+
+                            String theActio = action.toLowerCase();
+
+                            String target = getInspectTarget(theActio, verbs);
+
+                            if (target.isEmpty()) {
+                                System.out.println("");
+                                return;
+                            }
+
+                            // 1) try inventory first
+                            boolean found = false;
+
+                            for (String itemObj : inventory) {  // assumes existingItems is List<Item>
+                                if (itemObj.equalsIgnoreCase(target)) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+
+                            // 2) then try objects in the room
+                            if (!found) {
+                                for (String obj : inRoom.getObjects()) {
+                                    if (obj.equalsIgnoreCase(target)) {
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            //3) then try structure in the room
+                            if (!found) {
+                                if (inRoom.getStructure().equalsIgnoreCase(target)) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+
+                            if (found){
+                                describeItem(target);
+                            }
+
+                            if (!found) {
+                                System.out.println("You can't find anything like that to inspect.");
+                            }
+
+                            return;
+                        }
+
+                        else if (stringContainsWordFromList(action.toLowerCase(), open.toArray(new String[0]))) {
 
                             if (stringContainsWordFromList(action.toLowerCase(), inventory.toArray(new String[0]))) {
                                 itemsIfAny(inventory, "Items in inventory: ");
@@ -3185,5 +3268,32 @@ public class Game {
         }
 
     }
+
+    private static String getInspectTarget(String action, List<String> verbs) {
+
+        for (String v : verbs) {
+            if (action.startsWith(v + " ")) {
+
+                return action.substring(v.length()).trim();
+            }
+            if (action.equals(v)) {
+
+                return "";
+            }
+        }
+
+        return action;
+    }
+
+    public static boolean describeItem(String itemName) {
+        String lowerName = itemName.toLowerCase();
+        if (INSPECT_DESCRIPTIONS.containsKey(lowerName)) {
+            System.out.println(INSPECT_DESCRIPTIONS.get(lowerName));
+            return true;
+        }
+        System.out.println("You look closer at the " + itemName + ", but nothing special stands out.");
+        return false;
+    }
+
 
 }

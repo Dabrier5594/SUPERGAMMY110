@@ -9,17 +9,33 @@ class Item {
     private boolean isOffensive;
     private Enchantments enchantment;
 
+    private String inspectDescription;
+
     public Item(String name, String slotType, boolean isOffensive, Enchantments enchantment) {
         this.name = name;
         this.slotType = slotType.toLowerCase();
         this.isOffensive = isOffensive;
         this.enchantment = enchantment;
+
+        this.inspectDescription = "Nothing special about this item.";
+
     }
+
     public String getName() { return name; }
     public String getSlotType() { return slotType; }
     public boolean isOffensive() { return isOffensive; }
     public Enchantments getEnchantment(){ return enchantment; }
     public void setEnchantment(Enchantments enchantment){ this.enchantment = enchantment; }
+
+    //inspect classes
+    public void setInspectDescription(String inspectDescription) {
+        this.inspectDescription = inspectDescription;
+    }
+
+    public String getInspectDescription() {
+        return inspectDescription;
+    }
+
 
 }
 

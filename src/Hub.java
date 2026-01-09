@@ -16,6 +16,7 @@ public class Hub {
     private Map<String, Chest> chests = new HashMap<>();
     private static final List<Hub> allHubs = new ArrayList<>();
     private java.util.Map<String, LockedDoors> lockedDoors = new java.util.HashMap<>();
+    private String structure;
 
 
     public Hub(String name, String description) {
@@ -32,6 +33,10 @@ public class Hub {
     public void setLockedDoor(String direction, LockedDoors gate) {
         lockedDoors.put(direction, gate);
     }
+
+    public void setStructure(String s){ structure = s;}
+
+    public String getStructure(){ return structure;}
 
     public LockedDoors getLockedDoor(String direction) {
         return lockedDoors.get(direction);
