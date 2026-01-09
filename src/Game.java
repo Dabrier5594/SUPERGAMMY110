@@ -375,8 +375,10 @@ public class Game {
         Hub forest50 = new Hub("Northern Forest Area #50", "The Northern Area of the Great Makiss Forest. \nThe forest exit, hints of a fierce mini-boss—beyond lay in the area. \nEXITS: (S) (N)");
 
         Hub firstVilleGate = new Hub("Gate of FirstVille", "The Great Gate of FirstVille.\nYou stand in a clearing, opposite from the forest, in front of a great booming gate: (S) (N)");
+        firstVilleGate.setStructure("gate");
 
         Hub firstVillePassage = new Hub("The Great Passage into FirstVille", "A short passage that reaches the Great Gate and the town square. \nTo the south stand wood line gates, to the north you see bustling people and lights. \nEXITS: (N) (S)");
+        firstVillePassage.setStructure("gate");
 
         Hub firstVilleSquare = new Hub("FirstVille Square", "The bustling heart of FirstVille. Merchants shout their wares and townsfolk mill about. \nEXITS: (N) (S)");
 
@@ -717,6 +719,7 @@ public class Game {
         verbs.add("take");
         verbs.add("get");
         verbs.add("read");
+        verbs.add("inspect");
         verbs.add("wait");
         verbs.add("listen");
         verbs.add("lock");
@@ -1066,8 +1069,6 @@ public class Game {
 
                 if (stringContainsWordFromList(action.toLowerCase(), verbsOnly.toArray(new String[0]))) {
 
-                    System.out.println("test1");
-
                     if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
 
                         Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
@@ -1225,6 +1226,7 @@ public class Game {
                             for (String itemObj : inventory) {  // assumes existingItems is List<Item>
                                 if (itemObj.equalsIgnoreCase(target)) {
                                     found = true;
+                                    describeItem(target);
                                     break;
                                 }
                             }
@@ -1234,6 +1236,7 @@ public class Game {
                                 for (String obj : inRoom.getObjects()) {
                                     if (obj.equalsIgnoreCase(target)) {
                                         found = true;
+                                        describeItem(target);
                                         break;
                                     }
                                 }
@@ -1241,14 +1244,13 @@ public class Game {
 
                             //3) then try structure in the room
                             if (!found) {
-                                if (inRoom.getStructure().equalsIgnoreCase(target)) {
-                                    found = true;
-                                    break;
+                                if (inRoom.getStructure() != null){
+                                    if (inRoom.getStructure().equalsIgnoreCase(target)) {
+                                        found = true;
+                                        describeItem(target);
+                                        break;
+                                    }
                                 }
-                            }
-
-                            if (found){
-                                describeItem(target);
                             }
 
                             if (!found) {
@@ -3304,14 +3306,14 @@ public class Game {
         return action;
     }
 
-    public static boolean describeItem(String itemName) {
+    public static void describeItem(String itemName) {
         String lowerName = itemName.toLowerCase();
         if (INSPECT_DESCRIPTIONS.containsKey(lowerName)) {
             System.out.println(INSPECT_DESCRIPTIONS.get(lowerName));
-            return true;
         }
-        System.out.println("You look closer at the " + itemName + ", but nothing special stands out.");
-        return false;
+        else {
+            System.out.println("You look closer at the " + itemName + ", but nothing special stands out.");
+        }
     }
 
 
