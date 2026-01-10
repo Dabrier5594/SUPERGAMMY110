@@ -16,6 +16,8 @@ public abstract class MobSkill {
         return name;
     }
 
+
+
     public static class StunSkill extends MobSkill {
 
         private static int cooldownTurns; // number of turns needed to wait after use

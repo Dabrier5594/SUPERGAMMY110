@@ -21,15 +21,16 @@ public class Boss {
 
     private int bossLevel;//could be used for later if we want to add boss levels as the player progresses
 
-    private boolean isDead;
+    private boolean isDead = false;
 
-    public Boss(String name, int maxHealth, int health, int power, int damageResistance, String description, boolean isDead, List<String> drops) {
+    public Boss(String name, int maxHealth, int health, int power, int damageResistance, String description, List<String> drops) {
 
         this.name = name;
         this.health = new Health(maxHealth, health, damageResistance);
         this.attackPower = power;
         this.description = description;
         this.drops = drops;
+        this.skills = skills;
 
 
     }

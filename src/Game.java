@@ -668,6 +668,14 @@ public class Game {
 
         forest47.getMOBS().add(goblin);
 
+        stuff.add("thorn shield");
+        List<MobSkill> skillsForestDevil = new ArrayList<>();
+        Boss forestDevil = new Boss("forest devil", 80, 80, 8, 3, "Fierce ForestDevil's hate to be interrupted, you get the devil's stick eye. His forest embraced body curves and twists, branches stick out from nowhere. \nThe number 3 is engraved on his body in stones that seem to glow.", stuff);
+        forestDevil.getSkills().add(new MobSkill.StunSkill("Stun", 3));
+        stuff.remove("thorn shield");
+        forest50.getBoss().add(forestDevil);
+
+
 
 
         //enchancements
@@ -741,7 +749,7 @@ public class Game {
         existingItems.add(leatherArmor);
 
 
-        Story(firstVilleLane2, existingItems, equipment);
+        Story(cave, existingItems, equipment);
 
     }
 
@@ -841,6 +849,7 @@ public class Game {
         objects.add("gold");
         objects.add("silver");
         objects.add("copper");
+        objects.add("forest devil");
         objects.add("twig");
         objects.add("snarkflower");
         objects.add("door");
@@ -1233,6 +1242,19 @@ public class Game {
                         if (!mobNames.isEmpty()) {
                             mobsIfAny(mobNames, "Mobs in room: ");
                         }
+
+                        List<String> bossNames = new ArrayList<>();
+
+                        for (Boss boss : inRoom.getBoss()) {
+
+                            bossNames.add(boss.getName());
+
+                        }
+
+                        if (!bossNames.isEmpty()) {
+                            mobsIfAny(bossNames, "Boss's in room: ");
+                        }
+
 
                         List<String> npcNames = new ArrayList<>();
 
@@ -1730,6 +1752,26 @@ public class Game {
                                     player.setInCombat(true);
 
                                     combat(player, mob, inRoom, playersStats, equipment);
+
+                                    player.setInCombat(false);
+
+                                    mobbo = true;
+
+                                    break;
+
+                                }
+
+                            }
+
+                            for (Boss boss : inRoom.getBoss()) {
+
+                                String mobNameLower = boss.getName().toLowerCase();
+
+                                if (action.toLowerCase().contains(mobNameLower)) {
+
+                                    player.setInCombat(true);
+
+                                    combatBoss(player, boss, inRoom, playersStats, existingItems, equipment.getEquippedItems(), equipment);
 
                                     player.setInCombat(false);
 
@@ -2639,8 +2681,7 @@ public class Game {
 
                 List<String> stuff = new ArrayList<>();
 
-                // Random number between 0–3 to decide mob type
-                number = (int) (Math.random() * 7) + 1;
+                number = (int) (Math.random() * 15) + 1; //1-15
 
                 if (number > 0 && number > 4) {
 
@@ -2676,7 +2717,24 @@ public class Game {
                         System.out.println("A chicken clucks into the area in confusion.");
                     }
 
-                } else {
+                } else if (number > 6 && number < 12){
+
+                    List<String> mobCounts = new ArrayList<>();
+
+                    for (Mob mob : inRoom.getMOBS()) {
+                        String name = mob.getName();
+                        mobCounts.add(name);
+                    }
+
+                    int squirrelCount = Collections.frequency(mobCounts, "Squirrel");
+
+                    if (squirrelCount < 3) {
+                        Mob squirrel = createSquirrelWithRandomStats(stuff);
+                        inRoom.getMOBS().add(squirrel);
+                        System.out.println("A mad squirrel falls from the trees.");
+                    }
+
+                } else if (number > 11 && number < 14){
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -3281,6 +3339,7 @@ public class Game {
                 inRoom.getBoss().remove(boss); //remove an object that has the name Rabbit
 
                 break;
+
             } else {
 
                 boss.attack(player, eq, eqI);
@@ -3307,6 +3366,10 @@ public class Game {
             }
 
             for (Skill skill : player.getSkills()) {
+                skill.reduceCooldown();
+            }
+
+            for (MobSkill skill : boss.getSkills()) {
                 skill.reduceCooldown();
             }
 
