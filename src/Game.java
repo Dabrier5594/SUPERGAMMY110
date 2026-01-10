@@ -922,19 +922,21 @@ public class Game {
 
             if (play.equalsIgnoreCase("admin0")) {
                 System.out.println("Admin Code received.");
+
                 System.out.print("Enter MAX health \n-> ");
-                int setHealthMAX = scanner.nextInt();
-                player.getHealth().setMaxHealth(setHealthMAX);
+                String setHealthMAX = scanner.nextLine().trim();
                 System.out.print("Enter damage \n-> ");
-                int setDamage = scanner.nextInt();
-                player.setAttackPower(setDamage);
+                String setDamage = scanner.nextLine().trim();
                 System.out.print("Enter damage resistance\n-> ");
-                int setresistance = scanner.nextInt();
-                player.getHealth().setDamageResistance(setresistance);
-                for (int i = 0; i < 200; i++) {
-                    inRoom.getObjects().add("gold");
+                String setReist = scanner.nextLine().trim();
+                try {
+                    player.getHealth().setMaxHealth(Integer.parseInt(setHealthMAX));
+                    player.setAttackPower(Integer.parseInt(setDamage));
+                    player.getHealth().setDamageResistance(Integer.parseInt(setReist));
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid numbers, using defaults.");
                 }
-                scanner.nextLine();
+
                 System.out.println("(12 is next to sHouse) Southern Forest Area #--");
                 System.out.println("(50 is close to firstville) Northern Forest Area #--");
                 System.out.println("(living room/kitchen etc.) Tom's Dark ---");
@@ -945,9 +947,7 @@ public class Game {
                     System.out.println("Boom. You're There.");
                 }
 
-                System.out.print("Enter gold in room\n-> ");
-                int setGold = scanner.nextInt();
-                for (int i = setGold; i > 0; i++){
+                for (int i = 0; i < 200; i++) {
                     inRoom.getObjects().add("gold");
                 }
 
@@ -1023,6 +1023,7 @@ public class Game {
 
             System.out.print("-> ");
             String action = scanner.nextLine();
+
             scannerOrNo = false;
 
             System.out.println("");
@@ -1217,7 +1218,7 @@ public class Game {
 
                             if (target.isEmpty()) {
                                 System.out.println("");
-                                return;
+
                             }
 
                             // 1) try inventory first
@@ -1227,7 +1228,7 @@ public class Game {
                                 if (itemObj.equalsIgnoreCase(target)) {
                                     found = true;
                                     describeItem(target);
-                                    break;
+
                                 }
                             }
 
@@ -1237,7 +1238,7 @@ public class Game {
                                     if (obj.equalsIgnoreCase(target)) {
                                         found = true;
                                         describeItem(target);
-                                        break;
+
                                     }
                                 }
                             }
@@ -1248,7 +1249,7 @@ public class Game {
                                     if (inRoom.getStructure().equalsIgnoreCase(target)) {
                                         found = true;
                                         describeItem(target);
-                                        break;
+
                                     }
                                 }
                             }
@@ -1257,7 +1258,6 @@ public class Game {
                                 System.out.println("You can't find anything like that to inspect.");
                             }
 
-                            return;
                         }
 
                         else if (stringContainsWordFromList(action.toLowerCase(), open.toArray(new String[0]))) {
@@ -2138,24 +2138,20 @@ public class Game {
             System.out.println("There are " + count + " " + item + "(s) here. How many do you want to take?");
             System.out.print("-> ");
 
-            if (scanner.hasNextInt()) {
+            String takeAmt = scanner.nextLine().trim();
+            try {
 
-                int amountToTake = scanner.nextInt();
-                scanner.nextLine();
+                int amountToTake = Integer.parseInt(takeAmt);
 
                 if (amountToTake > count) {
                     System.out.println("You are trying to take more items than there are. \nTaking 1 by default.");
-
                 } else if (amountToTake < 0) {
                     System.out.println("You are trying to take a negative amount. \nTaking 1 by default.");
                 } else {
                     chosenAmount = amountToTake;
                 }
-
-            } else {
-
+            } catch (NumberFormatException e) {
                 System.out.println("You are trying to take an invalid amount. \nTaking 1 by default.");
-                scanner.nextLine();
             }
 
         }
@@ -2323,27 +2319,30 @@ public class Game {
         }
 
         if (count > 1) {
-            System.out.println("You have " + count + " " + item + "(s). How many do you want to drop? \n->");
 
-            if (scanner.hasNextInt()) {
+            System.out.println("You have " + count + " " + item + "(s). How many do you want to drop?");
 
-                int amountToTake = scanner.nextInt();
-                scanner.nextLine();
+            System.out.print("-> ");
+
+            String takeAmt = scanner.nextLine().trim();
+            try {
+                int amountToTake = Integer.parseInt(takeAmt);
 
                 if (amountToTake > count) {
                     System.out.println("You are trying to drop more items than there you have. \nDropping 1 by default.");
+                    chosenAmount = 1;
 
                 } else if (amountToTake < 0) {
                     System.out.println("You are trying to drop a negative amount. \nDropping 1 by default.");
+                    chosenAmount = 1;
+
                 } else {
                     chosenAmount = amountToTake;
                 }
-
-            } else {
-
+            } catch (NumberFormatException e) {
                 System.out.println("You are trying to drop an invalid amount. \nDropping 1 by default.");
-                scanner.nextLine();
             }
+
 
         }
 
@@ -2376,11 +2375,14 @@ public class Game {
             }
 
 
-            Item equippedItem = equipment.getEquipped(itemToRemove.getSlotType());
-            if (equippedItem != null && equippedItem.getName().equalsIgnoreCase(itemToRemove.getName())) {
-                // Unequip first
-                equipment.unequip(itemToRemove.getSlotType(), itemToRemove, player);
-                System.out.println("(Unequipped " + itemToRemove.getName() + " before removing.)");
+            if (itemToRemove != null) {
+                Item equippedItem = equipment.getEquipped(itemToRemove.getSlotType());
+                if (equippedItem != null && equippedItem.getName().equalsIgnoreCase(itemToRemove.getName())) {
+                    // Unequip first
+                    equipment.unequip(itemToRemove.getSlotType(), itemToRemove, player);
+                    System.out.println("(Unequipped " + itemToRemove.getName() + " before removing.)");
+                }
+
             }
 
             System.out.println("You have dropped " + chosenAmount + " " + item + "(s)");
