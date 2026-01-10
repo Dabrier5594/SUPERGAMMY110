@@ -181,11 +181,20 @@ public class Game {
     static {
         LEAFLETS.put("leaflet001",
                 new Leaflet("leaflet001", "leaflet",
-                        "Welcome to the world of Tim", "This world is one which mysteries and secrets about itself. \nPrepare yourself, to delve deeper into the world of Tim and experience the un-imaginable. \nHint: (Use 'help' to get help)"));
+                        "Welcome to the world of Tim", "Thisxz world is one which mysteries and secrets about itself. \nPrepare yourself, to delve deeper into the world of Tim and experience the un-imaginable. \nHint: (Use 'help' to get help)"));
 
         LEAFLETS.put("leaflet002",
                 new Leaflet("leaflet002", "leaflet",
                         "The Money Challenges", "The world is in a money crisis, and people are going on more dangerous quests to get more money. \nOne gold is 10 silver, 1 silver is 5 copper. \nHint: (More dangerous quests make more money! But they are also much harder to complete...)"));
+
+        LEAFLETS.put("leaflet003",
+                new Leaflet("leaflet003", "leaflet",
+                        "Hunter's Notes (1/2)", "date: 01/43/2494 - Bear fight \nWell, I suppose it was less of a fight and more of a sacrifice. (Also, one of the BANDITS stole my key...) Damn it, if only I had known, like those goblins did, that to kill that bear family you had to use a [note was torn here]  \nHint: (Use 'help' to get help)"));
+
+        LEAFLETS.put("leaflet004",
+                new Leaflet("leaflet004", "leaflet",
+                        "Hunter's Notes (2/2)", "date: 01/43/2494 - Bear fight \nbear claw! (Oh yeah, one of e'm damn goblins stole my claw! Hope they die...) \nHint: (Use 'help' to get help)"));
+
     }
 
     //CHEST TOKENS
@@ -242,15 +251,6 @@ public class Game {
         Player.QUESTS.put("SQ2", new Quest("SQ2", "Collect Twigs", 2, "twig", 5, 20, 10));                  // side quest - get 5 twigs
         Player.QUESTS.put("SQ3", new Quest("SQ3", "Go Up Some Stairs", 3, "Abandon House's Upper Room", 1, 40, 25)); // side quest - go upstairs
 
-
-        // REDO GOLD....
-        Player.QUESTS.put("SQ4", new Quest("SQ4", "Slay Forest Bear", 2, "bear claw", 1, 200, 100));
-        Player.QUESTS.put("SQ5", new Quest("SQ5", "Raven Eye", 2, "raven eye", 1, 80, 40));
-        Player.QUESTS.put("SQ6", new Quest("SQ6", "Open Bear Treasury", 2, "bear amulet", 1, 300, 150));
-        Player.QUESTS.put("SQ7", new Quest("SQ7", "Kill Smuggler Boss", 2, "smuggler key", 1, 150, 75));
-        Player.QUESTS.put("MQ3", new Quest("MQ3", "Brew Forest Potion", 2, "wolfbane potion", 1, 120, 60));
-
-
         // TOMS CAVE
 
         Hub cave = new Hub("Tom's Dark Cave", "The back of the ancient cave where Tom the hermit lived for many years. \nEXITS: (N) ");
@@ -277,13 +277,13 @@ public class Game {
 
         Hub forest6 = new Hub("Southern Forest Area #6", "The Southern Area of the Great Makiss Forest. \nThe trees grow apart here, their canopies still blotting out much of the sunlight. The air feels damp, and the dull chest#001 sits quietly in the middle of the area... \nEXITS: (S) (N) (W)");
 
-        Hub forest7 = new Hub("Southern Forest Area #7", "The Southern Area of the Great Makiss Forest. \nThick ferns and wildflowers cover the forest floor. A small trail, barely visible, weaves between the towering oaks and leads South. \nEXITS: (S) (W)");
+        Hub forest7 = new Hub("Southern Forest Area #7", "The Southern Area of the Great Makiss Forest. \nSmells like bear blood... Clue for bear hunt. One that must have ended poorly for the Poacher. \nEXITS: (S) (W)");
 
         Hub forest8 = new Hub("Southern Forest Area #8", "The Southern Area of the Great Makiss Forest. \nThe chirping of birds fills the air as soft beams of light break through the leaves. The ground here is softer, marked by faint paw prints. \nEXITS: (E) (S)");
 
         Hub forest9 = new Hub("Southern Forest Area #9", "The Southern Area of the Great Makiss Forest. \nA clearing opens up, surrounded by mossy boulders. A faint breeze carries the scent of pine and damp earth. Something moves just beyond sight... \nEXITS: (N) (E) (W) ");
 
-        Hub forest10 = new Hub("Southern Forest Area #10", "The Southern Area of the Great Makiss Forest. \nA wooden goblin watchtower overlooks the dense woods, faint sounds echo from its guarded platform. \nEXITS: (E) (W)");
+        Hub forest10 = new Hub("Southern Forest Area #10", "The Southern Area of the Great Makiss Forest. \nA wooden goblin watchtower overlooks the dense woods, faint sounds echo from its guarded platform. It seems something has been eating bears...\nEXITS: (E) (W)");
 
         Hub forest11 = new Hub("Southern Forest Area #11", "The Southern Area of the Great Makiss Forest. \nA goblin camp with crudely made tents surrounds a roaring fire, shadows flickering with restless movement. \nEXITS: (E) (N)");
 
@@ -310,9 +310,9 @@ public class Game {
 
         Hub forest14 = new Hub("Southern Forest Area #14", "The Southern Area of the Great Makiss Forest. \nDense thickets and thorn bushes threaten to slow travelers, whispering secrets among the branches. \nEXITS: (W) (N)");
 
-        Hub forest15 = new Hub("Southern Forest Area #15", "The Southern Area of the Great Makiss Forest. \nA hidden hideout for  rouge bandits with makeshift barricades and loot scattered around. \nEXITS: (S) (E)");
+        Hub forest15 = new Hub("Southern Forest Area #15", "The Southern Area of the Great Makiss Forest. \nA hidden hideout for  rouge bandits with makeshift barricades. \nEXITS: (S) (E)");
 
-        Hub forest16 = new Hub("Southern Forest Area #16", "The Southern Area of the Great Makiss Forest. \nA ruined stone shrine, partially crumbled, radiates a faint mystical glow. \nEXITS: (W) (E) (N)");
+        Hub forest16 = new Hub("Southern Forest Area #16", "The Southern Area of the Great Makiss Forest. \n. \nEXITS: (W) (E) (N)");
 
         Hub forest17 = new Hub("Southern Forest Area #17", "The Southern Area of the Great Makiss Forest. \nA narrow forest path winds past towering trees and thick underbrush, shadows flickering with every breeze. \nEXITS: (N) (S)");
 
@@ -338,7 +338,8 @@ public class Game {
 
         Hub forest28 = new Hub("Northern Forest Area #28", "The Northern Area of the Great Makiss Forest. \nA crystal-clear stream burbles happily beneath stepping stones covered in emerald moss. \nEXITS: (S) (N)");
 
-        Hub forest29 = new Hub("Northern Forest Area #29", "The Northern Area of the Great Makiss Forest. \nA hidden glade glowing faintly with ethereal blue light and glowing plants. \nEXITS: (S) (E)");
+        Hub forest29 = new Hub("Northern Forest Area #29", "The Northern Area of the Great Makiss Forest. \nYou could call this area a clearing, but what is most unusual is the cauldron which sits in the middle.... \nEXITS: (S) (E)");
+        forest29.setStructure("cauldron");
 
         Hub forest30 = new Hub("Northern Forest Area #30", "The Northern Area of the Great Makiss Forest. \nA crooked witch’s hut with twisted branches and pungent herbs drying in the air. \nEXITS: (W)");
 
@@ -596,12 +597,18 @@ public class Game {
             forest12.addObject("white whispberry");
         }
 
+        forest6.addObject("trap");
+
+        forest12.addObject("leaflet003");
+
 
         firstVilleGate.addObject("snarkflower");
         forest16.addObject("snarkflower");
         forest47.addObject("snarkflower");
         forest29.addObject("snarkflower");
         forest13.addObject("snarkflower");
+
+
 
         // MAKE CHEST STUFF HAPPEN HERE
 
@@ -619,18 +626,47 @@ public class Game {
 
         forest26.addObject("IH002");
 
+        chestContents = Arrays.asList("bear amulet");
+
+        Chest thirdChest = new Chest(true, "IH003", chestContents, "C");
+        forest47.addChest("chest#003", thirdChest);
+
         // ADD MOBS to room
 
-        Mob goblin = createGoblinWithRandomStats();
+        List<String> stuff = new ArrayList<>() ;
+        stuff.add("bear claw");
+        Mob goblin = createGoblinWithRandomStats(stuff);
+        stuff.remove("bear claw");
 
         forest10.getMOBS().add(goblin);
 
         for (int o = 0; o < 3; o++) {
 
-            goblin = createGoblinWithRandomStats();
+            goblin = createGoblinWithRandomStats(stuff);
 
             forest11.getMOBS().add(goblin);
         }
+
+        stuff.add("IH003");
+        stuff.add("leaflet004");
+        Mob Mute = createMuteBanditWithRandomStats(stuff);
+        stuff.remove("IH003");
+        stuff.remove("leaflet004");
+
+        forest12.getMOBS().add(Mute);
+
+        for (int o = 0; o < 2; o++) {
+
+             goblin = createMuteBanditWithRandomStats(stuff);
+
+            forest12.getMOBS().add(goblin);
+        }
+
+        stuff.add("bear fur");
+        goblin = createBearWithRandomStats(stuff, 70, "Mama Bear");
+        stuff.remove("bear fur");
+
+        forest47.getMOBS().add(goblin);
 
 
 
@@ -642,7 +678,7 @@ public class Game {
 
         Equipment equipment = new Equipment();
 
-
+        Item bearClaw = new Item("bear claw", "melee", true, null);
         Item baggerDagger = new Item("Bagger's Dagger", "melee", true, null);
         Item sickles = new Item("Sickles", "melee", true,null);
         Item knightBoots = new Item("Knights Footwear", "boots",false, null);
@@ -717,6 +753,7 @@ public class Game {
         //List of verbs
         List<String> verbs = new ArrayList<>();
         verbs.add("move");
+        verbs.add("use");
         verbs.add("go");
         verbs.add("pick up");
         verbs.add("grab");
@@ -818,6 +855,13 @@ public class Game {
         objects.add("bagger");
         objects.add("ragger");
         objects.add("gate");
+        objects.add("trap");
+        objects.add("bear claw");
+        objects.add("bear amulet");
+        objects.add("wolfbane");
+        objects.add("raven eye");
+        objects.add("blood vial");
+        objects.add("cauldron");
         objects.add("firstville guards plate");
         objects.add("firstville guards helm");
         objects.add("firstville guards boots");
@@ -830,6 +874,11 @@ public class Game {
 
         List<String> wait = new ArrayList<>();
         wait.add("wait");
+
+        List<String> use = new ArrayList<>();
+        use.add("use");
+        use.add("activate");
+
 
         List<String> stats = new ArrayList<>();
         stats.add("stats");
@@ -868,6 +917,9 @@ public class Game {
 
         List<String> cabinet = new ArrayList<>();
         cabinet.add("cabinet");
+
+        List<String> cauldron = new ArrayList<>();
+        cauldron.add("cauldron");
 
         List<String> door = new ArrayList<>();
         door.add("door");
@@ -1080,14 +1132,14 @@ public class Game {
 
                     if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
 
-                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
                         inRoom = newRoom;
                         Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                         snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
                     } else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
                         // Call the move method and update to inRoom
-                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
                         inRoom = newRoom;
                         Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                         snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1095,14 +1147,14 @@ public class Game {
 
                     } else if (action.toLowerCase().equals("w") || action.toLowerCase().equals("west")) {
                         // Call the move method and update to inRoom
-                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
                         inRoom = newRoom;
                         Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                         snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
                     } else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
                         // Call the move method and update to inRoom
-                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
                         inRoom = newRoom;
                         Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                         snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1116,7 +1168,7 @@ public class Game {
 
                                 action = "n";
 
-                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
                                 inRoom = newRoom;
                                 Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                                 snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1127,7 +1179,7 @@ public class Game {
 
                                 action = "s";
 
-                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
                                 inRoom = newRoom;
                                 Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                                 snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1138,7 +1190,7 @@ public class Game {
 
                                 action = "w";
 
-                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
                                 inRoom = newRoom;
                                 Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                                 snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1149,7 +1201,7 @@ public class Game {
 
                                 action = "e";
 
-                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats);
+                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
                                 inRoom = newRoom;
                                 Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                                 snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1218,7 +1270,17 @@ public class Game {
 
                     if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0])) || action.toLowerCase().contains("leaflet") || action.toLowerCase().contains("ih")) {
 
-                        if (stringContainsWordFromList(action.toLowerCase(), inspect.toArray(new String[0]))) {
+                        if (stringContainsWordFromList(action.toLowerCase(), use.toArray(new String [0]))){
+
+                            if (stringContainsWordFromList(action.toLowerCase(), cauldron.toArray(new String [0]))){
+
+                                cauldron(inventory);
+
+                            }
+                        }
+
+
+                        else if (stringContainsWordFromList(action.toLowerCase(), inspect.toArray(new String[0]))) {
 
                             String theActio = action.toLowerCase();
 
@@ -1585,7 +1647,7 @@ public class Game {
 
                             for (String obj : objects) {
                                 if (action.toLowerCase().contains(obj)) {
-                                    read(inRoom, inventory, obj);
+                                    read(inRoom, inventory, obj, player);
                                     validObject = true;
 
                                     break;
@@ -1667,7 +1729,7 @@ public class Game {
 
                                     player.setInCombat(true);
 
-                                    combat(player, mob, inRoom, playersStats);
+                                    combat(player, mob, inRoom, playersStats, equipment);
 
                                     player.setInCombat(false);
 
@@ -1831,7 +1893,7 @@ public class Game {
     }
 
     // move method
-    public static Hub move(String direction, Hub currentHub, Player player, XpLv playerStats) {
+    public static Hub move(String direction, Hub currentHub, Player player, XpLv playerStats, Equipment equipment) {
 
         if (direction.equals("north")) {
             direction = "n";
@@ -1898,7 +1960,7 @@ public class Game {
 
                     System.out.println(mob.getName() + " is aggro and attacks you as you enter!");
 
-                    combat(player, mob, newRoom, playerStats);
+                    combat(player, mob, newRoom, playerStats, equipment);
                     if (newRoom.getMOBS().isEmpty()) {
 
                         break; // If I change stuff then before the for I should see what the newRoom.getMOBS's length is, and then do a "for (int i = (the length of the list)"
@@ -2171,6 +2233,7 @@ public class Game {
             String takenItem = item.toLowerCase();
             Player.QUESTS.forEach((id, q) -> q.check("COLLECT_ITEM", takenItem, player, playerStats));
 
+
         }
 
         if (chosenAmount > 0) {
@@ -2401,7 +2464,7 @@ public class Game {
 
     }
 
-    public static void read(Hub inRoom, List<String> inventory, String item) {
+    public static void read(Hub inRoom, List<String> inventory, String item, Player player) {
 
         if (item.equalsIgnoreCase("leaflet")) {
             List<Leaflet> aqquiredLeaflets = new ArrayList<>();
@@ -2421,6 +2484,13 @@ public class Game {
             if (aqquiredLeaflets.size() == 1) {
                 Leaflet owned = aqquiredLeaflets.get(0);
                 printLeaflet(owned);
+                if (owned.getId().equalsIgnoreCase("leaflet003")){
+                    if (player.QUESTS.get("MQ3") == null){
+
+                        Player.QUESTS.put("MQ3", new Quest("MQ3", "Slay Forest Mama Bear", 1, "mama bear", 1, 200, 30));
+
+                    }
+                }
                 return;
             }
 
@@ -2457,6 +2527,13 @@ public class Game {
 
             if (chosen != null) {
                 printLeaflet(chosen);
+                if (chosen.getId().equalsIgnoreCase("leaflet003")){
+                    if (player.QUESTS.get("MQ3") == null){
+
+                        Player.QUESTS.put("MQ3", new Quest("MQ3", "Slay Forest Mama Bear", 1, "mama bear", 1, 200, 30));
+
+                    }
+                }
             } else {
                 System.out.println("You decide not to read any leaflet right now.");
             }
@@ -2466,8 +2543,18 @@ public class Game {
         // user typed a specific id like "leaflet001"
         if (inventory.contains(item)) {
             Leaflet ha = LEAFLETS.get(item.toLowerCase());
+            System.out.println(ha.getId());
+
             if (ha != null) {
                 printLeaflet(ha);
+                System.out.println(ha.getId());
+                if (ha.getId().equalsIgnoreCase("leaflet003")){
+                    if (player.QUESTS.get("MQ3") == null){
+
+                        Player.QUESTS.put("MQ3", new Quest("MQ3", "Slay Forest Mama Bear", 1, "mama bear", 1, 200, 30));
+
+                    }
+                }
             } else {
                 System.out.println("You can't read '" + item + "'");
             }
@@ -2550,6 +2637,8 @@ public class Game {
 
             if (chancer < 20) {
 
+                List<String> stuff = new ArrayList<>();
+
                 // Random number between 0–3 to decide mob type
                 number = (int) (Math.random() * 7) + 1;
 
@@ -2565,7 +2654,7 @@ public class Game {
                     int rabbitCount = Collections.frequency(mobCounts, "Rabbit");
 
                     if (rabbitCount < 3) {
-                        Mob rabbit = createRabbitWithRandomStats();
+                        Mob rabbit = createRabbitWithRandomStats(stuff);
                         inRoom.getMOBS().add(rabbit);
                         System.out.println("A rabbit hops out from the bushes.");
                     }
@@ -2582,7 +2671,7 @@ public class Game {
                     int chickenCount = Collections.frequency(mobCounts, "Chicken");
 
                     if (chickenCount < 3) {
-                        Mob chicken = createChickenWithRandomStats();
+                        Mob chicken = createChickenWithRandomStats(stuff);
                         inRoom.getMOBS().add(chicken);
                         System.out.println("A chicken clucks into the area in confusion.");
                     }
@@ -2599,7 +2688,7 @@ public class Game {
                     int squirrelCount = Collections.frequency(mobCounts, "Squirrel");
 
                     if (squirrelCount < 3) {
-                        Mob squirrel = createSquirrelWithRandomStats();
+                        Mob squirrel = createSquirrelWithRandomStats(stuff);
                         inRoom.getMOBS().add(squirrel);
                         System.out.println("A mad squirrel falls from the trees.");
                     }
@@ -2611,7 +2700,7 @@ public class Game {
         }
     }
 
-    private static Mob createRabbitWithRandomStats() {
+    private static Mob createRabbitWithRandomStats(List<String> drop) {
         int maxHealth = (int) (Math.random() * 2 + 6); //6-7
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
@@ -2620,10 +2709,40 @@ public class Game {
         int attackPower = (int) (Math.random() * 4 + 1);
         boolean isAggro = false;
 
-        return new Mob("Rabbit", rabbitHealth, attackPower, isAggro);
+        if (drop.isEmpty()){
+            if ((int)(Math.random() * 2 + 1) == 1){
+                drop.add("rabbit hide");
+            }
+        }
+
+        return new Mob("Rabbit", rabbitHealth, attackPower, isAggro, drop);
     }
 
-    private static Mob createSquirrelWithRandomStats() {
+    private static Mob createBearWithRandomStats(List<String> drop, int maxHealth, String name) {
+
+        if (name == null){
+            name = "Bear";
+        }
+
+        if (maxHealth == 0){
+            maxHealth = (int) (Math.random() * 20 + 30); //6-7
+        }
+
+        int currentHealth = maxHealth;  // start at full health
+        int damageResistance = 0;       // example damage resistance
+        Health bearHealth = new Health(maxHealth, currentHealth, damageResistance);
+
+        int attackPower = (int) (Math.random() * 13 + 10);
+        boolean isAggro = true;
+
+        if (drop.isEmpty()){
+            drop.add("bear hide");
+        }
+
+        return new Mob(name, bearHealth, attackPower, isAggro, drop);
+    }
+
+    private static Mob createSquirrelWithRandomStats(List<String> drop) {
         int maxHealth = (int) (Math.random() * 4 + 5); //5-8
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
@@ -2632,10 +2751,16 @@ public class Game {
         int attackPower = (int) (Math.random() * 7 + 3); //3-9
         boolean isAggro = true;
 
-        return new Mob("Squirrel", squirrelHealth, attackPower, isAggro);
+        if (drop.isEmpty()){
+            if ((int)(Math.random() * 2 + 1) == 1){
+                drop.add("squirrel hide");
+            }
+        }
+
+        return new Mob("Squirrel", squirrelHealth, attackPower, isAggro, drop);
     }
 
-    private static Mob createChickenWithRandomStats() {
+    private static Mob createChickenWithRandomStats(List<String> drop) {
         int maxHealth = (int) (Math.random() * 4 + 9); //9-11
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
@@ -2645,11 +2770,16 @@ public class Game {
         boolean isAggro = false;
         boolean onFire = false;
 
+        if (drop.isEmpty()){
+            if ((int)(Math.random() * 2 + 1) == 1){
+                drop.add("chicken feather");
+            }
+        }
 
-        return new Mob("Chicken", rabbitHealth, attackPower, isAggro);
+        return new Mob("Chicken", rabbitHealth, attackPower, isAggro, drop);
     }
 
-    private static Mob createGoblinWithRandomStats() {
+    private static Mob createGoblinWithRandomStats(List<String> drop) {
         int maxHealth = (int) (Math.random() * 6 + 12); //12-17
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
@@ -2658,11 +2788,35 @@ public class Game {
         int attackPower = (int) (Math.random() * 10 + 2);
         boolean isAggro = true;
 
-        return new Mob("Goblin", goblinHealth, attackPower, isAggro);
+        if (drop.isEmpty()){
+            if ((int)(Math.random() * 2 + 1) == 1){
+                drop.add("goblin tooth");
+            }
+        }
+
+        return new Mob("Goblin", goblinHealth, attackPower, isAggro, drop);
+    }
+
+    private static Mob createMuteBanditWithRandomStats(List<String> drop) {
+        int maxHealth = (int) (Math.random() * 6 + 12); //12-17
+        int currentHealth = maxHealth;  // start at full health
+        int damageResistance = 0;       // example damage resistance
+        Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
+
+        int attackPower = (int) (Math.random() * 10 + 8);
+        boolean isAggro = false;
+
+        if (drop.isEmpty()){
+            if ((int)(Math.random() * 2 + 1) == 1){
+                drop.add("cloth");
+            }
+        }
+
+        return new Mob("MuteBandit", muteHeath, attackPower, isAggro, drop);
     }
 
 
-    public static void combat(Player player, Mob mob, Hub inRoom, XpLv playerStats) {
+    public static void combat(Player player, Mob mob, Hub inRoom, XpLv playerStats, Equipment equipment) {
         boolean using = false;
 
         if (player.getSkills().isEmpty()) {
@@ -2690,6 +2844,14 @@ public class Game {
         if (!inRoom.containsMob(mob)) {
             System.out.println("The " + mob.getName() + " has fled to another room.");
             return;
+        }
+
+        if (mob.getName().toLowerCase().contains("bear")){
+            if(equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems()).getName().equalsIgnoreCase("bear claw")){
+                mob.setHealth();
+                mob.setAttackPower();
+                System.out.println("You are fighting a bear with a bear claw! The bear is shocked and has been drastically immobilized.");
+            }
         }
 
         while (!player.getHealth().isDead() && !mob.getHealth().isDead()) {
@@ -2759,6 +2921,11 @@ public class Game {
 
                 Player.QUESTS.forEach((id, q) -> q.check("KILL_MOB", killedMob, player, playerStats));
 
+                if (mob.getDrops() != null){
+                    for (String i : mob.getDrops()){
+                        inRoom.addObject(i);
+                    }
+                }
                 break;
             } else {
 
@@ -2819,6 +2986,7 @@ public class Game {
 
             System.out.println("");
         }
+
 
         while (!player.getHealth().isDead() && !npc.getHealth().isDead()) {
 
@@ -3324,6 +3492,79 @@ public class Game {
         else {
             System.out.println("You look closer at the " + itemName + ", but nothing special stands out.");
         }
+    }
+
+    public static List<String> cauldron(List<String> invin){
+
+        List<String> craftable = new ArrayList<>();
+        craftable.add("wolfs bane potion");
+
+        System.out.println("What would you like to craft?");
+        for (String a : craftable){
+            System.out.println(a);
+        }
+
+        System.out.print("-> ");
+        String craft = scanner.nextLine();
+
+        int doable = 0;
+
+        for (String i : craftable){
+            if (i == craft){
+                doable++;
+                break;
+            }
+        }
+
+        if (doable !=0){
+
+            if (craft == "wolfs bane potion"){
+                int wolfbane = 0;
+                int ravenEye = 0;
+                int bloody = 0;
+
+
+                for (String w : invin){
+
+                    if (w == "wolfbane"){
+                        wolfbane++;
+                    }
+                    if (w == "raven eye"){
+                        ravenEye++;
+                    }
+                    if (w == "blood vial"){
+                        bloody++;
+                    }
+                }
+
+                if (wolfbane >= 3 && ravenEye >=1 && bloody >=1){
+                    System.out.println("Success! You've made a Wolfs Bane Potion!");
+                    invin.add("wolfs bane potion");
+                    for (int i = 0; i<3; i++){
+                        invin.remove("wolfbane");
+                    }
+                    invin.remove("raven eye");
+                    invin.remove("blood vial");
+                    return invin;
+
+                }
+
+                else {
+                    System.out.println("You are lacking the materials to craft this: Wolfbane x3, raven eye, blood vial");
+                    return invin;
+
+                }
+            }
+        }
+
+        else {
+            System.out.println("Yeah, you are gonna have to go somewhere else to craft that...");
+            return invin;
+        }
+
+        return invin;
+
+
     }
 
 

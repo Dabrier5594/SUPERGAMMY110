@@ -86,8 +86,12 @@ class Equipment {
 
         if (item.getName().equals("dagger")){
             player.setAttackPower(3); //adds 3 to total attack power
-
         }
+
+        if (item.getName().equals("bear claw")){
+            player.setAttackPower(5); //adds 3 to total attack power
+        }
+
         if (item.getName().equals("leather armor")){
             player.getHealth().setDamageResistance(player.getHealth().getDamageResistance() + 3);
         }
@@ -125,6 +129,11 @@ class Equipment {
             if (item.getName().equals("dagger")){
                 player.setAttackPower(-3); //takes 3 from total attack power
             }
+
+            if (item.getName().equals("bear claw")){
+                player.setAttackPower(-5); //takes 3 from total attack power
+            }
+
 
             if (item.getName().equals("leather armor")){
                 player.getHealth().setDamageResistance(player.getHealth().getDamageResistance() - 3);

@@ -10,17 +10,22 @@ public class Mob {
     private List<Mob> mobsInWorld;
     private boolean onFire = false;
     private int burnTurns = 3;
+    private List<String> drops;
 
 
-    public Mob (String name, Health health, int attackPower, boolean isAggro){
+    public Mob (String name, Health health, int attackPower, boolean isAggro, List<String> drops){
 
         this.name = name;
         this.attackPower = attackPower;
         this.health = health;
         this.isAggro = isAggro;
-
+        this.drops = drops;
 
     }
+
+    public void setHealth(){ health.setHeealth(health.getHeealth()/2);}
+
+    public void setAttackPower(){ attackPower = attackPower/2;}
 
     public void attack(Player player){
 
@@ -38,6 +43,8 @@ public class Mob {
         }
 
     }
+
+    public List<String> getDrops(){ return  drops;}
 
     public boolean isOnFire(){
         return onFire;
