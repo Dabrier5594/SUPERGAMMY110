@@ -7,7 +7,7 @@ public class Npca {
     private int attackPower;
     private Health health;
     private boolean isStunned = false;
-    private String questId;        // e.g. "SQ2" for Collect Twigs
+    private String questId;        // e.g., "SQ2" for Collect Twigs
     private QuestState questState;
 
     public enum QuestState {

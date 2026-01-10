@@ -237,10 +237,18 @@ public class Game {
 
         //QUESTS
 
-        Player.QUESTS.put("MQ1", new Quest("MQ1", "Escape Cave", 3, "Southern Forest Area #1", 1, 50, 5));  // main quest - go outside cave
+        Player.QUESTS.put("MQ1", new Quest("MQ1", "Leave The Cave", 3, "Southern Forest Area #1", 1, 50, 5));  // main quest - go outside cave
         Player.QUESTS.put("SQ1", new Quest("SQ1", "Kill Goblins", 1, "goblin", 3, 30, 15));                 // side quest - kill 3 goblins
         Player.QUESTS.put("SQ2", new Quest("SQ2", "Collect Twigs", 2, "twig", 5, 20, 10));                  // side quest - get 5 twigs
-        Player.QUESTS.put("SQ3", new Quest("SQ3", "Find House Treasure", 3, "Abandon House's Upper Room", 1, 40, 25)); // side quest - go upstairs
+        Player.QUESTS.put("SQ3", new Quest("SQ3", "Go Up Some Stairs", 3, "Abandon House's Upper Room", 1, 40, 25)); // side quest - go upstairs
+
+
+        // REDO GOLD....
+        Player.QUESTS.put("SQ4", new Quest("SQ4", "Slay Forest Bear", 2, "bear claw", 1, 200, 100));
+        Player.QUESTS.put("SQ5", new Quest("SQ5", "Raven Eye", 2, "raven eye", 1, 80, 40));
+        Player.QUESTS.put("SQ6", new Quest("SQ6", "Open Bear Treasury", 2, "bear amulet", 1, 300, 150));
+        Player.QUESTS.put("SQ7", new Quest("SQ7", "Kill Smuggler Boss", 2, "smuggler key", 1, 150, 75));
+        Player.QUESTS.put("MQ3", new Quest("MQ3", "Brew Forest Potion", 2, "wolfbane potion", 1, 120, 60));
 
 
         // TOMS CAVE
@@ -687,7 +695,7 @@ public class Game {
 
 
 
-        Guard Oliver = new Guard("Oliver", oliverLines, oliverP, 8, FirstVilleHelm, FirstVillePlate, FirstVilleLegs, FirstVilleBoots, "MQ3", Npca.QuestState.NONE);
+        Guard Oliver = new Guard("Oliver", oliverLines, oliverP, 8, FirstVilleHelm, FirstVillePlate, FirstVilleLegs, FirstVilleBoots, "MQ4", Npca.QuestState.NONE);
 
         firstVilleGate.getGuard().add(Oliver);
 
@@ -3173,8 +3181,8 @@ public class Game {
 
             if (a.startsWith("a") && !done) {
                 npc.setQuestState(Npca.QuestState.ACCEPTED);
-                oliverQuest = new Quest("MQ3", "Collect 5 SnarkFlowers for Oliver", 2, "snarkflower", 5, 20, 2); // main quest - get flowers
-                Player.QUESTS.put("MQ3", oliverQuest);
+                oliverQuest = new Quest("MQ4", "Collect 5 SnarkFlowers for Oliver", 2, "snarkflower", 5, 20, 2); // main quest - get flowers
+                Player.QUESTS.put("MQ4", oliverQuest);
                 System.out.println("Quest added: " + oliverQuest.status());
                 //CHECK IF QUEST IS ALReADY COMPLETED
                 if (Collections.frequency(inventory, "snarkflower") >= 5) {
@@ -3200,8 +3208,8 @@ public class Game {
 
             if (a.startsWith("a") && !done) {
                 npc.setQuestState(Npca.QuestState.ACCEPTED);
-                oliverQuest = new Quest("MQ3", "Collect 5 SnarkFlowers for Oliver", 2, "snarkflower", 5, 20, 2); // main quest - get flowers
-                Player.QUESTS.put("MQ3", oliverQuest);
+                oliverQuest = new Quest("MQ4", "Collect 5 SnarkFlowers for Oliver", 2, "snarkflower", 5, 20, 2); // main quest - get flowers
+                Player.QUESTS.put("MQ4", oliverQuest);
                 System.out.println("Quest added: " + oliverQuest.status());
                 //CHECK IF QUEST IS ALReADY COMPLETED
                 if (Collections.frequency(inventory, "snarkflower") >= 5) {
