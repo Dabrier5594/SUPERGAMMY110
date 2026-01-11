@@ -2683,7 +2683,7 @@ public class Game {
 
             chancer = (int) (Math.random() * 101);
 
-            if (chancer < 20) {
+            if (chancer < 45) {
 
                 List<String> stuff = new ArrayList<>();
 
