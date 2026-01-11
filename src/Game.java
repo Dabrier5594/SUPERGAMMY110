@@ -9,7 +9,7 @@ import java.util.TimerTask;
 //
 //                    NOTES FOR IMPROVEMENTS:
 
-//
+// MAKE SHOPPERS MORE CLEAN (PAYMENT ETC.
 
 //checkovs gun bonus stuff too!!!!
 
@@ -799,8 +799,7 @@ public class Game {
         baggerShop.addStock(copperSword, 20);
         baggerShop.addStock(sickles, 30);
         baggerOwner.setMyShop(baggerShop);
-        baggerShop.getFirstShopOwners().add(baggerOwner);
-
+        baggerShop.addFirstShopOwner(baggerOwner);
 
 
         FirstShopOwner laggerOwner = new FirstShopOwner("copper", "Lagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
@@ -810,7 +809,7 @@ public class Game {
         laggerShop.addStock(knightChest,30);
         laggerShop.addStock(knightBoots,15);
         laggerOwner.setMyShop(laggerShop);
-        laggerShop.getFirstShopOwners().add(laggerOwner);
+
 
 
         //Shop Exits
@@ -829,7 +828,7 @@ public class Game {
         firstVilleGate.getGuard().add(Oliver);
 
 
-        Story(cave, existingItems, equipment);
+        Story(baggerShop, existingItems, equipment);
 
     }
 
@@ -1097,16 +1096,21 @@ public class Game {
                 System.out.print("Enter target room\n-> ");
                 String gotoRoomBlah = scanner.nextLine();
                 if (gotoRoomBlah != null) {
-                    if (!gotoRoomBlah.equalsIgnoreCase("d") && !gotoRoomBlah.equalsIgnoreCase("g")) {
+                    if (!gotoRoomBlah.equalsIgnoreCase("d") && !gotoRoomBlah.equalsIgnoreCase("g") && !gotoRoomBlah.equalsIgnoreCase("bagger")) {
                         inRoom = Hub.get(gotoRoomBlah);
                         System.out.println("Boom. You're There.");
 
                     } else if (gotoRoomBlah.equalsIgnoreCase("d")) {
                         System.out.println("Code accepted.");
-                    } else if (gotoRoomBlah.equalsIgnoreCase("g")) {
+                    } else if (gotoRoomBlah.equalsIgnoreCase("gate1")) {
                         inRoom = Hub.get("Gate of FirstVille");
                         System.out.println("You are at the gate.");
+                    } else if (gotoRoomBlah.equalsIgnoreCase("bagger")) {
+                        System.out.println("MEET BAGGER - welcome");
+                    } else {
+                        System.out.println("default input received.");
                     }
+
 
                 }
 
@@ -1367,8 +1371,8 @@ public class Game {
                             npcNames.add(npc.getName());
                         }
 
-                        for (FirstShopOwner npc : inRoom.getFirstShopOwners()) {
-                            npcNames.add(npc.getName());
+                        if (inRoom.getFirstShopOwners() != null){
+                            npcNames.add(inRoom.getFirstShopOwners().getName());
                         }
 
                         if (!npcNames.isEmpty()) {
@@ -1959,8 +1963,6 @@ public class Game {
 
                                     talked = true;
 
-                                    break;
-
                                 }
 
                             }
@@ -1975,8 +1977,6 @@ public class Game {
                                         //talkMerchant(inRoom, inventory, playersStats, npc, player);
 
                                         talked = true;
-
-                                        break;
 
                                     }
 
@@ -1994,25 +1994,22 @@ public class Game {
 
                                         talked = true;
 
-                                        break;
-
                                     }
 
                                 }
                             }
 
                             if (!talked) {
-                                for (FirstShopOwner npc : inRoom.getFirstShopOwners()) {
 
-                                    String npcNameLower = npc.getName().toLowerCase();
+                                if (inRoom.getFirstShopOwners() != null){
 
-                                    if (action.toLowerCase().contains(npcNameLower)) {
+                                    String npcNameLower = (inRoom.getFirstShopOwners().getName());
 
-                                        talkShopFirst(inRoom, inventory, playersStats, npc, player);
+                                    if (action.toLowerCase().contains(npcNameLower.toLowerCase())) {
+
+                                        talkShopFirst(inRoom, inventory, playersStats, inRoom.getFirstShopOwners(), player);
 
                                         talked = true;
-
-                                        break;
 
                                     }
 
@@ -2172,8 +2169,8 @@ public class Game {
                 npcNames.add(npc.getName());
             }
 
-            for (FirstShopOwner npc : newRoom.getFirstShopOwners()) {
-                npcNames.add(npc.getName());
+            if (newRoom.getFirstShopOwners() != null){
+                npcNames.add(newRoom.getFirstShopOwners().getName());
             }
 
             if (!npcNames.isEmpty()) {
@@ -3838,28 +3835,31 @@ public class Game {
     }
 
     public static List<String> talkShopFirst(Hub inRoom, List<String> inventory, XpLv playerStats, FirstShopOwner npc, Player player) {
-
         System.out.println(npc.getName() + " (Shop Keeper): \"Welcome to my shop!\"");
         scanner.nextLine();
 
         System.out.println("[1] Buy  [2] Sell  [3] Leave");
+        System.out.print("-> ");
 
         String choice = scanner.nextLine().trim();
+
+        if (choice.isEmpty()) {
+            System.out.println(npc.getName() + " stares blankly as you say nothing...");
+            return inventory;
+        }
 
         if (choice.equals("1")) {
             npc.buyItem(player, inventory);
             return inventory;
-
         } else if (choice.equals("2")) {
             System.out.println("Selling not ready yet. Come back later!");
             return inventory;
-
         } else {
             System.out.println("Thanks for visiting " + player.getName() + "! *you are shoo-ed away...");
             return inventory;
         }
-
     }
+
 
     private static String getInspectTarget(String action, List<String> verbs) {
 

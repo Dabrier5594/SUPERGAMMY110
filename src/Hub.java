@@ -12,7 +12,7 @@ public class Hub {
     private List<Boss> boss = new ArrayList<>();
     private List<Guard> guard = new ArrayList<>();
     private List<Merchant> merchant = new ArrayList<>();
-    private List<FirstShopOwner> firstShopOwners = new ArrayList<>();
+    private FirstShopOwner firstShopOwners;
     private Map<String, Chest> chests = new HashMap<>();
     private static final List<Hub> allHubs = new ArrayList<>();
     private java.util.Map<String, LockedDoors> lockedDoors = new java.util.HashMap<>();
@@ -28,7 +28,9 @@ public class Hub {
 
     }
 
-    public List<FirstShopOwner> getFirstShopOwners(){return firstShopOwners;}
+    public FirstShopOwner getFirstShopOwners(){return firstShopOwners;}
+
+    public void addFirstShopOwner(FirstShopOwner a){firstShopOwners = a;}
 
     public void setLockedDoor(String direction, LockedDoors gate) {
         lockedDoors.put(direction, gate);

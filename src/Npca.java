@@ -194,7 +194,7 @@ class FirstShopOwner extends Npca {
         Item chosen = null;
         int price = 0;
 
-        if (answer == ""){
+        if (answer.isEmpty()) {
             System.out.println("Aren't you a smarty pants, go eat some sourdough bread. *you are shoo-ed out of the store.");
             return invin;
         }
