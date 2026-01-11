@@ -36,6 +36,18 @@ class Item {
         return inspectDescription;
     }
 
+    public void checkPower(Mob mob){
+        if (enchantment != null){
+            enchantment.usePower(enchantment, mob);
+        }
+    }
+
+    public void checkPowerBoss(Boss mob){
+        if (enchantment != null){
+            enchantment.usePowerBoss(enchantment, mob);
+        }
+    }
+
 
 }
 
@@ -55,6 +67,7 @@ class Equipment {
     }
 
     public boolean equip(Item item, Player player) {
+
         String slot = item.getSlotType();
 
         if (equippedItems.containsKey(slot)) {
@@ -74,6 +87,11 @@ class Equipment {
         if(item.getName().equals("knights helm")){
             player.getHealth().setDamageResistance(player.getHealth().getDamageResistance() + 3);
         }
+
+        if(item.getName().equals("admin sword")){
+            player.setAttackPower(3);
+        }
+
         if(item.getName().equals("knights breastplate")){
             player.getHealth().setDamageResistance(player.getHealth().getDamageResistance() + 6);
         }
@@ -127,6 +145,10 @@ class Equipment {
             equippedItems.remove(slot);
 
             if (item.getName().equals("dagger")){
+                player.setAttackPower(-3); //takes 3 from total attack power
+            }
+
+            if (item.getName().equals("admin sword")){
                 player.setAttackPower(-3); //takes 3 from total attack power
             }
 

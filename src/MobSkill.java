@@ -67,17 +67,23 @@ public abstract class MobSkill {
             this.currentCooldown = 0;
         }
 
-        public void reduceCooldown() {                   // ← Already correct
+        public void reduceCooldown() {
             if (currentCooldown > 0) currentCooldown--;
         }
 
-        public boolean canUse() {                        // ← CHANGED: Remove static
+        public boolean canUse() {
             return currentCooldown <= 0;
         }
 
-        public void apply(Player player, Boss boss, Map<String, Item> equippedItems, Equipment equipment) {  // ← CHANGED: Remove static
+        public void apply(Player player, Boss boss, Map<String, Item> equippedItems, Equipment equipment) {
 
             if (!canUse()) {
+
+                if (takeItem != null){
+                    equipment.equip(takeItem, player);
+                    takeItem = null;
+                }
+
                 return;
             }
 

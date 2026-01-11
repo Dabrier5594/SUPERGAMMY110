@@ -109,9 +109,7 @@ public class Player {
             return;
         }
 
-
         System.out.println(name + " attacks " + mob.getName() + " for " + attackPower + " damage!");
-
 
         mob.getHealth().mobTakeDamage(attackPower);
 

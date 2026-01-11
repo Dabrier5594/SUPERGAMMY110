@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-// MAKE IT SO THAT MOBS RESPAWN AFTER 5 NIGHTS
+// can move without killing boss
 
 //checkovs gun bonus stuff too!!!!
 
@@ -684,26 +684,43 @@ public class Game {
 
 
         //enchancements
-        Enchantments fire = new Enchantments("Fire", "Lights enemies on fire", 1);
-        Enchantments healthBoost = new Enchantments("Health Boost", "Gives you a higher max health", 1);
+        Enchantments fire = new Enchantments("fire", "Lights enemies on fire", 1);
+        Enchantments healthBoost = new Enchantments("health boost", "Gives you a higher max health", 1);
 
         //MAKE ITEMS AND "EQUIPMENT"
+        //MAKE ITEMS EXIST IN ITEMS
+        List<Item> existingItems = new ArrayList<>();
 
         Equipment equipment = new Equipment();
 
+        Item adminSword = new Item("admin sword", "melee", true, fire);
+        existingItems.add(adminSword);
         Item bearClaw = new Item("bear claw", "melee", true, null);
+        existingItems.add(bearClaw);
         Item baggerDagger = new Item("Bagger's Dagger", "melee", true, null);
+        existingItems.add(baggerDagger);
         Item sickles = new Item("Sickles", "melee", true,null);
+        existingItems.add(sickles);
         Item knightBoots = new Item("Knights Footwear", "boots",false, null);
+        existingItems.add(knightBoots);
         Item knightChest = new Item("Knights Breastplate", "body",false, null);
+        existingItems.add(knightChest);
         Item knightLeggings = new Item("Knights Leggings", "legging",false, null);
+        existingItems.add(knightLeggings);
         Item knightHelmet = new Item("Knights Helm", "head",false, null);
+        existingItems.add(knightHelmet);
         Item dagger = new Item("dagger", "melee", true, null);
+        existingItems.add(dagger);
         Item leatherArmor = new Item("leather armor", "body", false, null);
+        existingItems.add(leatherArmor);
         Item FirstVillePlate = new Item("firstville guards plate", "body", false, null);
+        existingItems.add(FirstVillePlate);
         Item FirstVilleHelm = new Item("firstville guards helm", "head", false, null);
+        existingItems.add(FirstVilleHelm);
         Item FirstVilleLegs = new Item("firstville guards legs", "legging", false, null);
+        existingItems.add(FirstVilleLegs);
         Item FirstVilleBoots = new Item("firstville guards boots", "boots", false, null);
+        existingItems.add(FirstVilleBoots);
 
 
 
@@ -748,13 +765,8 @@ public class Game {
 
         firstVilleGate.getGuard().add(Oliver);
 
-        //MAKE ITEMS EXIST IN ITEMS
-        List<Item> existingItems = new ArrayList<>();
-        existingItems.add(dagger);
-        existingItems.add(leatherArmor);
 
-
-        Story(cave, existingItems, equipment);
+        Story(forest49, existingItems, equipment);
 
     }
 
@@ -852,6 +864,7 @@ public class Game {
         objects.add("dagger");
         objects.add("leather armor");
         objects.add("inventory");
+        objects.add("admin sword");
         objects.add("gold");
         objects.add("silver");
         objects.add("copper");
@@ -1020,13 +1033,21 @@ public class Game {
                 System.out.print("Enter target room\n-> ");
                 String gotoRoomBlah = scanner.nextLine();
                 if (gotoRoomBlah != null) {
-                    inRoom = Hub.get(gotoRoomBlah);
-                    System.out.println("Boom. You're There.");
+                    if (!gotoRoomBlah.equalsIgnoreCase("d")) {
+                        inRoom = Hub.get(gotoRoomBlah);
+                        System.out.println("Boom. You're There.");
+
+                    } else {
+                        System.out.println("Code accepted.");
+                    }
+
                 }
 
                 for (int i = 0; i < 200; i++) {
                     inRoom.getObjects().add("gold");
                 }
+
+                inRoom.getObjects().add("admin sword");
 
                 System.out.println("$#bonus stats have been successfully distributed");
                 scanner.nextLine();
@@ -1961,19 +1982,25 @@ public class Game {
     // move method
     public static Hub move(String direction, Hub currentHub, Player player, XpLv playerStats, Equipment equipment) {
 
-        if (direction.equals("north")) {
+        if (direction.equals("north") || direction.equals("n")) {
             direction = "n";
+            if (currentHub.getRoomName().equalsIgnoreCase("Northern Forest Area #50")){
+                if (!currentHub.getBoss().isEmpty()){
+                    System.out.println("The rooms boss glances at you suspiciously and blocks your path...");
+                    return currentHub;
+                }
+            }
         }
 
-        if (direction.equals("south")) {
+        if (direction.equals("south") || direction.equals("s")) {
             direction = "s";
         }
 
-        if (direction.equals("west")) {
+        if (direction.equals("west") || direction.equals("w")) {
             direction = "w";
         }
 
-        if (direction.equals("east")) {
+        if (direction.equals("east") || direction.equals("e")) {
             direction = "e";
         }
 
@@ -1995,13 +2022,6 @@ public class Game {
 
         // If there is a new area where user tries to go, update it
         if (newRoom != null) {
-
-            System.out.println(newRoom.getRoomName());
-            System.out.println(newRoom.getRoomDescription());
-
-            if (!newRoom.getObjects().isEmpty()) {
-                itemsIfAny(newRoom.getObjects(), "Items in room: ");
-            }
 
             Mobs(newRoom);
 
@@ -2036,8 +2056,16 @@ public class Game {
 
             }
 
-            List<String> mobNames = new ArrayList<>();
+            System.out.println(newRoom.getRoomName());
+            System.out.println(newRoom.getRoomDescription());
+            System.out.println("");
 
+            if (!newRoom.getObjects().isEmpty()) {
+                itemsIfAny(newRoom .getObjects(), "Items in room: ");
+                System.out.println("");
+            }
+
+            List<String> mobNames = new ArrayList<>();
 
             for (Mob mob : newRoom.getMOBS()) {
 
@@ -2048,6 +2076,19 @@ public class Game {
             if (!mobNames.isEmpty()) {
                 mobsIfAny(mobNames, "Mobs in room: ");
             }
+
+            List<String> bossNames = new ArrayList<>();
+
+            for (Boss boss : newRoom.getBoss()) {
+
+                bossNames.add(boss.getName());
+
+            }
+
+            if (!bossNames.isEmpty()) {
+                mobsIfAny(bossNames, "Bosses in room: ");
+            }
+
 
             List<String> npcNames = new ArrayList<>();
 
@@ -2060,6 +2101,10 @@ public class Game {
             }
 
             for (Merchant npc : newRoom.getMerchant()) {
+                npcNames.add(npc.getName());
+            }
+
+            for (FirstShopOwner npc : newRoom.getFirstShopOwners()) {
                 npcNames.add(npc.getName());
             }
 
@@ -3039,6 +3084,8 @@ public class Game {
     public static void combat(Player player, Mob mob, Hub inRoom, XpLv playerStats, Equipment equipment) {
         boolean using = false;
 
+        int pause = 300;
+
         if (player.getSkills().isEmpty()) {
 
         } else {
@@ -3067,11 +3114,24 @@ public class Game {
         }
 
         if (mob.getName().toLowerCase().contains("bear")){
-            if(equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems()).getName().equalsIgnoreCase("bear claw")){
-                mob.setHealth();
-                mob.setAttackPower();
-                System.out.println("You are fighting a bear with a bear claw! The bear is shocked and has been drastically immobilized.");
+            if (equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems()) != null) {
+                if (equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems()).getName().equalsIgnoreCase("bear claw")) {
+                    mob.setHealth();
+                    mob.setAttackPower();
+                    System.out.println("You are fighting a bear with a bear claw! The bear is shocked and has been drastically immobilized.");
+                }
             }
+        }
+
+        if (!using){
+            System.out.println("Would you like to speed thru this battle (y/n) ?");
+            System.out.print("-> ");
+            String speeder = scanner.nextLine();
+
+            if (speeder == "y" || speeder == "yes"){
+                pause = 0;
+            }
+
         }
 
         while (!player.getHealth().isDead() && !mob.getHealth().isDead()) {
@@ -3111,15 +3171,22 @@ public class Game {
 
             System.out.println("");
 
+            //ATTACKING THE MOB - YOUR TURN!
             player.attack(mob);
 
+            if (equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems()) != null){
+                Item boom = equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems());
+                boom.checkPower(mob);
+            }
 
             System.out.println("");
 
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            if (pause != 0) {
+                try {
+                    Thread.sleep(pause);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             if (mob.getHealth().isDead()) {
@@ -3152,10 +3219,12 @@ public class Game {
                 mob.attack(player);
                 System.out.println("");
 
-                try {
-                    Thread.sleep(300);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                if (pause != 0) {
+                    try {
+                        Thread.sleep(pause);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
 
                 if (player.getHealth().isDead()) {
@@ -3424,6 +3493,8 @@ public class Game {
         System.out.println("THE GREAT " + boss.getName() + " RECOGNIZES YOU AS IT'S PREY.");
         boolean using = false;
 
+        int pause = 300;
+
         if (player.getSkills().isEmpty()) {
 
         } else {
@@ -3444,6 +3515,17 @@ public class Game {
             }
 
             System.out.println("");
+        }
+
+        if (!using){
+            System.out.println("Would you like to speed thru this battle (y/n) ?");
+            System.out.print("-> ");
+            String speeder = scanner.nextLine();
+
+            if (speeder == "y" || speeder == "yes"){
+                pause = 0;
+            }
+
         }
 
         while (!player.getHealth().isDead() && !boss.getHealth().isDead()) {
@@ -3478,14 +3560,22 @@ public class Game {
 
             System.out.println("");
 
+            // PLAYER ATTACK BOSS
             player.attackBoss(boss);
+
+            if (eq.getItemBasedOnSlot("melee", eq.getEquippedItems()) != null){
+                Item boom = eq.getItemBasedOnSlot("melee", eq.getEquippedItems());
+                boom.checkPowerBoss(boss);
+            }
 
             System.out.println("");
 
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            if (pause != 0) {
+                try {
+                    Thread.sleep(pause);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             if (boss.getHealth().isDead()) {
@@ -3508,7 +3598,7 @@ public class Game {
                 System.out.println("");
 
                 try {
-                    Thread.sleep(300);
+                    Thread.sleep(pause);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -3516,10 +3606,12 @@ public class Game {
                 if (player.getHealth().isDead()) {
                     System.out.println("\nYou have been murdered by " + boss.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
 
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                    if (pause != 0) {
+                        try {
+                            Thread.sleep(pause);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
 
                     break;

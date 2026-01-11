@@ -25,9 +25,19 @@ public class Enchantments {
         }
     }
 
-    public void checkPower(Item item, Mob mob){
-        if (item.getEnchantment() != null){
-            usePower(item.getEnchantment(), mob);
+    public void usePowerBoss(Enchantments enchantment, Boss mob){
+        if (enchantment.getName().equalsIgnoreCase("fire")){
+            int d = enchantment.getLevel() * 3;
+            int burtTurns = enchantment.getLevel() + 1;
+            if (!mob.isOnFire()) {
+                mob.setBurnTurns(burtTurns);
+                mob.setOnFire(true);
+            }
+
+            if (mob.isOnFire()){
+                mob.burning(mob, d);
+            }
+
         }
     }
 

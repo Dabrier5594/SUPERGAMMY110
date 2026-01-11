@@ -23,6 +23,10 @@ public class Boss {
 
     List<MobSkill> skills;
 
+    private boolean onFire = false;
+
+    private int burnTurns = 3;
+
     public Boss(String name, int maxHealth, int health, int power, int damageResistance, String description, List<String> drops) {
         this.name = name;
         this.health = new Health(maxHealth, health, damageResistance);
@@ -81,7 +85,16 @@ public class Boss {
 
         int roll = (int)(Math.random() * 10);
 
-        if (roll < 11) {
+        for (MobSkill skill : skills) {
+            if (skill.getName().equals("VineSkill")) {
+                if (skill.getCurrentCooldown() < 2) {
+                    ((MobSkill.VineSkill)skill).apply(player, this, eqI, eq);
+
+                }
+            }
+        }
+
+        if (roll < 5) {
             // Try VineSkill first
             for (MobSkill skill : skills) {
                 if (skill.getName().equals("VineSkill")) {
@@ -92,7 +105,7 @@ public class Boss {
                 }
             }
         }
-        if (roll < 11) {
+        if (roll > 4 || roll == 2) {
             // Try StunSkill second
             for (MobSkill skill : skills) {
                 if (skill.getName().equals("StunSkill")) {
@@ -126,4 +139,31 @@ public class Boss {
     public List<String> getDrops(){
         return drops;
     }
+
+    public boolean isOnFire(){
+        return onFire;
+    }
+    public void setBurnTurns ( int i ){
+        burnTurns = i;
+    }
+
+    public void setOnFire(boolean onFire){this.onFire = onFire;}
+
+    public void burning(Boss mob, int d){
+
+        if(onFire == true){
+            System.out.println(mob.getName() + " has taken " + d + " damage due to fire bonus!");
+            mob.getHealth().mobTakeBonusDamage(d);
+            burnTurns--;
+        }
+
+        if (burnTurns <= 0 && burnTurns > -3){
+            burnTurns--;
+        }
+
+        if (burnTurns <= -3){
+            onFire = false;
+        }
+    }
+
 }
