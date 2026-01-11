@@ -603,7 +603,6 @@ public class Game {
 
 
         firstVilleGate.addObject("snarkflower");
-        forest16.addObject("snarkflower");
         forest47.addObject("snarkflower");
         forest29.addObject("snarkflower");
         forest13.addObject("snarkflower");
@@ -663,8 +662,10 @@ public class Game {
         }
 
         stuff.add("bear fur");
+        stuff.add("snarkflower");
         goblin = createBearWithRandomStats(stuff, 70, "Mama Bear");
         stuff.remove("bear fur");
+        stuff.remove("snarkflower");
 
         forest47.getMOBS().add(goblin);
 
@@ -674,9 +675,6 @@ public class Game {
         forestDevil.addSkills(stunSkill);
         MobSkill vineSkill = new MobSkill.VineSkill("VineSkill", 3);
         forestDevil.addSkills(vineSkill);
-        for (MobSkill a : forestDevil.getSkills()){
-            System.out.println(a.getName());
-        }
         stuff.remove("thorn shield");
         forest50.getBoss().add(forestDevil);
 
@@ -1127,7 +1125,7 @@ public class Game {
                         if (q.done) completed++;
                     }
 
-                    System.out.println("=== YOUR QUESTS (" + totalQuests + "/6 quests acquired) ==="); // RIGHT NOW THERE AREE ONLY 5 POSSIBLE QUESTS
+                    System.out.println("=== YOUR QUESTS (" + totalQuests + "/8 quests acquired) ==="); // RIGHT NOW THERE AREE ONLY 8 POSSIBLE QUESTS
 
                     System.out.println("\nCOMPLETED (" + completed + "/" + totalQuests + "):");
                     for (Quest q : Player.QUESTS.values()) {
@@ -1304,7 +1302,7 @@ public class Game {
 
                             if (stringContainsWordFromList(action.toLowerCase(), cauldron.toArray(new String [0]))){
 
-                                cauldron(inventory);
+                                cauldron(inventory, player);
 
                             }
                         }
@@ -2689,9 +2687,9 @@ public class Game {
 
                 List<String> stuff = new ArrayList<>();
 
-                number = (int) (Math.random() * 15) + 1; //1-15
+                number = (int) (Math.random() * 9) + 1; //1-8
 
-                if (number > 0 && number > 4) {
+                if (number > 0 && number < 3) {
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -2707,7 +2705,7 @@ public class Game {
                         inRoom.getMOBS().add(rabbit);
                         System.out.println("A rabbit hops out from the bushes.");
                     }
-                } else if (number > 3 && number < 7) {
+                } else if (number > 1 && number < 4) {
 
 
                     List<String> mobCounts = new ArrayList<>();
@@ -2725,7 +2723,7 @@ public class Game {
                         System.out.println("A chicken clucks into the area in confusion.");
                     }
 
-                } else if (number > 6 && number < 12){
+                } else if (number > 2 && number < 5){
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -2742,7 +2740,7 @@ public class Game {
                         System.out.println("A mad squirrel falls from the trees.");
                     }
 
-                } else if (number > 11 && number < 14){
+                } else if (number > 3 && number < 6){
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -2751,16 +2749,91 @@ public class Game {
                         mobCounts.add(name);
                     }
 
-                    int squirrelCount = Collections.frequency(mobCounts, "Squirrel");
+                    int squirrelCount = Collections.frequency(mobCounts, "Goblin");
 
                     if (squirrelCount < 3) {
-                        Mob squirrel = createSquirrelWithRandomStats(stuff);
+                        Mob squirrel = createGoblinWithRandomStats(stuff);
                         inRoom.getMOBS().add(squirrel);
-                        System.out.println("A mad squirrel falls from the trees.");
+                        System.out.println("A barbaric goblin jumps outta nowhere.");
                     }
 
                 }
 
+                else if (number > 4 && number < 7){
+
+                    List<String> mobCounts = new ArrayList<>();
+
+                    for (Mob mob : inRoom.getMOBS()) {
+                        String name = mob.getName();
+                        mobCounts.add(name);
+                    }
+
+                    int squirrelCount = Collections.frequency(mobCounts, "Bear");
+
+                    if (squirrelCount < 3) {
+                        Mob squirrel = createBearWithRandomStats(stuff, 0, null);
+                        inRoom.getMOBS().add(squirrel);
+                        System.out.println("A stunning bear walk into the area.");
+                    }
+
+                }
+
+                else if (number > 5 && number < 8){
+
+                    List<String> mobCounts = new ArrayList<>();
+
+                    for (Mob mob : inRoom.getMOBS()) {
+                        String name = mob.getName();
+                        mobCounts.add(name);
+                    }
+
+                    int squirrelCount = Collections.frequency(mobCounts, "Wolf");
+
+                    if (squirrelCount < 3) {
+                        Mob squirrel = createWolfWithRandomStats(stuff);
+                        inRoom.getMOBS().add(squirrel);
+                        System.out.println("A hexing wolf walk round menicingly.");
+                    }
+
+                }
+
+                else if (number > 6 && number < 9){
+
+                    List<String> mobCounts = new ArrayList<>();
+
+                    for (Mob mob : inRoom.getMOBS()) {
+                        String name = mob.getName();
+                        mobCounts.add(name);
+                    }
+
+                    int squirrelCount = Collections.frequency(mobCounts, "Wolf Witch");
+
+                    if (squirrelCount < 3) {
+                        Mob squirrel = createWolfWitchWithRandomStats(stuff);
+                        inRoom.getMOBS().add(squirrel);
+                        System.out.println("A chucking Wolf Witch wonders around drunkenly.");
+                    }
+
+                }
+
+                else if (number > 7 && number < 10){
+
+                    List<String> mobCounts = new ArrayList<>();
+
+                    for (Mob mob : inRoom.getMOBS()) {
+                        String name = mob.getName();
+                        mobCounts.add(name);
+                    }
+
+                    int squirrelCount = Collections.frequency(mobCounts, "Blood Witch");
+
+                    if (squirrelCount < 3) {
+                        Mob squirrel = createBloodWitchWithRandomStats(stuff);
+                        inRoom.getMOBS().add(squirrel);
+                        System.out.println("A chuckling blood witch chuckles into your line of view, egging you on.");
+                    }
+
+                }
 
             }
         }
@@ -2866,7 +2939,7 @@ public class Game {
     private static Mob createMuteBanditWithRandomStats(List<String> drop) {
         int maxHealth = (int) (Math.random() * 6 + 12); //12-17
         int currentHealth = maxHealth;  // start at full health
-        int damageResistance = 0;       // example damage resistance
+        int damageResistance = 3;       // example damage resistance
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
         int attackPower = (int) (Math.random() * 10 + 8);
@@ -2880,6 +2953,69 @@ public class Game {
 
         return new Mob("MuteBandit", muteHeath, attackPower, isAggro, drop);
     }
+
+
+    private static Mob createWolfWithRandomStats(List<String> drop) {
+        int maxHealth = (int) (Math.random() * 15 + 6); //6-20
+        int currentHealth = maxHealth;
+        int damageResistance = 0;
+        Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
+
+        int attackPower = (int) (Math.random() * 13 + 5);
+        boolean isAggro = true;
+
+        if (drop.isEmpty()){
+            if ((int)(Math.random() * 3 + 1) != 1){
+                drop.add("wolfs bane");
+            }
+        }
+
+        return new Mob("Wolf", muteHeath, attackPower, isAggro, drop);
+    }
+
+    private static Mob createWolfWitchWithRandomStats(List<String> drop) {
+        int maxHealth = (int) (Math.random() * 10 + 4); //4-20
+        int currentHealth = maxHealth;
+        int damageResistance = 1;
+        Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
+
+        int attackPower = (int) (Math.random() * 20 + 10);
+        boolean isAggro = false;
+
+        if (drop.isEmpty()){
+            if ((int)(Math.random() * 3 + 1) != 1){
+                drop.add("raven eye");
+            }
+        }
+
+        return new Mob("Wolf Witch", muteHeath, attackPower, isAggro, drop);
+    }
+
+    private static Mob createBloodWitchWithRandomStats(List<String> drop) {
+        int maxHealth = (int) (Math.random() * 15 + 9); //4-20
+        int currentHealth = maxHealth;
+        int damageResistance = 2;
+        Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
+
+        int attackPower = (int) (Math.random() * 25 + 15);
+        boolean isAggro;
+        if ((int)(Math.random() * 2) == 0) {
+            isAggro = false;
+        }
+        else {
+            isAggro = true;
+        }
+
+        if (drop.isEmpty()){
+            if ((int)(Math.random() * 3 + 1) != 1){
+                drop.add("blood vial");
+            }
+        }
+
+        return new Mob("Blood Witch", muteHeath, attackPower, isAggro, drop);
+    }
+
+
 
 
     public static void combat(Player player, Mob mob, Hub inRoom, XpLv playerStats, Equipment equipment) {
@@ -3565,7 +3701,13 @@ public class Game {
         }
     }
 
-    public static List<String> cauldron(List<String> invin){
+    public static List<String> cauldron(List<String> invin, Player player){
+
+        if (player.QUESTS.get("SQ4") == null){
+            Player.QUESTS.put("SQ4", new Quest("SQ4", "Craft Wolfs Bane Potion", 2, "wolfs bane potion", 1, 200, 30));
+            System.out.println("[[ YOU'VE UNLOCKED A QUEST ]]");
+            System.out.println("");
+        }
 
         List<String> craftable = new ArrayList<>();
         craftable.add("wolfs bane potion");
