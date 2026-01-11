@@ -73,6 +73,8 @@ public class Game {
 
     public static volatile LocalTime changeTime = null; //when change happened
 
+    public static volatile boolean fighting = false;
+
     public static volatile int nightCounter = 0; // true = day, false = night
 
 
@@ -118,7 +120,7 @@ public class Game {
         @Override
         public void run() {
 
-            if (!scannerOrNo) { // SCANNER IS ACTIVE - HOLD LATEST CHANGES
+            if (!scannerOrNo || fighting == true) { // SCANNER IS ACTIVE - HOLD LATEST CHANGES
                 timeChange = timeOfDay ? "day" : "night";
                 changeTime = LocalTime.now();
                 timeOfDay = !timeOfDay;
@@ -1716,9 +1718,13 @@ public class Game {
 
                                     player.setInCombat(true);
 
+                                    fighting = true;
+
                                     combatNpc(player, mob, inRoom, playersStats);
 
                                     player.setInCombat(false);
+
+                                    fighting = false;
 
                                     mobbo = true;
 
@@ -1736,9 +1742,13 @@ public class Game {
 
                                     player.setInCombat(true);
 
+                                    fighting = true;
+
                                     combatGuard(player, mob, inRoom, playersStats, existingItems);
 
                                     player.setInCombat(false);
+
+                                    fighting = false;
 
                                     mobbo = true;
 
@@ -1757,9 +1767,13 @@ public class Game {
 
                                     player.setInCombat(true);
 
+                                    fighting = true;
+
                                     combat(player, mob, inRoom, playersStats, equipment);
 
                                     player.setInCombat(false);
+
+                                    fighting = false;
 
                                     mobbo = true;
 
@@ -1777,9 +1791,13 @@ public class Game {
 
                                     player.setInCombat(true);
 
+                                    fighting = true;
+
                                     combatBoss(player, boss, inRoom, playersStats, existingItems, equipment.getEquippedItems(), equipment);
 
                                     player.setInCombat(false);
+
+                                    fighting = false;
 
                                     mobbo = true;
 
