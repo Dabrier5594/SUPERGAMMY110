@@ -3,10 +3,13 @@ import java.util.*;
 import java.util.regex.Pattern;import java.util.Timer;
 import java.util.TimerTask;
 
-
+//NOTE TO EVERYONE!!
+// WHENEVER YOU CREATE ANYTHING (ITEM, NPC, ANYTHING that can be INTERACTED with), YOU MUST ADD IT TO OBJECTS!!!
+// FOR ITEMS: AFTER YOU MAKE THEM. YOU MUST ADD THEM TO EXISTINGITEMS LIST. (SEE WHERE I MADE ALL THE ITEMS w/ "new Item" in search
+//
 //                    NOTES FOR IMPROVEMENTS:
 
-// can move without killing boss
+//
 
 //checkovs gun bonus stuff too!!!!
 
@@ -62,6 +65,64 @@ public class Game {
         INSPECT_DESCRIPTIONS.put("firstville guards helm", "A steel helm with the Firstville crest. Offers good protection and limited vision.");
         INSPECT_DESCRIPTIONS.put("firstville guards boots", "Heavy boots that clank with every step. Ideal for patrols, not stealth missions.");
         INSPECT_DESCRIPTIONS.put("firstville guards legs", "Solid metal greaves made to withstand a goblin’s blade or a villager’s kick.");
+        INSPECT_DESCRIPTIONS.put("inventory", "Your personal collection of items. A true adventurer's hoard—or junk pile.");
+        INSPECT_DESCRIPTIONS.put("admin sword", "A legendary blade glowing with unnatural power. Clearly not meant for mortals.");
+        INSPECT_DESCRIPTIONS.put("forest devil", "A twisted forest guardian with eyes like burning coals. The woods themselves seem to fear it.");
+        INSPECT_DESCRIPTIONS.put("oliver", "A stern guard with a merchant's cunning. His armor gleams, but his eyes are sharper.");
+        INSPECT_DESCRIPTIONS.put("trap", "A crude but effective snare. Rusty spikes and pressure plates promise pain to the unwary.");
+        INSPECT_DESCRIPTIONS.put("bear claw", "A massive claw from a fearsome bear. Still faintly warm, stained with old blood.");
+        INSPECT_DESCRIPTIONS.put("bear amulet", "A crude bone pendant carved with bear motifs. Smells faintly of musk and wilderness.");
+        INSPECT_DESCRIPTIONS.put("wolfbane", "A bundle of toxic purple flowers. Even the scent makes wolves howl and retreat.");
+        INSPECT_DESCRIPTIONS.put("raven eye", "A polished black gem that seems to watch you. Perfect for unsettling your enemies.");
+        INSPECT_DESCRIPTIONS.put("blood vial", "A small glass vial filled with thick, dark blood. Still warm—what kind of creature bled this?");
+        INSPECT_DESCRIPTIONS.put("cauldron", "A dented iron pot bubbling with someones failed creation.");
+
+    }
+
+    public static final Map<String, String> COMBAT_DESCRIPTIONS = new HashMap<>();
+
+    // COMBAT DESCRIPTIONS
+    static {
+        // --- Goblin ---
+        COMBAT_DESCRIPTIONS.put("goblin_attack", "The goblin lunges with a rusty dagger, screeching for your blood!");
+        COMBAT_DESCRIPTIONS.put("goblin_death", "The goblin collapses with a guttural cry. Its dagger clatters to the ground.");
+
+        // --- Rabbit ---
+        COMBAT_DESCRIPTIONS.put("rabbit_attack", "The rabbit charges you head-on. It’s… strangely fierce?");
+        COMBAT_DESCRIPTIONS.put("rabbit_death", "The rabbit lies still. You can’t help but feel a little guilty.");
+
+        // --- Chicken ---
+        COMBAT_DESCRIPTIONS.put("chicken_attack", "The chicken flaps and pecks wildly, a blur of feathers and rage.");
+        COMBAT_DESCRIPTIONS.put("chicken_death", "The chicken topples over dramatically. Dinner, anyone?");
+
+        // --- Squirrel ---
+        COMBAT_DESCRIPTIONS.put("squirrel_attack", "The squirrel leaps onto your shoulder, scratching like mad!");
+        COMBAT_DESCRIPTIONS.put("squirrel_death", "The squirrel collapses, tiny claws still clutching a nut.");
+
+        // --- Forest Boss ---
+        COMBAT_DESCRIPTIONS.put("forest_boss_attack", "The Forest Boss roars, slamming a root-covered fist into the ground as vines lash toward you!");
+        COMBAT_DESCRIPTIONS.put("forest_boss_defend", "You duck as thorned branches whip past—each one sharp enough to tear armor apart.");
+        COMBAT_DESCRIPTIONS.put("forest_boss_death", "The beast lets out a shrill, echoing cry before collapsing. The forest falls eerily silent.");
+
+        // --- Gate Guardian ---
+        COMBAT_DESCRIPTIONS.put("gate_guardian_attack", "The massive guardian raises a stone blade, bringing it down with earth-shaking force!");
+        COMBAT_DESCRIPTIONS.put("gate_guardian_defend", "Your weapon bounces off the guardian’s iron plating—it barely notices.");
+        COMBAT_DESCRIPTIONS.put("gate_guardian_death", "Cracks spread across the guardian’s body before it crumbles into rubble.");
+
+        // --- Corrupted Knight ---
+        COMBAT_DESCRIPTIONS.put("corrupted_knight_attack", "The corrupted knight swings in a brutal arc, his armor groaning as midnight light trails behind his blade!");
+        COMBAT_DESCRIPTIONS.put("corrupted_knight_defend", "You parry his dark blade. The shock runs through your arms like ice.");
+        COMBAT_DESCRIPTIONS.put("corrupted_knight_death", "The knight falls to one knee. As the darkness leaves his eyes, he whispers, 'Free... at last.'");
+
+        // --- Ancient Spirit ---
+        COMBAT_DESCRIPTIONS.put("ancient_spirit_attack", "The air chills as the spirit’s ethereal claw swipes through your defenses.");
+        COMBAT_DESCRIPTIONS.put("ancient_spirit_defend", "Your weapon passes through mist. The spirit reforms behind you silently.");
+        COMBAT_DESCRIPTIONS.put("ancient_spirit_death", "A sigh echoes as the spirit fades, scattering into faint motes of light.");
+
+        // --- Thornbeast ---
+        COMBAT_DESCRIPTIONS.put("thornbeast_attack", "The Thornbeast lunges, its spiked limbs tearing through the air!");
+        COMBAT_DESCRIPTIONS.put("thornbeast_defend", "You roll aside as vines whip dangerously close.");
+        COMBAT_DESCRIPTIONS.put("thornbeast_death", "The creature falls apart into a pile of withered vines and thorns.");
     }
 
     // OTHER CLASS SCOPE VARIABLES!
@@ -721,7 +782,8 @@ public class Game {
         existingItems.add(FirstVilleLegs);
         Item FirstVilleBoots = new Item("firstville guards boots", "boots", false, null);
         existingItems.add(FirstVilleBoots);
-
+        Item copperSword = new Item("Copper Sword", "melee", true, null);
+        existingItems.add(copperSword);
 
 
         //Boss Drops
@@ -734,21 +796,22 @@ public class Game {
 
         FirstShopOwner baggerOwner = new FirstShopOwner("copper", "Bagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
         Hub.FirstVilleShop baggerShop = new Hub("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and an anvil sits in a corner. Bagger watches you closely.\n").new FirstVilleShop("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and an anvil sits in a corner. Ragger watches you closely. \nEXITS: (S)", baggerOwner);
-        Item copperSword = new Item("Copper Sword", "melee", true, null);
         baggerShop.addStock(copperSword, 20);
         baggerShop.addStock(sickles, 30);
         baggerOwner.setMyShop(baggerShop);
         baggerShop.getFirstShopOwners().add(baggerOwner);
-        baggerShop.setExit("w", firstVilleLane2);
-        firstVilleLane2.setExit("e", baggerShop);
+
 
 
         FirstShopOwner laggerOwner = new FirstShopOwner("copper", "Lagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
-        Hub.FirstVilleShop laggerShop = new Hub("Bagger's brother in law's Armory Shop (LAGGER)", "Cluttered shelves hold weapons and armor. Lagger starts washing a new helmet.\n").new FirstVilleShop("Bagger's brother in law's Armory Shop (LAGGER)", "Cluttered shelves hold weapons and armor. Lagger starts washing a new helmet.\nEXITS: (S)", laggerOwner);
+        Hub.FirstVilleShop laggerShop = new Hub("Bagger's brother in law's Armory Shop (LAGGER)", "Cluttered shelves hold weapons and armor. Lagger is washing a new helmet.\n").new FirstVilleShop("Bagger's brother in law's Armory Shop (LAGGER)", "Cluttered shelves hold weapons and armor. Lagger is washing a new helmet.\nEXITS: (S)", laggerOwner);
         laggerShop.addStock(knightHelmet,15);
         laggerShop.addStock(knightLeggings,25);
         laggerShop.addStock(knightChest,30);
         laggerShop.addStock(knightBoots,15);
+        laggerOwner.setMyShop(laggerShop);
+        laggerShop.getFirstShopOwners().add(laggerOwner);
+
 
         //Shop Exits
         firstVilleLane4.setExit("s", baggerShop);
@@ -766,7 +829,7 @@ public class Game {
         firstVilleGate.getGuard().add(Oliver);
 
 
-        Story(forest49, existingItems, equipment);
+        Story(cave, existingItems, equipment);
 
     }
 
@@ -881,6 +944,7 @@ public class Game {
         objects.add("white whispberry");
         objects.add("oliver");
         objects.add("bagger");
+        objects.add("lagger");
         objects.add("ragger");
         objects.add("gate");
         objects.add("trap");
@@ -1033,16 +1097,20 @@ public class Game {
                 System.out.print("Enter target room\n-> ");
                 String gotoRoomBlah = scanner.nextLine();
                 if (gotoRoomBlah != null) {
-                    if (!gotoRoomBlah.equalsIgnoreCase("d")) {
+                    if (!gotoRoomBlah.equalsIgnoreCase("d") && !gotoRoomBlah.equalsIgnoreCase("g")) {
                         inRoom = Hub.get(gotoRoomBlah);
                         System.out.println("Boom. You're There.");
 
-                    } else {
+                    } else if (gotoRoomBlah.equalsIgnoreCase("d")) {
                         System.out.println("Code accepted.");
+                    } else if (gotoRoomBlah.equalsIgnoreCase("g")) {
+                        inRoom = Hub.get("Gate of FirstVille");
+                        System.out.println("You are at the gate.");
                     }
 
                 }
 
+                System.out.println(inRoom.getObjects());
                 for (int i = 0; i < 200; i++) {
                     inRoom.getObjects().add("gold");
                 }
@@ -3134,6 +3202,8 @@ public class Game {
 
         }
 
+        String mobKey = mob.getName().toLowerCase();
+
         while (!player.getHealth().isDead() && !mob.getHealth().isDead()) {
 
             if (!inRoom.containsMob(mob)) {
@@ -3190,6 +3260,9 @@ public class Game {
             }
 
             if (mob.getHealth().isDead()) {
+                String deathKey = (mobKey + "_death").toLowerCase();
+                describeCombat(deathKey);
+
                 System.out.println("The " + mob.getName() + " has died at your hands. \n");
 
                 playerStats.addXp(playerStats.calculateXp(mob.getName()));
@@ -3215,6 +3288,9 @@ public class Game {
                 }
                 break;
             } else {
+
+                String attackKey = (mobKey + "_attack").toLowerCase();
+                describeCombat(attackKey);
 
                 mob.attack(player);
                 System.out.println("");
@@ -3808,6 +3884,12 @@ public class Game {
         }
         else {
             System.out.println("You look closer at the " + itemName + ", but nothing special stands out.");
+        }
+    }
+
+    public static void describeCombat(String key) {
+        if (COMBAT_DESCRIPTIONS.containsKey(key)) {
+            System.out.println(COMBAT_DESCRIPTIONS.get(key));
         }
     }
 
