@@ -15,25 +15,23 @@ public class Boss {
 
     private List<String> drops;//what the boss drops
 
-    private List<MobSkill> skills = new ArrayList<>();
-
     private boolean isAgrro = true;
 
     private int bossLevel;//could be used for later if we want to add boss levels as the player progresses
 
     private boolean isDead = false;
 
-    public Boss(String name, int maxHealth, int health, int power, int damageResistance, String description, List<String> drops) {
+    List<MobSkill> skills;
 
+    public Boss(String name, int maxHealth, int health, int power, int damageResistance, String description, List<String> drops) {
         this.name = name;
         this.health = new Health(maxHealth, health, damageResistance);
         this.attackPower = power;
         this.description = description;
         this.drops = drops;
-        this.skills = skills;
-
-
+        this.skills = new ArrayList<>();
     }
+
 
     public void displayStats(Boss boss) {
         System.out.println("=== Boss Stats ===");
@@ -78,27 +76,51 @@ public class Boss {
         if (getStunned()) {
             System.out.println("The GREAT " + name + " is stunned and skips its turn!");
             setStunned(false);
-            // Reset stun after skipping one turn
-
+            return;
         }
 
-        else {
+        int roll = (int)(Math.random() * 10);
 
-            System.out.println("The GREAT " + name + " attacks you for " + attackPower + " damage!");
+        if (roll < 11) {
+            // Try VineSkill first
+            for (MobSkill skill : skills) {
+                if (skill.getName().equals("VineSkill")) {
+                    if (skill.getCurrentCooldown() <= 0) {
+                        ((MobSkill.VineSkill)skill).apply(player, this, eqI, eq);
 
-            player.getHealth().takeDamage(attackPower);
-            MobSkill.VineSkill.apply(player, this, eqI, eq);
-            MobSkill.StunSkill.apply(player, this);
-
+                    }
+                }
+            }
         }
+        if (roll < 11) {
+            // Try StunSkill second
+            for (MobSkill skill : skills) {
+                if (skill.getName().equals("StunSkill")) {
+                    if (skill.getCurrentCooldown() <= 0) {
+                        ((MobSkill.StunSkill)skill).apply(player, this);
+
+                    }
+                }
+            }
+        }
+
+        System.out.println("The GREAT " + name + " attacks you for " + attackPower + " damage!");
+        player.getHealth().takeDamage(attackPower);
 
     }
-    public void drops(List<String> drops){
 
+
+
+    public void drops(List<String> drops){
+        this.drops = drops;
     }
 
     public List<MobSkill> getSkills(){
         return skills;
+    }
+
+    public void addSkills(MobSkill skill){
+        skills.add(skill);
     }
 
     public List<String> getDrops(){

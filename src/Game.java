@@ -669,9 +669,14 @@ public class Game {
         forest47.getMOBS().add(goblin);
 
         stuff.add("thorn shield");
-        List<MobSkill> skillsForestDevil = new ArrayList<>();
         Boss forestDevil = new Boss("forest devil", 80, 80, 8, 3, "Fierce ForestDevil's hate to be interrupted, you get the devil's stick eye. His forest embraced body curves and twists, branches stick out from nowhere. \nThe number 3 is engraved on his body in stones that seem to glow.", stuff);
-        forestDevil.getSkills().add(new MobSkill.StunSkill("Stun", 3));
+        MobSkill stunSkill = new MobSkill.StunSkill("StunSkill", 3);
+        forestDevil.addSkills(stunSkill);
+        MobSkill vineSkill = new MobSkill.VineSkill("VineSkill", 3);
+        forestDevil.addSkills(vineSkill);
+        for (MobSkill a : forestDevil.getSkills()){
+            System.out.println(a.getName());
+        }
         stuff.remove("thorn shield");
         forest50.getBoss().add(forestDevil);
 
@@ -761,6 +766,7 @@ public class Game {
         //List of verbs
         List<String> verbs = new ArrayList<>();
         verbs.add("move");
+        verbs.add("fight");
         verbs.add("use");
         verbs.add("go");
         verbs.add("pick up");
@@ -943,6 +949,7 @@ public class Game {
 
         List<String> kill = new ArrayList<>();
         kill.add("kill");
+        kill.add("fight");
 
         List<String> attack = new ArrayList<>();
         attack.add("attack");
@@ -1000,6 +1007,7 @@ public class Game {
                 String setReist = scanner.nextLine().trim();
                 try {
                     player.getHealth().setMaxHealth(Integer.parseInt(setHealthMAX));
+                    player.getHealth().setHeealth(player.getHealth().getMaxHealth());
                     player.setAttackPower(Integer.parseInt(setDamage));
                     player.getHealth().setDamageResistance(Integer.parseInt(setReist));
                 } catch (NumberFormatException e) {
