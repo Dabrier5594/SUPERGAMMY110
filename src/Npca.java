@@ -185,7 +185,7 @@ class FirstShopOwner extends Npca {
         for (int i = 0; i < stockList.size(); i++) {
             Map.Entry<Item, Integer> entry = stockList.get(i);  // GET ith entry!
             System.out.println((i + 1) + ") " + entry.getKey().getName() +
-                    ": " + entry.getValue() + " copper");
+                    ": " + entry.getValue() + " " + currency);
         }
 
         System.out.print("Which item? (number) - ");
@@ -219,7 +219,7 @@ class FirstShopOwner extends Npca {
                     invin.remove(currency);
                 }
                 invin.add(chosen.getName());  // add to inventory
-                System.out.println("Bought " + chosen.getName() + " for " + price + " copper!");
+                System.out.println("Bought " + chosen.getName() + " for " + price + " " + currency + "!");
                 to = 1;
 
 

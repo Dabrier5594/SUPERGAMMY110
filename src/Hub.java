@@ -28,6 +28,17 @@ public class Hub {
 
     }
 
+    public void updateGuildActivity() { }
+
+    public void joinGuild(String name) { }
+
+    public void displayRankingBoard() { }
+
+    public void displayQuestBoard(String name) { }
+
+    public void completeQuest(String name, String id) { }
+
+
     public FirstShopOwner getFirstShopOwners(){return firstShopOwners;}
 
     public void addFirstShopOwner(FirstShopOwner a){firstShopOwners = a;}
@@ -177,46 +188,273 @@ public class Hub {
         }
     }
 
-    public class Guild extends Hub {
-        private List<String> availableQuests;  // quest IDs players can get
-        private Map<String, String> guildMembers; // playerName -> their rank (Noob -> Legend)
+    public class FirstVilleGuild extends Hub {
+        private Map<String, String> guildMembers = new HashMap<>();
+        private List<String> availableQuests = new ArrayList<>();
+        private List<Npca> guildNpcs = new ArrayList<>();
+        private int guildActivityCounter = 0;
 
-        public Guild(String name, String description) {
+        // Ranks: Noob -> Bronze -> Silver -> Gold -> Platinum -> Legend
+        private final String[] RANKS = {"Noob", "Bronze", "Silver", "Gold", "Platinum", "Legend"};
+        private final int MAX_RANK = 5;  // Legend index
+
+        public FirstVilleGuild(String name, String description) {
             super(name, description);
-            this.availableQuests = new ArrayList<>();  // empty quest list to fill later
-            this.guildMembers = new HashMap<>();  // who's in the guild and their rank
+            this.availableQuests = new ArrayList<>();
+            setupGuildNpcs();  // create dynamic NPCs
+            //MOVE TO OBJECTS LIST this.getObjects().add("quest board"); allow to say "use" to use them
+            //MOVE TO OBJECTS LIST this.getObjects().add("ranking podium");
         }
 
-        public void addQuest(String questId) {
-            availableQuests.add(questId);  // adds quest to the board, players see this
-        }
+        private void setupGuildNpcs() {
 
-        public void removeQuest(String questId) {
-            availableQuests.remove(questId);  // adds quest to the board, players see this
-        }
+            String[] rookieLines = {"Haha sucker, they call me the ranking genius!", "I'm a prodigy for a reason!", "What's your rank? Actually, I don't care."};
+            Npca rookie = new Npca("Rookie Kael", "Adventurer", rookieLines, 0, new Health(30,30,0), "", Npca.QuestState.NONE);
+            rookie.setQuestState(Npca.QuestState.COMPLETED);  // starts ranked
+            guildNpcs.add(rookie);
+            guildMembers.put("Chicken Trevor", "Bronze");
 
-        public List<String> getAvailableQuests() {
-            return new ArrayList<>(availableQuests);  // copy so they can't hack the quest list
+            String[] vetLines = {"Gold rank took me 20 quests. Beat that.", "Platinum quests are brutal.", "Show me your rank card."};
+            Npca veteran = new Npca("Vet Mira", "Adventurer", vetLines, 0, new Health(50,50,0), "", Npca.QuestState.NONE);
+            guildNpcs.add(veteran);
+            guildMembers.put("Rapid Winny", "Gold");
+
+            String[] mysteryLines = {"...", "I rank up silently.", "Watch and learn."};
+            Npca mystery = new Npca("Silent Jax", "Adventurer", mysteryLines, 0, new Health(40,40,0), "", Npca.QuestState.NONE);
+            guildNpcs.add(mystery);
+            guildMembers.put("Silent Jax", "Silver");
         }
 
         public void joinGuild(String playerName) {
-            guildMembers.put(playerName, "Novice");  // new guy starts at bottom, grind time!
-            System.out.println(playerName + " joined the guild as Novice!");
+            if (!guildMembers.containsKey(playerName)) {
+                guildMembers.put(playerName, "Noob");
+                System.out.println(playerName + " joined FirstVille Guild as Noob! Welcome!");
+                displayWelcomeMessage();
+            } else {
+                System.out.println("You're already in the guild, " + playerName + "!");
+            }
         }
 
-        public void displayQuestBoard() {
-            System.out.println("🏛GUILD QUEST BOARD");
-            if (availableQuests.isEmpty()) {
-                System.out.println("No quests right now... come back later!");
+        public String getPlayerRank(String playerName) {
+            return guildMembers.getOrDefault(playerName, "Noob");
+        }
+
+        public void displayRankingBoard() {
+            System.out.println("=== FIRSTVILLE GUILD RANKINGS ===");
+            List<Map.Entry<String, String>> sortedMembers = new ArrayList<>(guildMembers.entrySet());
+
+            for (int i = 0; i < sortedMembers.size(); i++) {
+                for (int j = 0; j < sortedMembers.size() - 1; j++) {
+                    if (getRankIndex(sortedMembers.get(j).getValue()) < getRankIndex(sortedMembers.get(j+1).getValue())) {
+                        Collections.swap(sortedMembers, j, j+1);
+                    }
+                }
+            }
+            for (Map.Entry<String, String> member : sortedMembers) {
+                System.out.println("- " + member.getValue() + ": " + member.getKey());
+            }
+            System.out.println("================================");
+
+
+        }
+
+        public void updateGuildActivity() {
+            guildActivityCounter++;
+            if (guildActivityCounter % 5 == 0) {  // Every 5 "turns", NPCs grind
+                for (Npca npc : guildNpcs) {
+                    String npcName = npc.getName();
+                    int npcRankIndex = getRankIndex(guildMembers.get(npcName));
+                    if (npcRankIndex < MAX_RANK && (int) (Math.random() * 100) < 100) {  // 10% rank up chance
+                        String newRank = RANKS[npcRankIndex + 1];
+                        guildMembers.put(npcName, newRank);
+                        System.out.println(npcName + " ranked up to " + newRank + " while you were away!");
+                    }
+                }
+            }
+        }
+
+
+            public void displayQuestBoard(String playerName) {
+            String rank = getPlayerRank(playerName);
+            int rankLevel = getRankIndex(rank);
+
+            System.out.println("FIRSTVILLE GUILD QUEST BOARD (Rank: " + rank + ")");
+            List<String> rankQuests = getQuestsForRank(rankLevel);
+
+            if (rankQuests.isEmpty()) {
+                System.out.println("No quests for your rank yet! Grind to rank up!");
             } else {
-                for (int i = 0; i < availableQuests.size(); i++) {
-                    // shows numbered quests, makes it easy to pick one
-                    System.out.println((i+1) + ". " + availableQuests.get(i));
+                for (int i = 0; i < rankQuests.size(); i++) {
+                    System.out.println((i+1) + ". " + rankQuests.get(i));
                 }
             }
             System.out.println("Talk to guild master to accept quests!");
         }
+
+        private List<String> getQuestsForRank(int rankLevel) {
+            List<String> quests = new ArrayList<>();
+            // Quest unlock progression: higher rank = harder quests
+            if (rankLevel >= 0) quests.add("GQ1: Goblin Hunt (3 goblins)");      // Noob
+            if (rankLevel >= 1) quests.add("GQ2: Forest Patrol (5 twigs)");      // Bronze
+            if (rankLevel >= 2) quests.add("GQ3: Bear Claw Hunt");               // Silver
+            if (rankLevel >= 3) quests.add("GQ4: Guard Assist");                 // Gold
+            if (rankLevel >= 4) quests.add("GQ5: Bandit Leader");                // Platinum
+            if (rankLevel >= 5) quests.add("GQ6: Forest Boss");                  // Legend
+            return quests;
+        }
+
+        public void completeQuest(String playerName, String questId) {
+
+            String rank = getPlayerRank(playerName);
+            int currentRank = getRankIndex(rank);
+
+            guildActivityCounter++;
+            if (guildActivityCounter % 3 == 0 && currentRank < MAX_RANK) {  // Every 3rd quest completion chance to rank up
+                String newRank = RANKS[currentRank + 1];
+                guildMembers.put(playerName, newRank);
+                System.out.println(playerName + " ranked up to " + newRank + "! New quests unlocked!");
+            }
+            System.out.println("Quest '" + questId + "' completed! Check rankings.");
+        }
+
+        private int getRankIndex(String rank) {
+            for (int i = 0; i < RANKS.length; i++) {
+                if (RANKS[i].equalsIgnoreCase(rank)) return i;
+            }
+            return 0;
+        }
+
+        private void displayWelcomeMessage() {
+            System.out.println("Guild Master: Welcome to FirstVille Guild! Complete quests to rank up from Noob to Legend.");
+            System.out.println("- 'rankings' to see leaderboards");
+            System.out.println("- 'quests' to see your available quests");
+        }
     }
+
+
+    public class CurrencyExchangeBooth extends Hub {
+
+        public CurrencyExchangeBooth(String name, String description) {
+            super(name, description);
+            this.getObjects().add("exchange booth");
+        }
+
+        public void exchangeCurrency(Player player, List<String> inventory) {
+            System.out.println("=== CURRENCY EXCHANGE ===");
+
+            // Count money in inventory
+            int copperCount = 0, silverCount = 0, goldCount = 0;
+            for (String item : inventory) {
+                if (item.equals("copper")) copperCount++;
+                if (item.equals("silver")) silverCount++;
+                if (item.equals("gold")) goldCount++;
+            }
+
+            System.out.println("You have: " + copperCount + " copper, " + silverCount + " silver, and " + goldCount + " gold");
+            System.out.println("Rates: 5 copper = 1 silver || 10 silver = 1 gold");
+            System.out.println("[1] Copper to Silver  [2] Silver to Copper");
+            System.out.println("[3] Silver to Gold    [4] Gold to Silver  [5] Leave");
+            System.out.print("Choose: ");
+
+            String choice = Game.scanner.nextLine();
+
+            if (choice.equals("1")) {
+                copperToSilver(inventory);
+            } else if (choice.equals("2")) {
+                silverToCopper(inventory);
+            } else if (choice.equals("3")) {
+                silverToGold(inventory);
+            } else if (choice.equals("4")) {
+                goldToSilver(inventory);
+            } else {
+                System.out.println("Adios, if you aren't gonna trade, you got no place here!");
+                return;
+            }
+
+            exchangeCurrency(player, inventory);  // Back to menu
+        }
+
+        private void copperToSilver(List<String> inventory) {
+            System.out.print("How much copper? (multiples of 5): ");
+            String input = Game.scanner.nextLine();
+            int amount = Integer.parseInt(input);
+
+            if (hasCurrency(inventory, "copper", amount) && amount % 5 == 0) {
+                int silver = amount / 5;
+                removeCurrency(inventory, "copper", amount);
+                addCurrency(inventory, "silver", silver);
+                System.out.println("Got " + silver + " silver!");
+            } else {
+                System.out.println("Trade has failed. Please try again, remember to follow trade rules!");
+            }
+        }
+
+        private void silverToCopper(List<String> inventory) {
+            System.out.print("How much silver? ");
+            String input = Game.scanner.nextLine();
+            int amount = Integer.parseInt(input);
+
+            if (hasCurrency(inventory, "silver", amount)) {
+                int copper = amount * 5;
+                removeCurrency(inventory, "silver", amount);
+                addCurrency(inventory, "copper", copper);
+                System.out.println("Got " + copper + " copper!");
+            } else {
+                System.out.println("Not enough silver!");
+            }
+        }
+
+        private void silverToGold(List<String> inventory) {
+            System.out.print("How much silver? (multiples of 10): ");
+            String input = Game.scanner.nextLine();
+            int amount = Integer.parseInt(input);
+
+            if (hasCurrency(inventory, "silver", amount) && amount % 10 == 0) {
+                int gold = amount / 10;
+                removeCurrency(inventory, "silver", amount);
+                addCurrency(inventory, "gold", gold);
+                System.out.println("Got " + gold + " gold!");
+            } else {
+                System.out.println("Trade has failed. Please try again, remember to follow trade rules!");
+            }
+        }
+
+        private void goldToSilver(List<String> inventory) {
+            System.out.print("How much gold? ");
+            String input = Game.scanner.nextLine();
+            int amount = Integer.parseInt(input);
+
+            if (hasCurrency(inventory, "gold", amount)) {
+                int silver = amount * 10;
+                removeCurrency(inventory, "gold", amount);
+                addCurrency(inventory, "silver", silver);
+                System.out.println("Got " + silver + " silver!");
+            } else {
+                System.out.println("Not enough gold!");
+            }
+        }
+
+        private boolean hasCurrency(List<String> inventory, String currency, int amount) {
+            int count = 0;
+            for (String item : inventory) {
+                if (item.equals(currency)) count++;
+            }
+            return count >= amount;
+        }
+
+        private void removeCurrency(List<String> inventory, String currency, int amount) {
+            for (int i = 0; i < amount; i++) {
+                inventory.remove(currency);
+            }
+        }
+
+        private void addCurrency(List<String> inventory, String currency, int amount) {
+            for (int i = 0; i < amount; i++) {
+                inventory.add(currency);
+            }
+        }
+    }
+
 
 
 }

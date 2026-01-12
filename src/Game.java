@@ -619,7 +619,16 @@ public class Game {
         firstVilleLane4.setExit("n", firstVilleLane5);
 
 
+        // GUILDS
 
+        Hub.FirstVilleGuild firstVilleGuild = new Hub("FirstVille Guild Hall", "The legendary FirstVille Guild Hall. Heroes gather here to prove their worth through quests and rankings.").new FirstVilleGuild("FirstVille Guild Hall", "The legendary FirstVille Guild Hall. Heroes gather here to prove their worth through quests and rankings.");
+        firstVilleSquare.setExit("w", firstVilleGuild);
+        firstVilleGuild.setExit("e", firstVilleSquare);
+
+        //EXCHANGE BOOTHS
+
+        Hub.CurrencyExchangeBooth exchangeBooth = new Hub("Exchange Booth", "A booth for trading currencies. Perfect for merchants.").new CurrencyExchangeBooth("Exchange Booth", "A booth for trading currencies. Perfect for merchants.");
+        exchangeBooth.getObjects().add("exchange booth");
 
         //Doors!!!!
         Door caveDoor = new Door(caveNW, forest1, false);
@@ -792,6 +801,18 @@ public class Game {
         //forest boss
 
         //NPCS
+
+        String[] guildMasterLines = {
+                "Welcome to FirstVille Guild! Say 'join' to join as Noob rank.",
+                "Say 'rankings' to see leaderboards.",
+                "Say 'quests' to see quests for your rank.",
+                "Say 'complete [QUESTID]' after finishing a quest."
+        };
+
+        Npca guildMaster = new Npca("Tragger", "Guild Master", guildMasterLines, 0, new Health(100,100,0), "", Npca.QuestState.NONE);
+        firstVilleGuild.getNpc().add(guildMaster);
+
+
         Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock, raggerH, 2, "SQ0", Npca.QuestState.NONE);
 
         FirstShopOwner baggerOwner = new FirstShopOwner("copper", "Bagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
@@ -800,7 +821,6 @@ public class Game {
         baggerShop.addStock(sickles, 30);
         baggerOwner.setMyShop(baggerShop);
         baggerShop.addFirstShopOwner(baggerOwner);
-
 
         FirstShopOwner laggerOwner = new FirstShopOwner("copper", "Lagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
         Hub.FirstVilleShop laggerShop = new Hub("Bagger's brother in law's Armory Shop (LAGGER)", "Cluttered shelves hold weapons and armor. Lagger is washing a new helmet.\n").new FirstVilleShop("Bagger's brother in law's Armory Shop (LAGGER)", "Cluttered shelves hold weapons and armor. Lagger is washing a new helmet.\nEXITS: (S)", laggerOwner);
@@ -819,7 +839,8 @@ public class Game {
         baggerShop.setExit("w", firstVilleLane2);
         firstVilleLane5.setExit("e", laggerShop);
         laggerShop.setExit("w", firstVilleLane5);
-
+        firstVilleSquare.setExit("e", exchangeBooth);
+        exchangeBooth.setExit("w", firstVilleSquare);
 
 
 
@@ -915,12 +936,17 @@ public class Game {
         southways.add("south");
         southways.add("s");
 
+        List<String> exchange = new ArrayList<>();
+        exchange.add("exchange");
+        exchange.add("booth");
+        exchange.add("exchange booth");
 
         List<String> movements = new ArrayList<>();
         movements.add("go");
         movements.add("move");
 
         List<String> objects = new ArrayList<>();
+        objects.add("exchange");
         objects.add("cabinet");
         objects.add("leaflet");
         objects.add("dagger");
@@ -945,6 +971,7 @@ public class Game {
         objects.add("bagger");
         objects.add("lagger");
         objects.add("ragger");
+        objects.add("tragger");
         objects.add("gate");
         objects.add("trap");
         objects.add("bear claw");
@@ -1399,6 +1426,12 @@ public class Game {
 
                                 cauldron(inventory, player);
 
+                            }
+
+                            if (stringContainsWordFromList(action.toLowerCase(), exchange.toArray(new String [0]))){
+                                if (inRoom instanceof Hub.CurrencyExchangeBooth) {
+                                    ((Hub.CurrencyExchangeBooth)inRoom).exchangeCurrency(player, inventory);
+                                }
                             }
                         }
 
@@ -2176,6 +2209,12 @@ public class Game {
             if (!npcNames.isEmpty()) {
                 npcIfAny(npcNames, "NPC's in room: ");
             }
+
+            if (newRoom.getRoomName().equalsIgnoreCase("FirstVille Guild Hall")) {
+                newRoom.updateGuildActivity();  // NPCs rank up automatically
+                System.out.println("\nGuild Master Tragger shouts: 'Talk to me for guild services!'");
+            }
+
 
             return newRoom; // Return the new Hub object (room)
 
@@ -3825,13 +3864,65 @@ public class Game {
     }
 
     public static void talkNpc(Hub inRoom, List<String> inventory, XpLv playerStats, Npca npc, Player player) {
-        npc.sayLine(0);
-        scanner.nextLine();
 
-        npc.sayLine(1);
-        scanner.nextLine();
+        if (npc.getName().equalsIgnoreCase("Tragger")) {
+            System.out.println("GuildMaster Tragger (Guild Master) says: What do you want?");
+            System.out.println("[1] Join Guild [2] View Rankings [3] View Quests [4] Report Quest [5] Accept Quest");
+            System.out.print("-> ");
 
-        npc.sayLine(2);
+            String choice = Game.scanner.nextLine().trim();
+
+            if (choice.equals("1")) {
+                inRoom.joinGuild(player.getName());
+            }
+            else if (choice.equals("2")) {
+                inRoom.displayRankingBoard();
+            }
+            else if (choice.equals("3")) {
+                inRoom.displayQuestBoard(player.getName());
+            }
+            else if (choice.equals("4")) {
+
+                System.out.println("\n=== YOUR QUESTS ===");
+                for (Map.Entry<String, Quest> entry : Player.QUESTS.entrySet()) {
+                    Quest q = entry.getValue();
+                    if (q.getId().startsWith("GQ")) {  // Only guild quests
+                        System.out.println("- " + q.status());
+                    }
+                }
+
+                System.out.print("\nWhich COMPLETED guild quest to report? (GQ1, GQ2, etc): ");
+                String questId = Game.scanner.nextLine().trim();
+
+                Quest quest = Player.QUESTS.get(questId);
+                if (quest != null && quest.isDone()) {
+                    inRoom.completeQuest(player.getName(), questId);
+                    System.out.println("Quest verified! Rewards logged with guild.");
+                } else {
+                    System.out.println("ERROR: Quest not found or not completed! Complete it first.");
+                }
+            }
+            else if (choice.equals("5")) {
+
+            // ALLOW ACCPETING QUESTS HERE!!!
+
+            }
+            else {
+                System.out.println("GuildMaster Tragger: 'Choose 1-4 or leave me alone!'");
+            }
+        }
+
+        else {
+            npc.sayLine(0);
+            scanner.nextLine();
+
+            npc.sayLine(1);
+            scanner.nextLine();
+
+            npc.sayLine(2);
+        }
+
+
     }
 
     public static List<String> talkShopFirst(Hub inRoom, List<String> inventory, XpLv playerStats, FirstShopOwner npc, Player player) {
