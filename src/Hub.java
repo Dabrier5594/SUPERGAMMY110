@@ -28,6 +28,8 @@ public class Hub {
 
     }
 
+    public void acceptQuests(String playerName, Player player){ }
+
     public void updateGuildActivity() { }
 
     public void joinGuild(String name) { }
@@ -190,7 +192,7 @@ public class Hub {
 
     public class FirstVilleGuild extends Hub {
         private Map<String, String> guildMembers = new HashMap<>();
-        private List<String> availableQuests = new ArrayList<>();
+        private List<Quest> availableQuests = new ArrayList<>();
         private List<Npca> guildNpcs = new ArrayList<>();
         private int guildActivityCounter = 0;
 
@@ -235,6 +237,8 @@ public class Hub {
             }
         }
 
+        public void addQuest(Quest a){ availableQuests.add(a);}
+
         public String getPlayerRank(String playerName) {
             return guildMembers.getOrDefault(playerName, "Noob");
         }
@@ -274,33 +278,109 @@ public class Hub {
         }
 
 
-            public void displayQuestBoard(String playerName) {
+        public void displayQuestBoard(String playerName) {
             String rank = getPlayerRank(playerName);
             int rankLevel = getRankIndex(rank);
 
             System.out.println("FIRSTVILLE GUILD QUEST BOARD (Rank: " + rank + ")");
-            List<String> rankQuests = getQuestsForRank(rankLevel);
+            List<Quest> rankQuests = getQuestsForRank(rankLevel, availableQuests);
 
             if (rankQuests.isEmpty()) {
                 System.out.println("No quests for your rank yet! Grind to rank up!");
             } else {
                 for (int i = 0; i < rankQuests.size(); i++) {
-                    System.out.println((i+1) + ". " + rankQuests.get(i));
+                    System.out.println((i+1) + ". " + rankQuests.get(i).getName());
                 }
             }
             System.out.println("Talk to guild master to accept quests!");
         }
 
-        private List<String> getQuestsForRank(int rankLevel) {
-            List<String> quests = new ArrayList<>();
-            // Quest unlock progression: higher rank = harder quests
-            if (rankLevel >= 0) quests.add("GQ1: Goblin Hunt (3 goblins)");      // Noob
-            if (rankLevel >= 1) quests.add("GQ2: Forest Patrol (5 twigs)");      // Bronze
-            if (rankLevel >= 2) quests.add("GQ3: Bear Claw Hunt");               // Silver
-            if (rankLevel >= 3) quests.add("GQ4: Guard Assist");                 // Gold
-            if (rankLevel >= 4) quests.add("GQ5: Bandit Leader");                // Platinum
-            if (rankLevel >= 5) quests.add("GQ6: Forest Boss");                  // Legend
-            return quests;
+        public void acceptQuests(String playerName, Player player) {
+
+            String rank = getPlayerRank(playerName);
+            int rankLevel = getRankIndex(rank);
+
+            System.out.println("FIRSTVILLE GUILD QUEST BOARD (Rank: " + rank + ")");
+            List<Quest> rankQuests = getQuestsForRank(rankLevel, availableQuests);
+
+            if (rankQuests.isEmpty()) {
+                System.out.println("No quests for your rank yet!");
+            } else {
+                for (int i = 0; i < rankQuests.size(); i++) {
+                    System.out.println((i+1) + ". " + rankQuests.get(i).getName());
+                }
+            }
+
+            System.out.print("Which item? (number) - ");
+            String answer = Game.scanner.nextLine().trim();
+
+            Quest chosen = null;
+
+            try {
+                int index = Integer.parseInt(answer) - 1;
+                if (index >= 0 && index < rankQuests.size()) {
+                    chosen = rankQuests.get(index);
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Could not accept that QUEST, please try again..");
+                return;
+            }
+
+            player.QUESTS.put(chosen.getId(), chosen);
+            availableQuests.remove(chosen.getId());
+            System.out.println("Remember to come back and check in once you complete a quest!!");
+
+        }
+
+        private List<Quest> getQuestsForRank(int rankLevel, List<Quest> quests) {
+
+            List<Quest> rankBasedQuests = new ArrayList<>();
+
+            if (rankLevel >= 0) { // Noob
+                for (Quest i : quests){
+                    if (i.getId().equalsIgnoreCase("") || i.getId().equalsIgnoreCase("") ){
+                        rankBasedQuests.add(i);
+                    }
+                }
+            }
+            if (rankLevel >= 1) { // bronze
+                for (Quest i : quests){
+                    if (i.getId().equalsIgnoreCase("") || i.getId().equalsIgnoreCase("") ){
+                        rankBasedQuests.add(i);
+                    }
+                }
+            }
+            if (rankLevel >= 2) { // Silver
+                for (Quest i : quests){
+                    if (i.getId().equalsIgnoreCase("") || i.getId().equalsIgnoreCase("") ){
+                        rankBasedQuests.add(i);
+                    }
+                }
+            }
+            if (rankLevel >= 3) { // Gold
+                for (Quest i : quests){
+                    if (i.getId().equalsIgnoreCase("") || i.getId().equalsIgnoreCase("") ){
+                        rankBasedQuests.add(i);
+                    }
+                }
+            }
+            if (rankLevel >= 0) { // Platinum
+                for (Quest i : quests){
+                    if (i.getId().equalsIgnoreCase("") || i.getId().equalsIgnoreCase("") ){
+                        rankBasedQuests.add(i);
+                    }
+                }
+            }
+            if (rankLevel >= 0) { // Legend
+                for (Quest i : quests){
+                    if (i.getId().equalsIgnoreCase("") || i.getId().equalsIgnoreCase("") ){
+                        rankBasedQuests.add(i);
+                    }
+                }
+            }
+
+            return rankBasedQuests;
         }
 
         public void completeQuest(String playerName, String questId) {

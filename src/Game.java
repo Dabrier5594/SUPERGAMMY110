@@ -9,9 +9,9 @@ import java.util.TimerTask;
 //
 //                    NOTES FOR IMPROVEMENTS:
 
-// MAKE SHOPPERS MORE CLEAN (PAYMENT ETC.
+// MAKE SHOPPERS BE ABLE TO BY STUFF
 
-//checkovs gun bonus stuff too!!!!
+// ADD A BUNCH MORE QUESTS FOR THR GUILD
 
 // MAKE SO IF YOU ENTER NOTHING WHEN TALKING TO BAGGER YOU GET ATTACKED.
 
@@ -309,10 +309,10 @@ public class Game {
 
         //QUESTS
 
-        Player.QUESTS.put("MQ1", new Quest("MQ1", "Leave The Cave", 3, "Southern Forest Area #1", 1, 50, 5));  // main quest - go outside cave
-        Player.QUESTS.put("SQ1", new Quest("SQ1", "Kill Goblins", 1, "goblin", 3, 30, 15));                 // side quest - kill 3 goblins
-        Player.QUESTS.put("SQ2", new Quest("SQ2", "Collect Twigs", 2, "twig", 5, 20, 10));                  // side quest - get 5 twigs
-        Player.QUESTS.put("SQ3", new Quest("SQ3", "Go Up Some Stairs", 3, "Abandon House's Upper Room", 1, 40, 25)); // side quest - go upstairs
+        Player.QUESTS.put("MQ1", new Quest("MQ1", "Leave The Cave", 3, "Southern Forest Area #1", 1, 25, 5));  // main quest - go outside cave
+        Player.QUESTS.put("SQ1", new Quest("SQ1", "Kill Goblins", 1, "goblin", 3, 40, 15));                 // side quest - kill 3 goblins
+        Player.QUESTS.put("SQ2", new Quest("SQ2", "Collect Twigs", 2, "twig", 5, 30, 10));                  // side quest - get 5 twigs
+        Player.QUESTS.put("SQ3", new Quest("SQ3", "Go Up Some Stairs", 3, "Abandon House's Upper Room", 1, 80, 25)); // side quest - go upstairs
 
         // TOMS CAVE
 
@@ -622,6 +622,9 @@ public class Game {
         // GUILDS
 
         Hub.FirstVilleGuild firstVilleGuild = new Hub("FirstVille Guild Hall", "The legendary FirstVille Guild Hall. Heroes gather here to prove their worth through quests and rankings.").new FirstVilleGuild("FirstVille Guild Hall", "The legendary FirstVille Guild Hall. Heroes gather here to prove their worth through quests and rankings.");
+        Quest questForGuildOne = new Quest("GQ1", "Goblin Hunt (GQ1)", 1,"Goblin", 3, 30, 10);
+        firstVilleGuild.addQuest(questForGuildOne);
+
         firstVilleSquare.setExit("w", firstVilleGuild);
         firstVilleGuild.setExit("e", firstVilleSquare);
 
@@ -2702,7 +2705,7 @@ public class Game {
                 if (owned.getId().equalsIgnoreCase("leaflet003")){
                     if (player.QUESTS.get("MQ3") == null){
 
-                        Player.QUESTS.put("MQ3", new Quest("MQ3", "Slay Forest Mama Bear", 1, "mama bear", 1, 200, 30));
+                        Player.QUESTS.put("MQ3", new Quest("MQ3", "Slay Forest Mama Bear", 1, "mama bear", 1, 200, 35));
 
                     }
                 }
@@ -2745,7 +2748,7 @@ public class Game {
                 if (chosen.getId().equalsIgnoreCase("leaflet003")){
                     if (player.QUESTS.get("MQ3") == null){
 
-                        Player.QUESTS.put("MQ3", new Quest("MQ3", "Slay Forest Mama Bear", 1, "mama bear", 1, 200, 30));
+                        Player.QUESTS.put("MQ3", new Quest("MQ3", "Slay Forest Mama Bear", 1, "mama bear", 1, 200, 35));
 
                     }
                 }
@@ -2766,7 +2769,7 @@ public class Game {
                 if (ha.getId().equalsIgnoreCase("leaflet003")){
                     if (player.QUESTS.get("MQ3") == null){
 
-                        Player.QUESTS.put("MQ3", new Quest("MQ3", "Slay Forest Mama Bear", 1, "mama bear", 1, 200, 30));
+                        Player.QUESTS.put("MQ3", new Quest("MQ3", "Slay Forest Mama Bear", 1, "mama bear", 1, 200, 35));
 
                     }
                 }
@@ -3778,7 +3781,7 @@ public class Game {
 
             if (a.startsWith("a") && !done) {
                 npc.setQuestState(Npca.QuestState.ACCEPTED);
-                oliverQuest = new Quest("MQ4", "Collect 5 SnarkFlowers for Oliver", 2, "snarkflower", 5, 20, 2); // main quest - get flowers
+                oliverQuest = new Quest("MQ4", "Collect 5 SnarkFlowers for Oliver", 2, "snarkflower", 5, 50, 20); // main quest - get flowers
                 Player.QUESTS.put("MQ4", oliverQuest);
                 System.out.println("Quest added: " + oliverQuest.status());
                 //CHECK IF QUEST IS ALReADY COMPLETED
@@ -3805,7 +3808,7 @@ public class Game {
 
             if (a.startsWith("a") && !done) {
                 npc.setQuestState(Npca.QuestState.ACCEPTED);
-                oliverQuest = new Quest("MQ4", "Collect 5 SnarkFlowers for Oliver", 2, "snarkflower", 5, 20, 2); // main quest - get flowers
+                oliverQuest = new Quest("MQ4", "Collect 5 SnarkFlowers for Oliver", 2, "snarkflower", 5, 50, 20); // main quest - get flowers
                 Player.QUESTS.put("MQ4", oliverQuest);
                 System.out.println("Quest added: " + oliverQuest.status());
                 //CHECK IF QUEST IS ALReADY COMPLETED
@@ -3903,9 +3906,7 @@ public class Game {
                 }
             }
             else if (choice.equals("5")) {
-
-            // ALLOW ACCPETING QUESTS HERE!!!
-
+                inRoom.acceptQuests(player.getName(), player);
             }
             else {
                 System.out.println("GuildMaster Tragger: 'Choose 1-4 or leave me alone!'");
@@ -3987,7 +3988,7 @@ public class Game {
     public static List<String> cauldron(List<String> invin, Player player){
 
         if (player.QUESTS.get("SQ4") == null){
-            Player.QUESTS.put("SQ4", new Quest("SQ4", "Craft Wolfs Bane Potion", 2, "wolfs bane potion", 1, 200, 30));
+            Player.QUESTS.put("SQ4", new Quest("SQ4", "Craft Wolfs Bane Potion", 2, "wolfs bane potion", 1, 100, 20));
             System.out.println("[[ YOU'VE UNLOCKED A QUEST ]]");
             System.out.println("");
         }

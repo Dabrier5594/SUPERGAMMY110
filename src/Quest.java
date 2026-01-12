@@ -20,6 +20,10 @@ class Quest {
         return id;
     }
 
+    public String getName(){
+        return name;
+    }
+
     public void check(String typeStr, String targetStr, Player player, XpLv xpLv) {
         if (done || !target.equalsIgnoreCase(targetStr)) return;  // if already done OR wrong target, skip
 
