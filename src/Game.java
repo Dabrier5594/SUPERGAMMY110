@@ -3,6 +3,10 @@ import java.util.*;
 import java.util.regex.Pattern;import java.util.Timer;
 import java.util.TimerTask;
 
+//cOEMEOME
+
+
+
 //NOTE TO EVERYONE!!
 // WHENEVER YOU CREATE ANYTHING (ITEM, NPC, ANYTHING that can be INTERACTED with), YOU MUST ADD IT TO OBJECTS!!!
 // FOR ITEMS: AFTER YOU MAKE THEM. YOU MUST ADD THEM TO EXISTINGITEMS LIST. (SEE WHERE I MADE ALL THE ITEMS w/ "new Item" in search
@@ -1233,7 +1237,7 @@ public class Game {
 
 
             System.out.print("-> ");
-            String action = scanner.nextLine();
+            String action = scanner.next();
 
             scannerOrNo = false;
 
@@ -3981,9 +3985,9 @@ public class Game {
     }
 
     public static void describeItem(String itemName) {
-        String lowerName = itemName.toLowerCase();
-        if (INSPECT_DESCRIPTIONS.containsKey(lowerName)) {
-            System.out.println(INSPECT_DESCRIPTIONS.get(lowerName));
+        String yum = itemName.toLowerCase();
+        if (INSPECT_DESCRIPTIONS.containsKey(yum)) {
+            System.out.println(INSPECT_DESCRIPTIONS.get(yum));
         }
         else {
             System.out.println("You look closer at the " + itemName + ", but nothing special stands out.");
