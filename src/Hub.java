@@ -268,7 +268,7 @@ public class Hub {
                 for (Npca npc : guildNpcs) {
                     String npcName = npc.getName();
                     int npcRankIndex = getRankIndex(guildMembers.get(npcName));
-                    if (npcRankIndex < MAX_RANK && (int) (Math.random() * 100) < 100) {  // 10% rank up chance
+                    if (npcRankIndex < MAX_RANK && (int) (Math.random() * 100) < 20) {  // 20% rank up chance
                         String newRank = RANKS[npcRankIndex + 1];
                         guildMembers.put(npcName, newRank);
                         System.out.println(npcName + " ranked up to " + newRank + " while you were away!");
@@ -304,7 +304,8 @@ public class Hub {
             List<Quest> rankQuests = getQuestsForRank(rankLevel, availableQuests);
 
             if (rankQuests.isEmpty()) {
-                System.out.println("No quests for your rank yet!");
+                System.out.println("No quests for your rank yet! [have you joined the guild]");
+                return;
             } else {
                 for (int i = 0; i < rankQuests.size(); i++) {
                     System.out.println((i+1) + ". " + rankQuests.get(i).getName());
@@ -431,7 +432,7 @@ public class Hub {
             }
 
             System.out.println("You have: " + copperCount + " copper, " + silverCount + " silver, and " + goldCount + " gold");
-            System.out.println("Rates: 5 copper = 1 silver || 10 silver = 1 gold");
+            System.out.println("Rates: 10 copper = 1 silver || 5 silver = 1 gold");
             System.out.println("[1] Copper to Silver  [2] Silver to Copper");
             System.out.println("[3] Silver to Gold    [4] Gold to Silver  [5] Leave");
             System.out.print("Choose: ");
@@ -455,12 +456,12 @@ public class Hub {
         }
 
         private void copperToSilver(List<String> inventory) {
-            System.out.print("How much copper? (multiples of 5): ");
+            System.out.print("How much copper? (multiples of 10): ");
             String input = Game.scanner.nextLine();
             int amount = Integer.parseInt(input);
 
-            if (hasCurrency(inventory, "copper", amount) && amount % 5 == 0) {
-                int silver = amount / 5;
+            if (hasCurrency(inventory, "copper", amount) && amount % 10 == 0) {
+                int silver = amount / 10;
                 removeCurrency(inventory, "copper", amount);
                 addCurrency(inventory, "silver", silver);
                 System.out.println("Got " + silver + " silver!");
@@ -475,7 +476,7 @@ public class Hub {
             int amount = Integer.parseInt(input);
 
             if (hasCurrency(inventory, "silver", amount)) {
-                int copper = amount * 5;
+                int copper = amount * 10;
                 removeCurrency(inventory, "silver", amount);
                 addCurrency(inventory, "copper", copper);
                 System.out.println("Got " + copper + " copper!");
@@ -485,12 +486,12 @@ public class Hub {
         }
 
         private void silverToGold(List<String> inventory) {
-            System.out.print("How much silver? (multiples of 10): ");
+            System.out.print("How much silver? (multiples of 5): ");
             String input = Game.scanner.nextLine();
             int amount = Integer.parseInt(input);
 
-            if (hasCurrency(inventory, "silver", amount) && amount % 10 == 0) {
-                int gold = amount / 10;
+            if (hasCurrency(inventory, "silver", amount) && amount % 5 == 0) {
+                int gold = amount / 5;
                 removeCurrency(inventory, "silver", amount);
                 addCurrency(inventory, "gold", gold);
                 System.out.println("Got " + gold + " gold!");
