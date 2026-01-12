@@ -81,6 +81,28 @@ class Equipment {
         if(item.getEnchantment() != null){
             if (item.getEnchantment().equals("fire")){
                 player.setAttackPower(0);
+
+            }
+            if(item.getEnchantment().equals("protection")){
+                if(item.getSlotType() == "helmet") {
+                    player.getHealth().setDamageResistance(player.getHealth().getDamageResistance() + 2);
+                }
+
+
+                if(item.getSlotType() == "chest") {
+                    player.getHealth().setDamageResistance(player.getHealth().getDamageResistance() + 4);
+                }
+
+
+                if(item.getSlotType() == "leggings") {
+                    player.getHealth().setDamageResistance(player.getHealth().getDamageResistance() + 3);
+                }
+
+
+                if(item.getSlotType() == "boots") {
+                    player.getHealth().setDamageResistance(player.getHealth().getDamageResistance() + 2);
+                }
+
             }
         }
 
