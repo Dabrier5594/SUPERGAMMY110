@@ -230,6 +230,7 @@ public class Hub {
         public void joinGuild(String playerName) {
             if (!guildMembers.containsKey(playerName)) {
                 guildMembers.put(playerName, "Noob");
+                System.out.println("");
                 System.out.println(playerName + " joined FirstVille Guild as Noob! Welcome!");
                 displayWelcomeMessage();
             } else {
@@ -240,7 +241,7 @@ public class Hub {
         public void addQuest(Quest a){ availableQuests.add(a);}
 
         public String getPlayerRank(String playerName) {
-            return guildMembers.getOrDefault(playerName, "Noob");
+            return guildMembers.getOrDefault(playerName, null);
         }
 
         public void displayRankingBoard() {
@@ -279,14 +280,22 @@ public class Hub {
 
 
         public void displayQuestBoard(String playerName) {
+
+
+            if (getPlayerRank(playerName) == null){
+                System.out.println("Join the guild first!");
+                return;
+            }
+
             String rank = getPlayerRank(playerName);
             int rankLevel = getRankIndex(rank);
 
             System.out.println("FIRSTVILLE GUILD QUEST BOARD (Rank: " + rank + ")");
-            List<Quest> rankQuests = getQuestsForRank(rankLevel, availableQuests);
+            List<Quest> rankQuests = getQuestsForRank(rankLevel);
 
             if (rankQuests.isEmpty()) {
-                System.out.println("No quests for your rank yet! Grind to rank up!");
+                System.out.println("No quests available for your rank yet! ");
+                return;
             } else {
                 for (int i = 0; i < rankQuests.size(); i++) {
                     System.out.println((i+1) + ". " + rankQuests.get(i).getName());
@@ -297,14 +306,19 @@ public class Hub {
 
         public void acceptQuests(String playerName, Player player) {
 
+            if (getPlayerRank(playerName) == null){
+                System.out.println("Join the guild first!");
+                return;
+            }
+
             String rank = getPlayerRank(playerName);
             int rankLevel = getRankIndex(rank);
 
             System.out.println("FIRSTVILLE GUILD QUEST BOARD (Rank: " + rank + ")");
-            List<Quest> rankQuests = getQuestsForRank(rankLevel, availableQuests);
+            List<Quest> rankQuests = getQuestsForRank(rankLevel);
 
             if (rankQuests.isEmpty()) {
-                System.out.println("No quests for your rank yet! [have you joined the guild]");
+                System.out.println("No quests available for your rank yet! ");
                 return;
             } else {
                 for (int i = 0; i < rankQuests.size(); i++) {
@@ -329,52 +343,53 @@ public class Hub {
             }
 
             player.QUESTS.put(chosen.getId(), chosen);
-            availableQuests.remove(chosen.getId());
-            System.out.println("Remember to come back and check in once you complete a quest!!");
+            availableQuests.remove(chosen);
+            System.out.println("\nOkay! Remember to come back and check in once you complete a quest!!");
 
         }
 
-        private List<Quest> getQuestsForRank(int rankLevel, List<Quest> quests) {
+        private List<Quest> getQuestsForRank(int rankLevel) {
+
 
             List<Quest> rankBasedQuests = new ArrayList<>();
 
             if (rankLevel >= 0) { // Noob
-                for (Quest i : quests){
-                    if (i.getId().equalsIgnoreCase("") || i.getId().equalsIgnoreCase("") ){
+                for (Quest i : availableQuests){
+                    if (i.getId().equalsIgnoreCase("GQ1") || i.getId().equalsIgnoreCase("GQ2") || i.getId().equalsIgnoreCase("GQ3")){
                         rankBasedQuests.add(i);
                     }
                 }
             }
             if (rankLevel >= 1) { // bronze
-                for (Quest i : quests){
+                for (Quest i : availableQuests){
                     if (i.getId().equalsIgnoreCase("") || i.getId().equalsIgnoreCase("") ){
                         rankBasedQuests.add(i);
                     }
                 }
             }
             if (rankLevel >= 2) { // Silver
-                for (Quest i : quests){
+                for (Quest i : availableQuests){
                     if (i.getId().equalsIgnoreCase("") || i.getId().equalsIgnoreCase("") ){
                         rankBasedQuests.add(i);
                     }
                 }
             }
             if (rankLevel >= 3) { // Gold
-                for (Quest i : quests){
+                for (Quest i : availableQuests){
                     if (i.getId().equalsIgnoreCase("") || i.getId().equalsIgnoreCase("") ){
                         rankBasedQuests.add(i);
                     }
                 }
             }
             if (rankLevel >= 0) { // Platinum
-                for (Quest i : quests){
+                for (Quest i : availableQuests){
                     if (i.getId().equalsIgnoreCase("") || i.getId().equalsIgnoreCase("") ){
                         rankBasedQuests.add(i);
                     }
                 }
             }
             if (rankLevel >= 0) { // Legend
-                for (Quest i : quests){
+                for (Quest i : availableQuests){
                     if (i.getId().equalsIgnoreCase("") || i.getId().equalsIgnoreCase("") ){
                         rankBasedQuests.add(i);
                     }
@@ -406,7 +421,7 @@ public class Hub {
         }
 
         private void displayWelcomeMessage() {
-            System.out.println("Guild Master: Welcome to FirstVille Guild! Complete quests to rank up from Noob to Legend.");
+            System.out.println("\nGuild Master: Welcome to FirstVille Guild! Complete quests to rank up from Noob to Legend.");
             System.out.println("- 'rankings' to see leaderboards");
             System.out.println("- 'quests' to see your available quests");
         }

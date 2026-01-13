@@ -634,6 +634,11 @@ public class Game {
         Hub.FirstVilleGuild firstVilleGuild = new Hub("FirstVille Guild Hall", "The legendary FirstVille Guild Hall. Heroes gather here to prove their worth through quests and rankings.").new FirstVilleGuild("FirstVille Guild Hall", "The legendary FirstVille Guild Hall. Heroes gather here to prove their worth through quests and rankings.");
         Quest questForGuildOne = new Quest("GQ1", "Goblin Hunt (GQ1)", 1,"Goblin", 3, 30, 10);
         firstVilleGuild.addQuest(questForGuildOne);
+        questForGuildOne = new Quest("GQ2", "Wolf Hunt (GQ2)", 1,"Wolf", 2, 30, 10);
+        firstVilleGuild.addQuest(questForGuildOne);
+        questForGuildOne = new Quest("GQ2", "Witch Hunt (GQ3)", 1,"Wolf Witch", 1, 30, 10);
+        firstVilleGuild.addQuest(questForGuildOne);
+
 
         firstVilleSquare.setExit("w", firstVilleGuild);
         firstVilleGuild.setExit("e", firstVilleSquare);
@@ -1238,7 +1243,7 @@ public class Game {
 
 
             System.out.print("-> ");
-            String action = scanner.next();
+            String action = scanner.nextLine();
 
             scannerOrNo = false;
 
