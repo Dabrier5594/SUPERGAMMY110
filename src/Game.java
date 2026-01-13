@@ -39,6 +39,8 @@ import java.util.TimerTask;
 
 public class Game {
 
+    public static Hub.FirstVilleShop baggerShop;
+
     //DESCRIPTIONS:
 
     public static final Map<String, String> INSPECT_DESCRIPTIONS = new HashMap<>();
@@ -836,7 +838,7 @@ public class Game {
         Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock, raggerH, 2, "SQ0", Npca.QuestState.NONE);
 
         FirstShopOwner baggerOwner = new FirstShopOwner("copper", "Bagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
-        Hub.FirstVilleShop baggerShop = new Hub("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and an anvil sits in a corner. Bagger watches you closely.\n").new FirstVilleShop("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and an anvil sits in a corner. Ragger watches you closely. \nEXITS: (N) (W)", baggerOwner);
+        baggerShop = new Hub("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and an anvil sits in a corner. Bagger watches you closely.\n").new FirstVilleShop("Ragger's cousin's Gear Shop (BAGGER)", "Cluttered shelves hold weapons and an anvil sits in a corner. Ragger watches you closely. \nEXITS: (N) (W)", baggerOwner);
         baggerShop.addStock(copperSword, 20);
         baggerShop.addStock(sickles, 30);
         baggerOwner.setMyShop(baggerShop);
@@ -873,7 +875,7 @@ public class Game {
         firstVilleGate.getGuard().add(Oliver);
 
 
-        Story(baggerShop, existingItems, equipment);
+        Story(cave, existingItems, equipment);
 
     }
 
@@ -1157,6 +1159,7 @@ public class Game {
                         inRoom = Hub.get("Gate of FirstVille");
                         System.out.println("You are at the gate.");
                     } else if (gotoRoomBlah.equalsIgnoreCase("bagger")) {
+                        inRoom = Game.baggerShop;
                         System.out.println("MEET BAGGER - welcome");
                     } else {
                         System.out.println("default input received.");
