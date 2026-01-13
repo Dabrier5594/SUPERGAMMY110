@@ -3,39 +3,45 @@ import java.util.*;
 import java.util.regex.Pattern;import java.util.Timer;
 import java.util.TimerTask;
 
-//cOEMEOME
 
+///NOTE TO EVERYONE!!
+/// WHENEVER YOU CREATE ANYTHING (ITEM, NPC, ANYTHING that can be INTERACTED with), YOU MUST ADD IT TO OBJECTS!!!
+/// FOR ITEMS: AFTER YOU MAKE THEM. YOU MUST ADD THEM TO EXISTINGITEMS LIST. (SEE WHERE I MADE ALL THE ITEMS w/ "new Item" in search
 
-
-//NOTE TO EVERYONE!!
-// WHENEVER YOU CREATE ANYTHING (ITEM, NPC, ANYTHING that can be INTERACTED with), YOU MUST ADD IT TO OBJECTS!!!
-// FOR ITEMS: AFTER YOU MAKE THEM. YOU MUST ADD THEM TO EXISTINGITEMS LIST. (SEE WHERE I MADE ALL THE ITEMS w/ "new Item" in search
-//
 //                    NOTES FOR IMPROVEMENTS:
 
-// MAKE SHOPPERS BE ABLE TO BY STUFF
+// SHOPPERS CAN BUY STUFF, BUT UPDATE PAYBACK PRICES AND ADD MORE iteMS thAT YOU CAN SELL
 
 // ADD A BUNCH MORE QUESTS FOR THR GUILD
 
-// MAKE SO IF YOU ENTER NOTHING WHEN TALKING TO BAGGER YOU GET ATTACKED.
+// ENCHANTMENTS and SCROLLS (level one scroll can be 'used' to make a weapon get level 1 fire and so on.
+// Scrolls of lower or equal level of an item enchantment cannot be used on that said item
 
-//add enchanment level caps at each village but bosses can drop items/enchantments that are 1-2 lvels higher than the village
+// UPDATE ROOM/ITEM(IH) DESCRIPTIONS
 
-// inspect (create an array for items with mini descriptions), armor - chest plate, fix prints, IH = something,add a take ALL, map,
+// UPDATE HELP COMMANDS
 
-// MAKE IT SO IF YOU ARE INSIDE FIRSTVILLE AND YOU TAKE OFF ARMOR, PEOPLE WILL KICK YOU OUT.
+// ADD WEIGHT TO ARMORS, IF HEAVY THEN YOU ATTACK SECOND NOT FIRST, BUT YOU GET BENEFITS AS WELL
 
-// Make rouge bandits
+// CREATE DIFFERENT FACTIONS AND PLACES WHERE YOU CAN JOIN THEM.
 
-//  ADD THINGS TO PLACES
+// BUY A CABIN AT A HOME SALER
 
-// MAKE ENCHANCEMENTS AND ITEMS
+// MAKE AN AUCTION HOUSE
 
-//  CREATE FIRST SMALL TOWN
+// ADD ITEMS TO EXISTING ITEMS AND OBJECTS LIST
 
-//  CREATE FIRST SMALL TOWN BOSS
+// ADD A CLINIC TO GO TO WHEN YOU DIE
 
-//  CREATE SECOND TOWN. CREATE GUILD WITH QUESTS AND A CARD AND EVERYTHING
+// CREATE A 'STEAL' METHOD THAT IS BASED OFF OF YOUR STEALTH VARIABLE
+
+// CREATE AN INN, A BAKERY, A TRAINING CENTER, A WAY TO GET PETS, BOAT THAT YOU CAN BUY, AN OCEAN TO THE SECOND TOWN
+
+//
+
+//
+
+//
 
 public class Game {
 
@@ -783,23 +789,24 @@ public class Game {
         List<Item> existingItems = new ArrayList<>();
 
         Equipment equipment = new Equipment();
+
         Scroll protect = new Scroll("Protection", protection);
 
         Item adminSword = new Item("admin sword", "melee", true, fire);
         existingItems.add(adminSword);
         Item bearClaw = new Item("bear claw", "melee", true, null);
         existingItems.add(bearClaw);
-        Item baggerDagger = new Item("Bagger's Dagger", "melee", true, null);
+        Item baggerDagger = new Item("bagger's dagger", "melee", true, null);
         existingItems.add(baggerDagger);
-        Item sickles = new Item("Sickles", "melee", true,null);
+        Item sickles = new Item("sickles", "melee", true,null);
         existingItems.add(sickles);
-        Item knightBoots = new Item("Knights Footwear", "boots",false, null);
+        Item knightBoots = new Item("knights footwear", "boots",false, null);
         existingItems.add(knightBoots);
-        Item knightChest = new Item("Knights Breastplate", "body",false, null);
+        Item knightChest = new Item("knights breastplate", "body",false, null);
         existingItems.add(knightChest);
-        Item knightLeggings = new Item("Knights Leggings", "legging",false, null);
+        Item knightLeggings = new Item("knights leggings", "legging",false, null);
         existingItems.add(knightLeggings);
-        Item knightHelmet = new Item("Knights Helm", "head",false, null);
+        Item knightHelmet = new Item("knights helm", "head",false, null);
         existingItems.add(knightHelmet);
         Item dagger = new Item("dagger", "melee", true, null);
         existingItems.add(dagger);
@@ -1174,6 +1181,8 @@ public class Game {
                 }
 
                 inRoom.getObjects().add("admin sword");
+
+                inRoom.getObjects().add("dagger");
 
                 System.out.println("$#bonus stats have been successfully distributed");
                 scanner.nextLine();
@@ -2011,7 +2020,10 @@ public class Game {
 
                         } else if (stringContainsWordFromList(action.toLowerCase(), talk.toArray(new String[0])) || stringContainsWordFromList(action.toLowerCase(), kill.toArray(new String[0]))) {
 
-                            boolean talked = false; // 47 more questions
+                            boolean talked = false;
+
+                            boolean talkMob = false;
+
 
                             for (Guard npc : inRoom.getGuard()) {
 
@@ -2067,7 +2079,7 @@ public class Game {
 
                                     if (action.toLowerCase().contains(npcNameLower.toLowerCase())) {
 
-                                        talkShopFirst(inRoom, inventory, playersStats, inRoom.getFirstShopOwners(), player);
+                                        talkShopFirst(inRoom, inventory, playersStats, inRoom.getFirstShopOwners(), player, equipment);
 
                                         talked = true;
 
@@ -2076,7 +2088,38 @@ public class Game {
                                 }
                             }
 
-                            if (talked == false) {
+                            if (!talked) {
+                                for (Mob npc : inRoom.getMOBS()) {
+
+                                    String npcNameLower = npc.getName().toLowerCase();
+
+                                    if (action.toLowerCase().contains(npcNameLower)) {
+
+                                        talkMob = true;
+
+                                    }
+
+                                }
+                            }
+
+                            if (!talked) {
+                                for (Boss npc : inRoom.getBoss()) {
+
+                                    String npcNameLower = npc.getName().toLowerCase();
+
+                                    if (action.toLowerCase().contains(npcNameLower)) {
+
+                                        talkMob = true;
+
+                                    }
+
+                                }
+                            }
+
+                            if (talkMob == true) {
+                                System.out.println("[Your target is unable, or lacks the intelligence to talk...]");
+                            }
+                            else if (talked == false) {
                                 System.out.println("[When you want to talk, you must define your target.]");
                             }
 
@@ -3950,30 +3993,35 @@ public class Game {
 
     }
 
-    public static List<String> talkShopFirst(Hub inRoom, List<String> inventory, XpLv playerStats, FirstShopOwner npc, Player player) {
-        System.out.println(npc.getName() + " (Shop Keeper): \"Welcome to my shop!\"");
+    public static List<String> talkShopFirst(Hub inRoom, List<String> inventory, XpLv playerStats, FirstShopOwner npc, Player player, Equipment equipment) {
+        System.out.println(npc.getName() + " (Shop Keeper): \"Welcome to my shop!\" -enter to continue");
         scanner.nextLine();
 
-        System.out.println("[1] Buy  [2] Sell  [3] Leave");
-        System.out.print("-> ");
+        String choice = "8";
+        while (choice != "3") {
+            System.out.println("[1] Buy  [2] Sell  [3] Leave");
+            System.out.print("-> ");
 
-        String choice = scanner.nextLine().trim();
+            choice = scanner.nextLine().trim();
 
-        if (choice.isEmpty()) {
-            System.out.println(npc.getName() + " stares blankly as you say nothing...");
-            return inventory;
+            if (choice.isEmpty()) {
+                System.out.println(npc.getName() + " stares blankly as you say nothing...");
+                return inventory;
+            }
+
+            if (choice.equals("1")) {
+                inventory = npc.buyItem(player, inventory);
+
+            } else if (choice.equals("2")) {
+                inventory = npc.sellItem(player, inventory, equipment);
+
+            } else {
+                System.out.println("Thanks for visiting " + player.getName() + "! *you are shoo-ed away...");
+                return inventory;
+            }
         }
 
-        if (choice.equals("1")) {
-            npc.buyItem(player, inventory);
-            return inventory;
-        } else if (choice.equals("2")) {
-            System.out.println("Selling not ready yet. Come back later!");
-            return inventory;
-        } else {
-            System.out.println("Thanks for visiting " + player.getName() + "! *you are shoo-ed away...");
-            return inventory;
-        }
+        return inventory;
     }
 
 

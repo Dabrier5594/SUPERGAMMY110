@@ -175,11 +175,13 @@ class FirstShopOwner extends Npca {
         if (!myShop.getStock().isEmpty()) {
             stockList = new ArrayList<>(myShop.getStock().entrySet());
         }
+        System.out.println("");
 
         if (stockList.isEmpty()) {
             System.out.println("Shop is empty! Nothing to buy.");
             return invin;
         }
+
 
         System.out.println(getName() + "'s SHOP:");
         for (int i = 0; i < stockList.size(); i++) {
@@ -212,38 +214,126 @@ class FirstShopOwner extends Npca {
 
         int to = 0;
 
-        if (chosen != null)  {
+        if (chosen != null) {
 
             if (Collections.frequency(invin, currency) > price) {
-                for (int i = 0; i < price; i++){
+                for (int i = 0; i < price; i++) {
                     invin.remove(currency);
                 }
                 invin.add(chosen.getName());  // add to inventory
-                System.out.println("Bought " + chosen.getName() + " for " + price + " " + currency + "!");
+                System.out.println("Bought " + chosen.getName() + " for " + price + " " + currency + "!\n");
                 to = 1;
 
 
             } else {
-                System.out.println("Need " + price + " copper! You got... not enough! ");
+                System.out.println("Need " + price + " copper! You got... not enough! \n");
                 to = 1;
             }
 
 
         }
 
-        if (to == 0){
-            System.out.println("Aren't you a smarty pants, go eat some sourdough bread. *you are shoo-ed out of the store.");
+        if (to == 0) {
+            System.out.println("Aren't you a smarty pants, go eat some sourdough bread.\n");
         }
 
         return invin;
     }
 
+    public List<String> sellItem(Player player, List<String> invin, Equipment equipment) {
+
+        Scanner scanner = new Scanner(System.in);
+        String answer;
+
+        List<String> playerItems = new ArrayList<>();
+
+        for (String itemName : invin) {
+            if (!playerItems.contains(itemName) && !isCurrency(itemName)) {
+                playerItems.add(itemName);
+            }
+        }
+
+        System.out.println("");
+
+
+        if (playerItems.isEmpty()) {
+            System.out.println(getName() + " says: \"Nothing worth buying here, sucker.\"");
+            return invin;
+        }
+
+        System.out.println(getName() + "'s BUY BACK:");
+
+        for (int i = 0; i < playerItems.size(); i++) {
+            String item = playerItems.get(i);
+            int sellPrice = getSellPrice(item);  // 50-70% of buy price or fixed value
+            System.out.println((i + 1) + ") " + item + " (" + sellPrice + " " + currency + ")");
+        }
+
+        System.out.print("Sell which? (number) or 'none' - ");
+        answer = scanner.nextLine().trim().toLowerCase();
+
+        if (answer.equals("none") || answer.isEmpty()) {
+            System.out.println(getName() + " says: \"Smart choice, come back anytime.\"");
+            return invin;
+        }
+
+        try {
+            int index = Integer.parseInt(answer) - 1;
+            if (index >= 0 && index < playerItems.size()) {
+                String sellItem = playerItems.get(index);
+                int sellPrice = getSellPrice(sellItem);
+
+                // Check if player has the item and it's not equipped
+                if (Collections.frequency(invin, sellItem) > 0 && !isEquipped(player, sellItem, equipment)) {
+
+                    // Remove one instance of item
+                    invin.remove(sellItem);
+
+                    // Add currency (sellPrice times)
+                    for (int i = 0; i < sellPrice; i++) {
+                        invin.add(currency);
+                    }
+
+                    System.out.println("Sold " + sellItem + " for " + sellPrice + " " + currency + "!");
+                    System.out.println(getName() + " says: \"Good sale!\"\n");
+                    return invin;
+                } else {
+                    System.out.println(getName() + " says: \"Can't sell that—it's equipped or you don't have it!\"");
+                }
+            }
+        } catch (NumberFormatException e) {
+
+        }
+
+        System.out.println(getName() + " says: \"Don't waste my time!\"\n");
+        return invin;
+    }
+
+    private boolean isCurrency(String itemName) {
+        return itemName.equals("copper") || itemName.equals("silver") || itemName.equals("gold");
+    }
+
+    private int getSellPrice(String item) {
+
+        Map<String, Integer> sellPrices = new HashMap<>();
+
+        sellPrices.put("dagger", 3);
+        sellPrices.put("leather armor", 4);
+        sellPrices.put("copper sword", 25);
+
+        Integer price = sellPrices.get(item.toLowerCase()); //Why does integer work but int doesn't...
+        return price != null ? price : 1;
+    }
+
+    private boolean isEquipped(Player player, String itemName, Equipment equipment) {
+
+        return itemName.equals(equipment.getWeapon()) || itemName.equals(equipment.getHelmet()) || itemName.equals(equipment.getBody()) ||
+               itemName.equals(equipment.getLegs()) || itemName.equals(equipment.getBoots());
+
+    }
+
 
 }
-
-
-
-
 
 
 

@@ -5,7 +5,7 @@ import java.util.Map;
 
 class Item {
     private String name;
-    private String slotType; //bow, melee, head, body,legs
+    private String slotType; //melee, body, head, legging, boots,
     private boolean isOffensive;
     private Enchantments enchantment;
 
@@ -213,8 +213,45 @@ class Equipment {
     }
 
     public Item getEquipped(String slot) {
+
         return equippedItems.get(slot.toLowerCase());
     }
+
+    public String getWeapon(){
+        if (equippedItems.get("melee") != null) {
+            return equippedItems.get("melee").getName().toLowerCase();
+        } else {
+            return "";
+        }
+    }
+
+    public String getHelmet(){
+        if (equippedItems.get("head") != null) {
+            return equippedItems.get("head").getName().toLowerCase();
+        } else {
+            return "";
+        }    }
+
+    public String getBody(){
+        if (equippedItems.get("body") != null) {
+            return equippedItems.get("body").getName().toLowerCase();
+        } else {
+            return "";
+        }    }
+
+    public String getLegs(){
+        if (equippedItems.get("legging") != null) {
+            return equippedItems.get("legging").getName().toLowerCase();
+        } else {
+            return "";
+        }    }
+
+    public String getBoots(){
+        if (equippedItems.get("boots") != null) {
+            return equippedItems.get("boots").getName().toLowerCase();
+        } else {
+            return "";
+        }    }
 
     public Map<String, Item> getEquippedItems(){ return equippedItems;}
 
