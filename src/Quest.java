@@ -36,7 +36,7 @@ class Quest {
         }
         if (current >= needed) {                              // if they hit the goal number
             done = true;                                      // mark quest done
-            System.out.println(name + " COMPLETE! +" +rewardXp + " // +" + rewardGold + " coins (to be used in playerBAG only) **"); // tell player they won
+            System.out.println(name + " COMPLETE! +" + rewardXp + "XP (total: " + xpLv.getXp() + "  // +" + rewardGold + " fame points (total: " + player.getCoins() + ")"); // tell player they won
             player.addCoins(rewardGold);
             xpLv.addXp(rewardXp);
 

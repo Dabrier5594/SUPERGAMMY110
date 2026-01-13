@@ -3892,48 +3892,48 @@ public class Game {
 
     public static void talkNpc(Hub inRoom, List<String> inventory, XpLv playerStats, Npca npc, Player player) {
 
+        String choice = "7";
+
         if (npc.getName().equalsIgnoreCase("Tragger")) {
             System.out.println("GuildMaster Tragger (Guild Master) says: What do you want?");
-            System.out.println("[1] Join Guild [2] View Rankings [3] View Quests [4] Report Quest [5] Accept Quest");
-            System.out.print("-> ");
 
-            String choice = Game.scanner.nextLine().trim();
+            while (choice != "6") {
+                System.out.println("[1] Join Guild [2] View Rankings [3] View Quests [4] Report Quest [5] Accept Quest [6] Quit");
+                System.out.print("-> ");
 
-            if (choice.equals("1")) {
-                inRoom.joinGuild(player.getName());
-            }
-            else if (choice.equals("2")) {
-                inRoom.displayRankingBoard();
-            }
-            else if (choice.equals("3")) {
-                inRoom.displayQuestBoard(player.getName());
-            }
-            else if (choice.equals("4")) {
+                choice = Game.scanner.nextLine().trim();
 
-                System.out.println("\n=== YOUR QUESTS ===");
-                for (Map.Entry<String, Quest> entry : Player.QUESTS.entrySet()) {
-                    Quest q = entry.getValue();
-                    if (q.getId().startsWith("GQ")) {  // Only guild quests
-                        System.out.println("- " + q.status());
+                if (choice.equals("1")) {
+                    inRoom.joinGuild(player.getName());
+                } else if (choice.equals("2")) {
+                    inRoom.displayRankingBoard();
+                } else if (choice.equals("3")) {
+                    inRoom.displayQuestBoard(player.getName());
+                } else if (choice.equals("4")) {
+
+                    System.out.println("\n=== YOUR QUESTS ===");
+                    for (Map.Entry<String, Quest> entry : Player.QUESTS.entrySet()) {
+                        Quest q = entry.getValue();
+                        if (q.getId().startsWith("GQ")) {  // Only guild quests
+                            System.out.println("- " + q.status());
+                        }
                     }
-                }
 
-                System.out.print("\nWhich COMPLETED guild quest to report? (GQ1, GQ2, etc): ");
-                String questId = Game.scanner.nextLine().trim();
+                    System.out.print("\nWhich COMPLETED guild quest to report? (GQ1, GQ2, etc): ");
+                    String questId = Game.scanner.nextLine().trim();
 
-                Quest quest = Player.QUESTS.get(questId);
-                if (quest != null && quest.isDone()) {
-                    inRoom.completeQuest(player.getName(), questId);
-                    System.out.println("Quest verified! Rewards logged with guild.");
+                    Quest quest = Player.QUESTS.get(questId);
+                    if (quest != null && quest.isDone()) {
+                        inRoom.completeQuest(player.getName(), questId);
+                        System.out.println("Quest verified! Rewards logged with guild.");
+                    } else {
+                        System.out.println("ERROR: Quest not found or not completed! Complete it first.");
+                    }
+                } else if (choice.equals("5")) {
+                    inRoom.acceptQuests(player.getName(), player);
                 } else {
-                    System.out.println("ERROR: Quest not found or not completed! Complete it first.");
+                    System.out.println("GuildMaster Tragger: 'Choose 1-4 or leave me alone!'");
                 }
-            }
-            else if (choice.equals("5")) {
-                inRoom.acceptQuests(player.getName(), player);
-            }
-            else {
-                System.out.println("GuildMaster Tragger: 'Choose 1-4 or leave me alone!'");
             }
         }
 
