@@ -149,6 +149,8 @@ public class Game {
 
     public static volatile boolean fighting = false;
 
+    public static volatile boolean talking = false;
+
     public static volatile int nightCounter = 0; // true = day, false = night
 
 
@@ -194,7 +196,7 @@ public class Game {
         @Override
         public void run() {
 
-            if (!scannerOrNo || fighting == true) { // SCANNER IS ACTIVE - HOLD LATEST CHANGES
+            if (!scannerOrNo || fighting == true || talking == true) { // SCANNER IS ACTIVE - HOLD LATEST CHANGES
                 timeChange = timeOfDay ? "day" : "night";
                 changeTime = LocalTime.now();
                 timeOfDay = !timeOfDay;
@@ -2020,6 +2022,8 @@ public class Game {
 
                         } else if (stringContainsWordFromList(action.toLowerCase(), talk.toArray(new String[0])) || stringContainsWordFromList(action.toLowerCase(), kill.toArray(new String[0]))) {
 
+                            talking = true;
+
                             boolean talked = false;
 
                             boolean talkMob = false;
@@ -2122,6 +2126,8 @@ public class Game {
                             else if (talked == false) {
                                 System.out.println("[When you want to talk, you must define your target.]");
                             }
+
+                            talking = false;
 
                         } else {
                             System.out.println("You can't '" + action + "' ");
