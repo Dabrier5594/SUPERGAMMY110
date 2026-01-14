@@ -794,7 +794,14 @@ public class Game {
 
         Equipment equipment = new Equipment();
 
-        Scroll protect = new Scroll("Protection", protection);
+        Scroll protectOne = new Scroll("Protection One", protection, 1);
+        Scroll protectTwo = new Scroll("Protection Two", protection, 2);
+        Scroll protectThree = new Scroll("Protection Three", protection, 3);
+
+        Scroll fireOne = new Scroll("Protection", protection, 1);
+        Scroll fireTwo = new Scroll("Protection", protection, 2);
+        Scroll fireThree = new Scroll("Protection", protection, 3);
+
 
         Item adminSword = new Item("admin sword", "melee", true, fire);
         existingItems.add(adminSword);
@@ -1080,6 +1087,32 @@ public class Game {
 
         List<String> cauldron = new ArrayList<>();
         cauldron.add("cauldron");
+
+        List<String> scroll = new ArrayList<>();
+        scroll.add("scroll");
+
+        List<String> firescroll = new ArrayList<>();
+        firescroll.add("fire scroll");
+        firescroll.add("level 1 fire scroll");
+        firescroll.add("level one fire scroll");
+        firescroll.add("level 2 fire scroll");
+        firescroll.add("level two fire scroll");
+        firescroll.add("level 3 fire scroll");
+        firescroll.add("level three fire scroll");
+
+        List<String> protectionscroll = new ArrayList<>();
+        protectionscroll.add("protection scroll");
+        protectionscroll.add("level 1 protection scroll");
+        protectionscroll.add("level one protection scroll");
+        protectionscroll.add("level 2 protection scroll");
+        protectionscroll.add("level two protection scroll");
+        protectionscroll.add("level 3 protection scroll");
+        protectionscroll.add("level three protection scroll");
+
+
+
+
+
 
         List<String> door = new ArrayList<>();
         door.add("door");
@@ -1491,6 +1524,18 @@ public class Game {
                             if (stringContainsWordFromList(action.toLowerCase(), exchange.toArray(new String [0]))){
                                 if (inRoom instanceof Hub.CurrencyExchangeBooth) {
                                     ((Hub.CurrencyExchangeBooth)inRoom).exchangeCurrency(player, inventory);
+                                }
+                            }
+                        }
+                        if (stringContainsWordFromList(action.toLowerCase(), scroll.toArray(new String[0]))) {
+                            for (String some : inventory){
+                                if(some.toLowerCase().contains("scroll")){
+                                    System.out.println("which scroll");
+                                    if (stringContainsWordFromList(action.toLowerCase(), firescroll.toArray(new String[0]))) {
+                                        if(some.toLowerCase().contains("fire scroll level ")){
+                                            System.out.println("Would you like to use fire scroll level one on your melee weapon?");
+                                        }
+                                    }
                                 }
                             }
                         }
