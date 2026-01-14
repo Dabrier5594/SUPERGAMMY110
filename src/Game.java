@@ -792,7 +792,7 @@ public class Game {
 
         Equipment equipment = new Equipment();
 
-        Scroll protect = new Scroll("Protection", protection);
+        Scroll protect = new Scroll("Protection", protection, 1);
 
         Item adminSword = new Item("admin sword", "melee", true, fire);
         existingItems.add(adminSword);
@@ -1019,6 +1019,7 @@ public class Game {
         objects.add("firstville guards helm");
         objects.add("firstville guards boots");
         objects.add("firstville guards legs");
+        objects.add("scroll");
 
 
         List<String> look = new ArrayList<>();
@@ -1073,6 +1074,25 @@ public class Game {
 
         List<String> cauldron = new ArrayList<>();
         cauldron.add("cauldron");
+
+        List<String> scroll = new ArrayList<>();
+        scroll.add("scroll");
+
+        List<String> firescroll = new ArrayList<>();
+        firescroll.add("level 1 fire scroll");
+        firescroll.add("level one fire scroll");
+        firescroll.add("level 2 fire scroll");
+        firescroll.add("level two fire scroll");
+        firescroll.add("level 3 fire scroll");
+        firescroll.add("level three fire scroll");
+
+        List<String> protectionscroll = new ArrayList<>();
+        protectionscroll.add("level 1 protection scroll");
+        protectionscroll.add("level one protection scroll");
+        protectionscroll.add("level 2 protection scroll");
+        protectionscroll.add("level two protection scroll");
+        protectionscroll.add("level 3 protection scroll");
+        protectionscroll.add("level three protection scroll");
 
         List<String> door = new ArrayList<>();
         door.add("door");
@@ -1458,17 +1478,27 @@ public class Game {
 
                     if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0])) || action.toLowerCase().contains("leaflet") || action.toLowerCase().contains("ih")) {
 
-                        if (stringContainsWordFromList(action.toLowerCase(), use.toArray(new String [0]))){
+                        if (stringContainsWordFromList(action.toLowerCase(), use.toArray(new String [0]))) {
 
-                            if (stringContainsWordFromList(action.toLowerCase(), cauldron.toArray(new String [0]))){
+                            if (stringContainsWordFromList(action.toLowerCase(), cauldron.toArray(new String[0]))) {
 
                                 cauldron(inventory, player);
 
                             }
 
-                            if (stringContainsWordFromList(action.toLowerCase(), exchange.toArray(new String [0]))){
+                            if (stringContainsWordFromList(action.toLowerCase(), exchange.toArray(new String[0]))) {
                                 if (inRoom instanceof Hub.CurrencyExchangeBooth) {
-                                    ((Hub.CurrencyExchangeBooth)inRoom).exchangeCurrency(player, inventory);
+                                    ((Hub.CurrencyExchangeBooth) inRoom).exchangeCurrency(player, inventory);
+                                }
+                            }
+                            if (stringContainsWordFromList(action.toLowerCase(), scroll.toArray(new String[0]))) {
+                                for (String some : inventory){
+                                    if(some.toLowerCase().contains("scroll")){
+                                        System.out.println("which scroll");
+                                        if (stringContainsWordFromList(action.toLowerCase(), firescroll.toArray(new String[0]))) {
+
+                                        }
+                                    }
                                 }
                             }
                         }
