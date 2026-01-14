@@ -10,18 +10,8 @@ import java.util.TimerTask;
 
 //                    NOTES FOR IMPROVEMENTS:
 
-// SHOPPERS CAN BUY STUFF, BUT UPDATE PAYBACK PRICES AND ADD MORE iteMS thAT YOU CAN SELL
-
-// ADD A BUNCH MORE QUESTS FOR THR GUILD
-
 // ENCHANTMENTS and SCROLLS (level one scroll can be 'used' to make a weapon get level 1 fire and so on.
 // Scrolls of lower or equal level of an item enchantment cannot be used on that said item
-
-// UPDATE ROOM/ITEM(IH) DESCRIPTIONS
-
-// UPDATE HELP COMMANDS
-
-// ADD WEIGHT TO ARMORS, IF HEAVY THEN YOU ATTACK SECOND NOT FIRST, BUT YOU GET BENEFITS AS WELL
 
 // CREATE DIFFERENT FACTIONS AND PLACES WHERE YOU CAN JOIN THEM.
 
@@ -36,6 +26,18 @@ import java.util.TimerTask;
 // CREATE A 'STEAL' METHOD THAT IS BASED OFF OF YOUR STEALTH VARIABLE
 
 // CREATE AN INN, A BAKERY, A TRAINING CENTER, A WAY TO GET PETS, BOAT THAT YOU CAN BUY, AN OCEAN TO THE SECOND TOWN
+
+// ADD things to eat, add item things, add more drop possibilites
+
+// SHOPPERS CAN BUY STUFF, BUT UPDATE PAYBACK PRICES AND ADD MORE iteMS thAT YOU CAN SELL
+
+// ADD A BUNCH MORE QUESTS FOR THR GUILD
+
+// UPDATE ROOM/ITEM(IH) DESCRIPTIONS
+
+// UPDATE HELP COMMANDS
+
+// ADD WEIGHT TO ARMORS, IF HEAVY THEN YOU ATTACK SECOND NOT FIRST, BUT YOU GET BENEFITS AS WELL
 
 //
 
@@ -792,7 +794,7 @@ public class Game {
 
         Equipment equipment = new Equipment();
 
-        Scroll protect = new Scroll("Protection", protection, 1);
+        Scroll protect = new Scroll("Protection", protection);
 
         Item adminSword = new Item("admin sword", "melee", true, fire);
         existingItems.add(adminSword);
@@ -924,6 +926,8 @@ public class Game {
         verbs.add("unequip");
         verbs.add("quests");
         verbs.add("talk");
+        verbs.add("eat");
+
 
 
         List<String> verbsOnly = new ArrayList<>();
@@ -1019,7 +1023,6 @@ public class Game {
         objects.add("firstville guards helm");
         objects.add("firstville guards boots");
         objects.add("firstville guards legs");
-        objects.add("scroll");
 
 
         List<String> look = new ArrayList<>();
@@ -1061,6 +1064,9 @@ public class Game {
         List<String> drop = new ArrayList<>();
         drop.add("drop");
 
+        List<String> food = new ArrayList<>();
+        food.add("");
+
         List<String> remove = new ArrayList<>();
         remove.add("remove");
 
@@ -1075,25 +1081,6 @@ public class Game {
         List<String> cauldron = new ArrayList<>();
         cauldron.add("cauldron");
 
-        List<String> scroll = new ArrayList<>();
-        scroll.add("scroll");
-
-        List<String> firescroll = new ArrayList<>();
-        firescroll.add("level 1 fire scroll");
-        firescroll.add("level one fire scroll");
-        firescroll.add("level 2 fire scroll");
-        firescroll.add("level two fire scroll");
-        firescroll.add("level 3 fire scroll");
-        firescroll.add("level three fire scroll");
-
-        List<String> protectionscroll = new ArrayList<>();
-        protectionscroll.add("level 1 protection scroll");
-        protectionscroll.add("level one protection scroll");
-        protectionscroll.add("level 2 protection scroll");
-        protectionscroll.add("level two protection scroll");
-        protectionscroll.add("level 3 protection scroll");
-        protectionscroll.add("level three protection scroll");
-
         List<String> door = new ArrayList<>();
         door.add("door");
 
@@ -1104,6 +1091,9 @@ public class Game {
 
         List<String> help = new ArrayList<>();
         help.add("help");
+
+        List<String> eat = new ArrayList<>();
+        eat.add("eat");
 
         List<String> kill = new ArrayList<>();
         kill.add("kill");
@@ -1277,6 +1267,7 @@ public class Game {
 
 
             System.out.print("-> ");
+
             String action = scanner.nextLine();
 
             scannerOrNo = false;
@@ -1478,27 +1469,28 @@ public class Game {
 
                     if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0])) || action.toLowerCase().contains("leaflet") || action.toLowerCase().contains("ih")) {
 
-                        if (stringContainsWordFromList(action.toLowerCase(), use.toArray(new String [0]))) {
+                        if (stringContainsWordFromList(action.toLowerCase(), eat.toArray(new String [0]))) {
 
-                            if (stringContainsWordFromList(action.toLowerCase(), cauldron.toArray(new String[0]))) {
+                            if (stringContainsWordFromList(action.toLowerCase(), food.toArray(new String [0]))) {
+
+                            }
+                            else{
+                                System.out.println("hmmm. Your gonna have trouble doing that...");
+                            }
+
+                        }
+
+                        else if (stringContainsWordFromList(action.toLowerCase(), use.toArray(new String [0]))){
+
+                            if (stringContainsWordFromList(action.toLowerCase(), cauldron.toArray(new String [0]))){
 
                                 cauldron(inventory, player);
 
                             }
 
-                            if (stringContainsWordFromList(action.toLowerCase(), exchange.toArray(new String[0]))) {
+                            if (stringContainsWordFromList(action.toLowerCase(), exchange.toArray(new String [0]))){
                                 if (inRoom instanceof Hub.CurrencyExchangeBooth) {
-                                    ((Hub.CurrencyExchangeBooth) inRoom).exchangeCurrency(player, inventory);
-                                }
-                            }
-                            if (stringContainsWordFromList(action.toLowerCase(), scroll.toArray(new String[0]))) {
-                                for (String some : inventory){
-                                    if(some.toLowerCase().contains("scroll")){
-                                        System.out.println("which scroll");
-                                        if (stringContainsWordFromList(action.toLowerCase(), firescroll.toArray(new String[0]))) {
-
-                                        }
-                                    }
+                                    ((Hub.CurrencyExchangeBooth)inRoom).exchangeCurrency(player, inventory);
                                 }
                             }
                         }
