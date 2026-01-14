@@ -551,7 +551,33 @@ public class Hub {
         }
     }
 
+    public class Clinic extends Hub {
 
+        private Map<String, String> appliedMember = new HashMap<>();
+        public List<Clinic> clinics = new ArrayList<>();
+
+        public Clinic(String name, String description) {
+            super(name, description);
+            clinics.add(this);
+        }
+
+        public Clinic getClinics(){
+            return clinics;
+        }
+        public void applyToClinic(Player player){
+
+            if (!appliedMember.containsKey(player.getName())) {
+                appliedMember.put(player.getName(), "Noob");
+                System.out.println("");
+                System.out.println(player.getName() + " joined the " + roomName + "! [respawnpoint added]");
+            } else {
+                System.out.println("You're already registered in the clinic, " + player.getName() + "!");
+            }
+
+        }
+
+
+    }
 
 }
 

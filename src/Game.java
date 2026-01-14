@@ -3137,7 +3137,7 @@ public class Game {
         Health bearHealth = new Health(maxHealth, currentHealth, damageResistance);
 
         int attackPower = (int) (Math.random() * 13 + 10);
-        boolean isAggro = true;
+        boolean isAggro = false;
 
         if (drop.isEmpty()){
             drop.add("bear hide");
