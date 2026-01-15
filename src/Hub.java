@@ -18,6 +18,11 @@ public class Hub {
     private java.util.Map<String, LockedDoors> lockedDoors = new java.util.HashMap<>();
     private String structure;
 
+    public static final List<Clinic> clinics = new ArrayList<>();
+
+    public static List<Clinic> getClinics(){
+        return clinics;
+    }
 
     public Hub(String name, String description) {
         this.roomName = name;
@@ -29,6 +34,8 @@ public class Hub {
     }
 
     public void acceptQuests(String playerName, Player player){ }
+
+    public void applyToClinic(Player player){    };
 
     public void updateGuildActivity() { }
 
@@ -554,16 +561,12 @@ public class Hub {
     public class Clinic extends Hub {
 
         private Map<String, String> appliedMember = new HashMap<>();
-        public List<Clinic> clinics = new ArrayList<>();
 
         public Clinic(String name, String description) {
             super(name, description);
             clinics.add(this);
         }
 
-        public Clinic getClinics(){
-            return clinics;
-        }
         public void applyToClinic(Player player){
 
             if (!appliedMember.containsKey(player.getName())) {
@@ -574,6 +577,13 @@ public class Hub {
                 System.out.println("You're already registered in the clinic, " + player.getName() + "!");
             }
 
+        }
+
+        public boolean seeIfRegistered(String playerName){
+            if (!appliedMember.containsKey(playerName)){
+                return false;
+            }
+            else {return true;}
         }
 
 

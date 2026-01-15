@@ -1,3 +1,4 @@
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.regex.Pattern;import java.util.Timer;
@@ -86,10 +87,10 @@ public class Game {
         INSPECT_DESCRIPTIONS.put("oliver", "A stern guard with a merchant's cunning. His armor gleams, but his eyes are sharper.");
         INSPECT_DESCRIPTIONS.put("trap", "A crude but effective snare. Rusty spikes and pressure plates promise pain to the unwary.");
         INSPECT_DESCRIPTIONS.put("bear claw", "A massive claw from a fearsome bear. Still faintly warm, stained with old blood.");
-        INSPECT_DESCRIPTIONS.put("bear amulet", "A crude bone pendant carved with bear motifs. Smells faintly of musk and wilderness.");
-        INSPECT_DESCRIPTIONS.put("wolfbane", "A bundle of toxic purple flowers. Even the scent makes wolves howl and retreat.");
-        INSPECT_DESCRIPTIONS.put("raven eye", "A polished black gem that seems to watch you. Perfect for unsettling your enemies.");
-        INSPECT_DESCRIPTIONS.put("blood vial", "A small glass vial filled with thick, dark blood. Still warm—what kind of creature bled this?");
+        INSPECT_DESCRIPTIONS.put("bear essence", "A mystical extract from a Mama Bear's core, can be used in crafting jewelery, or sold! Smells faintly of musk and wilderness.");
+        INSPECT_DESCRIPTIONS.put("wolfbane", "Toxic purple flowers that could be used as an ingredient.");
+        INSPECT_DESCRIPTIONS.put("raven eye", "A polished black gem that seems to watch you. Perfect for crafting.");
+        INSPECT_DESCRIPTIONS.put("blood vial", "A small glass vial filled with thick, dark blood. Still warm—what kind of creature bled this? A handy ingredient.");
         INSPECT_DESCRIPTIONS.put("cauldron", "A dented iron pot bubbling with someones failed creation.");
 
     }
@@ -266,15 +267,6 @@ public class Game {
         LEAFLETS.put("leaflet002",
                 new Leaflet("leaflet002", "leaflet",
                         "The Money Challenges", "The world is in a money crisis, and people are going on more dangerous quests to get more money. \nOne gold is 10 silver, 1 silver is 5 copper. \nHint: (More dangerous quests make more money! But they are also much harder to complete...)"));
-
-        LEAFLETS.put("leaflet003",
-                new Leaflet("leaflet003", "leaflet",
-                        "Hunter's Notes (1/2)", "date: 01/43/2494 - Bear fight \nWell, I suppose it was less of a fight and more of a sacrifice. (Also, one of the BANDITS stole my key...) Damn it, if only I had known, like those goblins did, that to kill that bear family you had to use a [note was torn here]  \nHint: (Use 'help' to get help)"));
-
-        LEAFLETS.put("leaflet004",
-                new Leaflet("leaflet004", "leaflet",
-                        "Hunter's Notes (2/2)", "date: 01/43/2494 - Bear fight \nbear claw! (Oh yeah, one of e'm damn goblins stole my claw! Hope they die...) \nHint: (Use 'help' to get help)"));
-
     }
 
     //CHEST TOKENS
@@ -287,6 +279,9 @@ public class Game {
 
         TOKENS.put("IH002",
                 new Token(002, "IH"));
+
+        TOKENS.put("IH003",
+                new Token(003, "IH"));
 
     }
 
@@ -640,6 +635,12 @@ public class Game {
         firstVilleLane5.setExit("n", firstVilleLane6);
 
 
+        // CLINICS
+
+        Hub.Clinic firstVilleClinic = new Hub("FirstVille Clinic", "A clinic for the crippled").new Clinic("FirstVille Clinic", "A clinic for the crippled");
+
+        firstVilleLane3.setExit("n", firstVilleClinic);
+        firstVilleClinic.setExit("s", firstVilleLane3);
 
         // GUILDS
 
@@ -701,9 +702,6 @@ public class Game {
 
         forest6.addObject("trap");
 
-        forest12.addObject("leaflet003");
-
-
         firstVilleGate.addObject("snarkflower");
         forest47.addObject("snarkflower");
         forest29.addObject("snarkflower");
@@ -727,7 +725,7 @@ public class Game {
 
         forest26.addObject("IH002");
 
-        chestContents = Arrays.asList("bear amulet");
+        chestContents = Arrays.asList("bear sword");
 
         Chest thirdChest = new Chest(true, "IH003", chestContents, "C");
         forest47.addChest("chest#003", thirdChest);
@@ -735,9 +733,8 @@ public class Game {
         // ADD MOBS to room
 
         List<String> stuff = new ArrayList<>() ;
-        stuff.add("bear claw");
+
         Mob goblin = createGoblinWithRandomStats(stuff);
-        stuff.remove("bear claw");
 
         forest10.getMOBS().add(goblin);
 
@@ -749,10 +746,8 @@ public class Game {
         }
 
         stuff.add("IH003");
-        stuff.add("leaflet004");
         Mob Mute = createMuteBanditWithRandomStats(stuff);
         stuff.remove("IH003");
-        stuff.remove("leaflet004");
 
         forest12.getMOBS().add(Mute);
 
@@ -765,9 +760,13 @@ public class Game {
 
         stuff.add("bear fur");
         stuff.add("snarkflower");
-        goblin = createBearWithRandomStats(stuff, 70, "Mama Bear");
+        stuff.add("bear essence");
+
+        goblin = createBearWithRandomStats(stuff, 60, "Mama Bear");
         stuff.remove("bear fur");
         stuff.remove("snarkflower");
+        stuff.remove("bear essence");
+
 
         forest47.getMOBS().add(goblin);
 
@@ -849,9 +848,16 @@ public class Game {
                 "Say 'complete [QUESTID]' after finishing a quest."
         };
 
-        Npca guildMaster = new Npca("Tragger", "Guild Master", guildMasterLines, 0, new Health(100,100,0), "", Npca.QuestState.NONE);
+        Npca guildMaster = new Npca("Tragger", "Guild Master", guildMasterLines, 9, new Health(280,138,2), "", Npca.QuestState.NONE);
         firstVilleGuild.getNpc().add(guildMaster);
 
+
+        String[] clinicClerkLines = {
+                "Welcome welcome",
+        };
+
+        Npca clerk = new Npca("Trevor", "Clinic Clerk", clinicClerkLines, 5, new Health(40, 40, 0), "", Npca.QuestState.NONE);
+        firstVilleClinic.getNpc().add(clerk);
 
         Merchant Ragger = new Merchant("Ragger", raggerLines, raggerStock, raggerH, 2, "SQ0", Npca.QuestState.NONE);
 
@@ -888,7 +894,7 @@ public class Game {
 
 
 
-        Guard Oliver = new Guard("Oliver", oliverLines, oliverP, 8, FirstVilleHelm, FirstVillePlate, FirstVilleLegs, FirstVilleBoots, "MQ4", Npca.QuestState.NONE);
+        Guard Oliver = new Guard("Oliver", oliverLines, oliverP, 8, FirstVilleHelm, FirstVillePlate, FirstVilleLegs, FirstVilleBoots, "MQ3", Npca.QuestState.NONE);
 
         firstVilleGate.getGuard().add(Oliver);
 
@@ -950,6 +956,7 @@ public class Game {
         verbsOnly.add("east");
         verbsOnly.add("look");
         verbsOnly.add("l");
+        verbsOnly.add("rest");
         verbsOnly.add("wait");
         verbsOnly.add("listen");
         verbsOnly.add("help");
@@ -991,6 +998,17 @@ public class Game {
         movements.add("go");
         movements.add("move");
 
+        List<String> rest = new ArrayList<>();
+        rest.add("rest");
+        rest.add("sit down");
+        rest.add("laydown");
+        rest.add("take a break");
+        rest.add("close your eyes");
+
+
+
+
+
         List<String> objects = new ArrayList<>();
         objects.add("exchange");
         objects.add("cabinet");
@@ -1018,11 +1036,14 @@ public class Game {
         objects.add("lagger");
         objects.add("ragger");
         objects.add("tragger");
+        objects.add("trevor");
         objects.add("gate");
         objects.add("trap");
         objects.add("bear claw");
-        objects.add("bear amulet");
+        objects.add("bear sword");
+        objects.add("bear essence");
         objects.add("wolfbane");
+        objects.add("wolf bane soup");
         objects.add("raven eye");
         objects.add("blood vial");
         objects.add("cauldron");
@@ -1071,8 +1092,8 @@ public class Game {
         List<String> drop = new ArrayList<>();
         drop.add("drop");
 
-        List<String> food = new ArrayList<>();
-        food.add("");
+        Map<String, Integer> food = new HashMap<>();
+        food.put("wolfs bane soup", 1);
 
         List<String> remove = new ArrayList<>();
         remove.add("remove");
@@ -1169,15 +1190,11 @@ public class Game {
 
         XpLv playersStats = new XpLv(1, 0);
 
-        System.out.print("Play (yes or no)? \n-> ");
-        String play = scanner.nextLine();
-
         System.out.println("");
 
-        //Checks if you said yes or not
-        if (play.equalsIgnoreCase("yes") || play.equalsIgnoreCase("y") || play.equalsIgnoreCase("admin0")) {
+        if (namer.equalsIgnoreCase("admin0")){
 
-            if (play.equalsIgnoreCase("admin0")) {
+            if (namer.equalsIgnoreCase("admin0")) {
                 System.out.println("Admin Code received.");
 
                 System.out.print("Enter MAX health \n-> ");
@@ -1197,7 +1214,8 @@ public class Game {
 
                 System.out.println("(12 is next to sHouse) Southern Forest Area #--");
                 System.out.println("(50 is close to firstville) Northern Forest Area #--");
-                System.out.println("(living room/kitchen etc.) Tom's Dark ---");
+                System.out.println("(living room/kitchen etc.) Tom's Dark --- \n(clinic is n to lane3) FirstVille Streets #--");
+
                 System.out.print("Enter target room\n-> ");
                 String gotoRoomBlah = scanner.nextLine();
                 if (gotoRoomBlah != null) {
@@ -1275,8 +1293,121 @@ public class Game {
 
             if (player.getHealth().isDead()) {
 
+                boolean dissapear = false;
+
                 System.out.println("\nThe world becomes dark...");
-                break;
+
+                System.out.println(" Options: [1] Respawn [2] Quit");
+                System.out.print("-> ");
+                String choice = scanner.nextLine().trim();
+                if (choice.equals("1")) {
+
+                    List<Hub.Clinic> possiblePoints = new ArrayList<>();
+
+                    for (Hub.Clinic clinic : Hub.Clinic.getClinics()){
+                        if (clinic.seeIfRegistered(player.getName())){
+                            possiblePoints.add(clinic);
+                        }
+                    }
+
+                    if (possiblePoints.isEmpty()){
+                        System.out.println("No clinics registered to respawn at. ");
+                        System.out.println(" Options: [1] Respawn at 'cave' [2] Quit");
+                        String doubleChoice = scanner.nextLine().trim();
+                        if (doubleChoice.equals("1")) {
+                            System.out.println("Respawning...");
+                            inRoom = cave;
+                            for (String i : inventory){
+                                inventory.remove(i);
+                            }
+                            dissapear = true;
+                        }
+
+                        else {
+                            System.out.println("Thanks for playing!");
+                        }
+                    }
+
+                    else {
+
+                        System.out.println("");
+
+                        String goTo = "gefij";
+                        //SAME CODE FOR LEAFLETS ETC.
+
+                        while (goTo != "quit") {
+
+                            int i = 0;
+                            for (Hub.Clinic clinic : possiblePoints) {
+                                System.out.println((i + 1) + ". " + clinic.getRoomName());
+                                i++;
+                            }
+
+                            System.out.println("Please select your destination (number) or 'quit'.");
+                            System.out.print("-> ");
+                            goTo = scanner.nextLine().trim();
+
+                            Hub.Clinic destination = null;
+
+                            try {
+                                int index = Integer.parseInt(goTo) - 1;
+                                if (index >= 0 && index < possiblePoints.size()) {
+                                    destination = possiblePoints.get(index);
+                                    inRoom = destination;
+                                    int gold = 0;
+                                    int silver = 0;
+                                    int copper = 0;
+                                    for (String p : inventory){
+                                        if (p.equalsIgnoreCase("gold")){
+                                            gold++;
+                                        }
+                                        if (p.equalsIgnoreCase("silver")){
+                                            silver++;
+                                        }
+                                        if (p.equalsIgnoreCase("copper")){
+                                            copper++;
+                                        }
+                                    }
+
+                                    gold /= 2;
+                                    silver /= 2;
+                                    copper /= 2;
+
+                                    for (int w = gold; w > 0; w--){
+                                        inventory.remove("gold");
+                                    }
+                                    for (int w = silver; w > 0; w--){
+                                        inventory.remove("silver");
+                                    }
+                                    for (int w = copper; w > 0; w--){
+                                        inventory.remove("copper");
+                                    }
+
+                                    dissapear = true;
+                                    System.out.println("You wake up, feeling a bit lighter, but still alive. [Registering with that clinic sure saved you!]");
+                                    break;
+                                }
+
+                            } catch (NumberFormatException e) {
+                                if (goTo.equalsIgnoreCase("quit")) {
+                                    System.out.println("Thanks for playing!");
+                                    break;
+                                }
+
+                                System.out.println("Your target destination was not found. ");
+
+                            }
+                        }
+                    }
+
+                }
+                else if (choice.equals("2")) {
+                    System.out.println("Thanks for playing!");
+                }
+
+                if (!dissapear){
+                    break;
+                }
 
             }
 
@@ -1285,7 +1416,7 @@ public class Game {
 
             if (timeChange != null && changeTime != null) {
 
-                long secondsAgo = java.time.Duration.between(changeTime, LocalTime.now()).getSeconds();
+                long secondsAgo = Duration.between(changeTime, LocalTime.now()).getSeconds();
 
                 if (secondsAgo < 60) {
                     System.out.println("It turned " + timeChange + " " + secondsAgo + " seconds ago.");
@@ -1496,7 +1627,26 @@ public class Game {
                         help(verbs);
                     } else if (stringContainsWordFromList(action.toLowerCase(), stats.toArray(new String[0]))) {
                         player.displayStats(player, playersStats);
+                    } else if (stringContainsWordFromList(action.toLowerCase(), rest.toArray(new String[0]))) {
+
+                        System.out.println("You can rest up to [" + (player.getStomachSize() - player.getFullness() + "] fullness/energy points. How many points would you like to regain?"));
+                        String healing = scanner.nextLine();
+                        try {
+                            int chosen = Integer.parseInt(healing) ;
+                            System.out.println("You begin resting...");
+                            try {
+                                Thread.sleep(chosen * 1250);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                            player.addFullness(chosen);
+
+                        } catch (NumberFormatException ignored) {
+                            System.out.println("Something went wrong as you tried to rest and you jumped back to your feet...");
+                        }
+
                     }
+
 
                 } else if (stringContainsWordFromList(action.toLowerCase(), verbs.toArray(new String[0]))) {
 
@@ -1504,11 +1654,25 @@ public class Game {
 
                         if (stringContainsWordFromList(action.toLowerCase(), eat.toArray(new String [0]))) {
 
-                            if (stringContainsWordFromList(action.toLowerCase(), food.toArray(new String [0]))) {
+                            if (player.getFullness() < player.getStomachSize()) {
+                                for (String key : food.keySet()) {
+                                    if (action.contains(key)) {
+                                        int hungerBonus = food.get(key);
+                                        player.addFullness(hungerBonus);
+                                        if (player.getFullness() > player.getStomachSize()){
+                                            player.setFullness();
+                                        }
+                                        System.out.println("Your fullness increases by " + hungerBonus + "! [fullness: " + player.getFullness() +"]");
+                                        inventory.remove(key);
+                                    }
+                                    else{
+                                        System.out.println("hmmm. Your gonna have trouble doing that...");
+                                    }
+                                }
 
-                            }
-                            else{
-                                System.out.println("hmmm. Your gonna have trouble doing that...");
+
+                            } else {
+                                System.out.println("No need to eat! You are full!");
                             }
 
                         }
@@ -1892,7 +2056,11 @@ public class Game {
 
                             for (String obj : objects) {
                                 if (action.toLowerCase().contains(obj)) {
-                                    take(inRoom, obj, inventory, player, playersStats);
+                                    boolean allOrNo = false;
+                                    if (action.toLowerCase().contains("all")){
+                                        allOrNo = true;
+                                    }
+                                    take(inRoom, obj, inventory, player, playersStats, allOrNo);
                                     validObject = true;
                                     break;
                                 }
@@ -2223,6 +2391,10 @@ public class Game {
     // move method
     public static Hub move(String direction, Hub currentHub, Player player, XpLv playerStats, Equipment equipment) {
 
+        if (player.getFullness() < 1){
+            System.out.println("You are too tired to move! Rest for a while or eat some food!");
+            return currentHub;
+        }
         if (direction.equals("north") || direction.equals("n")) {
             direction = "n";
             if (currentHub.getRoomName().equalsIgnoreCase("Northern Forest Area #50")){
@@ -2358,7 +2530,12 @@ public class Game {
                 System.out.println("\nGuild Master Tragger shouts: 'Talk to me for guild services!'");
             }
 
+            if (newRoom.getRoomName().equalsIgnoreCase("FirstVille Clinic")) {
+                System.out.println("\nTrevor (Clinic Clerk): 'Talk to me for clinic stuff!'");
+            }
 
+
+            player.lessFullness();
             return newRoom; // Return the new Hub object (room)
 
         }
@@ -2424,7 +2601,7 @@ public class Game {
         }
     }
 
-    public static void take(Hub inRoom, String item, List<String> inventory, Player player, XpLv playerStats) {
+    public static void take(Hub inRoom, String item, List<String> inventory, Player player, XpLv playerStats, boolean takeOrNo) {
 
         if (item.equalsIgnoreCase("leaflet")) {
 
@@ -2563,23 +2740,31 @@ public class Game {
         }
 
         if (count > 1) {
+
             System.out.println("There are " + count + " " + item + "(s) here. How many do you want to take?");
             System.out.print("-> ");
+            if (!takeOrNo) {
+                String takeAmt = scanner.nextLine().trim();
 
-            String takeAmt = scanner.nextLine().trim();
-            try {
+                try {
 
-                int amountToTake = Integer.parseInt(takeAmt);
+                    int amountToTake = Integer.parseInt(takeAmt);
 
-                if (amountToTake > count) {
-                    System.out.println("You are trying to take more items than there are. \nTaking 1 by default.");
-                } else if (amountToTake < 0) {
-                    System.out.println("You are trying to take a negative amount. \nTaking 1 by default.");
-                } else {
-                    chosenAmount = amountToTake;
+                    if (amountToTake > count) {
+                        System.out.println("You are trying to take more items than there are. \nTaking 1 by default.");
+                    } else if (amountToTake < 0) {
+                        System.out.println("You are trying to take a negative amount. \nTaking 1 by default.");
+                    } else {
+                        chosenAmount = amountToTake;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("You are trying to take an invalid amount. \nTaking 1 by default.");
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("You are trying to take an invalid amount. \nTaking 1 by default.");
+            }
+
+            else {
+                chosenAmount = count;
+
             }
 
         }
@@ -2839,19 +3024,6 @@ public class Game {
                 return;
             }
 
-            if (aqquiredLeaflets.size() == 1) {
-                Leaflet owned = aqquiredLeaflets.get(0);
-                printLeaflet(owned);
-                if (owned.getId().equalsIgnoreCase("leaflet003")){
-                    if (player.QUESTS.get("MQ3") == null){
-
-                        Player.QUESTS.put("MQ3", new Quest("MQ3", "Slay Forest Mama Bear", 1, "mama bear", 1, 200, 35));
-
-                    }
-                }
-                return;
-            }
-
             System.out.println("You have several leaflets:");
             for (int i = 0; i < aqquiredLeaflets.size(); i++) {
                 Leaflet owned = aqquiredLeaflets.get(i);
@@ -2885,13 +3057,7 @@ public class Game {
 
             if (chosen != null) {
                 printLeaflet(chosen);
-                if (chosen.getId().equalsIgnoreCase("leaflet003")){
-                    if (player.QUESTS.get("MQ3") == null){
 
-                        Player.QUESTS.put("MQ3", new Quest("MQ3", "Slay Forest Mama Bear", 1, "mama bear", 1, 200, 35));
-
-                    }
-                }
             } else {
                 System.out.println("You decide not to read any leaflet right now.");
             }
@@ -2906,13 +3072,7 @@ public class Game {
             if (ha != null) {
                 printLeaflet(ha);
                 System.out.println(ha.getId());
-                if (ha.getId().equalsIgnoreCase("leaflet003")){
-                    if (player.QUESTS.get("MQ3") == null){
 
-                        Player.QUESTS.put("MQ3", new Quest("MQ3", "Slay Forest Mama Bear", 1, "mama bear", 1, 200, 35));
-
-                    }
-                }
             } else {
                 System.out.println("You can't read '" + item + "'");
             }
@@ -3921,8 +4081,8 @@ public class Game {
 
             if (a.startsWith("a") && !done) {
                 npc.setQuestState(Npca.QuestState.ACCEPTED);
-                oliverQuest = new Quest("MQ4", "Collect 5 SnarkFlowers for Oliver", 2, "snarkflower", 5, 50, 20); // main quest - get flowers
-                Player.QUESTS.put("MQ4", oliverQuest);
+                oliverQuest = new Quest("MQ3", "Collect 5 SnarkFlowers for Oliver", 2, "snarkflower", 5, 50, 20); // main quest - get flowers
+                Player.QUESTS.put("MQ3", oliverQuest);
                 System.out.println("Quest added: " + oliverQuest.status());
                 //CHECK IF QUEST IS ALReADY COMPLETED
                 if (Collections.frequency(inventory, "snarkflower") >= 5) {
@@ -3948,8 +4108,8 @@ public class Game {
 
             if (a.startsWith("a") && !done) {
                 npc.setQuestState(Npca.QuestState.ACCEPTED);
-                oliverQuest = new Quest("MQ4", "Collect 5 SnarkFlowers for Oliver", 2, "snarkflower", 5, 50, 20); // main quest - get flowers
-                Player.QUESTS.put("MQ4", oliverQuest);
+                oliverQuest = new Quest("MQ3", "Collect 5 SnarkFlowers for Oliver", 2, "snarkflower", 5, 50, 20); // main quest - get flowers
+                Player.QUESTS.put("MQ3", oliverQuest);
                 System.out.println("Quest added: " + oliverQuest.status());
                 //CHECK IF QUEST IS ALReADY COMPLETED
                 if (Collections.frequency(inventory, "snarkflower") >= 5) {
@@ -4053,6 +4213,20 @@ public class Game {
             }
         }
 
+        else if (npc.getName().equalsIgnoreCase("Trevor")) {
+
+            System.out.println("Trevor (Clinic Clerk) says: \"Welcome welcome...\"");
+            System.out.println("Trevor (Clinic Clerk) says: \"And what would you like to do...?\"");
+            System.out.println("Options: [1] register [2] leave");
+            String doer = scanner.nextLine();
+            if (doer.equalsIgnoreCase("1")){
+                inRoom.applyToClinic(player);
+            }
+            else {
+                System.out.println("Trevor (Clinic Clerk) says:  \"and... goodbye, don't disrupt the injured...\"");
+            }
+        }
+
         else {
             npc.sayLine(0);
             scanner.nextLine();
@@ -4133,13 +4307,13 @@ public class Game {
     public static List<String> cauldron(List<String> invin, Player player){
 
         if (player.QUESTS.get("SQ4") == null){
-            Player.QUESTS.put("SQ4", new Quest("SQ4", "Craft Wolfs Bane Potion", 2, "wolfs bane potion", 1, 100, 20));
+            Player.QUESTS.put("SQ4", new Quest("SQ4", "Craft Wolfs Bane Soup", 2, "wolfs bane soup", 1, 100, 20));
             System.out.println("[[ YOU'VE UNLOCKED A QUEST ]]");
             System.out.println("");
         }
 
         List<String> craftable = new ArrayList<>();
-        craftable.add("wolfs bane potion");
+        craftable.add("wolfs bane soup");
 
         System.out.println("What would you like to craft?");
         for (String a : craftable){
@@ -4160,7 +4334,7 @@ public class Game {
 
         if (doable !=0){
 
-            if (craft == "wolfs bane potion"){
+            if (craft == "wolfs bane soup"){
                 int wolfbane = 0;
                 int ravenEye = 0;
                 int bloody = 0;
@@ -4180,8 +4354,8 @@ public class Game {
                 }
 
                 if (wolfbane >= 3 && ravenEye >=1 && bloody >=1){
-                    System.out.println("Success! You've made a Wolfs Bane Potion!");
-                    invin.add("wolfs bane potion");
+                    System.out.println("Success! You've made a Wolfs bane Soup!");
+                    invin.add("wolfs bane soup");
                     for (int i = 0; i<3; i++){
                         invin.remove("wolfbane");
                     }

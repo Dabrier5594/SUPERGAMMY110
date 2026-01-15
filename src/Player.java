@@ -19,7 +19,8 @@ public class Player {
 
     private int coins = 0;
 
-    private int fame = 0;
+    private int stomachSize = 10;
+    private int fullness = 10;
 
     private boolean inCombat = false;
 
@@ -207,12 +208,27 @@ public class Player {
         attackPower += tint;
     }
 
-    public int getFame(){
-        return fame;
+    public int getFullness(){
+        return fullness;
     }
 
-    public void addFame(int a){
-        fame += a;
+    public void addFullness(int a){
+        fullness += a;
     }
+
+    public void setFullness(){
+        fullness = stomachSize;
+    }
+
+    public void lessFullness() {fullness--;}
+
+    public int getStomachSize(){
+        return fullness;
+    }
+
+    public void addStomachSize(int a){
+        fullness += a;
+    }
+
 
 }
