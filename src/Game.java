@@ -450,7 +450,7 @@ public class Game {
 
         Hub firstVilleLane10 = new Hub("FirstVille Streets #10", " \nEXITS: (E) (S) (W)");
 
-        Hub firstVilleLane11 = new Hub("FirstVille Streets #11", " \nEXITS: (E) (S) (W)");
+        Hub firstVilleLane11 = new Hub("FirstVille Streets #11", " \nEXITS: (E) (S) (W) (E)");
 
         Hub firstVilleLane12 = new Hub("FirstVille Streets #12", " \nEXITS: (E) (S) (W)");
 
@@ -460,6 +460,37 @@ public class Game {
 
         Hub firstVilleLane15 = new Hub("FirstVille Streets #15", " \nEXITS: (E) (S) (W)");
 
+        Hub firstVilleLane16 = new Hub("FirstVille Streets #16", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane17 = new Hub("FirstVille Streets #17", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane18 = new Hub("FirstVille Streets #18", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane19 = new Hub("FirstVille Streets #19", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane20 = new Hub("FirstVille Streets #20", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane21 = new Hub("FirstVille Streets #21", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane22 = new Hub("FirstVille Streets #22", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane23 = new Hub("FirstVille Streets #23", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane24 = new Hub("FirstVille Streets #24", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane25 = new Hub("FirstVille Streets #25", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane26 = new Hub("FirstVille Streets #26", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane27 = new Hub("FirstVille Streets #27", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane28 = new Hub("FirstVille Streets #28", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane29 = new Hub("FirstVille Streets #29", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane30 = new Hub("FirstVille Streets #30", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane31 = new Hub("FirstVille Streets #31", " \nEXITS: (E) (S) (W)");
 
 
 
@@ -632,6 +663,9 @@ public class Game {
         firstVilleLane9.setExit("e", firstVilleLane6);
         firstVilleLane9.setExit("w", firstVilleLane10);
         firstVilleLane10.setExit("e", firstVilleLane9);
+        firstVilleLane10.setExit("n", firstVilleLane11);
+
+
 
 
 
