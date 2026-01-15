@@ -42,6 +42,7 @@ class Quest {
 
             if (this.getId().equals("MQ1")){
                 Player.QUESTS.put("MQ2", new Quest("MQ2", "Leave Southern Forest", 3, "Northern Forest Area #26", 1, 50, 5));  // main quest - go outside cave
+                Player.QUESTS.put("SQ4", new Quest("SQ4", "Slay Forest Mama Bear", 1, "mama bear", 1, 200, 50));
                 System.out.println("You have unlocked a new quest! [type: 'quests' to see quests]");
             }
         }
