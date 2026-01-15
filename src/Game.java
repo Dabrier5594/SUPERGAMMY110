@@ -466,17 +466,17 @@ public class Game {
 
         Hub firstVilleSquare = new Hub("FirstVille Square", "The bustling heart of FirstVille. Merchants shout their wares and townsfolk mill about. \nEXITS: (N) (S)");
 
-        Hub firstVilleLane1 = new Hub("FirstVille Streets #1", "North of the Town Square, houses line the streets, children can be seen playing in them. \nEXITS: (N) (S)");
+        Hub firstVilleLane1 = new Hub("FirstVille Streets #1", "North of the Town Square, houses line the streets, children can be seen playing in them. \nEXITS: (E) (W) (S)");
 
         Hub firstVilleLane2 = new Hub("FirstVille Streets #2", "The bustling heart of FirstVille. Merchants shout their wares and townsfolk mill about. \nEXITS: (W) (S) (E)");
 
-        Hub firstVilleLane3 = new Hub("FirstVille Streets #3", "The bustling heart of FirstVille. Merchants shout their wares and townsfolk mill about. \nEXITS: (E)");
+        Hub firstVilleLane3 = new Hub("FirstVille Streets #3", "The bustling heart of FirstVille. Merchants shout their wares and townsfolk mill about. \nEXITS: (E) (N)");
 
-        Hub firstVilleLane4 = new Hub("FirstVille Streets #4", "You hear the clanging of hammers on metal \nEXITS: (E) (S) (N)");
+        Hub firstVilleLane4 = new Hub("FirstVille Streets #4", " \nEXITS: (S) (N)");
 
-        Hub firstVilleLane5 = new Hub("FirstVille Streets #5", "You see smoke rising from chimneys and smell smoke and molten metal \nEXITS: (E) (S) (N)");
+        Hub firstVilleLane5 = new Hub("FirstVille Streets #5", " \nEXITS: (S) (W) (N)");
 
-        Hub firstVilleLane6 = new Hub("FirstVille Streets #5", "You see blinding glows from a shop just ahead \nEXITS: (S) (N)");
+        Hub firstVilleLane6 = new Hub("FirstVille Streets #6", " \nEXITS: (S) (N)");
 
 
 
@@ -632,7 +632,9 @@ public class Game {
         firstVilleLane2.setExit("w", firstVilleLane3);
         firstVilleLane3.setExit("e", firstVilleLane2);
         firstVilleLane4.setExit("n", firstVilleLane5);
+        firstVilleLane5.setExit("s", firstVilleLane4);
         firstVilleLane5.setExit("n", firstVilleLane6);
+        firstVilleLane6.setExit("s", firstVilleLane5);
 
 
         // CLINICS
@@ -891,6 +893,7 @@ public class Game {
         firstVilleSquare.setExit("e", exchangeBooth);
         exchangeBooth.setExit("w", firstVilleSquare);
         jaggerShop.setExit("s", firstVilleLane6);
+        firstVilleLane6.setExit("n", jaggerShop);
 
 
 
@@ -929,7 +932,7 @@ public class Game {
         verbs.add("lock");
         verbs.add("close");
         verbs.add("help");
-        verbs.add("coins");
+        verbs.add("fame");
         verbs.add("l");
         verbs.add("inventory");
         verbs.add("kill");
@@ -948,7 +951,7 @@ public class Game {
         verbsOnly.add("s");
         verbsOnly.add("w");
         verbsOnly.add("e");
-        verbsOnly.add("coins");
+        verbsOnly.add("fame");
         verbsOnly.add("north");
         verbsOnly.add("south");
         verbsOnly.add("quests");
@@ -1251,41 +1254,40 @@ public class Game {
                 scanner.nextLine();
             }
 
-            start = true;
-
-            System.out.println("Okay! Starting... (hint: use help to 'help')!");//
-
-            System.out.println("");
-
-            try {
-                Thread.sleep(600);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
-            player.displayStats(player, playersStats);
-
-            System.out.println("");
-
-            try {
-                Thread.sleep(600);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
-
-            System.out.println(inRoom.getRoomDescription());
-
-            player.getSkills().add(new Skill.StunSkill("Stun", "Stuns enemy for one turn. Cooldown: 3 turns.", true, 3));
-
-            setupDayNightSchedulers();
-
-            movingTheMobs();
-
-            setupHealthRegen(player);
-        } else {
-            start = false;
         }
+
+        start = true;
+
+        System.out.println("Okay! Starting... (hint: use help to 'help')!");//
+
+        System.out.println("");
+
+        try {
+            Thread.sleep(600);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        player.displayStats(player, playersStats);
+
+        System.out.println("");
+
+        try {
+            Thread.sleep(600);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        System.out.println(inRoom.getRoomDescription());
+
+        player.getSkills().add(new Skill.StunSkill("Stun", "Stuns enemy for one turn. Cooldown: 3 turns.", true, 3));
+
+        setupDayNightSchedulers();
+
+        movingTheMobs();
+
+        setupHealthRegen(player);
 
 
         //While start is true, run the code
@@ -1447,8 +1449,8 @@ public class Game {
                 System.out.println("Max verbs: 1   ||   Max objects: 1   ||  Try again");
             } else {
 
-                if (action.equalsIgnoreCase("coins")) {
-                    System.out.println("COINS: " + player.getCoins());
+                if (action.equalsIgnoreCase("fame")) {
+                    System.out.println("FAME: " + player.getCoins());
                 }
 
                 if (action.equalsIgnoreCase("quests")) {
@@ -3140,7 +3142,7 @@ public class Game {
 
     public static void help(List<String> verbs) {
 
-        System.out.println("In order to call a command you need to enter in the FOLLOWING FORMAT: \n\n[VERB] + [OBJECT] = action\n\nSome verbs will not need an object to be used (e.g., 'look')\nHere are a list of possible commands:\n    -> move, go || open, close || look, listen, wait, read || get, drop, take, remove \n       kill, attack || stats, inventory, coins, quests || help || ...");
+        System.out.println("[VERB] + [OBJECT] = action\nSome verbs will not need an object to be used (e.g., 'look')\n=== COMMANDS ===\n       Movement: n, s, w, e, go <dir>, move <dir>       \n       Interact: open/close <obj>, inspect <obj>, look, listen, wait, read <leaflet>       \n       Self:     get/take <obj>, remove/drop <obj>, inventory, stats, fame \n       Combat:   kill/attack <target>  \n       Social:   talk <npc>, quests  \n       Special:  eat <obj>, rest, use <obj>   \n       Utility:  help, quit \n================" );
 
     }
 
