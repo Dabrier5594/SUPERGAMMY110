@@ -9,42 +9,6 @@ import java.util.TimerTask;
 /// WHENEVER YOU CREATE ANYTHING (ITEM, NPC, ANYTHING that can be INTERACTED with), YOU MUST ADD IT TO OBJECTS!!!
 /// FOR ITEMS: AFTER YOU MAKE THEM. YOU MUST ADD THEM TO EXISTINGITEMS LIST. (SEE WHERE I MADE ALL THE ITEMS w/ "new Item" in search
 
-//                    NOTES FOR IMPROVEMENTS:
-
-// ENCHANTMENTS and SCROLLS (level one scroll can be 'used' to make a weapon get level 1 fire and so on.
-// Scrolls of lower or equal level of an item enchantment cannot be used on that said item
-
-// CREATE DIFFERENT FACTIONS AND PLACES WHERE YOU CAN JOIN THEM.
-
-// BUY A CABIN AT A HOME SALER
-
-// MAKE AN AUCTION HOUSE
-
-// ADD ITEMS TO EXISTING ITEMS AND OBJECTS LIST
-
-// ADD A CLINIC TO GO TO WHEN YOU DIE
-
-// CREATE A 'STEAL' METHOD THAT IS BASED OFF OF YOUR STEALTH VARIABLE
-
-// CREATE AN INN, A BAKERY, A TRAINING CENTER, A WAY TO GET PETS, BOAT THAT YOU CAN BUY, AN OCEAN TO THE SECOND TOWN
-
-// ADD things to eat, add item things, add more drop possibilites
-
-// SHOPPERS CAN BUY STUFF, BUT UPDATE PAYBACK PRICES AND ADD MORE iteMS thAT YOU CAN SELL
-
-// ADD A BUNCH MORE QUESTS FOR THR GUILD
-
-// UPDATE ROOM/ITEM(IH) DESCRIPTIONS
-
-// UPDATE HELP COMMANDS
-
-// ADD WEIGHT TO ARMORS, IF HEAVY THEN YOU ATTACK SECOND NOT FIRST, BUT YOU GET BENEFITS AS WELL
-
-//
-
-//
-
-//
 
 public class Game {
 
@@ -56,7 +20,7 @@ public class Game {
 
     static {
         INSPECT_DESCRIPTIONS.put("dagger", "An old weathered dagger.");
-        INSPECT_DESCRIPTIONS.put("leather armor", "Light leather armor. Won't protect you much but it's better than nothing.");
+        INSPECT_DESCRIPTIONS.put("leather armor", "Light leather armor. Won't protect you much but it's better than walking into a goblin nest naked.");
         INSPECT_DESCRIPTIONS.put("thornshield", "A shield covered in thorns. Once enemies attack you they take some damage they dealt.");
         INSPECT_DESCRIPTIONS.put("copper", "A dull copper coin. 10 make 1 silver.");
         INSPECT_DESCRIPTIONS.put("silver", "A silver coin. 5 make 1 gold.");
@@ -472,11 +436,31 @@ public class Game {
 
         Hub firstVilleLane3 = new Hub("FirstVille Streets #3", "The bustling heart of FirstVille. Merchants shout their wares and townsfolk mill about. \nEXITS: (E) (N)");
 
-        Hub firstVilleLane4 = new Hub("FirstVille Streets #4", " \nEXITS: (S) (N)");
+        Hub firstVilleLane4 = new Hub("FirstVille Streets #4", " \nEXITS: (S) (N) (W)");
 
         Hub firstVilleLane5 = new Hub("FirstVille Streets #5", " \nEXITS: (S) (W) (N)");
 
         Hub firstVilleLane6 = new Hub("FirstVille Streets #6", " \nEXITS: (S) (N)");
+
+        Hub firstVilleLane7 = new Hub("FirstVille Streets #7", " \nEXITS: (E) (N) (S) (W)");
+
+        Hub firstVilleLane8 = new Hub("FirstVille Streets #8", " \nEXITS: (E) (N) (S) ");
+
+        Hub firstVilleLane9 = new Hub("FirstVille Streets #9", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane10 = new Hub("FirstVille Streets #10", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane11 = new Hub("FirstVille Streets #11", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane12 = new Hub("FirstVille Streets #12", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane13 = new Hub("FirstVille Streets #13", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane14 = new Hub("FirstVille Streets #14", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane15 = new Hub("FirstVille Streets #15", " \nEXITS: (E) (S) (W)");
+
+
 
 
 
@@ -632,9 +616,27 @@ public class Game {
         firstVilleLane2.setExit("w", firstVilleLane3);
         firstVilleLane3.setExit("e", firstVilleLane2);
         firstVilleLane4.setExit("n", firstVilleLane5);
+        firstVilleLane4.setExit("w", firstVilleLane7);
         firstVilleLane5.setExit("s", firstVilleLane4);
         firstVilleLane5.setExit("n", firstVilleLane6);
+        firstVilleLane5.setExit("w", firstVilleLane8);
         firstVilleLane6.setExit("s", firstVilleLane5);
+        firstVilleLane7.setExit("e", firstVilleLane4);
+        firstVilleLane7.setExit("s", firstVilleLane2);
+        firstVilleLane7.setExit("n", firstVilleLane8);
+        firstVilleLane8.setExit("n", firstVilleLane9);
+        firstVilleLane8.setExit("s", firstVilleLane7);
+        firstVilleLane8.setExit("e", firstVilleLane5);
+        firstVilleLane8.setExit("e", firstVilleLane5);
+        firstVilleLane9.setExit("s", firstVilleLane8);
+        firstVilleLane9.setExit("e", firstVilleLane6);
+        firstVilleLane9.setExit("w", firstVilleLane10);
+        firstVilleLane10.setExit("e", firstVilleLane9);
+
+
+
+
+
 
 
         // CLINICS
@@ -643,6 +645,10 @@ public class Game {
 
         firstVilleLane3.setExit("n", firstVilleClinic);
         firstVilleClinic.setExit("s", firstVilleLane3);
+
+        firstVilleClinic.setExit("e", firstVilleLane7);
+        firstVilleLane7.setExit("w", firstVilleClinic);
+
 
         // GUILDS
 
