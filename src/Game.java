@@ -824,19 +824,11 @@ public class Game {
 
 
 
-        //enchancements
+        //ENHANCEMENTS & SCROLLS!
+
         Enchantments fire = new Enchantments("fire", "Lights enemies on fire", 1);
-        Enchantments healthBoost = new Enchantments("health boost", "Gives you a higher max health", 2);
-        Enchantments protection = new Enchantments("Protection", "Your armor feels thicker", 1);
-
-        List<Enchantments> existingEnchantments = new ArrayList<>();
-        existingEnchantments.add(fire);
-        existingEnchantments.add(protection);
-        //MAKE ITEMS AND "EQUIPMENT"
-        //MAKE ITEMS EXIST IN ITEMS
-        List<Item> existingItems = new ArrayList<>();
-
-        Equipment equipment = new Equipment();
+        Enchantments healthBoost = new Enchantments("health boost", "Gives you a higher max health", 1);
+        Enchantments protection = new Enchantments("Protection", "Your armor feels thicker", 2);
 
         Scroll protectOne = new Scroll("Protection One", protection, 1);
         Scroll protectTwo = new Scroll("Protection Two", protection, 2);
@@ -846,6 +838,11 @@ public class Game {
         Scroll fireTwo = new Scroll("Protection", protection, 2);
         Scroll fireThree = new Scroll("Protection", protection, 3);
 
+        //MAKE ITEMS AND "EQUIPMENT"
+        //MAKE ITEMS EXIST IN ITEMS
+        List<Item> existingItems = new ArrayList<>();
+
+        Equipment equipment = new Equipment();
 
         Item adminSword = new Item("admin sword", "melee", true, fire);
         existingItems.add(adminSword);
@@ -922,6 +919,7 @@ public class Game {
         laggerOwner.setMyShop(laggerShop);
 
         FirstShopOwner jaggerOwner = new FirstShopOwner("copper", "Lagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
+
         Hub.FirstVilleShop jaggerShop = new Hub("Lagger's wife and Bagger's sister(JAGGER)", "You see glowing scrolls in bookshelves.\n").new FirstVilleShop("Lagger's wife and Bagger's sister (JAGGER)", "You see glowing scrolls in bookshelves..\nEXITS: (S)", jaggerOwner);
 
 
@@ -945,11 +943,11 @@ public class Game {
         firstVilleGate.getGuard().add(Oliver);
 
 
-        Story(cave, existingItems, equipment, existingEnchantments);
+        Story(cave, existingItems, equipment);
 
     }
 
-    public static void Story(Hub cave, List<Item> existingItems, Equipment equipment, List<Enchantments> existingEnchantments) {
+    public static void Story(Hub cave, List<Item> existingItems, Equipment equipment) {
 
         // Makes the room you are in "cave"
         Hub inRoom = cave;
@@ -1093,6 +1091,8 @@ public class Game {
         objects.add("raven eye");
         objects.add("blood vial");
         objects.add("cauldron");
+        objects.add("fire");
+        objects.add("protection");
         objects.add("firstville guards plate");
         objects.add("firstville guards helm");
         objects.add("firstville guards boots");
@@ -1157,29 +1157,6 @@ public class Game {
 
         List<String> scroll = new ArrayList<>();
         scroll.add("scroll");
-
-        List<String> firescroll = new ArrayList<>();
-        firescroll.add("fire scroll");
-        firescroll.add("level 1 fire scroll");
-        firescroll.add("level one fire scroll");
-        firescroll.add("level 2 fire scroll");
-        firescroll.add("level two fire scroll");
-        firescroll.add("level 3 fire scroll");
-        firescroll.add("level three fire scroll");
-
-        List<String> protectionscroll = new ArrayList<>();
-        protectionscroll.add("protection scroll");
-        protectionscroll.add("level 1 protection scroll");
-        protectionscroll.add("level one protection scroll");
-        protectionscroll.add("level 2 protection scroll");
-        protectionscroll.add("level two protection scroll");
-        protectionscroll.add("level 3 protection scroll");
-        protectionscroll.add("level three protection scroll");
-
-
-
-
-
 
         List<String> door = new ArrayList<>();
         door.add("door");
@@ -1736,29 +1713,22 @@ public class Game {
                                 }
                             }
                         }
+
                         if (stringContainsWordFromList(action.toLowerCase(), scroll.toArray(new String[0]))) {
-                            for (String some : inventory){
-                                if(some.toLowerCase().contains("scroll")){
 
-                                    System.out.println("which scroll");
-                                    String yScroll = scanner.next();
-                                    if (stringContainsWordFromList(action.toLowerCase(), firescroll.toArray(new String[0]))) {
-                                        if(some.toLowerCase().contains("fire scroll level one")){
-                                            System.out.println("Would you like to use fire scroll level one on your melee weapon?");
-                                            if(yScroll.equals("yes") && player.getMeleeSlot()!=null){
-                                                player.getMeleeSlot().setEnchantment(existingEnchantments.get(0));
-                                            }
-                                        }
-                                        if(some.toLowerCase().contains("fire scroll level two")) {
-                                            System.out.println("Would you like to use fire scroll level one on your melee weapon?");
-                                        }
-                                        if(some.toLowerCase().contains("fire scroll level three")) {
-                                            System.out.println("Would you like to use fire scroll level one on your melee weapon?");
-                                        }
 
-                                    }
-                                }
+                            if (action.contains("fire")){
+
+                               try {
+                                   int scrollLevel = Integer.parseInt(action);
+
+                               } catch (NumberFormatException e) {
+                                  System.out.println("");//c
+                               }
+
+
                             }
+
                         }
 
 
