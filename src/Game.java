@@ -785,9 +785,12 @@ public class Game {
 
         //enchancements
         Enchantments fire = new Enchantments("fire", "Lights enemies on fire", 1);
-        Enchantments healthBoost = new Enchantments("health boost", "Gives you a higher max health", 1);
-        Enchantments protection = new Enchantments("Protection", "Your armor feels thicker", 2);
+        Enchantments healthBoost = new Enchantments("health boost", "Gives you a higher max health", 2);
+        Enchantments protection = new Enchantments("Protection", "Your armor feels thicker", 1);
 
+        List<Enchantments> existingEnchantments = new ArrayList<>();
+        existingEnchantments.add(fire);
+        existingEnchantments.add(protection);
         //MAKE ITEMS AND "EQUIPMENT"
         //MAKE ITEMS EXIST IN ITEMS
         List<Item> existingItems = new ArrayList<>();
@@ -893,11 +896,11 @@ public class Game {
         firstVilleGate.getGuard().add(Oliver);
 
 
-        Story(cave, existingItems, equipment);
+        Story(cave, existingItems, equipment, existingEnchantments);
 
     }
 
-    public static void Story(Hub cave, List<Item> existingItems, Equipment equipment) {
+    public static void Story(Hub cave, List<Item> existingItems, Equipment equipment, List<Enchantments> existingEnchantments) {
 
         // Makes the room you are in "cave"
         Hub inRoom = cave;
@@ -1530,11 +1533,23 @@ public class Game {
                         if (stringContainsWordFromList(action.toLowerCase(), scroll.toArray(new String[0]))) {
                             for (String some : inventory){
                                 if(some.toLowerCase().contains("scroll")){
+
                                     System.out.println("which scroll");
+                                    String yScroll = scanner.next();
                                     if (stringContainsWordFromList(action.toLowerCase(), firescroll.toArray(new String[0]))) {
-                                        if(some.toLowerCase().contains("fire scroll level ")){
+                                        if(some.toLowerCase().contains("fire scroll level one")){
+                                            System.out.println("Would you like to use fire scroll level one on your melee weapon?");
+                                            if(yScroll.equals("yes") && player.getMeleeSlot()!=null){
+                                                player.getMeleeSlot().setEnchantment(existingEnchantments.get(0));
+                                            }
+                                        }
+                                        if(some.toLowerCase().contains("fire scroll level two")) {
                                             System.out.println("Would you like to use fire scroll level one on your melee weapon?");
                                         }
+                                        if(some.toLowerCase().contains("fire scroll level three")) {
+                                            System.out.println("Would you like to use fire scroll level one on your melee weapon?");
+                                        }
+
                                     }
                                 }
                             }
