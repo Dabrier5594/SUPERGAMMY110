@@ -1095,10 +1095,7 @@ public class Game {
         objects.add("raven eye");
         objects.add("blood vial");
         objects.add("cauldron");
-        objects.add("fire scroll 1");
-        objects.add("fire scroll 2");
-        objects.add("fire scroll 3");
-        objects.add("protection scroll 1");
+        objects.add("scroll");
         objects.add("firstville guards plate");
         objects.add("firstville guards helm");
         objects.add("firstville guards boots");
@@ -1200,6 +1197,14 @@ public class Game {
 
         List<String> gate = new ArrayList<>();
         gate.add("gate");
+
+        List<String> scrollTypes = new ArrayList<>();
+        scrollTypes.add("fire scroll 1");
+        scrollTypes.add("fire scroll 2");
+        scrollTypes.add("fire scroll 3");
+        scrollTypes.add("protection scroll 1");
+        scrollTypes.add("protection scroll 2");
+        scrollTypes.add("protection scroll 3");
 
 
         // INSERT ALL CODE THAT SETS A VARIABLE HERE!!!!!
@@ -1730,13 +1735,38 @@ public class Game {
                                 int scrollLevel = 0;
                                 String chosenType = "choco";
 
+                                if (!action.contains("fire") && !action.contains("protection") ){
+                                    boolean fank = false;
+
+                                    while (!fank) {
+                                        System.out.println("Please enter the type of scroll (fire | protection | or 'quit)");
+                                        System.out.print("-> ");
+                                        String tester = scanner.nextLine();
+                                        if (tester.equalsIgnoreCase("quit")) {
+                                            action = "quit";
+                                            fank = true;
+                                        }
+                                        else if (tester.equalsIgnoreCase("fire")) {
+                                            action = action + " fire";
+                                            fank = true;
+
+                                        }
+                                        else if (tester.equalsIgnoreCase("protection")) {
+                                            action = action + " protection";
+                                            fank = true;
+
+                                        }
+                                        else {
+                                            System.out.println("");
+                                        }
+                                    }
+                                }
+
                                 if (action.contains("fire")) {
                                     chosenType = "fire";
                                     boolean hasFire = false;
 
                                     for (String i : inventory) {
-
-                                        System.out.println(i);
 
                                         if (i.contains("fire")) {
                                             hasFire = true;
@@ -1809,51 +1839,57 @@ public class Game {
 
                                                 if (equipment.getEquippedItems() != null) {
 
-                                                    System.out.println("What weapon would you like to apply this enchantment to?");
-
                                                     List<Item> equippedList = new ArrayList<>(equipment.getEquippedItems().values());
 
                                                     boolean continueA = false;
+                                                    Item choice = null;
+
+
                                                     if (equippedList.isEmpty()) {
                                                         System.out.println("No weapons equipped.");
                                                         continueA = true;
                                                     }
 
-                                                    Item choice = null;
+                                                    else {
 
-                                                    while (choice == null) {
+                                                        System.out.println("What weapon would you like to apply this enchantment to?");
 
-                                                        int index = 1;
-                                                        for (Item waga : equippedList) {
-                                                            String slot = "";
-                                                            for (Map.Entry<String, Item> entry : equipment.getEquippedItems().entrySet()) {
-                                                                if (entry.getValue() == waga) {
-                                                                    slot = entry.getKey();
-                                                                    break;
+                                                        while (choice == null) {
+
+                                                            int index = 1;
+                                                            for (Item waga : equippedList) {
+                                                                String slot = "";
+                                                                for (Map.Entry<String, Item> entry : equipment.getEquippedItems().entrySet()) {
+                                                                    if (entry.getValue() == waga) {
+                                                                        slot = entry.getKey();
+                                                                        break;
+                                                                    }
                                                                 }
+                                                                System.out.println(index + ") [" + slot + ": " + waga.getName() + "]");
+                                                                index++;
                                                             }
-                                                            System.out.println(index + ") [" + slot + ": " + waga.getName() + "]");
-                                                            index++;
-                                                        }
-                                                        System.out.println("Which weapon do you want to select (number or 'quit') ? ");
-                                                        System.out.print("-> ");
+                                                            System.out.println("Which weapon do you want to select (number or 'quit') ? ");
+                                                            System.out.print("-> ");
 
-                                                        String answer = Game.scanner.nextLine().trim().toLowerCase();
+                                                            String answer = Game.scanner.nextLine().trim().toLowerCase();
 
-                                                        if (answer.equalsIgnoreCase("quit")){
-                                                            System.out.println("Action cancelled: quit");
-                                                            continueA = true;
-                                                            break;
-                                                        }
-                                                        try {
-                                                            int chosen = Integer.parseInt(answer) - 1;
-                                                            if (chosen >= 0 && chosen < equippedList.size()) {
-                                                                choice = equippedList.get(chosen);
+                                                            if (answer.equalsIgnoreCase("quit")) {
+                                                                System.out.println("Action cancelled: quit");
+                                                                continueA = true;
+                                                                break;
                                                             }
-                                                        } catch (NumberFormatException ignored) {
-                                                            System.out.println("Please enter a number.");
+                                                            try {
+                                                                int chosen = Integer.parseInt(answer) - 1;
+                                                                if (chosen >= 0 && chosen < equippedList.size()) {
+                                                                    choice = equippedList.get(chosen);
+                                                                }
+                                                            } catch (NumberFormatException ignored) {
+                                                                System.out.println("Please enter a number.");
+                                                            }
                                                         }
                                                     }
+
+
 
                                                     if (!continueA) {
                                                         if (choice != null) {
@@ -2269,16 +2305,35 @@ public class Game {
 
                         } else if (stringContainsWordFromList(action.toLowerCase(), take.toArray(new String[0])) || stringContainsWordFromList(action.toLowerCase(), get.toArray(new String[0]))) {
                             boolean validObject = false;
+                            boolean allOrNo = false;
 
-                            for (String obj : objects) {
-                                if (action.toLowerCase().contains(obj)) {
-                                    boolean allOrNo = false;
-                                    if (action.toLowerCase().contains("all")){
-                                        allOrNo = true;
+
+                            if (action.contains("scroll")){
+                                for (String wah : scrollTypes){
+                                    if (action.contains(wah)){
+                                        take(inRoom, wah, inventory, player, playersStats, allOrNo);
+                                        validObject = true;
+                                        break;
                                     }
-                                    take(inRoom, obj, inventory, player, playersStats, allOrNo);
+                                }
+                                if (!validObject){
+                                    System.out.println("Please try again [specify which scroll e.g. fire scroll 1]");
                                     validObject = true;
-                                    break;
+
+                                }
+                            }
+                            else {
+
+                                for (String obj : objects) {
+                                    if (action.toLowerCase().contains(obj)) {
+                                        if (action.toLowerCase().contains("all")) {
+                                            allOrNo = true;
+                                        }
+                                        take(inRoom, obj, inventory, player, playersStats, allOrNo);
+                                        validObject = true;
+                                        break;
+
+                                    }
                                 }
                             }
 
@@ -4603,7 +4658,6 @@ public class Game {
         Pattern pattern = Pattern.compile("\\b(1|2|3)\\b");  // tries to find any 1,2,3 if there are any
         Matcher matcher = pattern.matcher(text.toLowerCase());
         if (matcher.find()) {
-            System.out.println(Integer.parseInt(matcher.group(1)));
             return Integer.parseInt(matcher.group(1));
         }
         return 0;
