@@ -1,6 +1,7 @@
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;import java.util.Timer;
 import java.util.TimerTask;
 
@@ -825,18 +826,21 @@ public class Game {
 
 
         //ENHANCEMENTS & SCROLLS!
+        List<Enchantment1> enchantment1List = new ArrayList<>();
 
-        Enchantments fire = new Enchantments("fire", "Lights enemies on fire", 1);
-        Enchantments healthBoost = new Enchantments("health boost", "Gives you a higher max health", 1);
-        Enchantments protection = new Enchantments("Protection", "Your armor feels thicker", 2);
+        Enchantment1 fire = new Enchantment1("fire scroll 1", "Lights enemies on fire", 1);
+        enchantment1List.add(fire);
+        Enchantment1 fire2 = new Enchantment1("fire scroll 2", "Lights enemies on fire", 1);
+        enchantment1List.add(fire2);
+        Enchantment1 fire3 = new Enchantment1("fire scroll 3", "Lights enemies on fire", 1);
+        enchantment1List.add(fire3);
 
-        Scroll protectOne = new Scroll("Protection One", protection, 1);
-        Scroll protectTwo = new Scroll("Protection Two", protection, 2);
-        Scroll protectThree = new Scroll("Protection Three", protection, 3);
-
-        Scroll fireOne = new Scroll("Protection", protection, 1);
-        Scroll fireTwo = new Scroll("Protection", protection, 2);
-        Scroll fireThree = new Scroll("Protection", protection, 3);
+        Enchantment1 protection = new Enchantment1("protection scroll 1", "Your armor feels thicker", 2);
+        enchantment1List.add(protection);
+        Enchantment1 protection2 = new Enchantment1("protection scroll 2", "Your armor feels thicker", 2);
+        enchantment1List.add(protection2);
+        Enchantment1 protection3 = new Enchantment1("protection scroll 3", "Your armor feels thicker", 2);
+        enchantment1List.add(protection3);
 
         //MAKE ITEMS AND "EQUIPMENT"
         //MAKE ITEMS EXIST IN ITEMS
@@ -943,11 +947,11 @@ public class Game {
         firstVilleGate.getGuard().add(Oliver);
 
 
-        Story(cave, existingItems, equipment);
+        Story(cave, existingItems, equipment, enchantment1List);
 
     }
 
-    public static void Story(Hub cave, List<Item> existingItems, Equipment equipment) {
+    public static void Story(Hub cave, List<Item> existingItems, Equipment equipment, List<Enchantment1> enchantment1s) {
 
         // Makes the room you are in "cave"
         Hub inRoom = cave;
@@ -1091,8 +1095,10 @@ public class Game {
         objects.add("raven eye");
         objects.add("blood vial");
         objects.add("cauldron");
-        objects.add("fire");
-        objects.add("protection");
+        objects.add("fire scroll 1");
+        objects.add("fire scroll 2");
+        objects.add("fire scroll 3");
+        objects.add("protection scroll 1");
         objects.add("firstville guards plate");
         objects.add("firstville guards helm");
         objects.add("firstville guards boots");
@@ -1269,6 +1275,12 @@ public class Game {
                 inRoom.getObjects().add("admin sword");
 
                 inRoom.getObjects().add("dagger");
+
+                inRoom.getObjects().add("fire scroll 1");
+
+                inRoom.getObjects().add("fire scroll 2");
+
+                inRoom.getObjects().add("fire scroll 3");
 
                 System.out.println("$#bonus stats have been successfully distributed");
                 scanner.nextLine();
@@ -1712,21 +1724,198 @@ public class Game {
                                     ((Hub.CurrencyExchangeBooth)inRoom).exchangeCurrency(player, inventory);
                                 }
                             }
-                        }
 
-                        if (stringContainsWordFromList(action.toLowerCase(), scroll.toArray(new String[0]))) {
+                            if (stringContainsWordFromList(action.toLowerCase(), scroll.toArray(new String[0]))) {
+
+                                int scrollLevel = 0;
+                                String chosenType = "choco";
+
+                                if (action.contains("fire")) {
+                                    chosenType = "fire";
+                                    boolean hasFire = false;
+
+                                    for (String i : inventory) {
+
+                                        System.out.println(i);
+
+                                        if (i.contains("fire")) {
+                                            hasFire = true;
+                                            break;
+
+                                        }
+                                    }
+
+                                    if (!hasFire){
+                                        System.out.println("You do not seem to have a 'fire' scroll!");
+                                        action = "quit";
+                                    }
+
+                                    if (hasFire) {
+                                        boolean decidedNumber = false;
+                                        while (!decidedNumber) {
+
+                                            decidedNumber = true;
+
+                                            scrollLevel = extractNumber(action);
+
+                                            if (scrollLevel <= 0) {
+
+                                                System.out.println("SCROLL LEVEL - Options: [1] [2] [3] or 'quit'");
+                                                System.out.print("-> ");
+                                                action = scanner.nextLine();
+
+                                                decidedNumber = false;
+                                                if (action.equalsIgnoreCase("quit")) {
+                                                    System.out.println("No scroll used.");
+                                                    break;
+                                                }
+                                            }
+
+                                        }
+                                    }
+
+                                }
+
+                                if (!action.equalsIgnoreCase("quit")) {
+                                    String theScroll = "choco";
+
+                                    if (scrollLevel != 1 && scrollLevel != 2 && scrollLevel != 3) {
+                                        System.out.println("There is no such scroll with that level.");
+                                    } else {
+
+                                        int aScrollLevel = 0;
+
+                                        for (String w : inventory) {
+                                            if (w.contains(chosenType)) {
+
+                                                try {
+
+                                                    aScrollLevel = extractNumber(w);
+
+                                                } catch (NumberFormatException e) {
+
+                                                }
+
+                                                if (aScrollLevel == scrollLevel) {
+                                                    theScroll = w;
+                                                    break;
+                                                }
+                                            }
+                                        }
+
+                                        if (!theScroll.equalsIgnoreCase("choco")) {
+
+                                            if (theScroll.contains("fire")) {
+
+                                                if (equipment.getEquippedItems() != null) {
+
+                                                    System.out.println("What weapon would you like to apply this enchantment to?");
+
+                                                    List<Item> equippedList = new ArrayList<>(equipment.getEquippedItems().values());
+
+                                                    boolean continueA = false;
+                                                    if (equippedList.isEmpty()) {
+                                                        System.out.println("No weapons equipped.");
+                                                        continueA = true;
+                                                    }
+
+                                                    Item choice = null;
+
+                                                    while (choice == null) {
+
+                                                        int index = 1;
+                                                        for (Item waga : equippedList) {
+                                                            String slot = "";
+                                                            for (Map.Entry<String, Item> entry : equipment.getEquippedItems().entrySet()) {
+                                                                if (entry.getValue() == waga) {
+                                                                    slot = entry.getKey();
+                                                                    break;
+                                                                }
+                                                            }
+                                                            System.out.println(index + ") [" + slot + ": " + waga.getName() + "]");
+                                                            index++;
+                                                        }
+                                                        System.out.println("Which weapon do you want to select (number or 'quit') ? ");
+                                                        System.out.print("-> ");
+
+                                                        String answer = Game.scanner.nextLine().trim().toLowerCase();
+
+                                                        if (answer.equalsIgnoreCase("quit")){
+                                                            System.out.println("Action cancelled: quit");
+                                                            continueA = true;
+                                                            break;
+                                                        }
+                                                        try {
+                                                            int chosen = Integer.parseInt(answer) - 1;
+                                                            if (chosen >= 0 && chosen < equippedList.size()) {
+                                                                choice = equippedList.get(chosen);
+                                                            }
+                                                        } catch (NumberFormatException ignored) {
+                                                            System.out.println("Please enter a number.");
+                                                        }
+                                                    }
+
+                                                    if (!continueA) {
+                                                        if (choice != null) {
+                                                            System.out.println("Selected: " + choice.getName());
+                                                        }
+
+                                                        if (choice.getEnchantment1() == null) {
+
+                                                            System.out.println("Enchantment 'fire' level " + scrollLevel + "has been added to " + choice.getName() + "!");
+
+                                                            for (Enchantment1 enchantment1 : enchantment1s) {
+                                                                if (enchantment1.getName().equalsIgnoreCase(theScroll)) {
+
+                                                                    choice.setEnchantment1(enchantment1);
+                                                                    inventory.remove(theScroll);
+
+                                                                    break;
+
+                                                                }
+
+                                                            }
+
+                                                        } else if (choice.getEnchantment1().getName().contains("fire")) {
+
+                                                            if (choice.getEnchantment1().getLevel() < scrollLevel) {
+                                                                System.out.println("Enchantment 'fire' level " + scrollLevel + "has been added to " + choice.getName() + "!");
+                                                                for (Enchantment1 enchantment1 : enchantment1s) {
+                                                                    if (enchantment1.getName().equalsIgnoreCase(theScroll)) {
+
+                                                                        choice.setEnchantment1(enchantment1);
+                                                                        inventory.remove(theScroll);
+
+                                                                        break;
+
+                                                                    }
+
+                                                                }
 
 
-                            if (action.contains("fire")){
+                                                            } else {
+                                                                System.out.println("You are unable to equip a scroll of lower or equal level enchantment to a said weapon");
+                                                            }
 
-                               try {
-                                   int scrollLevel = Integer.parseInt(action);
+                                                        } else {
+                                                            System.out.println("This weapon already has an enchantment!");
+                                                        }
+                                                    }
+                                                } else {
+                                                    System.out.println("You have no equipped Items... (when enchanting you can only access equipped things)");
+                                                }
 
-                               } catch (NumberFormatException e) {
-                                  System.out.println("");//c
-                               }
+                                            } else if (theScroll.contains("protection")) {
+                                                System.out.println("What armor would you like the apply this enchantment to?");
+                                            }
 
+                                        } else {
+                                            System.out.println("The target scroll was not found in inventory.");
+                                        }
 
+                                    }
+
+                                }
                             }
 
                         }
@@ -4408,6 +4597,16 @@ public class Game {
         return invin;
 
 
+    }
+
+    private static int extractNumber(String text) {
+        Pattern pattern = Pattern.compile("\\b(1|2|3)\\b");  // tries to find any 1,2,3 if there are any
+        Matcher matcher = pattern.matcher(text.toLowerCase());
+        if (matcher.find()) {
+            System.out.println(Integer.parseInt(matcher.group(1)));
+            return Integer.parseInt(matcher.group(1));
+        }
+        return 0;
     }
 
 

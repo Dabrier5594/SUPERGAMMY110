@@ -1,15 +1,15 @@
-public class Enchantments {
+public class Enchantment1 {
     private String name;
     private String description;
     private int level;
 
-    public Enchantments(String name, String description, int level){
+    public Enchantment1(String name, String description, int level){
         this.name = name;
         this.description = description;
         this.level = level;
     }
 
-    public void usePower(Enchantments enchantment, Mob mob){
+    public void usePower(Enchantment1 enchantment, Mob mob){
         if (enchantment.getName().equalsIgnoreCase("fire")){
             int d = enchantment.getLevel() * 3;
             int burtTurns = enchantment.getLevel() + 1;
@@ -25,7 +25,7 @@ public class Enchantments {
         }
     }
 
-    public void usePowerBoss(Enchantments enchantment, Boss mob){
+    public void usePowerBoss(Enchantment1 enchantment, Boss mob){
         if (enchantment.getName().equalsIgnoreCase("fire")){
             int d = enchantment.getLevel() * 3;
             int burtTurns = enchantment.getLevel() + 1;
@@ -41,12 +41,12 @@ public class Enchantments {
         }
     }
 
-    public void useSelf(Enchantments enchantments, Player player){
+    public void useSelf(Enchantment1 enchantments, Player player){
 
     }
 
-    public void checkSelf(Enchantments enchantments, Item item, Player player){
-        if (item.getEnchantment() != null){
+    public void checkSelf(Enchantment1 enchantments, Item item, Player player){
+        if (item.getEnchantment1() != null){
             useSelf(enchantments, player);
         }
     }

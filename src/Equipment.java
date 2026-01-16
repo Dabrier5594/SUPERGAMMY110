@@ -1,21 +1,20 @@
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 class Item {
     private String name;
     private String slotType; //melee, body, head, legging, boots,
     private boolean isOffensive;
-    private Enchantments enchantment;
+    private Enchantment1 enchantment1;
+
 
     private String inspectDescription;
 
-    public Item(String name, String slotType, boolean isOffensive, Enchantments enchantment) {
+    public Item(String name, String slotType, boolean isOffensive, Enchantment1 enchantment1) {
         this.name = name;
         this.slotType = slotType.toLowerCase();
         this.isOffensive = isOffensive;
-        this.enchantment = enchantment;
+        this.enchantment1 = enchantment1;
 
         this.inspectDescription = "Nothing special about this item.";
 
@@ -24,8 +23,8 @@ class Item {
     public String getName() { return name; }
     public String getSlotType() { return slotType; }
     public boolean isOffensive() { return isOffensive; }
-    public Enchantments getEnchantment(){ return enchantment; }
-    public void setEnchantment(Enchantments enchantment){ this.enchantment = enchantment; }
+    public Enchantment1 getEnchantment1(){ return enchantment1; }
+    public void setEnchantment1(Enchantment1 enchantment1){ this.enchantment1 = enchantment1; }
 
     //inspect classes
     public void setInspectDescription(String inspectDescription) {
@@ -37,14 +36,14 @@ class Item {
     }
 
     public void checkPower(Mob mob){
-        if (enchantment != null){
-            enchantment.usePower(enchantment, mob);
+        if (enchantment1 != null){
+            enchantment1.usePower(enchantment1, mob);
         }
     }
 
     public void checkPowerBoss(Boss mob){
-        if (enchantment != null){
-            enchantment.usePowerBoss(enchantment, mob);
+        if (enchantment1 != null){
+            enchantment1.usePowerBoss(enchantment1, mob);
         }
     }
 
@@ -78,12 +77,12 @@ class Equipment {
 
         equippedItems.put(slot, item);
         System.out.println("You have equipped '" + item.getName() + "'!\n");
-        if(item.getEnchantment() != null){
-            if (item.getEnchantment().equals("fire")){
+        if(item.getEnchantment1() != null){
+            if (item.getEnchantment1().equals("fire")){
                 player.setAttackPower(0);
 
             }
-            if(item.getEnchantment().equals("protection")){
+            if(item.getEnchantment1().equals("protection")){
                 if(item.getSlotType() == "helmet") {
                     player.getHealth().setDamageResistance(player.getHealth().getDamageResistance() + 2);
                 }
