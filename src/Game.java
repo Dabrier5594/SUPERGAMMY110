@@ -1253,22 +1253,27 @@ public class Game {
                 System.out.print("Enter target room\n-> ");
                 String gotoRoomBlah = scanner.nextLine();
                 if (gotoRoomBlah != null) {
-                    if (!gotoRoomBlah.equalsIgnoreCase("d") && !gotoRoomBlah.equalsIgnoreCase("g") && !gotoRoomBlah.equalsIgnoreCase("bagger")) {
-                        inRoom = Hub.get(gotoRoomBlah);
-                        System.out.println("Boom. You're There.");
-
-                    } else if (gotoRoomBlah.equalsIgnoreCase("d")) {
-                        System.out.println("Code accepted.");
-                    } else if (gotoRoomBlah.equalsIgnoreCase("gate1")) {
-                        inRoom = Hub.get("Gate of FirstVille");
-                        System.out.println("You are at the gate.");
-                    } else if (gotoRoomBlah.equalsIgnoreCase("bagger")) {
-                        inRoom = Game.baggerShop;
-                        System.out.println("MEET BAGGER - welcome");
-                    } else {
+                    try {
+                        if (!gotoRoomBlah.equalsIgnoreCase("d") && !gotoRoomBlah.equalsIgnoreCase("g") && !gotoRoomBlah.equalsIgnoreCase("bagger") && !gotoRoomBlah.equalsIgnoreCase("")) {
+                            inRoom = Hub.get(gotoRoomBlah);
+                            System.out.println("Boom. You're There.");
+                        } else if (gotoRoomBlah.equalsIgnoreCase("d")) {
+                            System.out.println("Code accepted.");
+                        } else if (gotoRoomBlah.equalsIgnoreCase("gate1")) {
+                            inRoom = Hub.get("Gate of FirstVille");
+                            System.out.println("You are at the gate.");
+                        } else if (gotoRoomBlah.equalsIgnoreCase("bagger")) {
+                            inRoom = Game.baggerShop;
+                            System.out.println("MEET BAGGER - welcome");
+                        } else {
+                            inRoom = Hub.get("Tom's Dark Cave");
+                            System.out.println("default input received.");
+                        }
+                    } catch (NullPointerException e){
+                        inRoom = Hub.get("Tom's Dark Cave");
                         System.out.println("default input received.");
-                    }
 
+                    }
 
                 }
 
