@@ -1101,6 +1101,12 @@ public class Game {
         objects.add("firstville guards boots");
         objects.add("firstville guards legs");
 
+        List<String> yesOrYes = new ArrayList<>();
+        yesOrYes.add("y");
+        yesOrYes.add("yes");
+        yesOrYes.add("yah");
+        yesOrYes.add("sure");
+        yesOrYes.add("do it");
 
         List<String> look = new ArrayList<>();
         look.add("l");
@@ -1286,7 +1292,11 @@ public class Game {
 
                 inRoom.getObjects().add("dagger");
 
-                inRoom.getObjects().add("fire scroll 1");
+                inRoom.getObjects().add("leather armor");
+
+                inRoom.getObjects().add("protection scroll 1");
+
+                inRoom.getObjects().add("protection scroll 2");
 
                 inRoom.getObjects().add("fire scroll 2");
 
@@ -1767,13 +1777,19 @@ public class Game {
                                     }
                                 }
 
-                                if (action.contains("fire")) {
-                                    chosenType = "fire";
+                                if (action.contains("fire") || action.contains("protection")) {
+                                    if (action.contains("fire")){
+                                        chosenType = "fire";
+                                    } else if (action.contains("protection")) {
+                                        chosenType = "protection";
+
+                                    }
+
                                     boolean hasFire = false;
 
                                     for (String i : inventory) {
 
-                                        if (i.contains("fire")) {
+                                        if (i.contains(chosenType)) {
                                             hasFire = true;
                                             break;
 
@@ -1781,7 +1797,7 @@ public class Game {
                                     }
 
                                     if (!hasFire){
-                                        System.out.println("You do not seem to have a 'fire' scroll!");
+                                        System.out.println("You do not seem to have a '" + chosenType + "' scroll!");
                                         action = "quit";
                                     }
 
@@ -1840,24 +1856,32 @@ public class Game {
 
                                         if (!theScroll.equalsIgnoreCase("choco")) {
 
-                                            if (theScroll.contains("fire")) {
+                                            if (theScroll.contains("protection")) {
 
                                                 if (equipment.getEquippedItems() != null) {
 
                                                     List<Item> equippedList = new ArrayList<>(equipment.getEquippedItems().values());
+
+                                                    for (Item item : equippedList){
+
+                                                        if (item.getSlotType().equalsIgnoreCase("melee")){
+                                                            equippedList.remove(item);
+                                                        }
+
+                                                    }
 
                                                     boolean continueA = false;
                                                     Item choice = null;
 
 
                                                     if (equippedList.isEmpty()) {
-                                                        System.out.println("No weapons equipped.");
+                                                        System.out.println("No armor equipped.");
                                                         continueA = true;
                                                     }
 
                                                     else {
 
-                                                        System.out.println("What weapon would you like to apply this enchantment to?");
+                                                        System.out.println("What armor would you like to apply this enchantment to?");
 
                                                         while (choice == null) {
 
@@ -1873,7 +1897,7 @@ public class Game {
                                                                 System.out.println(index + ") [" + slot + ": " + waga.getName() + "]");
                                                                 index++;
                                                             }
-                                                            System.out.println("Which weapon do you want to select (number or 'quit') ? ");
+                                                            System.out.println("Which armor do you want to select (number or 'quit') ? ");
                                                             System.out.print("-> ");
 
                                                             String answer = Game.scanner.nextLine().trim().toLowerCase();
@@ -1897,13 +1921,14 @@ public class Game {
 
 
                                                     if (!continueA) {
+
                                                         if (choice != null) {
                                                             System.out.println("Selected: " + choice.getName());
                                                         }
 
                                                         if (choice.getEnchantment1() == null) {
 
-                                                            System.out.println("Enchantment 'fire' level " + scrollLevel + "has been added to " + choice.getName() + "!");
+                                                            System.out.println("Enchantment '" + chosenType + "' level " + scrollLevel + "has been added to " + choice.getName() + "!");
 
                                                             for (Enchantment1 enchantment1 : enchantment1s) {
                                                                 if (enchantment1.getName().equalsIgnoreCase(theScroll)) {
@@ -1917,10 +1942,10 @@ public class Game {
 
                                                             }
 
-                                                        } else if (choice.getEnchantment1().getName().contains("fire")) {
+                                                        } else if (choice.getEnchantment1().getName().contains(chosenType)) {
 
                                                             if (choice.getEnchantment1().getLevel() < scrollLevel) {
-                                                                System.out.println("Enchantment 'fire' level " + scrollLevel + "has been added to " + choice.getName() + "!");
+                                                                System.out.println("Enchantment '" + chosenType + "' level " + scrollLevel + "has been added to " + choice.getName() + "!");
                                                                 for (Enchantment1 enchantment1 : enchantment1s) {
                                                                     if (enchantment1.getName().equalsIgnoreCase(theScroll)) {
 
@@ -1942,12 +1967,39 @@ public class Game {
                                                             System.out.println("This weapon already has an enchantment!");
                                                         }
                                                     }
+
                                                 } else {
                                                     System.out.println("You have no equipped Items... (when enchanting you can only access equipped things)");
                                                 }
 
-                                            } else if (theScroll.contains("protection")) {
-                                                System.out.println("What armor would you like the apply this enchantment to?");
+                                            } else if (theScroll.contains("fire")) {
+
+                                                if (equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems()) != null) {
+                                                    Item choice = equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems());
+                                                    System.out.println("Would you like to apply your scroll to " + choice.getName() + "? [y/n]");
+                                                    System.out.print("-> ");
+
+                                                    String yesOrNo = scanner.nextLine();
+
+                                                    for (String i : yesOrYes) {
+                                                        if (i.equalsIgnoreCase(yesOrNo)) {
+
+                                                            //TESTT TESTT add if melee things.
+
+                                                            yesOrNo = "waga2010";
+                                                            break;
+                                                        }
+                                                    }
+
+                                                    if (!yesOrNo.equalsIgnoreCase("waga2010")) {
+                                                        System.out.println("No scrolls have been applied.\n");
+                                                    }
+
+                                                }   else {
+                                                    System.out.println("You don't have any weapon equipped. [scrolls must be used on equipped things]");
+                                                }
+
+
                                             }
 
                                         } else {
