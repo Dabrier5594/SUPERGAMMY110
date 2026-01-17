@@ -1310,7 +1310,7 @@ public class Game {
 
         start = true;
 
-        System.out.println("Okay! Starting... (hint: use help to 'help')!");//
+        System.out.println("(hint: use help to 'help')");
 
         System.out.println("");
 
@@ -1983,10 +1983,48 @@ public class Game {
 
                                                     for (String i : yesOrYes) {
                                                         if (i.equalsIgnoreCase(yesOrNo)) {
-
-                                                            //TESTT TESTT add if melee things.
-
                                                             yesOrNo = "waga2010";
+                                                            //TESTT TESTT add if melee things.
+                                                            if (choice.getEnchantment1() == null) {
+
+                                                                System.out.println("Enchantment '" + chosenType + "' level " + scrollLevel + "has been added to " + choice.getName() + "!");
+
+                                                                for (Enchantment1 enchantment1 : enchantment1s) {
+                                                                    if (enchantment1.getName().equalsIgnoreCase(theScroll)) {
+
+                                                                        choice.setEnchantment1(enchantment1);
+                                                                        inventory.remove(theScroll);
+
+                                                                        break;
+
+                                                                    }
+
+                                                                }
+                                                            } else if (choice.getEnchantment1().getName().contains(chosenType)) {
+
+                                                                if (choice.getEnchantment1().getLevel() < scrollLevel) {
+                                                                    System.out.println("Enchantment '" + chosenType + "' level " + scrollLevel + "has been added to " + choice.getName() + "!");
+                                                                    for (Enchantment1 enchantment1 : enchantment1s) {
+                                                                        if (enchantment1.getName().equalsIgnoreCase(theScroll)) {
+
+                                                                            choice.setEnchantment1(enchantment1);
+                                                                            inventory.remove(theScroll);
+
+                                                                            break;
+
+                                                                        }
+
+                                                                    }
+
+
+                                                                } else {
+                                                                    System.out.println("You are unable to equip a scroll of lower or equal level enchantment to a said weapon");
+                                                                }
+
+                                                            } else {
+                                                                System.out.println("This weapon already has an enchantment!");
+                                                            }
+
                                                             break;
                                                         }
                                                     }
