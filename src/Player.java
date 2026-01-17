@@ -223,11 +223,11 @@ public class Player {
     public void lessFullness() {fullness--;}
 
     public int getStomachSize(){
-        return fullness;
+        return stomachSize;
     }
 
     public void addStomachSize(int a){
-        fullness += a;
+        stomachSize += a;
     }
 
 

@@ -1709,6 +1709,8 @@ public class Game {
                         player.displayStats(player, playersStats);
                     } else if (stringContainsWordFromList(action.toLowerCase(), rest.toArray(new String[0]))) {
 
+                        System.out.println(player.getStomachSize());
+                        System.out.println(player.getFullness());
                         System.out.println("You can rest up to [" + (player.getStomachSize() - player.getFullness()) + "] fullness/energy points. How many points would you like to regain (1sec per 3 points)?");
                         System.out.print("-> ");
                         String healing = scanner.nextLine();
@@ -1737,7 +1739,9 @@ public class Game {
 
                             if (player.getFullness() < player.getStomachSize()) {
                                 for (String key : food.keySet()) {
+
                                     if (action.contains(key)) {
+
                                         int hungerBonus = food.get(key);
                                         player.addFullness(hungerBonus);
                                         if (player.getFullness() > player.getStomachSize()){
@@ -1745,6 +1749,18 @@ public class Game {
                                         }
                                         System.out.println("Your fullness increases by " + hungerBonus + "! [fullness: " + player.getFullness() +"]");
                                         inventory.remove(key);
+
+                                        if (player.getHealth().getHeealth() < player.getHealth().getMaxHealth()){
+                                            hungerBonus *= 0.75;
+                                            if (hungerBonus > 0) {
+                                                player.getHealth().setHeealth(player.getHealth().getHeealth() + hungerBonus);
+                                                if (player.getHealth().getHeealth() > player.getHealth().getMaxHealth()) {
+                                                    player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+                                                }
+                                                System.out.println("Your health has increased as a bonus!");
+                                            }
+                                        }
+
                                     }
                                     else{
                                         System.out.println("hmmm. Your gonna have trouble doing that...");
@@ -1753,7 +1769,8 @@ public class Game {
 
 
                             } else {
-                                System.out.println("No need to eat! You are full!");
+                                System.out.println("No need to eat! You are full! ");
+
                             }
 
                         }
@@ -2843,6 +2860,7 @@ public class Game {
             System.out.println("You are too tired to move! Rest for a while or eat some food!");
             return currentHub;
         }
+
         if (direction.equals("north") || direction.equals("n")) {
             direction = "n";
             if (currentHub.getRoomName().equalsIgnoreCase("Northern Forest Area #50")){
@@ -4882,5 +4900,12 @@ public class Game {
         return 0;
     }
 
+    public static int eatDuringBattle(String food){
+
+        //Add code that allows you to eat during battle
+
+        return 0;
+
+    }
 
 }
