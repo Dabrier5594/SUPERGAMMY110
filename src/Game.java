@@ -1173,7 +1173,7 @@ public class Game {
         food.put("orange", 1);
         food.put("wolfs bane soup", 4);
         food.put("apple pie", 3);
-        food.put("golden apple", 888);
+        food.put("golden apple", 88);
 
 
         List<String> remove = new ArrayList<>();
@@ -1562,14 +1562,14 @@ public class Game {
 
                     if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
 
-                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
+                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment, food, inventory);
                         inRoom = newRoom;
                         Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                         snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
                     } else if (action.toLowerCase().equals("s") || action.toLowerCase().equals("south")) {
                         // Call the move method and update to inRoom
-                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
+                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment, food, inventory);
                         inRoom = newRoom;
                         Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                         snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1577,14 +1577,14 @@ public class Game {
 
                     } else if (action.toLowerCase().equals("w") || action.toLowerCase().equals("west")) {
                         // Call the move method and update to inRoom
-                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
+                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment, food, inventory);
                         inRoom = newRoom;
                         Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                         snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
                     } else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
                         // Call the move method and update to inRoom
-                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
+                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment, food, inventory);
                         inRoom = newRoom;
                         Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                         snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1598,7 +1598,7 @@ public class Game {
 
                                 action = "n";
 
-                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
+                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment, food, inventory);
                                 inRoom = newRoom;
                                 Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                                 snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1609,7 +1609,7 @@ public class Game {
 
                                 action = "s";
 
-                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
+                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment, food, inventory);
                                 inRoom = newRoom;
                                 Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                                 snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1620,7 +1620,7 @@ public class Game {
 
                                 action = "w";
 
-                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
+                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment, food, inventory);
                                 inRoom = newRoom;
                                 Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                                 snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1631,7 +1631,7 @@ public class Game {
 
                                 action = "e";
 
-                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment);
+                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment, food, inventory);
                                 inRoom = newRoom;
                                 Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                                 snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
@@ -1744,14 +1744,25 @@ public class Game {
 
                                         int hungerBonus = food.get(key);
                                         player.addFullness(hungerBonus);
-                                        if (player.getFullness() > player.getStomachSize()){
-                                            player.setFullness();
+                                        if (key.contains("golden")){
+                                            System.out.println("You've eaten a super food! [max health is discarded in this scenario]");
+                                        } else {
+                                            if (player.getFullness() > player.getStomachSize()) {
+                                                player.setFullness();
+                                                hungerBonus = -898;
+                                            }
                                         }
-                                        System.out.println("Your fullness increases by " + hungerBonus + "! [fullness: " + player.getFullness() +"]");
+
+                                        if (hungerBonus != -898) {
+                                            System.out.println("Your fullness increases by " + hungerBonus + "! [fullness: " + player.getFullness() + "]");
+                                        } else {
+                                            System.out.println("You smirk as you feel your stomach fill substantially.");
+                                        }
+
                                         inventory.remove(key);
 
                                         if (player.getHealth().getHeealth() < player.getHealth().getMaxHealth()){
-                                            hungerBonus *= 0.75;
+                                            hungerBonus *= 0.65;
                                             if (hungerBonus > 0) {
                                                 player.getHealth().setHeealth(player.getHealth().getHeealth() + hungerBonus);
                                                 if (player.getHealth().getHeealth() > player.getHealth().getMaxHealth()) {
@@ -2169,10 +2180,10 @@ public class Game {
                                                 System.out.println("\nYou look so close an apple falls from the tree onto the ground!");
                                                 treeReset = false;
                                                 applesFallen++;
-                                                if (applesFallen >= 88){
+                                                if (applesFallen >= 38){
                                                     inRoom.getObjects().add("golden apple");
                                                     System.out.println("\nYou continue squinting so ferociously that something magical descends from the tree!");
-                                                    applesFallen -= 88;
+                                                    applesFallen -= 38;
                                                 }
                                             } else {
                                                 System.out.println("This time, nothing falls from the tree!");
@@ -2621,7 +2632,7 @@ public class Game {
 
                                     fighting = true;
 
-                                    combat(player, mob, inRoom, playersStats, equipment);
+                                    combat(player, mob, inRoom, playersStats, equipment, food, inventory);
 
                                     player.setInCombat(false);
 
@@ -2854,7 +2865,7 @@ public class Game {
     }
 
     // move method
-    public static Hub move(String direction, Hub currentHub, Player player, XpLv playerStats, Equipment equipment) {
+    public static Hub move(String direction, Hub currentHub, Player player, XpLv playerStats, Equipment equipment, Map<String, Integer> food, List<String> inventory) {
 
         if (player.getFullness() < 1){
             System.out.println("You are too tired to move! Rest for a while or eat some food!");
@@ -2925,7 +2936,7 @@ public class Game {
 
                     System.out.println(mob.getName() + " is aggro and attacks you as you enter!");
 
-                    combat(player, mob, newRoom, playerStats, equipment);
+                    combat(player, mob, newRoom, playerStats, equipment, food, inventory);
                     if (newRoom.getMOBS().isEmpty()) {
 
                         break; // If I change stuff then before the for I should see what the newRoom.getMOBS's length is, and then do a "for (int i = (the length of the list)"
@@ -3967,7 +3978,7 @@ public class Game {
 
 
 
-    public static void combat(Player player, Mob mob, Hub inRoom, XpLv playerStats, Equipment equipment) {
+    public static void combat(Player player, Mob mob, Hub inRoom, XpLv playerStats, Equipment equipment, Map<String, Integer> food, List<String> inventory) {
         boolean using = false;
 
         int pause = 300;
@@ -3976,7 +3987,7 @@ public class Game {
 
         } else {
 
-            System.out.println("Would you like to your skills in this battle (y/n) ?");
+            System.out.println("Would you like to your skills and allow 'eat' in this battle (y/n) ?");
             System.out.print("-> ");
             String answer = scanner.nextLine();
 
@@ -4035,6 +4046,7 @@ public class Game {
                 for (Skill skill : player.getSkills()) {
                     System.out.print("[" + skill.getName() + "]  ");
                 }
+
                 System.out.println("");
                 System.out.print("-> ");
 
@@ -4054,11 +4066,54 @@ public class Game {
                     }
                 }
 
+                //TESTT
+
+                List<String> edibleItems = new ArrayList<>();
+                for (String item : inventory) {
+                    if (food.containsKey(item.toLowerCase())) {
+                        edibleItems.add(item);
+                    }
+                }
+
+                if (edibleItems.isEmpty()) {
+
+                } else {
+
+                    List<String> tokenId = edibleItems;
+
+                    for (int i = 0; i < tokenId.size(); i++) {
+                        String id = tokenId.get(i);
+                        int healValue = food.get(id.toLowerCase());
+                        System.out.println((i + 1) + ") [" + id + "] (Food value " + healValue + " pts)");
+                        if (i % 5 == 0) {
+                            System.out.println("");
+                        }
+                    }
+                    System.out.println("What food would you like to eat (number)? ");
+                    System.out.print("-> ");
+
+                    String answer = Game.scanner.nextLine().trim().toLowerCase();
+                    String choice = null;
+
+                    try {
+                        int chosen = Integer.parseInt(answer) - 1;
+                        if (chosen >= 0 && chosen < tokenId.size()) {
+                            choice = tokenId.get(chosen);
+                        }
+                    } catch (NumberFormatException ignored) {
+                        System.out.println("Target not found.");
+                    }
+
+                    if (choice != null) {
+
+                        eatDuringBattle(choice, food, player, inventory);
+
+                    }
+
+                }
+
 
             }
-
-            System.out.println("");
-
             //ATTACKING THE MOB - YOUR TURN!
             player.attack(mob);
 
@@ -4861,10 +4916,10 @@ public class Game {
                     }
                 }
 
-                if (apple >= 3 && wheat >= 3){
+                if (apple >= 2 && wheat >= 2){
                     System.out.println("Success! You've made Apple Pie!");
                     invin.add("apple pie");
-                    for (int i = 0; i<3; i++){
+                    for (int i = 0; i<2; i++){
                         invin.remove("apple");
                         invin.remove("wheat");
                     }
@@ -4900,12 +4955,71 @@ public class Game {
         return 0;
     }
 
-    public static int eatDuringBattle(String food){
+    public static void eatDuringBattle(String target, Map<String, Integer> food, Player player, List<String> inventory){
 
-        //Add code that allows you to eat during battle
+        for (String key : food.keySet()) {
 
-        return 0;
+            if (target.equalsIgnoreCase(key)) {
+
+                int hungerBonus = food.get(key);
+
+                if (key.contains("golden")) {
+                    System.out.println("You've eaten a super food! [max health is discarded in this scenario]");
+                    player.addFullness(hungerBonus);
+
+                    System.out.println("Your fullness increases by " + hungerBonus + "! [fullness: " + player.getFullness() + "]");
+
+                } else {
+
+                    if (player.getFullness() < player.getStomachSize()) {
+
+                        player.addFullness(hungerBonus);
+
+                        if (player.getStomachSize() < player.getFullness()) {
+                            player.setFullness();
+                            hungerBonus = -898;
+                        }
+
+                        if (hungerBonus != -898) {
+                            System.out.println("Your fullness increases by " + hungerBonus + "! [fullness: " + player.getFullness() + "]");
+                        } else {
+                            System.out.println("You smirk as you feel your stomach fill substantially.");
+                        }
+                    } else {
+                        System.out.println("Your fullness is not affected as you already full!");
+                    }
+
+                }
+
+                inventory.remove(key);
+
+                if (player.getHealth().getHeealth() < player.getHealth().getMaxHealth()) {
+                    hungerBonus *= 0.65;
+                    if (hungerBonus > 0) {
+                        player.getHealth().setHeealth(player.getHealth().getHeealth() + hungerBonus);
+                        if (player.getHealth().getHeealth() > player.getHealth().getMaxHealth()) {
+                            player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+                        }
+                        System.out.println("Your health has increased!");
+                    }
+                }
+
+                return;
+
+            }
+        }
+
+        System.out.println("Your gonna have some trouble eating that...");
 
     }
+
+
+
+
+
+
+
+
+
 
 }
