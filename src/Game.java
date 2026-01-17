@@ -57,6 +57,8 @@ public class Game {
         INSPECT_DESCRIPTIONS.put("raven eye", "A polished black gem that seems to watch you. Perfect for crafting.");
         INSPECT_DESCRIPTIONS.put("blood vial", "A small glass vial filled with thick, dark blood. Still warm—what kind of creature bled this? A handy ingredient.");
         INSPECT_DESCRIPTIONS.put("cauldron", "A dented iron pot bubbling with someones failed creation.");
+        INSPECT_DESCRIPTIONS.put("tree", "A crooked looking tree which has been through a lot, although red orbs seem to be peaking through the dried leaves.");
+
 
     }
 
@@ -119,6 +121,10 @@ public class Game {
 
     public static volatile boolean talking = false;
 
+    public static volatile int applesFallen = 0;
+
+    public static volatile boolean treeReset = true;
+
     public static volatile int nightCounter = 0; // true = day, false = night
 
 
@@ -168,13 +174,15 @@ public class Game {
                 timeChange = timeOfDay ? "day" : "night";
                 changeTime = LocalTime.now();
                 timeOfDay = !timeOfDay;
-
+                treeReset = true;
 
             } else {
 
                 System.out.println("It is turning " + (timeOfDay ? "day" : "night") + "...");
 
                 timeOfDay = !timeOfDay;
+                treeReset = true;
+
 
             }
 
@@ -227,11 +235,11 @@ public class Game {
     static {
         LEAFLETS.put("leaflet001",
                 new Leaflet("leaflet001", "leaflet",
-                        "Welcome to the world of Tim", "Thisxz world is one which mysteries and secrets about itself. \nPrepare yourself, to delve deeper into the world of Tim and experience the un-imaginable. \nHint: (Use 'help' to get help)"));
+                        "Welcome to the world of Tim", "This world is one which mysteries and secrets about itself. \nPrepare yourself, to delve deeper into the world of Tim and experience the un-imaginable. \nHint: (Use 'help' to get help)"));
 
         LEAFLETS.put("leaflet002",
                 new Leaflet("leaflet002", "leaflet",
-                        "The Money Challenges", "The world is in a money crisis, and people are going on more dangerous quests to get more money. \nOne gold is 10 silver, 1 silver is 5 copper. \nHint: (More dangerous quests make more money! But they are also much harder to complete...)"));
+                        "The Money Challenges", "The world is in a money crisis, and people are going on more dangerous quests to get more money. \nOne gold is 5 silver, 1 silver is 10 copper. \nHint: (More dangerous quests make more money! But they are also much harder to complete...)"));
     }
 
     //CHEST TOKENS
@@ -305,7 +313,8 @@ public class Game {
 
         // S FOREST
 
-        Hub forest1 = new Hub("Southern Forest Area #1", "Just outside Tom's cave and just inside The Southern Area of the Great Makiss Forest. but now you have moved to the cave's entrance. \nEXITS: (S) (N) ");
+        Hub forest1 = new Hub("Southern Forest Area #1", "Just outside Tom's cave and just inside The Southern Area of the Great Makiss Forest. An ugly tree sways in the wind. \nEXITS: (S) (N) ");
+        forest1.setStructure("tree");
 
         Hub forest2 = new Hub("Southern Forest Area #2", "The Southern Area of the Great Makiss Forest. \nOnly minor prey lay in wait in this forest. \nEXITS: (S) (W) ");
 
@@ -317,7 +326,8 @@ public class Game {
 
         Hub forest6 = new Hub("Southern Forest Area #6", "The Southern Area of the Great Makiss Forest. \nThe trees grow apart here, their canopies still blotting out much of the sunlight. The air feels damp, and the dull chest#001 sits quietly in the middle of the area... \nEXITS: (S) (N) (W)");
 
-        Hub forest7 = new Hub("Southern Forest Area #7", "The Southern Area of the Great Makiss Forest. \nSmells like bear blood... Clue for bear hunt. One that must have ended poorly for the Poacher. \nEXITS: (S) (W)");
+        Hub forest7 = new Hub("Southern Forest Area #7", "The Southern Area of the Great Makiss Forest. \nSmells like bear blood... Clue for bear hunt. One that must have ended poorly for the Poacher. A tree sways in the wind. \nEXITS: (S) (W)");
+        forest7.setStructure("tree");
 
         Hub forest8 = new Hub("Southern Forest Area #8", "The Southern Area of the Great Makiss Forest. \nThe chirping of birds fills the air as soft beams of light break through the leaves. The ground here is softer, marked by faint paw prints. \nEXITS: (E) (S)");
 
@@ -494,9 +504,15 @@ public class Game {
         Hub firstVilleLane31 = new Hub("FirstVille Streets #31", " \nEXITS: (E) (S) (W)");
 
 
+        //OCEAN BIOME [between 2cd and 3rd ville]
+        Hub ocean1 = new Hub("Ocean Edge", "The shoreline fades behind you as waves lap at the hull.");
+
+        Hub ocean2 = new Hub("Open Sea 1", "You drift over deep blue water, the land now a distant line.");
 
 
-
+        //OCEAN EXITS:
+        ocean1.setExit("n", ocean2);
+        ocean2.setExit("s", ocean1);
 
 
 
@@ -848,40 +864,40 @@ public class Game {
 
         Equipment equipment = new Equipment();
 
-        Item adminSword = new Item("admin sword", "melee", true, fire);
+        Item adminSword = new Item("admin sword", "melee", true, fire, 3);
         existingItems.add(adminSword);
-        Item bearClaw = new Item("bear claw", "melee", true, null);
+        Item bearClaw = new Item("bear claw", "melee", true, null, 5);
         existingItems.add(bearClaw);
-        Item baggerDagger = new Item("bagger's dagger", "melee", true, null);
+        Item baggerDagger = new Item("bagger's dagger", "melee", true, null, 7);
         existingItems.add(baggerDagger);
-        Item sickles = new Item("sickles", "melee", true,null);
+        Item sickles = new Item("sickles", "melee", true,null, 6);
         existingItems.add(sickles);
-        Item knightBoots = new Item("knights footwear", "boots",false, null);
+        Item knightBoots = new Item("knights footwear", "boots",false, null, 8);
         existingItems.add(knightBoots);
-        Item knightChest = new Item("knights breastplate", "body",false, null);
+        Item knightChest = new Item("knights breastplate", "body",false, null, 8);
         existingItems.add(knightChest);
-        Item knightLeggings = new Item("knights leggings", "legging",false, null);
+        Item knightLeggings = new Item("knights leggings", "legging",false, null, 8);
         existingItems.add(knightLeggings);
-        Item knightHelmet = new Item("knights helm", "head",false, null);
+        Item knightHelmet = new Item("knights helm", "head",false, null, 8);
         existingItems.add(knightHelmet);
-        Item dagger = new Item("dagger", "melee", true, null);
+        Item dagger = new Item("dagger", "melee", true, null, 3);
         existingItems.add(dagger);
-        Item leatherArmor = new Item("leather armor", "body", false, null);
+        Item leatherArmor = new Item("leather armor", "body", false, null, 4);
         existingItems.add(leatherArmor);
-        Item FirstVillePlate = new Item("firstville guards plate", "body", false, null);
+        Item FirstVillePlate = new Item("firstville guards plate", "body", false, null, 6);
         existingItems.add(FirstVillePlate);
-        Item FirstVilleHelm = new Item("firstville guards helm", "head", false, null);
+        Item FirstVilleHelm = new Item("firstville guards helm", "head", false, null, 6);
         existingItems.add(FirstVilleHelm);
-        Item FirstVilleLegs = new Item("firstville guards legs", "legging", false, null);
+        Item FirstVilleLegs = new Item("firstville guards legs", "legging", false, null, 6);
         existingItems.add(FirstVilleLegs);
-        Item FirstVilleBoots = new Item("firstville guards boots", "boots", false, null);
+        Item FirstVilleBoots = new Item("firstville guards boots", "boots", false, null, 6);
         existingItems.add(FirstVilleBoots);
-        Item copperSword = new Item("Copper Sword", "melee", true, null);
+        Item copperSword = new Item("Copper Sword", "melee", true, null, 4);
         existingItems.add(copperSword);
 
-
         //Boss Drops
-        Item thornShield = new Item("the shield of the forest boss", "melee", true, null);
+        Item thornShield = new Item("the shield of the forest boss", "melee", true, null, 9);
+        existingItems.add(thornShield);
 
         //forest boss
 
@@ -1058,12 +1074,15 @@ public class Game {
 
 
         List<String> objects = new ArrayList<>();
+        objects.add("wheat");
         objects.add("exchange");
         objects.add("cabinet");
         objects.add("leaflet");
         objects.add("dagger");
         objects.add("leather armor");
         objects.add("inventory");
+        objects.add("apple");
+        objects.add("orange");
         objects.add("admin sword");
         objects.add("gold");
         objects.add("silver");
@@ -1100,6 +1119,8 @@ public class Game {
         objects.add("firstville guards helm");
         objects.add("firstville guards boots");
         objects.add("firstville guards legs");
+        objects.add("tree");
+        objects.add("golden apple");
 
         List<String> yesOrYes = new ArrayList<>();
         yesOrYes.add("y");
@@ -1148,7 +1169,12 @@ public class Game {
         drop.add("drop");
 
         Map<String, Integer> food = new HashMap<>();
-        food.put("wolfs bane soup", 1);
+        food.put("apple", 1);
+        food.put("orange", 1);
+        food.put("wolfs bane soup", 4);
+        food.put("apple pie", 3);
+        food.put("golden apple", 888);
+
 
         List<String> remove = new ArrayList<>();
         remove.add("remove");
@@ -1683,13 +1709,14 @@ public class Game {
                         player.displayStats(player, playersStats);
                     } else if (stringContainsWordFromList(action.toLowerCase(), rest.toArray(new String[0]))) {
 
-                        System.out.println("You can rest up to [" + (player.getStomachSize() - player.getFullness() + "] fullness/energy points. How many points would you like to regain?"));
+                        System.out.println("You can rest up to [" + (player.getStomachSize() - player.getFullness()) + "] fullness/energy points. How many points would you like to regain (1sec per 3 points)?");
+                        System.out.print("-> ");
                         String healing = scanner.nextLine();
                         try {
                             int chosen = Integer.parseInt(healing) ;
                             System.out.println("You begin resting...");
                             try {
-                                Thread.sleep(chosen * 1250);
+                                Thread.sleep(chosen * 333);
                             } catch (InterruptedException e) {
                                 throw new RuntimeException(e);
                             }
@@ -1933,8 +1960,15 @@ public class Game {
                                                             for (Enchantment1 enchantment1 : enchantment1s) {
                                                                 if (enchantment1.getName().equalsIgnoreCase(theScroll)) {
 
+                                                                    System.out.println("\n[unequipping to apply boost!]");
+                                                                    unequip(choice, choice.getSlotType(), player, equipment);
+
                                                                     choice.setEnchantment1(enchantment1);
+                                                                    choice.setIncreaseNum(choice.getIncreaseNum() * 2);
                                                                     inventory.remove(theScroll);
+
+                                                                    equip(choice, equipment, player);
+                                                                    System.out.println("\n[BOOST APPLIED!]");
 
                                                                     break;
 
@@ -1949,8 +1983,15 @@ public class Game {
                                                                 for (Enchantment1 enchantment1 : enchantment1s) {
                                                                     if (enchantment1.getName().equalsIgnoreCase(theScroll)) {
 
+                                                                        System.out.println("\n[unequipping to apply boost!]");
+                                                                        unequip(choice, choice.getSlotType(), player, equipment);
+
                                                                         choice.setEnchantment1(enchantment1);
+                                                                        choice.setIncreaseNum(choice.getIncreaseNum() * 2);
                                                                         inventory.remove(theScroll);
+
+                                                                        equip(choice, equipment, player);
+                                                                        System.out.println("\n[BOOST APPLIED!]");
 
                                                                         break;
 
@@ -1984,16 +2025,22 @@ public class Game {
                                                     for (String i : yesOrYes) {
                                                         if (i.equalsIgnoreCase(yesOrNo)) {
                                                             yesOrNo = "waga2010";
-                                                            //TESTT TESTT add if melee things.
+
                                                             if (choice.getEnchantment1() == null) {
 
                                                                 System.out.println("Enchantment '" + chosenType + "' level " + scrollLevel + "has been added to " + choice.getName() + "!");
-
                                                                 for (Enchantment1 enchantment1 : enchantment1s) {
                                                                     if (enchantment1.getName().equalsIgnoreCase(theScroll)) {
 
+                                                                        System.out.println("\n[unequipping to apply boost!]");
+                                                                        unequip(choice, choice.getSlotType(), player, equipment);
+
                                                                         choice.setEnchantment1(enchantment1);
+                                                                        choice.setIncreaseNum(choice.getIncreaseNum() * 2);
                                                                         inventory.remove(theScroll);
+
+                                                                        equip(choice, equipment, player);
+                                                                        System.out.println("\n[BOOST APPLIED!]");
 
                                                                         break;
 
@@ -2007,8 +2054,15 @@ public class Game {
                                                                     for (Enchantment1 enchantment1 : enchantment1s) {
                                                                         if (enchantment1.getName().equalsIgnoreCase(theScroll)) {
 
+                                                                            System.out.println("\n[unequipping to apply boost!]");
+                                                                            unequip(choice, choice.getSlotType(), player, equipment);
+
                                                                             choice.setEnchantment1(enchantment1);
+                                                                            choice.setIncreaseNum(choice.getIncreaseNum() * 2);
                                                                             inventory.remove(theScroll);
+
+                                                                            equip(choice, equipment, player);
+                                                                            System.out.println("\n[BOOST APPLIED!]");
 
                                                                             break;
 
@@ -2091,6 +2145,22 @@ public class Game {
                                     if (inRoom.getStructure().equalsIgnoreCase(target)) {
                                         found = true;
                                         describeItem(target);
+
+                                        if (target.equalsIgnoreCase("tree")){
+                                            if (treeReset == true){
+                                                inRoom.getObjects().add("apple");
+                                                System.out.println("\nYou look so close an apple falls from the tree onto the ground!");
+                                                treeReset = false;
+                                                applesFallen++;
+                                                if (applesFallen >= 88){
+                                                    inRoom.getObjects().add("golden apple");
+                                                    System.out.println("\nYou continue squinting so ferociously that something magical descends from the tree!");
+                                                    applesFallen -= 88;
+                                                }
+                                            } else {
+                                                System.out.println("This time, nothing falls from the tree!");
+                                            }
+                                        }
 
                                     }
                                 }
@@ -2593,6 +2663,18 @@ public class Game {
                                         }
                                     }
 
+                                } else if (action.toLowerCase().contains(obj) && inRoom.getObjects().contains(obj)){
+                                    for (Item item : existingItems) {
+
+                                        if (item.getName().equals(obj)) {
+                                            inventory.add(obj);
+                                            inRoom.getObjects().remove(obj);
+                                            equip(item, equipment, player);
+                                            validObject = true;
+                                            break;
+
+                                        }
+                                    }
                                 }
                             }
 
@@ -3378,10 +3460,12 @@ public class Game {
         if (item.equalsIgnoreCase("leaflet")) {
             List<Leaflet> aqquiredLeaflets = new ArrayList<>();
 
+            int ownedLeafs = 0;
             for (String leafId : inventory) {
                 Leaflet owned = LEAFLETS.get(leafId);
                 if (owned != null && owned.getName().equalsIgnoreCase("leaflet")) {
                     aqquiredLeaflets.add(owned);
+                    ownedLeafs++;
                 }
             }
 
@@ -3390,34 +3474,45 @@ public class Game {
                 return;
             }
 
-            System.out.println("You have several leaflets:");
-            for (int i = 0; i < aqquiredLeaflets.size(); i++) {
-                Leaflet owned = aqquiredLeaflets.get(i);
-                System.out.println((i + 1) + ") [" + owned.getId() + "] " + owned.getTitle());
-            }
-            System.out.print("Which leaflet do you want to read (number or id)? - ");
-
-            String answer = scanner.nextLine().trim().toLowerCase();
-
             Leaflet chosen = null;
 
-            //try number
-            try {
-                int entered = Integer.parseInt(answer) - 1;
-                if (entered >= 0 && entered < aqquiredLeaflets.size()) {
-                    chosen = aqquiredLeaflets.get(entered);
+            if (ownedLeafs > 1) {
+                System.out.println("You have several leaflets:");
+                for (int i = 0; i < aqquiredLeaflets.size(); i++) {
+                    Leaflet owned = aqquiredLeaflets.get(i);
+                    System.out.println((i + 1) + ") [" + owned.getId() + "] " + owned.getTitle());
                 }
-            } catch (NumberFormatException ignored) {
-                //NOTHING HAPPENS AND IT WON'T CRASH
-            }
+                System.out.print("Which leaflet do you want to read (number or id)? ");
 
-            // Try id
-            if (chosen == null) {
-                for (Leaflet owned : aqquiredLeaflets) {
-                    if (owned.getId().toLowerCase().equals(answer)) {
-                        chosen = owned;
-                        break;
+                System.out.print("-> ");
+
+                String answer = scanner.nextLine().trim().toLowerCase();
+
+                System.out.println("");
+
+                //try number
+                try {
+                    int entered = Integer.parseInt(answer) - 1;
+                    if (entered >= 0 && entered < aqquiredLeaflets.size()) {
+                        chosen = aqquiredLeaflets.get(entered);
                     }
+                } catch (NumberFormatException ignored) {
+                    //NOTHING HAPPENS AND IT WON'T CRASH
+                }
+
+                // Try id
+                if (chosen == null) {
+                    for (Leaflet owned : aqquiredLeaflets) {
+                        if (owned.getId().toLowerCase().equals(answer)) {
+                            chosen = owned;
+                            break;
+                        }
+                    }
+                }
+            } else {
+                for (Leaflet leaflet : aqquiredLeaflets){
+                    chosen = leaflet;
+                    break;
                 }
             }
 
@@ -3506,7 +3601,7 @@ public class Game {
 
     public static void help(List<String> verbs) {
 
-        System.out.println("[VERB] + [OBJECT] = action\nSome verbs will not need an object to be used (e.g., 'look')\n=== COMMANDS ===\n       Movement: n, s, w, e, go <dir>, move <dir>       \n       Interact: open/close <obj>, inspect <obj>, look, listen, wait, read <leaflet>       \n       Self:     get/take <obj>, remove/drop <obj>, inventory, stats, fame \n       Combat:   kill/attack <target>  \n       Social:   talk <npc>, quests  \n       Special:  eat <obj>, rest, use <obj>   \n       Utility:  help, quit \n================" );
+        System.out.println("[VERB] + [OBJECT] = action\nSome verbs will not need an object to be used (e.g., 'look')\n=== COMMANDS ===\n       Movement: n, s, w, e, go <dir>, move <dir>       \n       Interact: open/close <obj>, inspect <obj>, look, listen, wait, read <leaflet>       \n       Self:     get/take <obj>, remove/drop <obj>, equip/unequip <obj>, inventory, stats, fame \n       Combat:   kill/attack <target>  \n       Social:   talk <npc>, quests  \n       Special:  eat <obj>, rest, use <obj>   \n       Utility:  help, quit \n================" );
 
     }
 
@@ -3802,7 +3897,7 @@ public class Game {
 
         if (drop.isEmpty()){
             if ((int)(Math.random() * 3 + 1) != 1){
-                drop.add("wolfs bane");
+                drop.add("wolfbane");
             }
         }
 
@@ -3976,11 +4071,7 @@ public class Game {
 
                 player.displayStats(player, playerStats);
 
-                System.out.println("New max health -> " + player.getHealth().getMaxHealth());
-
-                System.out.println("New attack damage -> " + player.getAttackPower());
-
-                inRoom.getMOBS().remove(mob); //remove an object that has the name Rabbit
+                inRoom.getMOBS().remove(mob);
 
                 String killedMob = mob.getName();
 
@@ -4680,6 +4771,7 @@ public class Game {
 
         List<String> craftable = new ArrayList<>();
         craftable.add("wolfs bane soup");
+        craftable.add("apple pie");
 
         System.out.println("What would you like to craft?");
         for (String a : craftable){
@@ -4733,6 +4825,38 @@ public class Game {
 
                 else {
                     System.out.println("You are lacking the materials to craft this: Wolfbane x3, raven eye, blood vial");
+                    return invin;
+
+                }
+            } else if (craft == "apple pie"){
+
+                int apple = 0;
+                int wheat = 0;
+
+                for (String w : invin){
+
+                    if (w == "apple"){
+                        apple++;
+                    }
+                    if (w == "wheat"){
+                        wheat++;
+                    }
+                }
+
+                if (apple >= 3 && wheat >= 3){
+                    System.out.println("Success! You've made Apple Pie!");
+                    invin.add("apple pie");
+                    for (int i = 0; i<3; i++){
+                        invin.remove("apple");
+                        invin.remove("wheat");
+                    }
+
+                    return invin;
+
+                }
+
+                else {
+                    System.out.println("You are lacking the materials to craft this: Apple x3, Wheat x3");
                     return invin;
 
                 }
