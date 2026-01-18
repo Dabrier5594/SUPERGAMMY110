@@ -826,7 +826,7 @@ public class Game {
         stuff.add("snarkflower");
         stuff.add("bear essence");
 
-        goblin = createBearWithRandomStats(stuff, 90, "Mama Bear");
+        goblin = createBearWithRandomStats(stuff, 70, "Mama Bear");
         stuff.remove("bear fur");
         stuff.remove("snarkflower");
         stuff.remove("bear essence");
@@ -835,7 +835,7 @@ public class Game {
         forest47.getMOBS().add(goblin);
 
         stuff.add("thorn shield");
-        Boss forestDevil = new Boss("forest devil", 135, 129, 10, 3, "Fierce ForestDevil's hate to be interrupted, you get the devil's stick eye. His forest embraced body curves and twists, branches stick out from nowhere. \nThe number 3 is engraved on his body in stones that seem to glow.", stuff);
+        Boss forestDevil = new Boss("forest devil", 125, 101, 10, 3, "Fierce ForestDevil's hate to be interrupted, you get the devil's stick eye. His forest embraced body curves and twists, branches stick out from nowhere. \nThe number 3 is engraved on his body in stones that seem to glow.", stuff);
         MobSkill stunSkill = new MobSkill.StunSkill("StunSkill", 3);
         forestDevil.addSkills(stunSkill);
         MobSkill vineSkill = new MobSkill.VineSkill("VineSkill", 3);
@@ -1438,6 +1438,19 @@ public class Game {
                             }
                             for (String op : toRemove){
                                 inventory.remove(op);
+                                if (equipment.getEquippedItems() != null) {
+                                    for (Item i : equipment.getEquippedItems().values()){
+
+                                        if (i.getName().equalsIgnoreCase(op)){
+
+                                            unequip(i, i.getSlotType(), player, equipment);
+                                            break;
+
+                                        }
+
+                                    }
+                                }
+                                inRoom.getObjects().add(op);
                             }
                             dissapear = true;
                             player.getHealth().setHeealth(player.getHealth().getMaxHealth());
@@ -3887,7 +3900,7 @@ public class Game {
         }
 
         if (maxHealth == 0){
-            maxHealth = (int) (Math.random() * 20 + 25); //6-7
+            maxHealth = (int) (Math.random() * 18 + 22); //6-7
         }
 
         int currentHealth = maxHealth;  // start at full health
@@ -3905,7 +3918,7 @@ public class Game {
     }
 
     private static Mob createSquirrelWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 10 + 8); //5-8
+        int maxHealth = (int) (Math.random() * 10 + 6); //5-8
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health squirrelHealth = new Health(maxHealth, currentHealth, damageResistance);
@@ -3942,7 +3955,7 @@ public class Game {
     }
 
     private static Mob createGoblinWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 12 + 15); //12-17
+        int maxHealth = (int) (Math.random() * 12 + 12); //12-17
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health goblinHealth = new Health(maxHealth, currentHealth, damageResistance);
@@ -3960,7 +3973,7 @@ public class Game {
     }
 
     private static Mob createMuteBanditWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 12 + 18); //12-17
+        int maxHealth = (int) (Math.random() * 10 + 16); //12-17
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 3;       // example damage resistance
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
@@ -3979,12 +3992,12 @@ public class Game {
 
 
     private static Mob createWolfWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 20 + 10); //6-20
+        int maxHealth = (int) (Math.random() * 20 + 7); //6-20
         int currentHealth = maxHealth;
         int damageResistance = 0;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 14 + 9);
+        int attackPower = (int) (Math.random() * 12 + 9);
         boolean isAggro = true;
 
         if (drop.isEmpty()){
@@ -3997,12 +4010,12 @@ public class Game {
     }
 
     private static Mob createWolfWitchWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 20 + 14); //4-20
+        int maxHealth = (int) (Math.random() * 20 + 12); //4-20
         int currentHealth = maxHealth;
         int damageResistance = 1;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 17 + 12);
+        int attackPower = (int) (Math.random() * 15 + 12);
         boolean isAggro = false;
 
         if (drop.isEmpty()){
@@ -4015,12 +4028,12 @@ public class Game {
     }
 
     private static Mob createBloodWitchWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 25 + 15); //4-20
+        int maxHealth = (int) (Math.random() * 25 + 12); //4-20
         int currentHealth = maxHealth;
         int damageResistance = 2;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 15 + 17);
+        int attackPower = (int) (Math.random() * 15 + 15);
         boolean isAggro;
         if ((int)(Math.random() * 2) == 0) {
             isAggro = false;
