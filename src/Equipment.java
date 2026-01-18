@@ -7,16 +7,18 @@ class Item {
     private boolean isOffensive;
     private Enchantment1 enchantment1;
     private int increaseNum;
+    private boolean heavyNess; // false equals not, true means yes, if true, in battle you start SECOND
 
 
     private String inspectDescription;
 
-    public Item(String name, String slotType, boolean isOffensive, Enchantment1 enchantment1, int increaseNum) {
+    public Item(String name, String slotType, boolean isOffensive, Enchantment1 enchantment1, int increaseNum, boolean heavyNess) {
         this.name = name;
         this.slotType = slotType.toLowerCase();
         this.isOffensive = isOffensive;
         this.enchantment1 = enchantment1;
         this.increaseNum = increaseNum;
+        this.heavyNess = heavyNess;
         this.inspectDescription = "Nothing special about this item.";
 
     }
@@ -28,6 +30,7 @@ class Item {
     public void setEnchantment1(Enchantment1 enchantment1){ this.enchantment1 = enchantment1; }
     public int getIncreaseNum(){ return increaseNum;}
     public void setIncreaseNum(int a){ increaseNum = a;}
+    public boolean getHeaviness(){return heavyNess;}
 
     //inspect classes
     public void setInspectDescription(String inspectDescription) {

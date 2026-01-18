@@ -109,24 +109,26 @@ public class Game {
     }
 
     // OTHER CLASS SCOPE VARIABLES!
-    public static volatile boolean timeOfDay = true; // true = day, false = night
 
     public static volatile boolean scannerOrNo = false; // true = scanning, false = no scanning
 
+    public static volatile boolean timeOfDay = true; // true = day, false = night
+
     public static volatile String timeChange = null; // day or night
 
-    public static volatile LocalTime changeTime = null; //when change happened
+    public static volatile LocalTime changeTime = null; //when above change happened
 
-    public static volatile boolean fighting = false;
+    public static volatile boolean fighting = false; // FALSE when not in combat, true otherwise
 
-    public static volatile boolean talking = false;
+    public static volatile boolean talking = false; // true when user communicates to other things
 
-    public static volatile int applesFallen = 0;
+    public static volatile int applesFallen = 0; // how many apples you've collected from a tree
 
-    public static volatile boolean treeReset = true;
+    public static volatile boolean treeReset = true; // If you can get apples from a tree or not
 
-    public static volatile int nightCounter = 0; // true = day, false = night
+    public static volatile boolean cabinetDaggerCaveN = true; // If you've tried to open the first cabinet (tutorial)
 
+    public static volatile int nightCounter = 0; // How many nights its been
 
     public static void setupDayNightSchedulers() {
 
@@ -154,7 +156,7 @@ public class Game {
             @Override
             public void run() {
                 // Skip healing during combat
-                if (player.isInCombat()) {
+                if (fighting) {
                     return;
                 }
 
@@ -192,36 +194,39 @@ public class Game {
     static class MoveMob extends TimerTask {
         @Override
         public void run() {
-            for (Hub hub : Hub.getAllHubs()) {
-                for (Mob mob : new ArrayList<>(hub.getMOBS())) {
-                    int a = (int) (Math.random() * 2 + 1);
 
-                    if (a == 1) {
+            if (!fighting) {
+                for (Hub hub : Hub.getAllHubs()) {
+                    for (Mob mob : new ArrayList<>(hub.getMOBS())) {
+                        int a = (int) (Math.random() * 2 + 1);
 
-                    } else {
+                        if (a == 1) {
 
-                        List<String> exits = new ArrayList<>();
+                        } else {
 
-                        for (String dir : Arrays.asList("n", "s", "e", "w")) {
+                            List<String> exits = new ArrayList<>();
 
-                            if (hub.getExit(dir) != null) {
+                            for (String dir : Arrays.asList("n", "s", "e", "w")) {
 
-                                exits.add(dir);
+                                if (hub.getExit(dir) != null) {
 
+                                    exits.add(dir);
+
+                                }
                             }
+
+                            Random rand = new Random();
+
+                            String randomString = exits.get(rand.nextInt(exits.size()));
+
+                            Hub nextRoom = hub.getExit(randomString);
+
+                            if (!nextRoom.getRoomName().equalsIgnoreCase("Abandon House's Entrance") && !nextRoom.getRoomName().equalsIgnoreCase("Tom's Dark Entrance")) {
+                                nextRoom.getMOBS().add(mob);
+                                hub.getMOBS().remove(mob);
+                            }
+
                         }
-
-                        Random rand = new Random();
-
-                        String randomString = exits.get(rand.nextInt(exits.size()));
-
-                        Hub nextRoom = hub.getExit(randomString);
-
-                        if (!nextRoom.getRoomName().equalsIgnoreCase("Abandon House's Entrance") && !nextRoom.getRoomName().equalsIgnoreCase("Tom's Dark Entrance")) {
-                            nextRoom.getMOBS().add(mob);
-                            hub.getMOBS().remove(mob);
-                        }
-
                     }
                 }
             }
@@ -864,39 +869,39 @@ public class Game {
 
         Equipment equipment = new Equipment();
 
-        Item adminSword = new Item("admin sword", "melee", true, fire, 3);
+        Item adminSword = new Item("admin sword", "melee", true, fire, 3, false);
         existingItems.add(adminSword);
-        Item bearClaw = new Item("bear claw", "melee", true, null, 5);
+        Item bearClaw = new Item("bear claw", "melee", true, null, 6, false);
         existingItems.add(bearClaw);
-        Item baggerDagger = new Item("bagger's dagger", "melee", true, null, 7);
+        Item baggerDagger = new Item("bagger's dagger", "melee", true, null, 7, false);
         existingItems.add(baggerDagger);
-        Item sickles = new Item("sickles", "melee", true,null, 6);
+        Item sickles = new Item("sickles", "melee", true,null, 6, false);
         existingItems.add(sickles);
-        Item knightBoots = new Item("knights footwear", "boots",false, null, 8);
+        Item knightBoots = new Item("knights footwear", "boots",false, null, 8, false);
         existingItems.add(knightBoots);
-        Item knightChest = new Item("knights breastplate", "body",false, null, 8);
+        Item knightChest = new Item("knights breastplate", "body",false, null, 8, false);
         existingItems.add(knightChest);
-        Item knightLeggings = new Item("knights leggings", "legging",false, null, 8);
+        Item knightLeggings = new Item("knights leggings", "legging",false, null, 8, false);
         existingItems.add(knightLeggings);
-        Item knightHelmet = new Item("knights helm", "head",false, null, 8);
+        Item knightHelmet = new Item("knights helm", "head",false, null, 8, false);
         existingItems.add(knightHelmet);
-        Item dagger = new Item("dagger", "melee", true, null, 3);
+        Item dagger = new Item("dagger", "melee", true, null, 4, false);
         existingItems.add(dagger);
-        Item leatherArmor = new Item("leather armor", "body", false, null, 4);
+        Item leatherArmor = new Item("leather armor", "body", false, null, 4, false);
         existingItems.add(leatherArmor);
-        Item FirstVillePlate = new Item("firstville guards plate", "body", false, null, 6);
+        Item FirstVillePlate = new Item("firstville guards plate", "body", false, null, 6, false);
         existingItems.add(FirstVillePlate);
-        Item FirstVilleHelm = new Item("firstville guards helm", "head", false, null, 6);
+        Item FirstVilleHelm = new Item("firstville guards helm", "head", false, null, 6, false);
         existingItems.add(FirstVilleHelm);
-        Item FirstVilleLegs = new Item("firstville guards legs", "legging", false, null, 6);
+        Item FirstVilleLegs = new Item("firstville guards legs", "legging", false, null, 6, false);
         existingItems.add(FirstVilleLegs);
-        Item FirstVilleBoots = new Item("firstville guards boots", "boots", false, null, 6);
+        Item FirstVilleBoots = new Item("firstville guards boots", "boots", false, null, 6, false);
         existingItems.add(FirstVilleBoots);
-        Item copperSword = new Item("Copper Sword", "melee", true, null, 4);
+        Item copperSword = new Item("Copper Sword", "melee", true, null, 6, false);
         existingItems.add(copperSword);
 
         //Boss Drops
-        Item thornShield = new Item("the shield of the forest boss", "melee", true, null, 9);
+        Item thornShield = new Item("the shield of the forest boss", "melee", true, null, 9, false);
         existingItems.add(thornShield);
 
         //forest boss
@@ -1269,7 +1274,6 @@ public class Game {
         // INSERT ALL CODE THAT SETS A VARIABLE HERE!!!!!
 
         boolean cabinetCaveN = false;
-        boolean cabinetDaggerCaveN = true;
 
         boolean start;
 
@@ -2926,6 +2930,13 @@ public class Game {
                     return currentHub;
                 }
             }
+
+            if (currentHub.getRoomName().equalsIgnoreCase("Tom's Dark Kitchen")){
+                if (cabinetDaggerCaveN){
+                    System.out.println("Before you move on, try opening the cabinet! [open cabinet]");
+                    return currentHub;
+                }
+            }
         }
 
         if (direction.equals("south") || direction.equals("s")) {
@@ -3876,14 +3887,14 @@ public class Game {
         }
 
         if (maxHealth == 0){
-            maxHealth = (int) (Math.random() * 30 + 40); //6-7
+            maxHealth = (int) (Math.random() * 20 + 25); //6-7
         }
 
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health bearHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 17 + 12);
+        int attackPower = (int) (Math.random() * 14 + 9);
         boolean isAggro = false;
 
         if (drop.isEmpty()){
@@ -3894,12 +3905,12 @@ public class Game {
     }
 
     private static Mob createSquirrelWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 10 + 10); //5-8
+        int maxHealth = (int) (Math.random() * 10 + 8); //5-8
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health squirrelHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 12 + 8); //3-9
+        int attackPower = (int) (Math.random() * 7 + 5); //3-9
         boolean isAggro = true;
 
         if (drop.isEmpty()){
@@ -3936,7 +3947,7 @@ public class Game {
         int damageResistance = 0;       // example damage resistance
         Health goblinHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 20 + 12);
+        int attackPower = (int) (Math.random() * 12 + 7);
         boolean isAggro = true;
 
         if (drop.isEmpty()){
@@ -3954,7 +3965,7 @@ public class Game {
         int damageResistance = 3;       // example damage resistance
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 20 + 18);
+        int attackPower = (int) (Math.random() * 12 + 12);
         boolean isAggro = false;
 
         if (drop.isEmpty()){
@@ -3973,7 +3984,7 @@ public class Game {
         int damageResistance = 0;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 19 + 10);
+        int attackPower = (int) (Math.random() * 14 + 9);
         boolean isAggro = true;
 
         if (drop.isEmpty()){
@@ -3991,7 +4002,7 @@ public class Game {
         int damageResistance = 1;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 30 + 20);
+        int attackPower = (int) (Math.random() * 17 + 12);
         boolean isAggro = false;
 
         if (drop.isEmpty()){
@@ -4009,7 +4020,7 @@ public class Game {
         int damageResistance = 2;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 35 + 25);
+        int attackPower = (int) (Math.random() * 15 + 17);
         boolean isAggro;
         if ((int)(Math.random() * 2) == 0) {
             isAggro = false;
