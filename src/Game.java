@@ -708,7 +708,7 @@ public class Game {
         firstVilleGuild.addQuest(questForGuildOne);
         questForGuildOne = new Quest("GQ2", "Wolf Hunt (GQ2)", 1,"Wolf", 2, 30, 10);
         firstVilleGuild.addQuest(questForGuildOne);
-        questForGuildOne = new Quest("GQ2", "Witch Hunt (GQ3)", 1,"Wolf Witch", 1, 30, 10);
+        questForGuildOne = new Quest("GQ2", "Witch Hunt (GQ3)", 1,"Fox Witch", 1, 30, 10);
         firstVilleGuild.addQuest(questForGuildOne);
 
 
@@ -1074,24 +1074,57 @@ public class Game {
 
 
         List<String> objects = new ArrayList<>();
-        objects.add("wheat");
-        objects.add("exchange");
-        objects.add("cabinet");
-        objects.add("bear");
+        //ARMOR/WEAPONS
+        objects.add("firstville guards plate");
+        objects.add("firstville guards helm");
+        objects.add("firstville guards boots");
+        objects.add("firstville guards legs");
+        objects.add("leather armor");
+        objects.add("bear claw");
+        objects.add("bear sword");
+        objects.add("admin sword");
+
+        //MOBS
+        objects.add("blood witch");
+        objects.add("fox witch");
         objects.add("forest devil");
         objects.add("mama bear");
         objects.add("mute bandit");
+
+        //ITEMS
+        objects.add("bear essence");
+        objects.add("golden apple");
+        objects.add("white whispberry");
+        objects.add("wolf bane soup");
+        objects.add("raven eye");
+        objects.add("blood vial");
+        objects.add("goblin tooth");
+        objects.add("rabbit hide");
+        objects.add("squirrel hide");
+        objects.add("bear hide");
+        objects.add("chicken feather");
+
+
+
+        //OTHER SMALLER THINGS
+        objects.add("inventory");
+        objects.add("cloth");
         objects.add("leaflet");
         objects.add("dagger");
-        objects.add("leather armor");
+        objects.add("cauldron");
+        objects.add("scroll");
+        objects.add("tree");
+        objects.add("wheat");
+        objects.add("exchange");
+        objects.add("cabinet");
+        objects.add("leaflet");
+        objects.add("dagger");
         objects.add("inventory");
         objects.add("apple");
         objects.add("orange");
-        objects.add("admin sword");
         objects.add("gold");
         objects.add("silver");
         objects.add("copper");
-        objects.add("forest devil");
         objects.add("twig");
         objects.add("snarkflower");
         objects.add("door");
@@ -1099,9 +1132,9 @@ public class Game {
         objects.add("chicken");
         objects.add("squirrel");
         objects.add("goblin");
+        objects.add("bear");
         objects.add("chest");
         objects.add("ih");
-        objects.add("white whispberry");
         objects.add("oliver");
         objects.add("bagger");
         objects.add("lagger");
@@ -1110,24 +1143,11 @@ public class Game {
         objects.add("trevor");
         objects.add("gate");
         objects.add("trap");
-        objects.add("bear claw");
-        objects.add("bear sword");
-        objects.add("bear essence");
-        objects.add("blood witch");
-        objects.add("wolf witch");
         objects.add("wolf");
         objects.add("wolfbane");
-        objects.add("wolf bane soup");
-        objects.add("raven eye");
-        objects.add("blood vial");
         objects.add("cauldron");
         objects.add("scroll");
-        objects.add("firstville guards plate");
-        objects.add("firstville guards helm");
-        objects.add("firstville guards boots");
-        objects.add("firstville guards legs");
         objects.add("tree");
-        objects.add("golden apple");
 
         List<String> yesOrYes = new ArrayList<>();
         yesOrYes.add("y");
@@ -1335,6 +1355,8 @@ public class Game {
 
                 inRoom.getObjects().add("fire scroll 3");
 
+                inRoom.getObjects().add("goblin tooth");
+
                 System.out.println("$#bonus stats have been successfully distributed");
                 scanner.nextLine();
             }
@@ -1414,6 +1436,8 @@ public class Game {
                                 inventory.remove(op);
                             }
                             dissapear = true;
+                            player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+
                         }
 
                         else {
@@ -1478,6 +1502,7 @@ public class Game {
 
                                     dissapear = true;
                                     System.out.println("You wake up, feeling a bit lighter, but still alive. [Registering with that clinic sure saved you!]");
+                                    player.getHealth().setHeealth(player.getHealth().getMaxHealth());
                                     break;
                                 }
 
@@ -2690,6 +2715,11 @@ public class Game {
                             boolean validObject = false;
 
                             for (String obj : objects) {
+
+                                if (validObject == true){
+                                    break;
+                                }
+
                                 if (action.toLowerCase().contains(obj) && inventory.contains(obj)) {
 
                                     for (Item item : existingItems) {
@@ -2702,15 +2732,20 @@ public class Game {
                                         }
                                     }
 
-                                } else if (action.toLowerCase().contains(obj) && inRoom.getObjects().contains(obj)){
-                                    for (Item item : existingItems) {
+                                }
 
+                                else if (action.toLowerCase().contains(obj) && inRoom.getObjects().contains(obj)){
+
+                                    for (Item item : existingItems) {
                                         if (item.getName().equals(obj)) {
+
                                             inventory.add(obj);
                                             inRoom.getObjects().remove(obj);
                                             equip(item, equipment, player);
                                             validObject = true;
+
                                             break;
+
 
                                         }
                                     }
@@ -3783,12 +3818,12 @@ public class Game {
                         mobCounts.add(name);
                     }
 
-                    int squirrelCount = Collections.frequency(mobCounts, "Wolf Witch");
+                    int squirrelCount = Collections.frequency(mobCounts, "Fox Witch");
 
                     if (squirrelCount < 3) {
                         Mob squirrel = createWolfWitchWithRandomStats(stuff);
                         inRoom.getMOBS().add(squirrel);
-                        System.out.println("A chucking Wolf Witch wonders around drunkenly.");
+                        System.out.println("A chucking Fox Witch wonders around drunkenly.");
                     }
 
                 }
@@ -3965,7 +4000,7 @@ public class Game {
             }
         }
 
-        return new Mob("Wolf Witch", muteHeath, attackPower, isAggro, drop);
+        return new Mob("Fox Witch", muteHeath, attackPower, isAggro, drop);
     }
 
     private static Mob createBloodWitchWithRandomStats(List<String> drop) {

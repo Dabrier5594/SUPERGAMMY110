@@ -37,7 +37,7 @@ public class XpLv {
             return (int)(Math.random() * 45 + 60);
         } else if (mobName.toLowerCase().contains("bear")) {
             return (int)(Math.random() * 50 + 60);
-        } else if (mobName.toLowerCase().contains("wolf witch")) {
+        } else if (mobName.toLowerCase().contains("fox witch")) {
             return (int)(Math.random() * 50 + 60);
         } else if (mobName.toLowerCase().contains("blood witch")) {
             return (int)(Math.random() * 70 + 60);
