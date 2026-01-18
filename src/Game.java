@@ -1077,6 +1077,10 @@ public class Game {
         objects.add("wheat");
         objects.add("exchange");
         objects.add("cabinet");
+        objects.add("bear");
+        objects.add("forest devil");
+        objects.add("mama bear");
+        objects.add("mute bandit");
         objects.add("leaflet");
         objects.add("dagger");
         objects.add("leather armor");
@@ -1396,12 +1400,18 @@ public class Game {
                     if (possiblePoints.isEmpty()){
                         System.out.println("No clinics registered to respawn at. ");
                         System.out.println(" Options: [1] Respawn at 'cave' [2] Quit");
+                        System.out.print("-> ");
                         String doubleChoice = scanner.nextLine().trim();
+
                         if (doubleChoice.equals("1")) {
                             System.out.println("Respawning...");
                             inRoom = cave;
+                            List<String> toRemove = new ArrayList<>();
                             for (String i : inventory){
-                                inventory.remove(i);
+                                toRemove.add(i);
+                            }
+                            for (String op : toRemove){
+                                inventory.remove(op);
                             }
                             dissapear = true;
                         }
@@ -2939,7 +2949,7 @@ public class Game {
                     fighting = true;
                     combat(player, mob, newRoom, playerStats, equipment, food, inventory);
                     fighting = false;
-                    if (newRoom.getMOBS().isEmpty()) {
+                    if (newRoom.getMOBS().isEmpty() || player.getHealth().isDead()) {
 
                         break; // If I change stuff then before the for I should see what the newRoom.getMOBS's length is, and then do a "for (int i = (the length of the list)"
                     }
@@ -2948,74 +2958,77 @@ public class Game {
 
             }
 
-            System.out.println(newRoom.getRoomName());
-            System.out.println(newRoom.getRoomDescription());
-            System.out.println("");
-
-            if (!newRoom.getObjects().isEmpty()) {
-                itemsIfAny(newRoom .getObjects(), "Items in room: ");
+            if (!player.getHealth().isDead()) {
+                System.out.println(newRoom.getRoomName());
+                System.out.println(newRoom.getRoomDescription());
                 System.out.println("");
+
+                if (!newRoom.getObjects().isEmpty()) {
+                    itemsIfAny(newRoom.getObjects(), "Items in room: ");
+                    System.out.println("");
+                }
+
+                List<String> mobNames = new ArrayList<>();
+
+                for (Mob mob : newRoom.getMOBS()) {
+
+                    mobNames.add(mob.getName());
+
+                }
+
+                if (!mobNames.isEmpty()) {
+                    mobsIfAny(mobNames, "Mobs in room: ");
+                }
+
+                List<String> bossNames = new ArrayList<>();
+
+                for (Boss boss : newRoom.getBoss()) {
+
+                    bossNames.add(boss.getName());
+
+                }
+
+                if (!bossNames.isEmpty()) {
+                    mobsIfAny(bossNames, "Bosses in room: ");
+                }
+
+
+                List<String> npcNames = new ArrayList<>();
+
+                for (Npca npc : newRoom.getNpc()) {
+                    npcNames.add(npc.getName());
+                }
+
+                for (Guard npc : newRoom.getGuard()) {
+                    npcNames.add(npc.getName());
+                }
+
+                for (Merchant npc : newRoom.getMerchant()) {
+                    npcNames.add(npc.getName());
+                }
+
+                if (newRoom.getFirstShopOwners() != null) {
+                    npcNames.add(newRoom.getFirstShopOwners().getName());
+                }
+
+                if (!npcNames.isEmpty()) {
+                    npcIfAny(npcNames, "NPC's in room: ");
+                }
+
+                if (newRoom.getRoomName().equalsIgnoreCase("FirstVille Guild Hall")) {
+                    newRoom.updateGuildActivity();  // NPCs rank up automatically
+                    System.out.println("\nGuild Master Tragger shouts: 'Talk to me for guild services!'");
+                }
+
+                if (newRoom.getRoomName().equalsIgnoreCase("FirstVille Clinic")) {
+                    System.out.println("\nTrevor (Clinic Clerk): 'Talk to me for clinic stuff!'");
+                }
+
+
+                player.lessFullness();
+                return newRoom; // Return the new Hub object (room)
+
             }
-
-            List<String> mobNames = new ArrayList<>();
-
-            for (Mob mob : newRoom.getMOBS()) {
-
-                mobNames.add(mob.getName());
-
-            }
-
-            if (!mobNames.isEmpty()) {
-                mobsIfAny(mobNames, "Mobs in room: ");
-            }
-
-            List<String> bossNames = new ArrayList<>();
-
-            for (Boss boss : newRoom.getBoss()) {
-
-                bossNames.add(boss.getName());
-
-            }
-
-            if (!bossNames.isEmpty()) {
-                mobsIfAny(bossNames, "Bosses in room: ");
-            }
-
-
-            List<String> npcNames = new ArrayList<>();
-
-            for (Npca npc : newRoom.getNpc()) {
-                npcNames.add(npc.getName());
-            }
-
-            for (Guard npc : newRoom.getGuard()) {
-                npcNames.add(npc.getName());
-            }
-
-            for (Merchant npc : newRoom.getMerchant()) {
-                npcNames.add(npc.getName());
-            }
-
-            if (newRoom.getFirstShopOwners() != null){
-                npcNames.add(newRoom.getFirstShopOwners().getName());
-            }
-
-            if (!npcNames.isEmpty()) {
-                npcIfAny(npcNames, "NPC's in room: ");
-            }
-
-            if (newRoom.getRoomName().equalsIgnoreCase("FirstVille Guild Hall")) {
-                newRoom.updateGuildActivity();  // NPCs rank up automatically
-                System.out.println("\nGuild Master Tragger shouts: 'Talk to me for guild services!'");
-            }
-
-            if (newRoom.getRoomName().equalsIgnoreCase("FirstVille Clinic")) {
-                System.out.println("\nTrevor (Clinic Clerk): 'Talk to me for clinic stuff!'");
-            }
-
-
-            player.lessFullness();
-            return newRoom; // Return the new Hub object (room)
 
         }
 
@@ -3024,6 +3037,8 @@ public class Game {
             System.out.println("You are trying to go to an impossible location.");
             return currentHub; // Return the current Hub object
         }
+
+        return newRoom;
     }
 
     public static boolean stringContainsWordFromList(String inputStr, String[] items) {
@@ -3649,9 +3664,9 @@ public class Game {
 
                 List<String> stuff = new ArrayList<>();
 
-                number = (int) (Math.random() * 9) + 1; //1-8
+                number = (int) (Math.random() * 20) + 1; //1-8
 
-                if (number > 0 && number < 3) {
+                if (number > 0 && number < 4) {
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -3667,7 +3682,7 @@ public class Game {
                         inRoom.getMOBS().add(rabbit);
                         System.out.println("A rabbit hops out from the bushes.");
                     }
-                } else if (number > 1 && number < 4) {
+                } else if (number > 3 && number < 7) {
 
 
                     List<String> mobCounts = new ArrayList<>();
@@ -3685,7 +3700,7 @@ public class Game {
                         System.out.println("A chicken clucks into the area in confusion.");
                     }
 
-                } else if (number > 2 && number < 5){
+                } else if (number > 6 && number < 9){
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -3702,7 +3717,7 @@ public class Game {
                         System.out.println("A mad squirrel falls from the trees.");
                     }
 
-                } else if (number > 3 && number < 6){
+                } else if (number > 8 && number < 12){
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -3721,7 +3736,7 @@ public class Game {
 
                 }
 
-                else if (number > 4 && number < 7){
+                else if (number > 11 && number < 14){
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -3740,7 +3755,7 @@ public class Game {
 
                 }
 
-                else if (number > 5 && number < 8){
+                else if (number > 13 && number < 16){
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -3759,7 +3774,7 @@ public class Game {
 
                 }
 
-                else if (number > 6 && number < 9){
+                else if (number > 15 && number < 18){
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -3778,7 +3793,7 @@ public class Game {
 
                 }
 
-                else if (number > 7 && number < 10){
+                else if (number > 17 && number < 20){
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -3913,7 +3928,7 @@ public class Game {
             }
         }
 
-        return new Mob("MuteBandit", muteHeath, attackPower, isAggro, drop);
+        return new Mob("Mute Bandit", muteHeath, attackPower, isAggro, drop);
     }
 
 
@@ -4176,6 +4191,7 @@ public class Game {
 
                 if (player.getHealth().isDead()) {
                     System.out.println("\nYou have been murdered by a " + mob.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
+                    player.getHealth().setHeealth(-1291212112);
 
                     try {
                         Thread.sleep(500);
@@ -4291,6 +4307,7 @@ public class Game {
 
                 if (player.getHealth().isDead()) {
                     System.out.println("\nYou have been murdered by " + npc.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
+                    player.getHealth().setHeealth(-1291212112);
 
                     try {
                         Thread.sleep(500);
@@ -4414,6 +4431,7 @@ public class Game {
 
                 if (player.getHealth().isDead()) {
                     System.out.println("\nYou have been murdered by " + npc.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
+                    player.getHealth().setHeealth(-1291212112);
 
                     try {
                         Thread.sleep(500);
@@ -4552,6 +4570,7 @@ public class Game {
 
                 if (player.getHealth().isDead()) {
                     System.out.println("\nYou have been murdered by " + boss.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
+                    player.getHealth().setHeealth(-1291212112);
 
                     if (pause != 0) {
                         try {
