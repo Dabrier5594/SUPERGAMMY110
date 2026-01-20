@@ -68,7 +68,7 @@ public class Game {
     static {
         // --- Goblin ---
         COMBAT_DESCRIPTIONS.put("goblin_attack", "The goblin lunges with a rusty dagger, screeching for your blood!");
-        COMBAT_DESCRIPTIONS.put("goblin_death", "The goblin collapses with a guttural cry. Its dagger clatters to the ground.");
+        COMBAT_DESCRIPTIONS.put("goblin_death", "The goblin collapses with a guttural cry.");
 
         // --- Rabbit ---
         COMBAT_DESCRIPTIONS.put("rabbit_attack", "The rabbit charges you head-on. It’s… strangely fierce?");
@@ -1408,11 +1408,14 @@ public class Game {
 
                 boolean dissapear = false;
 
-                System.out.println("\nThe world becomes dark...");
+                System.out.println("\nThe world becomes dark... [enter to continue]");
+
+                scanner.nextLine();
 
                 System.out.println(" Options: [1] Respawn [2] Quit");
                 System.out.print("-> ");
-                String choice = scanner.nextLine().trim();
+                String choice = scanner.nextLine();
+
                 if (choice.equals("1")) {
 
                     List<Hub.Clinic> possiblePoints = new ArrayList<>();
@@ -1427,11 +1430,10 @@ public class Game {
                         System.out.println("No clinics registered to respawn at. ");
                         System.out.println(" Options: [1] Respawn at 'cave' [2] Quit");
                         System.out.print("-> ");
-                        String doubleChoice = scanner.nextLine().trim();
+                        String doubleChoice = scanner.nextLine();
 
+                        System.out.println("[Due to not registering with a clinic, your items were not carried with you during respawn.\nBut they are right where you left them! \n");
                         if (doubleChoice.equals("1")) {
-                            System.out.println("Respawning...");
-                            inRoom = cave;
                             List<String> toRemove = new ArrayList<>();
                             for (String i : inventory){
                                 toRemove.add(i);
@@ -1452,6 +1454,8 @@ public class Game {
                                 }
                                 inRoom.getObjects().add(op);
                             }
+                            System.out.println("Respawning...");
+                            inRoom = cave;
                             dissapear = true;
                             player.getHealth().setHeealth(player.getHealth().getMaxHealth());
 
