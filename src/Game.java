@@ -747,6 +747,8 @@ public class Game {
 
         //ADD ITEMS IN TO ROOM
         caveN.addObject("leaflet001");
+        caveN.addObject("acorn");
+        caveN.addObject("acorn");
 
         for (int i = 0; i < 2; i++) {
             caveNN.addObject("copper");
@@ -770,6 +772,8 @@ public class Game {
         forest47.addObject("snarkflower");
         forest29.addObject("snarkflower");
         forest13.addObject("snarkflower");
+
+        forest3.addObject("acorn");
 
 
 
@@ -1148,11 +1152,12 @@ public class Game {
         objects.add("trevor");
         objects.add("gate");
         objects.add("trap");
-        objects.add("wolf");
         objects.add("wolfbane");
+        objects.add("wolf");
         objects.add("cauldron");
         objects.add("scroll");
         objects.add("tree");
+        objects.add("acorn");
 
         List<String> yesOrYes = new ArrayList<>();
         yesOrYes.add("y");
@@ -1201,12 +1206,12 @@ public class Game {
         drop.add("drop");
 
         Map<String, Integer> food = new HashMap<>();
-        food.put("apple", 1);
-        food.put("orange", 1);
-        food.put("wolfs bane soup", 4);
+        food.put("acorn", 1);
+        food.put("apple", 2);
+        food.put("orange", 2);
         food.put("apple pie", 3);
+        food.put("wolfs bane soup", 4);
         food.put("golden apple", 88);
-
 
         List<String> remove = new ArrayList<>();
         remove.add("remove");
