@@ -136,7 +136,6 @@ public class Health {
     }
 
     public void displayHealth(){
-
         System.out.println("Health: " + health + "/" + maxHealth);
     }
 

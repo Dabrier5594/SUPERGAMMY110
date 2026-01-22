@@ -19,8 +19,8 @@ public class Player {
 
     private int coins = 0;
 
-    private int stomachSize = 10;
-    private int fullness = 10;
+    private int stomachSize = 20;
+    private int fullness = 20;
 
     private boolean inCombat = false;
 
@@ -223,11 +223,11 @@ public class Player {
     public void lessFullness() {fullness--;}
 
     public int getStomachSize(){
-        return fullness;
+        return stomachSize;
     }
 
     public void addStomachSize(int a){
-        fullness += a;
+        stomachSize += a;
     }
 
 
