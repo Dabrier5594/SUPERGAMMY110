@@ -1034,6 +1034,7 @@ public class Game {
         verbsOnly.add("listen");
         verbsOnly.add("help");
         verbsOnly.add("stats");
+        verbsOnly.add("sleep");
 
 
         List<String> directions = new ArrayList<>();
@@ -1215,6 +1216,9 @@ public class Game {
 
         List<String> remove = new ArrayList<>();
         remove.add("remove");
+
+        List<String> sleep = new ArrayList<>();
+        sleep.add("sleep");
 
         List<String> inspect = new ArrayList<>();
         inspect.add("inspect");
@@ -1788,6 +1792,26 @@ public class Game {
 
                         } catch (NumberFormatException ignored) {
                             System.out.println("Something went wrong as you tried to rest and you jumped back to your feet...");
+                        }
+
+                    } else if (stringContainsWordFromList(action.toLowerCase(), sleep.toArray(new String[0]))) {
+
+                        if (!inRoom.getStructure().equalsIgnoreCase("bed")){
+                            System.out.println("(( In order to SLEEP there must a bed in your vicinity... ))");
+                        } else {
+                            System.out.println("You step into the bed and lay you head down, letting you eye close");
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                            if (timeChange.equalsIgnoreCase("night")){
+                                System.out.println("You wake up! It turns day...");
+                                timeChange = "day";
+                                player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+                                player.setFullness();
+                            }
+                            System.out.println("You wake up!");
                         }
 
                     }
