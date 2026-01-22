@@ -493,8 +493,31 @@ public class Game {
 
         Hub firstVilleLane31 = new Hub("FirstVille Streets #31", " \nEXITS: (E) (S) (W)");
 
+        Hub firstVilleLane32 = new Hub("FirstVille Streets #32", " \nEXITS: (E) (S) (W)");
 
+        Hub firstVilleLane33 = new Hub("FirstVille Streets #33", " \nEXITS: (E) (S) (W)");
 
+        Hub firstVilleLane34 = new Hub("FirstVille Streets #34", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane35 = new Hub("FirstVille Streets #35", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane36 = new Hub("FirstVille Streets #36", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane37 = new Hub("FirstVille Streets #37", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane38 = new Hub("FirstVille Streets #38", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane39 = new Hub("FirstVille Streets #39", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane40 = new Hub("FirstVille Streets #40", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane41 = new Hub("FirstVille Streets #41", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane42 = new Hub("FirstVille Streets #41", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane43 = new Hub("FirstVille Streets #41", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleBarracks = new Hub("The Barracks of FirstVille", " \nEXITS: (E) (S) (W)");
 
 
 
@@ -647,6 +670,7 @@ public class Game {
         firstVilleLane2.setExit("s", firstVilleLane1);
         firstVilleLane2.setExit("w", firstVilleLane3);
         firstVilleLane3.setExit("e", firstVilleLane2);
+        firstVilleLane3.setExit("e",firstVilleLane33);
         firstVilleLane4.setExit("n", firstVilleLane5);
         firstVilleLane4.setExit("w", firstVilleLane7);
         firstVilleLane5.setExit("s", firstVilleLane4);
@@ -662,14 +686,28 @@ public class Game {
         firstVilleLane8.setExit("e", firstVilleLane5);
         firstVilleLane9.setExit("s", firstVilleLane8);
         firstVilleLane9.setExit("e", firstVilleLane6);
+        firstVilleLane9.setExit("n", firstVilleLane35);
         firstVilleLane9.setExit("w", firstVilleLane10);
         firstVilleLane10.setExit("e", firstVilleLane9);
         firstVilleLane10.setExit("n", firstVilleLane11);
-
-
-
-
-
+        firstVilleLane11.setExit("n", firstVilleLane12);
+        firstVilleLane11.setExit("e", firstVilleLane35);
+        firstVilleLane11.setExit("w", firstVilleLane14);
+        firstVilleLane11.setExit("s", firstVilleLane10);
+        firstVilleLane12.setExit("s", firstVilleLane11);
+        firstVilleLane12.setExit("e", firstVilleLane36);
+        firstVilleLane12.setExit("w", firstVilleLane13);
+        firstVilleLane35.setExit("w", firstVilleLane11);
+        firstVilleLane35.setExit("n", firstVilleLane36);
+        firstVilleLane35.setExit("s", firstVilleLane9);
+        firstVilleLane36.setExit("s", firstVilleLane35);
+        firstVilleLane36.setExit("n", firstVilleLane37);
+        firstVilleLane36.setExit("w", firstVilleLane12);
+        firstVilleLane37.setExit("s", firstVilleLane36);
+        firstVilleLane38.setExit("w", firstVilleLane37);
+        firstVilleLane38.setExit("n", firstVilleLane39);
+        firstVilleLane39.setExit("s", firstVilleLane38);
+        firstVilleLane39.setExit("n", firstVilleLane40);
 
 
 
@@ -923,7 +961,6 @@ public class Game {
         laggerOwner.setMyShop(laggerShop);
 
         FirstShopOwner jaggerOwner = new FirstShopOwner("copper", "Lagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
-
         Hub.FirstVilleShop jaggerShop = new Hub("Lagger's wife and Bagger's sister(JAGGER)", "You see glowing scrolls in bookshelves.\n").new FirstVilleShop("Lagger's wife and Bagger's sister (JAGGER)", "You see glowing scrolls in bookshelves..\nEXITS: (S)", jaggerOwner);
 
 
