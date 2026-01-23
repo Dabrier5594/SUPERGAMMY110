@@ -621,13 +621,18 @@ public class Hub {
                 return false;
             }
 
+            if (activeStays.get(player.getName()) < sleepLimit) {
+                System.out.println(innPerson.getName() + "(Innkeeper): \"You still have credits available!\"");
+                return false;
+            }
+
             for (int i = 0; i < stayCost; i++) {
                 inventory.remove(currency);
             }
 
-            System.out.println("You pay " + stayCost +  " " + currency + " for a room.");
+            System.out.println(innPerson.getName() + " (Innkeeper): \"The room is yours. You can sleep up to 3 times before paying again.\"");//MAKE IT SO IT DOESNT BREAK IF YOU ALREADY HAVE A ROOM
             activeStays.put(player.getName(), 0);
-            return true;
+            return false;
         }
 
         public void markSleepUsed(Player player) {
@@ -639,8 +644,7 @@ public class Hub {
             activeStays.put(player.getName(), used);
 
             if (used >= sleepLimit) {
-                System.out.println("Your stay at the inn has ended. "
-                        + "You will need to pay again next time you want to sleep here.");
+                System.out.println("Your stay at the inn has ended. You will need to pay again next time you want to sleep here.");
             } else {
                 System.out.println("You may sleep here " + (sleepLimit - used) + " more time(s) " + "before paying again.");
             }

@@ -14,6 +14,7 @@ import java.util.TimerTask;
 public class Game {
 
     public static Hub.FirstVilleShop baggerShop;
+    public static Hub.Inn firstVilleInn;
 
     //DESCRIPTIONS:
 
@@ -735,7 +736,7 @@ public class Game {
         Npca innkeeper1 = new Npca("MaraTamara", "Innkeeper", innkeeperLines,
                 0, new Health(40, 40, 0), "", Npca.QuestState.NONE);
 
-        Hub.Inn firstVilleInn = new Hub("FirstVille Cozy Inn", "A warm, quiet inn with creaky wooden floors and the faint smell of soup.").new Inn("FirstVille Cozy Inn", "A warm, quiet inn with creaky wooden floors and the faint smell of soup.\n" + "EXITS: ()", 15, 0, innkeeper1, "copper");
+        firstVilleInn = new Hub("FirstVille Cozy Inn", "A warm, quiet inn with creaky wooden floors and the faint smell of soup.").new Inn("FirstVille Cozy Inn", "A warm, quiet inn with creaky wooden floors and the faint smell of soup.\n" + "EXITS: ()", 15, 0, innkeeper1, "copper");
 
         firstVilleInn.getNpc().add(innkeeper1);
 
@@ -986,7 +987,7 @@ public class Game {
         firstVilleGate.getGuard().add(Oliver);
 
 
-        Story(cave, existingItems, equipment, enchantment1List);
+        Story(firstVilleInn, existingItems, equipment, enchantment1List);
 
     }
 
@@ -1165,6 +1166,7 @@ public class Game {
         objects.add("ragger");
         objects.add("tragger");
         objects.add("trevor");
+        objects.add("maratamara");
         objects.add("gate");
         objects.add("trap");
         objects.add("wolfbane");
@@ -4899,10 +4901,8 @@ public class Game {
             Hub.Inn innRoom = (Hub.Inn) inRoom;
 
             if (ch.equals("1")) {
+
                 boolean ok = innRoom.startStay(player, inventory);
-                if (ok) {
-                    System.out.println("Mara (Innkeeper): \"Room is yours. You can sleep up to 3 times before paying again.\"");//MAKE IT SO IT DOESNT BREAK IF YOU ALREADY HAVE A ROOM
-                }
 
             } else if (ch.equals("2")) {
                 if (innRoom.hasActiveStay(player)) {
