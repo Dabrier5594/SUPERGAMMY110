@@ -509,6 +509,32 @@ public class Game {
 
         Hub firstVilleLane31 = new Hub("FirstVille Streets #31", " \nEXITS: (E) (S) (W)");
 
+        Hub firstVilleLane32 = new Hub("FirstVille Streets #32", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane33 = new Hub("FirstVille Streets #33", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane34 = new Hub("FirstVille Streets #34", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane35 = new Hub("FirstVille Streets #35", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane36 = new Hub("FirstVille Streets #36", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane37 = new Hub("FirstVille Streets #37", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane38 = new Hub("FirstVille Streets #38", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane39 = new Hub("FirstVille Streets #39", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane40 = new Hub("FirstVille Streets #40", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane41 = new Hub("FirstVille Streets #41", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane42 = new Hub("FirstVille Streets #42", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleLane43 = new Hub("FirstVille Streets #43", " \nEXITS: (E) (S) (W)");
+
+        Hub firstVilleBarracks = new Hub("FirstVille Barracks", " \nEXITS: (E) (S) (W)");
+
 
         //OCEAN BIOME [between 2cd and 3rd ville]
         Hub ocean1 = new Hub("Ocean Edge", "The shoreline fades behind you as waves lap at the hull.");
@@ -687,7 +713,26 @@ public class Game {
         firstVilleLane9.setExit("w", firstVilleLane10);
         firstVilleLane10.setExit("e", firstVilleLane9);
         firstVilleLane10.setExit("n", firstVilleLane11);
-
+        firstVilleLane10.setExit("e", firstVilleLane9);
+        firstVilleLane10.setExit("n", firstVilleLane11);
+        firstVilleLane11.setExit("n", firstVilleLane12);
+        firstVilleLane11.setExit("e", firstVilleLane35);
+        firstVilleLane11.setExit("w", firstVilleLane14);
+        firstVilleLane11.setExit("s", firstVilleLane10);
+        firstVilleLane12.setExit("s", firstVilleLane11);
+        firstVilleLane12.setExit("e", firstVilleLane36);
+        firstVilleLane12.setExit("w", firstVilleLane13);
+        firstVilleLane35.setExit("w", firstVilleLane11);
+        firstVilleLane35.setExit("n", firstVilleLane36);
+        firstVilleLane35.setExit("s", firstVilleLane9);
+        firstVilleLane36.setExit("s", firstVilleLane35);
+        firstVilleLane36.setExit("n", firstVilleLane37);
+        firstVilleLane36.setExit("w", firstVilleLane12);
+        firstVilleLane37.setExit("s", firstVilleLane36);
+        firstVilleLane38.setExit("w", firstVilleLane37);
+        firstVilleLane38.setExit("n", firstVilleLane39);
+        firstVilleLane39.setExit("s", firstVilleLane38);
+        firstVilleLane39.setExit("n", firstVilleLane40);
 
 
 
