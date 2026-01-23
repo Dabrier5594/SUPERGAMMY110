@@ -725,6 +725,20 @@ public class Game {
         Hub.CurrencyExchangeBooth exchangeBooth = new Hub("Exchange Booth", "A booth for trading currencies. Perfect for merchants.").new CurrencyExchangeBooth("Exchange Booth", "A booth for trading currencies. Perfect for merchants.");
         exchangeBooth.getObjects().add("exchange booth");
 
+        //INNS + inkeepers!!
+        String[] innkeeperLines = {
+                "Welcome to the Cozy Inn. Best beds in FirstVille.",
+                "A good rest is worth more than a rusty sword.",
+                "Pay at the counter if you want a room."
+        };
+
+        Npca innkeeper1 = new Npca("MaraTamara", "Innkeeper", innkeeperLines,
+                0, new Health(40, 40, 0), "", Npca.QuestState.NONE);
+
+        Hub.Inn firstVilleInn = new Hub("FirstVille Cozy Inn", "A warm, quiet inn with creaky wooden floors and the faint smell of soup.").new Inn("FirstVille Cozy Inn", "A warm, quiet inn with creaky wooden floors and the faint smell of soup.\n" + "EXITS: ()", 15, 0, innkeeper1, "copper");
+
+        firstVilleInn.getNpc().add(innkeeper1);
+
         //Doors!!!!
         Door caveDoor = new Door(caveNW, forest1, false);
         caveNW.setDoor("n", caveDoor);
@@ -4875,7 +4889,33 @@ public class Game {
             else {
                 System.out.println("Trevor (Clinic Clerk) says:  \"and... goodbye, don't disrupt the injured...\"");
             }
+        } else if (npc.getName().equalsIgnoreCase("MaraTamara")) {
+
+            System.out.println("Mara (Innkeeper) says: \"Need a room or just wandering?\"");
+            System.out.println("Options: [1] pay for room  [2] ask about stay  [3] leave");
+            System.out.print("-> ");
+            String ch = scanner.nextLine().trim();
+
+            Hub.Inn innRoom = (Hub.Inn) inRoom;
+
+            if (ch.equals("1")) {
+                boolean ok = innRoom.startStay(player, inventory);
+                if (ok) {
+                    System.out.println("Mara (Innkeeper): \"Room is yours. You can sleep up to 3 times before paying again.\"");//MAKE IT SO IT DOESNT BREAK IF YOU ALREADY HAVE A ROOM
+                }
+
+            } else if (ch.equals("2")) {
+                if (innRoom.hasActiveStay(player)) {
+                    System.out.println("Mara (Innkeeper): \"You still have an active room. Go down the hall and sleep whenever.\"");
+                } else {
+                    System.out.println("Mara (Innkeeper): \"You don't have a room right now. Pay some copper if you want to stay.\"");
+                }
+
+            } else {
+                System.out.println("Mara (Innkeeper): \"Alright, don't scare the other guests.\"");
+            }
         }
+
 
         else {
             npc.sayLine(0);

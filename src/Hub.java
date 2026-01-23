@@ -589,5 +589,64 @@ public class Hub {
 
     }
 
+
+    public class Inn extends Hub {
+
+        private Map<String, Integer> activeStays = new HashMap<>();
+        private int stayCost;          // copper fr 1st ville etc.
+        private int sleepLimit;        // how many sleeps per payment
+        private Npca innPerson;        // person
+        private String currency;
+
+        public Inn(String name, String description, int stayCost, int sleepLimit, Npca innPerson, String currency) {
+            super(name, description);
+            this.stayCost = stayCost;
+            this.sleepLimit = sleepLimit;
+            this.innPerson = innPerson;
+            this.currency = currency;
+
+        }
+
+        public boolean hasActiveStay(Player player) {
+            Integer used = activeStays.get(player.getName());
+            return used != null && used < sleepLimit;
+        }
+
+        public boolean startStay(Player player, List<String> inventory) {
+
+            int copper = Collections.frequency(inventory, currency);
+
+            if (copper < stayCost) {
+                System.out.println(innPerson.getName() + " (Innkeeper): \"You don't have enough " + currency + "!\"");
+                return false;
+            }
+
+            for (int i = 0; i < stayCost; i++) {
+                inventory.remove(currency);
+            }
+
+            System.out.println("You pay " + stayCost +  " " + currency + " for a room.");
+            activeStays.put(player.getName(), 0);
+            return true;
+        }
+
+        public void markSleepUsed(Player player) {
+            Integer used = activeStays.get(player.getName());
+
+            if (used == null) used = 0;
+            used++;
+
+            activeStays.put(player.getName(), used);
+
+            if (used >= sleepLimit) {
+                System.out.println("Your stay at the inn has ended. "
+                        + "You will need to pay again next time you want to sleep here.");
+            } else {
+                System.out.println("You may sleep here " + (sleepLimit - used) + " more time(s) " + "before paying again.");
+            }
+        }
+    }
+
+
 }
 
