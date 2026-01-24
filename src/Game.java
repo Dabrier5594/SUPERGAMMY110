@@ -535,7 +535,6 @@ public class Game {
 
         Hub firstVilleBarracks = new Hub("FirstVille Barracks", " \nEXITS: (E) (S) (W)");
 
-
         //OCEAN BIOME [between 2cd and 3rd ville]
         Hub ocean1 = new Hub("Ocean Edge", "The shoreline fades behind you as waves lap at the hull.");
 
@@ -781,9 +780,11 @@ public class Game {
         Npca innkeeper1 = new Npca("MaraTamara", "Innkeeper", innkeeperLines,
                 0, new Health(40, 40, 0), "", Npca.QuestState.NONE);
 
-        firstVilleInn = new Hub("FirstVille Cozy Inn", "A warm, quiet inn with creaky wooden floors and the faint smell of soup.").new Inn("FirstVille Cozy Inn", "A warm, quiet inn with creaky wooden floors and the faint smell of soup.\n" + "EXITS: ()", 15, 0, innkeeper1, "copper");
+        firstVilleInn = new Hub("FirstVille Cozy Inn", "A warm, quiet room monitored by an innkeeper. A bed sits in the very middle, looks comfortable. This is the type of place that would cost 15 copper.").new Inn("FirstVille Cozy Inn", "A warm, quiet room monitored by an innkeeper. This is the type of place that would cost 15 copper. \n" + "EXITS: ()", 15, 3, innkeeper1, "copper");
 
         firstVilleInn.getNpc().add(innkeeper1);
+
+        firstVilleInn.setStructure("bed");
 
         //Doors!!!!
         Door caveDoor = new Door(caveNW, forest1, false);
@@ -1032,14 +1033,14 @@ public class Game {
         firstVilleGate.getGuard().add(Oliver);
 
 
-        Story(firstVilleInn, existingItems, equipment, enchantment1List);
+        Story(cave, existingItems, equipment, enchantment1List);
 
     }
 
     public static void Story(Hub cave, List<Item> existingItems, Equipment equipment, List<Enchantment1> enchantment1s) {
 
-        // Makes the room you are in "cave"
-        Hub inRoom = cave;
+        // Makes the room you are in is whatever you need to test...
+        Hub inRoom = firstVilleInn;
 
         //List of verbs
         List<String> verbs = new ArrayList<>();
@@ -1411,8 +1412,17 @@ public class Game {
                 }
 
                 System.out.println(inRoom.getObjects());
+
                 for (int i = 0; i < 200; i++) {
                     inRoom.getObjects().add("gold");
+                }
+
+                for (int i = 0; i < 200; i++) {
+                    inRoom.getObjects().add("copper");
+                }
+
+                for (int i = 0; i < 200; i++) {
+                    inRoom.getObjects().add("silver");
                 }
 
                 inRoom.getObjects().add("admin sword");
@@ -1473,6 +1483,12 @@ public class Game {
 
         //While start is true, run the code
         while (start) {
+
+            if (timeChange != null) {
+                System.out.println(timeChange);
+            } else {
+                System.out.println("night");
+            }
 
             if (player.getHealth().isDead()) {
 
@@ -1858,28 +1874,43 @@ public class Game {
                     } else if (stringContainsWordFromList(action.toLowerCase(), sleep.toArray(new String[0]))){
 
                         if (inRoom.getStructure() != null) {
+
                             if (!inRoom.getStructure().equalsIgnoreCase("bed")) {
+
 
                                 System.out.println("(( In order to SLEEP, there must be a bed within vicinity");
 
                             } else {
 
-                                System.out.println("You climb into the bed, lay your head down, and close your eyes...");
-                                try {
-                                    Thread.sleep(500);
-                                } catch (InterruptedException e) {
-                                    throw new RuntimeException(e);
-                                }
+                                boolean choco = inRoom.markSleepUsed(player);
 
-                                System.out.println("YOU WAKE UP! FULL OF ENERGY!");
-                                if (timeChange.equalsIgnoreCase("night")){
-                                    System.out.println("You look around. It's clearly daytime now.");
+                                if (choco) {
+
+                                    System.out.println("You climb into the bed, lay your head down, and close your eyes...");
+
+                                    try {
+                                        Thread.sleep(5000);
+                                    } catch (InterruptedException e) {
+                                        throw new RuntimeException(e);
+                                    }
+
+                                    System.out.println("YOU WAKE UP! FULL OF ENERGY!");
+
+                                    if (timeChange == null) {
+
+                                        System.out.println("You look around. It's clearly daytime now.");
+                                        timeChange = "day";
+                                        changeTime = LocalTime.now();
+
+                                    }
+
+                                    player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+                                    player.setFullness();
                                 }
-                                player.getHealth().setHeealth(player.getHealth().getMaxHealth());
-                                player.setFullness();
 
                             }
-                        } else {
+                        }
+                        else {
                             System.out.println("(( In order to SLEEP, there must be a bed within vicinity");
                         }
 
@@ -3820,7 +3851,13 @@ public class Game {
 
             chancer = (int) (Math.random() * 101);
 
-            if (chancer < 45) {
+            int chance = 0;
+            if (timeChange.equalsIgnoreCase("day")) {
+                chance = 45;
+            } else {
+                chance = 70;
+            }
+            if (chancer < chance) {
 
                 List<String> stuff = new ArrayList<>();
 

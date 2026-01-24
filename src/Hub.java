@@ -39,6 +39,8 @@ public class Hub {
 
     public void updateGuildActivity() { }
 
+    public boolean markSleepUsed(Player player) {  return false;}
+
     public void joinGuild(String name) { }
 
     public void displayRankingBoard() { }
@@ -621,9 +623,11 @@ public class Hub {
                 return false;
             }
 
-            if (activeStays.get(player.getName()) < sleepLimit) {
-                System.out.println(innPerson.getName() + "(Innkeeper): \"You still have credits available!\"");
-                return false;
+            if (activeStays.get(player.getName()) != null) {
+                if (activeStays.get(player.getName()) < sleepLimit) {
+                    System.out.println(innPerson.getName() + "(Innkeeper): \"You still have credits available!\"");
+                    return false;
+                }
             }
 
             for (int i = 0; i < stayCost; i++) {
@@ -635,19 +639,28 @@ public class Hub {
             return false;
         }
 
-        public void markSleepUsed(Player player) {
+        public boolean markSleepUsed(Player player) {
             Integer used = activeStays.get(player.getName());
 
-            if (used == null) used = 0;
-            used++;
+            if (used == null) used = 50;
 
-            activeStays.put(player.getName(), used);
+            if (used >= sleepLimit){
+                System.out.println("The innkeeper invades your privacy, giving you a deathly scary glare.");
+                return false;
 
-            if (used >= sleepLimit) {
-                System.out.println("Your stay at the inn has ended. You will need to pay again next time you want to sleep here.");
             } else {
-                System.out.println("You may sleep here " + (sleepLimit - used) + " more time(s) " + "before paying again.");
+
+                used++;
+
+                activeStays.put(player.getName(), used);
+
+                if (used >= sleepLimit) {
+                    System.out.println("Your stay at the inn has ended. You will need to pay again next time you want to sleep here.");
+                } else {
+                    System.out.println("You may sleep here " + (sleepLimit - used) + " more time(s) " + "before paying again.");
+                }
             }
+            return true;
         }
     }
 
