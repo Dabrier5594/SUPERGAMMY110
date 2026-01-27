@@ -1105,7 +1105,8 @@ public class Game {
     public static void Story(Hub cave, List<Item> existingItems, Equipment equipment, List<Enchantment1> enchantment1s) {
 
         // Makes the room you are in is whatever you need to test...
-        Hub inRoom = Hub.get("West port");
+        //Hub inRoom = Hub.get("West port");
+        Hub inRoom = cave;
 
         boatLocation = Hub.get("West port");
         //List of verbs
@@ -1228,8 +1229,11 @@ public class Game {
         objects.add("firstville guards helm");
         objects.add("firstville guards boots");
         objects.add("firstville guards legs");
+        objects.add("leather armors");
         objects.add("leather armor");
+        objects.add("bear claws");
         objects.add("bear claw");
+        objects.add("bear swords");
         objects.add("bear sword");
         objects.add("admin sword");
 
@@ -1242,39 +1246,59 @@ public class Game {
 
         //ITEMS
         objects.add("bear essence");
+        objects.add("golden apples");
         objects.add("golden apple");
+        objects.add("white whispberries");
         objects.add("white whispberry");
+        objects.add("wolf bane soups");
         objects.add("wolf bane soup");
         objects.add("raven eye");
+        objects.add("raven eyes");
+        objects.add("blood vials");
         objects.add("blood vial");
+        objects.add("goblin teeth");
         objects.add("goblin tooth");
+        objects.add("rabbit hides");
         objects.add("rabbit hide");
+        objects.add("squirrel hides");
         objects.add("squirrel hide");
+        objects.add("bear hides");
         objects.add("bear hide");
+        objects.add("chicken feathers");
         objects.add("chicken feather");
 
 
 
         //OTHER SMALLER THINGS
         objects.add("inventory");
+        objects.add("clothes");
         objects.add("cloth");
         objects.add("leaflet");
         objects.add("dagger");
         objects.add("cauldron");
         objects.add("scroll");
         objects.add("tree");
+        objects.add("wheats");
         objects.add("wheat");
         objects.add("exchange");
         objects.add("cabinet");
         objects.add("leaflet");
+        objects.add("daggers");
         objects.add("dagger");
         objects.add("inventory");
+        objects.add("apples");
         objects.add("apple");
+        objects.add("oranges");
         objects.add("orange");
+        objects.add("golds");
         objects.add("gold");
+        objects.add("silvers");
         objects.add("silver");
+        objects.add("coppers");
         objects.add("copper");
+        objects.add("twigs");
         objects.add("twig");
+        objects.add("snarkflowers");
         objects.add("snarkflower");
         objects.add("door");
         objects.add("rabbit");
@@ -1292,12 +1316,15 @@ public class Game {
         objects.add("trevor");
         objects.add("maratamara");
         objects.add("gate");
+        objects.add("traps");
         objects.add("trap");
+        objects.add("wolfbanes");
         objects.add("wolfbane");
         objects.add("wolf");
         objects.add("cauldron");
         objects.add("scroll");
         objects.add("tree");
+        objects.add("acorns");
         objects.add("acorn");
         objects.add("jerr");
         objects.add("boat");
@@ -1506,7 +1533,13 @@ public class Game {
                     inRoom.getObjects().add("silver");
                 }
 
+                for (int i = 0; i < 200; i++) {
+                    inRoom.getObjects().add("white whispberry");
+                }
+
                 inRoom.getObjects().add("admin sword");
+
+                inRoom.getObjects().add("firstville guards legs");
 
                 inRoom.getObjects().add("scuba mask");
 
@@ -2469,6 +2502,7 @@ public class Game {
                                 if (itemObj.equalsIgnoreCase(target)) {
                                     found = true;
                                     describeItem(target);
+                                    break;
 
                                 }
                             }
@@ -2479,6 +2513,7 @@ public class Game {
                                     if (obj.equalsIgnoreCase(target)) {
                                         found = true;
                                         describeItem(target);
+                                        break;
 
                                     }
                                 }
@@ -2817,32 +2852,90 @@ public class Game {
                             boolean validObject = false;
                             boolean allOrNo = false;
 
+                            if (action.startsWith("get all") || action.startsWith("take all")) {
 
-                            if (action.contains("scroll")){
-                                for (String wah : scrollTypes){
-                                    if (action.contains(wah)){
-                                        take(inRoom, wah, inventory, player, playersStats, allOrNo);
-                                        validObject = true;
+                                String[] parts = action.split("\\s+");
+                                int allIndex = -1;
+                                for (int i = 0; i < parts.length; i++) {
+                                    if (parts[i].equals("all")) {
+                                        allIndex = i;
                                         break;
                                     }
                                 }
-                                if (!validObject){
-                                    System.out.println("Please try again [specify which scroll e.g. fire scroll 1]");
-                                    validObject = true;
+                                if (allIndex == -1 || allIndex == parts.length - 1) {
+                                    System.out.println("Get all what?");
+                                    return;
+                                }
 
+                                // gret everything after "all"
+                                StringBuilder sb = new StringBuilder();
+                                for (int i = allIndex + 1; i < parts.length; i++) {
+                                    if (i > allIndex + 1) sb.append(" ");  //add a value to the end of an existing character sequence
+                                    //e.g.
+                                    //StringBuilder sb = new StringBuilder("Hello");
+                                    //sb.append(" World");
+                                    //System.out.println(sb); // Output: Hello World
+                                    sb.append(parts[i]);
+                                }
+                                String rawPhrase = sb.toString();  // "white whispberries"
+
+                                // Singularize ONLY the last word
+                                String[] phraseWords = rawPhrase.split("\\s+");
+                                String lastWord = phraseWords[phraseWords.length - 1];  // "whispberries"
+                                String singularLastWord = unPluralizer(lastWord);         // "whispberry"
+
+                                phraseWords[phraseWords.length - 1] = singularLastWord;
+                                String searchName = String.join(" ", phraseWords);
+                                // String message = String.join("-", "Java", "is", "cool");
+                                // message returned is: "Java-is-cool"
+
+                                Iterator<String> it = inRoom.getObjects().iterator();
+                                boolean foundAny = false;
+                                while (it.hasNext()) {
+                                    String obj = it.next();
+                                    if (obj.equalsIgnoreCase(searchName)) {
+                                        inventory.add(obj);
+                                        it.remove();
+                                        foundAny = true;
+                                        validObject = true;
+                                    }
+                                }
+
+                                if (!foundAny) {
+                                    System.out.println("You don't see any " + rawPhrase + " here.");
+                                }
+
+                                if (validObject){
+                                    System.out.println("You feel a bit heavier!");
                                 }
                             }
-                            else {
 
-                                for (String obj : objects) {
-                                    if (action.toLowerCase().contains(obj)) {
-                                        if (action.toLowerCase().contains("all")) {
-                                            allOrNo = true;
+                            if (!validObject) {
+                                if (action.contains("scroll")) {
+                                    for (String wah : scrollTypes) {
+                                        if (action.contains(wah)) {
+                                            take(inRoom, wah, inventory, player, playersStats, allOrNo);
+                                            validObject = true;
+                                            break;
                                         }
-                                        take(inRoom, obj, inventory, player, playersStats, allOrNo);
+                                    }
+                                    if (!validObject) {
+                                        System.out.println("Please try again [specify which scroll e.g. fire scroll 1]");
                                         validObject = true;
-                                        break;
 
+                                    }
+                                } else {
+
+                                    for (String obj : objects) {
+                                        if (action.toLowerCase().contains(obj)) {
+                                            if (action.toLowerCase().contains("all")) {
+                                                allOrNo = true;
+                                            }
+                                            take(inRoom, obj, inventory, player, playersStats, allOrNo);
+                                            validObject = true;
+                                            break;
+
+                                        }
                                     }
                                 }
                             }
@@ -2853,7 +2946,6 @@ public class Game {
                         } else if (stringContainsWordFromList(action.toLowerCase(), read.toArray(new String[0]))) {
 
                             boolean validObject = false;
-
 
                             for (String obj : objects) {
                                 if (action.toLowerCase().contains(obj)) {
@@ -2871,13 +2963,63 @@ public class Game {
 
                             boolean validObject = false;
 
+                            if (action.startsWith("drop all")) {
 
-                            for (String obj : objects) {
-                                if (action.toLowerCase().contains(obj)) {
-                                    drop(inRoom, obj, inventory, player, equipment, existingItems);
+                                String[] parts = action.split("\\s+");
+                                int allIndex = -1;
+                                for (int i = 0; i < parts.length; i++) {
+                                    if (parts[i].equals("all")) {
+                                        allIndex = i;
+                                        break;
+                                    }
+                                }
+                                if (allIndex == -1 || allIndex == parts.length - 1) {
+                                    System.out.println("Drop all what?");
+                                    return;
+                                }
+
+                                StringBuilder sb = new StringBuilder();
+                                for (int i = allIndex + 1; i < parts.length; i++) {
+                                    if (i > allIndex + 1) sb.append(" ");
+                                    sb.append(parts[i]);
+                                }
+                                String rawPhrase = sb.toString();
+
+                                String[] phraseWords = rawPhrase.split("\\s+");
+                                String lastWord = phraseWords[phraseWords.length - 1];
+                                String singularLastWord = unPluralizer(lastWord);
+
+                                phraseWords[phraseWords.length - 1] = singularLastWord;
+                                String searchName = String.join(" ", phraseWords);
+
+                                boolean foundAny = false;
+                                Iterator<String> it = inventory.iterator();
+                                while (it.hasNext()) {
+                                    String item = it.next();
+                                    if (item.equalsIgnoreCase(searchName)) {
+                                        inRoom.getObjects().add(item);
+                                        it.remove();
+                                        foundAny = true;
+                                    }
+                                }
+
+                                if (!foundAny) {
+                                    System.out.println("You don't have any " + rawPhrase + " to drop.");
+                                } else {
+                                    System.out.println("You feel a bit lighter!");
                                     validObject = true;
+                                }
 
-                                    break;
+                            } else {
+
+
+                                for (String obj : objects) {
+                                    if (action.toLowerCase().contains(obj)) {
+                                        drop(inRoom, obj, inventory, player, equipment, existingItems);
+                                        validObject = true;
+
+                                        break;
+                                    }
                                 }
                             }
 
@@ -4053,10 +4195,12 @@ public class Game {
             chancer = (int) (Math.random() * 101);
 
             int chance = 0;
-            if (timeChange.equalsIgnoreCase("day")) {
-                chance = 45;
+
+
+            if (timeChange != null) {
+                chance = 35;
             } else {
-                chance = 70;
+                chance = 65;
             }
             if (chancer < chance) {
 
@@ -4738,7 +4882,15 @@ public class Game {
 
                 inRoom.getNpc().remove(npc); //remove an object that has the name Rabbit
 
+                if (npc.getName().equalsIgnoreCase("Jerr")){
+                    if (!player.ownsBoat()){
+                        System.out.println("Jerr's boat has been passed down to you through his demise...");
+                        player.setOwnsBoat(true);
+                    }
+                }
+
                 break;
+
             } else {
 
                 npc.attack(player);
@@ -5533,13 +5685,30 @@ public class Game {
 
     }
 
+    public static String unPluralizer(String word) {
+        if (word == null || word.length() == 0) return word;
+
+        word = word.toLowerCase().trim();
+
+        // irregulars first
+        if (word.equals("berries")) return "berry";
+        if (word.equals("leaves"))  return "leaf";
+        if (word.equals("clothes"))  return "cloth";
+        if (word.equals("teeth"))  return "tooth";
+        if (word.equals("boots"))  return "boots";
+        if (word.equals("legs"))  return "legs";
 
 
+        if (word.endsWith("ies") && word.length() > 3) {
+            return word.substring(0, word.length() - 3) + "y";
+        }
 
+        if (word.endsWith("s") && word.length() > 1) {
+            return word.substring(0, word.length() - 1);
+        }
 
-
-
-
+        return word;
+    }
 
 
 }
