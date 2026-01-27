@@ -38,6 +38,8 @@ public class Player {
 
     private int ciritcalChance;
 
+    private boolean ownsBoat = false;
+
 
     public Player(String name, int maxHealth, int health, int power, int damageResistance, int criticalChance) {
 
@@ -56,6 +58,15 @@ public class Player {
     public int getCoins(){ return coins; }
 
     public void addCoins(int a){coins += a;}
+
+    public boolean ownsBoat() {
+        return ownsBoat;
+    }
+
+    public void setOwnsBoat(boolean ownsBoat) {
+        this.ownsBoat = ownsBoat;
+    }
+
 
     public String getName(){
         return name;

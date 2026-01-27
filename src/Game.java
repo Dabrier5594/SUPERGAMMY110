@@ -111,6 +111,11 @@ public class Game {
 
     // OTHER CLASS SCOPE VARIABLES!
 
+
+    public static volatile Hub boatLocation;
+
+    public static volatile boolean onBoat   = false;
+
     public static volatile boolean scannerOrNo = false; // true = scanning, false = no scanning
 
     public static volatile boolean timeOfDay = true; // true = day, false = night
@@ -536,16 +541,41 @@ public class Game {
         Hub firstVilleBarracks = new Hub("FirstVille Barracks", " \nEXITS: (E) (S) (W)");
 
         //OCEAN BIOME [between 2cd and 3rd ville]
-        Hub ocean1 = new Hub("Ocean Edge", "The shoreline fades behind you as waves lap at the hull.");
+        // PORTS
+        Hub westPort  = new Hub("West Port",  "You average port. A nice looking boat is sits somewhere bloah blah blah, oliver help \nExits: (E)");
+        Hub eastPort  = new Hub("East Port",  "\nExits: (W)");
 
-        Hub ocean2 = new Hub("Open Sea 1", "You drift over deep blue water, the land now a distant line.");
+        // OCEAN SURFACE LAYER (boat layer only)
+        Hub oceanSurface1 = new Hub("Open Sea West",  "\nExits: (E), (W)");
+        Hub oceanSurface2 = new Hub("Open Sea Mid",   "\nExits: (E), (W), (D)");
+        Hub oceanSurface3 = new Hub("Open Sea East",  "\nExits: (E), (W)");
 
+        // OCEAN UNDERWATER LAYERS (scuba only)
+        Hub oceanDepth1   = new Hub("Shallow Depths", "\nExits: (U), (D)");
+        Hub oceanDepth2   = new Hub("Midwater",       "\nExits: (U), (D)");
+        Hub oceanDepth3   = new Hub("Abyssal Trench", "\nExits: (U)");
 
         //OCEAN EXITS:
-        ocean1.setExit("n", ocean2);
-        ocean2.setExit("s", ocean1);
+        westPort.setExit("e", oceanSurface1);
+        oceanSurface1.setExit("w", westPort);
 
+        oceanSurface1.setExit("e", oceanSurface2);
+        oceanSurface2.setExit("w", oceanSurface1);
 
+        oceanSurface2.setExit("e", oceanSurface3);
+        oceanSurface3.setExit("w", oceanSurface2);
+
+        oceanSurface2.setExit("d", oceanDepth1);
+        oceanDepth1.setExit("u", oceanSurface2);
+
+        oceanDepth1.setExit("d", oceanDepth2);
+        oceanDepth2.setExit("u", oceanDepth1);
+
+        oceanDepth2.setExit("d", oceanDepth3);
+        oceanDepth3.setExit("u", oceanDepth2);
+
+        oceanSurface3.setExit("e", eastPort);
+        eastPort.setExit("w", oceanSurface3);
 
         //Toms Cave EXITS:
         cave.setExit("n", caveN);
@@ -934,6 +964,8 @@ public class Game {
 
         Equipment equipment = new Equipment();
 
+        Item scubaMask = new Item("scuba mask", "head", false, null, 0, false);
+        existingItems.add(scubaMask);
         Item adminSword = new Item("admin sword", "melee", true, fire, 3, false);
         existingItems.add(adminSword);
         Item bearClaw = new Item("bear claw", "melee", true, null, 6, false);
@@ -972,6 +1004,18 @@ public class Game {
         //forest boss
 
         //NPCS
+
+        String[] boatSellerLines = {
+                "Looking to cross the sea?",
+                "I sell reliable boats—one payment, yours forever.",
+                "Once you own a boat, just 'use boat' at the port."
+        };
+
+        Health boatSellerHp = new Health(1000000000, 1000000000, 1000000000);
+
+        Npca boatSeller = new Npca("Jerr", "Boat Master", boatSellerLines, 12121212, boatSellerHp, "", Npca.QuestState.NONE);
+
+        westPort.getNpc().add(boatSeller);
 
         String[] guildMasterLines = {
                 "Welcome to FirstVille Guild! Say 'join' to join as Noob rank.",
@@ -1040,8 +1084,9 @@ public class Game {
     public static void Story(Hub cave, List<Item> existingItems, Equipment equipment, List<Enchantment1> enchantment1s) {
 
         // Makes the room you are in is whatever you need to test...
-        Hub inRoom = firstVilleInn;
+        Hub inRoom = Hub.get("West port");
 
+        boatLocation = Hub.get("West port");
         //List of verbs
         List<String> verbs = new ArrayList<>();
         verbs.add("move");
@@ -1082,9 +1127,13 @@ public class Game {
         verbsOnly.add("s");
         verbsOnly.add("w");
         verbsOnly.add("e");
+        verbsOnly.add("u");
+        verbsOnly.add("d");
         verbsOnly.add("fame");
         verbsOnly.add("north");
         verbsOnly.add("south");
+        verbsOnly.add("up");
+        verbsOnly.add("down");
         verbsOnly.add("quests");
         verbsOnly.add("west");
         verbsOnly.add("east");
@@ -1103,10 +1152,22 @@ public class Game {
         directions.add("e");
         directions.add("s");
         directions.add("n");
+        directions.add("d");
+        directions.add("u");
         directions.add("west");
         directions.add("east");
         directions.add("south");
         directions.add("north");
+        directions.add("up");
+        directions.add("down");
+
+        List<String> upways   = new ArrayList<>();
+        upways.add("up");
+        upways.add("u");
+
+        List<String> downways = new ArrayList<>();
+        downways.add("down");
+        downways.add("d");
 
         List<String> northways = new ArrayList<>();
         northways.add("north");
@@ -1139,10 +1200,6 @@ public class Game {
         rest.add("laydown");
         rest.add("take a break");
         rest.add("close your eyes");
-
-
-
-
 
         List<String> objects = new ArrayList<>();
         //ARMOR/WEAPONS
@@ -1221,6 +1278,9 @@ public class Game {
         objects.add("scroll");
         objects.add("tree");
         objects.add("acorn");
+        objects.add("jerr");
+        objects.add("boat");
+        objects.add("scuba mask");
 
         List<String> yesOrYes = new ArrayList<>();
         yesOrYes.add("y");
@@ -1427,6 +1487,8 @@ public class Game {
 
                 inRoom.getObjects().add("admin sword");
 
+                inRoom.getObjects().add("scuba mask");
+
                 inRoom.getObjects().add("dagger");
 
                 inRoom.getObjects().add("leather armor");
@@ -1483,12 +1545,6 @@ public class Game {
 
         //While start is true, run the code
         while (start) {
-
-            if (timeChange != null) {
-                System.out.println(timeChange);
-            } else {
-                System.out.println("night");
-            }
 
             if (player.getHealth().isDead()) {
 
@@ -1663,7 +1719,7 @@ public class Game {
 
             System.out.println("");
             scannerOrNo = true;
-            boolean oneCardinol = oneDirection(action, northways, southways, easyways, westways);
+            boolean oneCardinol = oneDirection(action, northways, southways, easyways, westways, upways, downways);
 
             boolean correctFormat = oneObjectOneVerb(action, verbs, objects);
             if (oneCardinol) {
@@ -1727,13 +1783,28 @@ public class Game {
                         Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                         snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
-                    } else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
+                    }
+                    else if (action.toLowerCase().equals("e") || action.toLowerCase().equals("east")) {
                         // Call the move method and update to inRoom
                         Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment, food, inventory);
                         inRoom = newRoom;
                         Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                         snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
+
+                    } else if (action.toLowerCase().equals("u") || action.toLowerCase().equals("up")) {
+                        // Call the move method and update to inRoom
+                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment, food, inventory);
+                        inRoom = newRoom;
+                        Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                        snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
+
+                    } else if (action.toLowerCase().equals("d") || action.toLowerCase().equals("down")) {
+
+                        Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment, food, inventory);
+                        inRoom = newRoom;
+                        Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                        snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
                     } else if (stringContainsWordFromList(action.toLowerCase(), movements.toArray(new String[0]))) {
 
@@ -1748,6 +1819,22 @@ public class Game {
                                 Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
                                 snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
 
+                            }
+
+                            if (stringContainsWordFromList(action.toLowerCase(), upways.toArray(new String[0]))) {
+                                action = "u";
+                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment, food, inventory);
+                                inRoom = newRoom;
+                                Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                                snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
+                            }
+
+                            if (stringContainsWordFromList(action.toLowerCase(), downways.toArray(new String[0]))) {
+                                action = "d";
+                                Hub newRoom = move(action.toLowerCase(), inRoom, player, playersStats, equipment, food, inventory);
+                                inRoom = newRoom;
+                                Map<String, Quest> snapshot = new HashMap<>(Player.QUESTS);
+                                snapshot.forEach((id, q) -> q.check("VISIT_LOCATION", newRoom.getRoomName(), player, playersStats));
                             }
 
                             if (stringContainsWordFromList(action.toLowerCase(), southways.toArray(new String[0]))) {
@@ -1972,6 +2059,30 @@ public class Game {
                         }
 
                         else if (stringContainsWordFromList(action.toLowerCase(), use.toArray(new String [0]))){
+
+                            if (action.toLowerCase().contains("boat")) {
+
+                                if (!player.ownsBoat()) {
+                                    System.out.println("You see a boat, but it doesn't belong to you.");
+                                    System.out.println("Maybe you should buy it frpm the shop keeper first.");
+                                } else {
+
+                                    if (onBoat) {
+                                        onBoat = false;
+                                        System.out.println("You hop out of the boat and it stays here, bobbing in the water.");
+                                        boatLocation = inRoom;
+
+                                    } else {
+
+                                        if (boatLocation == inRoom) {
+                                            onBoat = true;
+                                            System.out.println("You climb into the boat.");
+                                        } else {
+                                            System.out.println("There is no boat here to use.");
+                                        }
+                                    }
+                                }
+                            }
 
                             if (stringContainsWordFromList(action.toLowerCase(), cauldron.toArray(new String [0]))){
 
@@ -2941,7 +3052,7 @@ public class Game {
 
                                 if (action.toLowerCase().contains(npcNameLower)) {
 
-                                    talkGuard(inRoom, inventory, playersStats, npc, player);
+                                    inventory = talkGuard(inRoom, inventory, playersStats, npc, player);
 
                                     talked = true;
 
@@ -2972,7 +3083,7 @@ public class Game {
 
                                     if (action.toLowerCase().contains(npcNameLower)) {
 
-                                        talkNpc(inRoom, inventory, playersStats, npc, player);
+                                        inventory  = talkNpc(inRoom, inventory, playersStats, npc, player);
 
                                         talked = true;
 
@@ -2989,7 +3100,7 @@ public class Game {
 
                                     if (action.toLowerCase().contains(npcNameLower.toLowerCase())) {
 
-                                        talkShopFirst(inRoom, inventory, playersStats, inRoom.getFirstShopOwners(), player, equipment);
+                                        inventory = talkShopFirst(inRoom, inventory, playersStats, inRoom.getFirstShopOwners(), player, equipment);
 
                                         talked = true;
 
@@ -3067,6 +3178,30 @@ public class Game {
             return currentHub;
         }
 
+        if ((currentHub.getRoomName().equalsIgnoreCase("west Port") && direction.equalsIgnoreCase("e")) || (currentHub.getRoomName().equalsIgnoreCase("east port") && direction.equalsIgnoreCase("w"))) {
+
+            if (!onBoat) {
+                System.out.println("The water is too deep to swim safely from here. Use the boat first.");
+                return currentHub;
+            }
+        }
+
+        if ((currentHub.getRoomName().equalsIgnoreCase("west Port") && direction.equalsIgnoreCase("w")) || (currentHub.getRoomName().equalsIgnoreCase("east port") && direction.equalsIgnoreCase("e"))) {
+
+            if (onBoat) {
+                System.out.println("For some reason it is challenging to ride your boat on land. You pound in anger as your boat stays where it is..");
+                return currentHub;
+            }
+        }
+
+        if ((currentHub.getRoomName().equalsIgnoreCase("Open Sea West") && direction.equalsIgnoreCase("w")) || (currentHub.getRoomName().equalsIgnoreCase("Open Sea East") && direction.equalsIgnoreCase("e"))) {
+
+            if (!onBoat) {
+                System.out.println("The dock is too high to climb from here. Try getting onto the boat first. .");
+                return currentHub;
+            }
+        }
+
         if (direction.equals("north") || direction.equals("n")) {
             direction = "n";
             if (currentHub.getRoomName().equalsIgnoreCase("Northern Forest Area #50")){
@@ -3096,6 +3231,37 @@ public class Game {
             direction = "e";
         }
 
+        Hub newRoom = currentHub.getExit(direction);
+
+        if (direction.equalsIgnoreCase("down") || direction.equalsIgnoreCase("d")){
+            direction = "d";
+        }
+        if (direction.equalsIgnoreCase("up") || direction.equalsIgnoreCase("u")){
+            direction = "u";
+        }
+
+        if (direction.equalsIgnoreCase("d")) {
+
+                if (onBoat) {
+                onBoat = false;
+                System.out.println("You hop out of the boat into the water.");
+                boatLocation = currentHub;
+            }
+
+            String helmetName = equipment.getHelmet();
+            if (!helmetName.equalsIgnoreCase("scuba mask")) {
+                System.out.println("You can't dive here without a proper scuba mask on your head.");
+                return currentHub;
+            }
+        }
+
+        if (isUnderwaterRoom(newRoom)) {
+            String helmetName = equipment.getHelmet();
+            if (!helmetName.equalsIgnoreCase("scuba mask")) {
+                System.out.println("You feel the pressure and lack of air. You need a scuba mask to go there.");
+                return currentHub;
+            }
+        }
 
         Door door = currentHub.getDoor(direction);
         if (door != null && !door.isOpen()) {
@@ -3109,8 +3275,6 @@ public class Game {
             System.out.println("There is a locked gate in your way.");
             return currentHub;
         }
-
-        Hub newRoom = currentHub.getExit(direction);
 
         // If there is a new area where user tries to go, update it
         if (newRoom != null) {
@@ -3229,8 +3393,19 @@ public class Game {
             return currentHub; // Return the current Hub object
         }
 
+        if (onBoat) {
+            boatLocation = newRoom;
+        }
+
         return newRoom;
     }
+
+    private static boolean isUnderwaterRoom(Hub room) {
+        if (room == null) return false;
+        String name = room.getRoomName().toLowerCase();
+        return name.contains("depths") || name.contains("midwater") || name.contains("trench");
+    }
+
 
     public static boolean stringContainsWordFromList(String inputStr, String[] items) {
         for (String item : items) {
@@ -3241,7 +3416,7 @@ public class Game {
         return false;
     }
 
-    public static boolean oneDirection(String action, List<String> northways, List<String> southways, List<String> eastways, List<String> westways) {
+    public static boolean oneDirection(String action, List<String> northways, List<String> southways, List<String> eastways, List<String> westways, List<String> upways, List<String> downways) {
         int directionCounter = 0;
         if (stringContainsWordFromList(action.toLowerCase(), northways.toArray(new String[0]))) {
             directionCounter++;
@@ -3255,7 +3430,12 @@ public class Game {
         if (stringContainsWordFromList(action.toLowerCase(), westways.toArray(new String[0]))) {
             directionCounter++;
         }
-
+        if (stringContainsWordFromList(action.toLowerCase(), upways.toArray(new String[0]))) {
+            directionCounter++;
+        }
+        if (stringContainsWordFromList(action.toLowerCase(), downways.toArray(new String[0]))) {
+            directionCounter++;
+        }
         if (directionCounter > 1) {
             return true;
         } else {
@@ -4914,7 +5094,7 @@ public class Game {
         return inventory;
     }
 
-    public static void talkNpc(Hub inRoom, List<String> inventory, XpLv playerStats, Npca npc, Player player) {
+    public static List<String> talkNpc(Hub inRoom, List<String> inventory, XpLv playerStats, Npca npc, Player player) {
 
         String choice = "7";
 
@@ -4996,6 +5176,34 @@ public class Game {
             } else {
                 System.out.println("Mara (Innkeeper): \"Alright, don't scare the other guests.\"");
             }
+        } else if (npc.getName().equalsIgnoreCase("Jerr")) {
+
+            // Already own boat?
+            if (player.ownsBoat()) {
+                System.out.println("Jerr (Boatman): \"You already have a boat, friend.\"");
+                return inventory;
+            }
+
+            System.out.println("Jerr (Boatman): \"A seaworthy boat will cost you 30 silver. Buy it? (y/n)\"");
+            System.out.print("-> ");
+            String ans = Game.scanner.nextLine().trim().toLowerCase();
+
+            if (ans.equals("yes") || ans.equals("y") ) {
+                int price = 30;
+                int silverCount = Collections.frequency(inventory, "silver");
+
+                if (silverCount >= price) {
+                    for (int i = 0; i < price; i++) {
+                        inventory.remove("silver");
+                    }
+                    player.setOwnsBoat(true);
+                    System.out.println("Jerr (Boatman): \"Pleasure doing business. The boat at West Port is now yours.\"");
+                } else {
+                    System.out.println("Jerr (Boatman): \"Come back when you can actually afford it.\"");
+                }
+            } else {
+                System.out.println("Jerr (Boatman): \"Suit yourself.\"");
+            }
         }
 
 
@@ -5008,6 +5216,8 @@ public class Game {
 
             npc.sayLine(2);
         }
+
+        return inventory;
 
 
     }
