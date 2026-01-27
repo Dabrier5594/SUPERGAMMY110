@@ -364,9 +364,9 @@ public class Game {
 
         Hub sHouseRoom = new Hub("Abandon House's Suite Room", "Inside an abandon house located in the Southern part of the forest. \nThis was once a grand suite, now fallen to decay.\nEXITS: (N) (S)");
 
-        Hub sHouseStairs = new Hub("Abandon House's Staircase", "Inside an abandon house located in the Southern part of the forest. \nThe narrow staircase ascends with a groan at every step. Dust dances in the beams of pale light filtering from above.\nEXITS: (N) (S [upwards])");
+        Hub sHouseStairs = new Hub("Abandon House's Staircase", "Inside an abandon house located in the Southern part of the forest. \nThe narrow staircase ascends with a groan at every step. Dust dances in the beams of pale light filtering from above.\nEXITS: (N) (U)");
 
-        Hub sHouseUpper = new Hub("Abandon House's Upper Room", "Inside an abandon house located in the Southern part of the forest. \nThe upper room smells of mildew and forgotten time. A rusty chest sits in the corner...\nEXITS: (N [downwards])");
+        Hub sHouseUpper = new Hub("Abandon House's Upper Room", "Inside an abandon house located in the Southern part of the forest. \nThe upper room smells of mildew and forgotten time. A rusty chest sits in the corner...\nEXITS: (D)");
 
 
         Hub forest14 = new Hub("Southern Forest Area #14", "The Southern Area of the Great Makiss Forest. \nDense thickets and thorn bushes threaten to slow travelers, whispering secrets among the branches. \nEXITS: (W) (N)");
@@ -444,6 +444,7 @@ public class Game {
 
         Hub forest50 = new Hub("Northern Forest Area #50", "The Northern Area of the Great Makiss Forest. \nThe forest exit, hints of a fierce mini-boss—beyond lay in the area. \nEXITS: (S) (N)");
 
+        //FIRSTVILLE
         Hub firstVilleGate = new Hub("Gate of FirstVille", "The Great Gate of FirstVille.\nYou stand in a clearing, opposite from the forest, in front of a great booming gate: (S) (N)");
         firstVilleGate.setStructure("gate");
 
@@ -540,6 +541,33 @@ public class Game {
 
         Hub firstVilleBarracks = new Hub("FirstVille Barracks", " \nEXITS: (E) (S) (W)");
 
+        //PLAINS BIOME [between 1st and 2cd ville]
+
+        Hub plainsShaftEntrance = new Hub("Vast plains Shaft Entrance", " \nEXITS: (D)");
+
+        Hub plainsShaft1 = new Hub("Entry to the Great Vast Plains Mine Shaft", " \nEXITS: (U)");
+
+        Hub plainsShaft2 = new Hub("Great Plains Shaft Area #1", " \nEXITS: ");
+
+        Hub plainsShaft3 = new Hub("Great Plains Shaft Area #2", " \nEXITS: ");
+
+        //PLAINS BIOME EXITS:
+
+        plainsShaftEntrance.setExit("d", plainsShaft1);
+
+
+        //SECOND VILLE
+        //PERSONAL HOME (cost -  a lot, add upstairs etc etc).
+        Hub secondVillePersonalHomeDoor = new Hub("Personal Home Door", " \nEXITS: ");
+
+        Hub secondVillePersonalHomeEntrance = new Hub("Personal Home Entrance", " \nEXITS: ");
+
+        Hub secondVillePersonalHomeKitchen = new Hub("Personal Home Kitchen", " \nEXITS: ");
+
+        Hub secondVillePersonalHomeBedRoom = new Hub("Personal Home Bedroom", " \nEXITS: ");
+
+        Hub secondVillePersonalHomeStorage = new Hub("Personal Home Storage", " \nEXITS: ");
+
         //OCEAN BIOME [between 2cd and 3rd ville]
         // PORTS
         Hub westPort  = new Hub("West Port",  "You average port. A nice looking boat is sits somewhere bloah blah blah, oliver help \nExits: (E)");
@@ -629,8 +657,8 @@ public class Game {
         sHouseRoom.setExit("n", sHouseHallway);
         sHouseRoom.setExit("s", sHouseStairs);
         sHouseStairs.setExit("n", sHouseHallway);
-        sHouseStairs.setExit("s", sHouseUpper);
-        sHouseUpper.setExit("n", sHouseStairs);
+        sHouseStairs.setExit("u", sHouseUpper);
+        sHouseUpper.setExit("d", sHouseStairs);
 
         forest13.setExit("s", forest12);
         forest13.setExit("e", forest14);
@@ -762,13 +790,6 @@ public class Game {
         firstVilleLane38.setExit("n", firstVilleLane39);
         firstVilleLane39.setExit("s", firstVilleLane38);
         firstVilleLane39.setExit("n", firstVilleLane40);
-
-
-
-
-
-
-
 
         // CLINICS
 
@@ -4369,6 +4390,53 @@ public class Game {
         return new Mob("Blood Witch", muteHeath, attackPower, isAggro, drop);
     }
 
+    private static Mob createGolemWithRandomStats(List<String> drop) {
+        int maxHealth = (int) (Math.random() * 25 + 12);
+        int currentHealth = maxHealth;
+        int damageResistance = 2;
+        Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
+
+        int attackPower = (int) (Math.random() * 15 + 15);
+        boolean isAggro;
+        if ((int)(Math.random() * 2) == 0) {
+            isAggro = false;
+        }
+        else {
+            isAggro = true;
+        }
+
+        if (drop.isEmpty()){
+            if ((int)(Math.random() * 3 + 1) != 1){
+                drop.add("golem core");
+            }
+        }
+
+        return new Mob("Golem", muteHeath, attackPower, isAggro, drop);
+    }
+
+    private static Mob createCrabWithRandomStats(List<String> drop) {
+        int maxHealth = (int) (Math.random() * 25 + 12);
+        int currentHealth = maxHealth;
+        int damageResistance = 2;
+        Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
+
+        int attackPower = (int) (Math.random() * 15 + 15);
+        boolean isAggro;
+        if ((int)(Math.random() * 2) == 0) {
+            isAggro = false;
+        }
+        else {
+            isAggro = true;
+        }
+
+        if (drop.isEmpty()){
+            if ((int)(Math.random() * 3 + 1) != 1){
+                drop.add("crab claw");
+            }
+        }
+
+        return new Mob("Crab", muteHeath, attackPower, isAggro, drop);
+    }
 
 
 
