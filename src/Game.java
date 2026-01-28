@@ -4709,25 +4709,30 @@ public class Game {
                             System.out.println("");
                         }
                     }
-                    System.out.println("What food would you like to eat (number)? ");
-                    System.out.print("-> ");
 
-                    String answer = Game.scanner.nextLine().trim().toLowerCase();
                     String choice = null;
 
-                    try {
-                        int chosen = Integer.parseInt(answer) - 1;
-                        if (chosen >= 0 && chosen < tokenId.size()) {
-                            choice = tokenId.get(chosen);
+                    while (choice != "done") {
+                        System.out.println("What food would you like to eat (number or 'done')? ");
+                        System.out.print("-> ");
+
+                        String answer = Game.scanner.nextLine().trim().toLowerCase();
+
+                        try {
+                            int chosen = Integer.parseInt(answer) - 1;
+                            if (chosen >= 0 && chosen < tokenId.size()) {
+                                choice = tokenId.get(chosen);
+                            }
+                        } catch (NumberFormatException ignored) {
+                            System.out.println("Target not found.");
+
                         }
-                    } catch (NumberFormatException ignored) {
-                        System.out.println("Target not found.");
-                    }
 
-                    if (choice != null) {
+                        if (choice != "done") {
 
-                        eatDuringBattle(choice, food, player, inventory);
+                            eatDuringBattle(choice, food, player, inventory);
 
+                        }
                     }
 
                 }
