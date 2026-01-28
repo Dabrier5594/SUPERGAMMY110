@@ -1160,6 +1160,7 @@ public class Game {
         verbsOnly.add("west");
         verbsOnly.add("east");
         verbsOnly.add("look");
+        verbsOnly.add("time");
         verbsOnly.add("l");
         verbsOnly.add("rest");
         verbsOnly.add("wait");
@@ -1245,6 +1246,7 @@ public class Game {
         objects.add("mute bandit");
 
         //ITEMS
+        objects.add("scuba mask");
         objects.add("bear essence");
         objects.add("golden apples");
         objects.add("golden apple");
@@ -1328,7 +1330,7 @@ public class Game {
         objects.add("acorn");
         objects.add("jerr");
         objects.add("boat");
-        objects.add("scuba mask");
+        objects.add("timw");
 
         List<String> yesOrYes = new ArrayList<>();
         yesOrYes.add("y");
@@ -1602,15 +1604,19 @@ public class Game {
 
             if (player.getHealth().isDead()) {
 
+                System.out.println("\nSHOCK. AS IF NOTHING BUT THE CHOCO CHIPS ARE LEFT ON THE COOKIE... [enter to continue]");
+
                 boolean dissapear = false;
+
+                scanner.nextLine();
 
                 System.out.println("\nThe world becomes dark... [enter to continue]");
 
                 scanner.nextLine();
 
-                System.out.println(" Options: [1] Respawn [2] Quit");
+                System.out.println("\nOptions: [1] Respawn [2] Quit");
                 System.out.print("-> ");
-                String choice = scanner.nextLine();
+                String choice = scanner.nextLine().trim();
 
                 if (choice.equals("1")) {
 
@@ -1624,7 +1630,7 @@ public class Game {
 
                     if (possiblePoints.isEmpty()){
                         System.out.println("No clinics registered to respawn at. ");
-                        System.out.println(" Options: [1] Respawn at 'cave' [2] Quit");
+                        System.out.println("\nOptions: [1] Respawn at 'cave' [2] Quit");
                         System.out.print("-> ");
                         String doubleChoice = scanner.nextLine();
 
@@ -1784,6 +1790,14 @@ public class Game {
 
                 if (action.equalsIgnoreCase("fame")) {
                     System.out.println("FAME: " + player.getCoins());
+                }
+
+                if (action.equalsIgnoreCase("time")) {
+                    String time = "DAY";
+                    if (timeChange == null){
+                        time = "NIGHT";
+                    }
+                    System.out.println("You look up the sky: " + time);
                 }
 
                 if (action.equalsIgnoreCase("quests")) {
