@@ -10,7 +10,8 @@ import java.util.TimerTask;
 /// WHENEVER YOU CREATE ANYTHING (ITEM, NPC, ANYTHING that can be INTERACTED with), YOU MUST ADD IT TO OBJECTS!!!
 /// FOR ITEMS: AFTER YOU MAKE THEM. YOU MUST ADD THEM TO EXISTINGITEMS LIST. (SEE WHERE I MADE ALL THE ITEMS w/ "new Item" in search
 
-
+/// FIXES
+// The quest doesn't 'update' 0/5 is always 0/5 until completed
 public class Game {
 
     public static Hub.FirstVilleShop baggerShop;
@@ -891,7 +892,7 @@ public class Game {
 
         // MAKE CHEST STUFF HAPPEN HERE
 
-        List<String> chestContents = Arrays.asList("copper");
+        List<String> chestContents = Arrays.asList("copper", "snarkflower", "copper", "copper", "twig");
 
         Chest firstChest = new Chest(true, "IH001", chestContents, "C");
         forest6.addChest("chest#001", firstChest);
@@ -1602,7 +1603,10 @@ public class Game {
         //While start is true, run the code
         while (start) {
 
-            if (player.getHealth().isDead()) {
+            if (player.getName().equalsIgnoreCase("monty python")){
+
+            }
+            else if (player.getHealth().isDead()) {
 
                 System.out.println("\nSHOCK. AS IF NOTHING BUT THE CHOCO CHIPS ARE LEFT ON THE COOKIE... [enter to continue]");
 
@@ -4397,14 +4401,14 @@ public class Game {
         }
 
         if (maxHealth == 0){
-            maxHealth = (int) (Math.random() * 18 + 22); //6-7
+            maxHealth = (int) (Math.random() * 18 + 22); //22-39
         }
 
         int currentHealth = maxHealth;  // start at full health
         int damageResistance = 0;       // example damage resistance
         Health bearHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 14 + 9);
+        int attackPower = (int) (Math.random() * 14 + 9); //9-22
         boolean isAggro = false;
 
         if (drop.isEmpty()){
@@ -4507,12 +4511,12 @@ public class Game {
     }
 
     private static Mob createWolfWitchWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 20 + 12); //4-20
+        int maxHealth = (int) (Math.random() * 20 + 12); //12-31
         int currentHealth = maxHealth;
         int damageResistance = 1;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 15 + 12);
+        int attackPower = (int) (Math.random() * 15 + 12); //12-26
         boolean isAggro = false;
 
         if (drop.isEmpty()){
@@ -4697,42 +4701,63 @@ public class Game {
 
                 if (edibleItems.isEmpty()) {
 
+                    //FOOD STUFF
                 } else {
 
-                    List<String> tokenId = edibleItems;
-
-                    for (int i = 0; i < tokenId.size(); i++) {
-                        String id = tokenId.get(i);
-                        int healValue = food.get(id.toLowerCase());
-                        System.out.println((i + 1) + ") [" + id + "] (Food value " + healValue + " pts)");
-                        if (i % 5 == 0) {
-                            System.out.println("");
-                        }
-                    }
-
                     String choice = null;
+                    String answer = "wag";
+                    int foodFound = 0;
 
-                    while (choice != "done") {
-                        System.out.println("What food would you like to eat (number or 'done')? ");
+                    while (!answer.equalsIgnoreCase("done") && !edibleItems.isEmpty()) {
+
+                        edibleItems = new ArrayList<>();
+                        for (String item : inventory) {
+                            if (food.containsKey(item.toLowerCase())) {
+                                edibleItems.add(item);
+                            }
+                        }
+
+                        List<String> tokenId = edibleItems;
+
+                        for (int i = 0; i < tokenId.size(); i++) {
+                            String id = tokenId.get(i);
+                            int healValue = food.get(id.toLowerCase());
+                            System.out.print((i + 1) + ") [" + id + "] (Food value " + healValue + " pts)     ||      ");
+                            if ((i + 1) % 5 == 0) {
+                                System.out.println("");
+                            }
+                        }
+
+                        System.out.println("\nWhat food would you like to eat (number or 'done')? ");
                         System.out.print("-> ");
 
-                        String answer = Game.scanner.nextLine().trim().toLowerCase();
+                        answer = Game.scanner.nextLine().trim().toLowerCase();
+
 
                         try {
+
                             int chosen = Integer.parseInt(answer) - 1;
                             if (chosen >= 0 && chosen < tokenId.size()) {
                                 choice = tokenId.get(chosen);
                             }
                         } catch (NumberFormatException ignored) {
-                            System.out.println("Target not found.");
+                            if (answer.isEmpty() || answer == null || answer.equalsIgnoreCase("done")){
+                                answer = "done";
+                            } else {
+                                System.out.println("Target not found - please try again.");
+                            }
+
+                            foodFound = 1;
+                        }
+
+                        if (answer != "done" && foodFound == 0) {
+
+                            inventory = eatDuringBattle(choice, food, player, inventory);
 
                         }
 
-                        if (choice != "done") {
+                        foodFound = 0;
 
-                            eatDuringBattle(choice, food, player, inventory);
-
-                        }
                     }
 
                 }
@@ -5537,18 +5562,20 @@ public class Game {
         craftable.add("wolfs bane soup");
         craftable.add("apple pie");
 
-        System.out.println("What would you like to craft?");
+        System.out.println("What would you like to craft?\n");
         for (String a : craftable){
             System.out.println(a);
         }
+        System.out.println("");
 
         System.out.print("-> ");
+
         String craft = scanner.nextLine();
 
         int doable = 0;
 
         for (String i : craftable){
-            if (i == craft){
+            if (i.equalsIgnoreCase(craft)){
                 doable++;
                 break;
             }
@@ -5556,7 +5583,7 @@ public class Game {
 
         if (doable !=0){
 
-            if (craft == "wolfs bane soup"){
+            if (craft.equalsIgnoreCase("wolfs bane soup")){
                 int wolfbane = 0;
                 int ravenEye = 0;
                 int bloody = 0;
@@ -5592,7 +5619,7 @@ public class Game {
                     return invin;
 
                 }
-            } else if (craft == "apple pie"){
+            } else if (craft.equalsIgnoreCase("apple pie")){
 
                 int apple = 0;
                 int wheat = 0;
@@ -5646,7 +5673,7 @@ public class Game {
         return 0;
     }
 
-    public static void eatDuringBattle(String target, Map<String, Integer> food, Player player, List<String> inventory){
+    public static List<String> eatDuringBattle(String target, Map<String, Integer> food, Player player, List<String> inventory){
 
         for (String key : food.keySet()) {
 
@@ -5695,12 +5722,14 @@ public class Game {
                     }
                 }
 
-                return;
+                return inventory;
 
             }
         }
 
         System.out.println("Your gonna have some trouble eating that...");
+
+        return inventory;
 
     }
 
