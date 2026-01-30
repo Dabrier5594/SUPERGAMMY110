@@ -10,8 +10,11 @@ import java.util.TimerTask;
 /// WHENEVER YOU CREATE ANYTHING (ITEM, NPC, ANYTHING that can be INTERACTED with), YOU MUST ADD IT TO OBJECTS!!!
 /// FOR ITEMS: AFTER YOU MAKE THEM. YOU MUST ADD THEM TO EXISTINGITEMS LIST. (SEE WHERE I MADE ALL THE ITEMS w/ "new Item" in search
 
+/// tips: 'admin0' as name gives you cheats || 'monty python' as name allows you to play game as normal, but death barely affects you...
+
 /// FIXES
 // The quest doesn't 'update' 0/5 is always 0/5 until completed
+// Add combat so you can fight ANY type of NPC (rn we have - NPCA, GUARD, MOB, BOSS - add: SHOPOWNER, MERCHANT)
 public class Game {
 
     public static Hub.FirstVilleShop baggerShop;
@@ -1471,6 +1474,10 @@ public class Game {
 
         System.out.println("");
 
+        if (namer.equalsIgnoreCase("monty python")){
+            System.out.println("You feel the power of MONTY flow through your vanes... You don't think you can die.");
+        }
+
         if (namer.equalsIgnoreCase("admin0")){
 
             if (namer.equalsIgnoreCase("admin0")) {
@@ -1605,6 +1612,10 @@ public class Game {
 
             if (player.getName().equalsIgnoreCase("monty python")){
 
+                if (player.getHealth().isDead() || player.getHealth().getHeealth() < player.getHealth().getMaxHealth()) {
+                    player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+                    System.out.println("The power of Monty SURGES through you! You've healed!\n");
+                }
             }
             else if (player.getHealth().isDead()) {
 
@@ -4208,7 +4219,7 @@ public class Game {
         int number = 0;
 
         // Only run this code if player is in a Southern Forest room
-        if (inRoom.getRoomName().contains("Southern Forest")) {
+        if (inRoom.getRoomName().contains("Southern Forest") || inRoom.getRoomName().contains("Northern Forest")) {
 
             chancer = (int) (Math.random() * 101);
 
