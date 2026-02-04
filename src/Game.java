@@ -825,6 +825,27 @@ public class Game {
         Hub.CurrencyExchangeBooth exchangeBooth = new Hub("Exchange Booth", "A booth for trading currencies. Perfect for merchants.").new CurrencyExchangeBooth("Exchange Booth", "A booth for trading currencies. Perfect for merchants.");
         exchangeBooth.getObjects().add("exchange booth");
 
+
+        // HORSE RIDER NPCS
+        String horseLines[] = {"Neigh."};
+        Health horseHp = new Health(50, 50, 0);
+        Npca horse = new Npca("Horsey", "Horsey", horseLines, 0, horseHp, "", Npca.QuestState.NONE);
+
+        String riderLines[] = {
+                "Need a fast ride between FirstVille and the deep Southern forest?",
+                "3 copper and I'll take you straight there.",
+                "If either of us dies, this deal is off forever..."
+        };
+
+        Health riderHp = new Health(80, 80, 0);
+        Npca riderBill = new Npca("Bill", "Guider", riderLines, 5, riderHp, "", Npca.QuestState.NONE);
+
+        // STARTING LOCATION – FirstVille Streets 3
+        firstVilleLane3.getNpc().add(riderBill);
+        firstVilleLane3.getNpc().add(horse);
+
+
+
         //INNS + inkeepers!!
         String[] innkeeperLines = {
                 "Welcome to the Cozy Inn. Best beds in FirstVille.",
@@ -1115,6 +1136,7 @@ public class Game {
         boatLocation = Hub.get("West port");
         //List of verbs
         List<String> verbs = new ArrayList<>();
+        verbs.add("ride");
         verbs.add("move");
         verbs.add("fight");
         verbs.add("use");
@@ -1277,6 +1299,8 @@ public class Game {
 
         //OTHER SMALLER THINGS
         objects.add("inventory");
+        objects.add("bill");
+        objects.add("horsey");
         objects.add("clothes");
         objects.add("cloth");
         objects.add("leaflet");
@@ -1363,6 +1387,9 @@ public class Game {
 
         List<String> listen = new ArrayList<>();
         listen.add("listen");
+
+        List<String> ride = new ArrayList<>();
+        ride.add("ride");
 
         List<String> open = new ArrayList<>();
         open.add("open");
@@ -1523,7 +1550,6 @@ public class Game {
                         }
                     } catch (NullPointerException e){
                         inRoom = Hub.get("Tom's Dark Cave");
-                        System.out.println("default input received.");
 
                     }
 
@@ -2141,6 +2167,32 @@ public class Game {
 
                         }
 
+                        else if (stringContainsWordFromList(action.toLowerCase(), new String[]{"ride"})) {
+                            boolean didRide = false;
+
+                            for (Npca npc : new ArrayList<>(inRoom.getNpc())) {
+                                if (npc.getName().equalsIgnoreCase("Bill")) {
+                                    Npca horseRef = null;
+                                    for (Npca n : inRoom.getNpc()) {
+                                        if (n.getName().equalsIgnoreCase("horsey")) {
+                                            horseRef = n;
+                                            break;
+                                        }
+                                    }
+                                    Hub newRoom = rideWithBill(inRoom, npc, horseRef, player, inventory);
+                                    inRoom = newRoom;
+                                    didRide = true;
+                                    break;
+                                }
+
+                            }
+
+                            if (!didRide) {
+                                System.out.println("There is nothing here you can ride.");
+                            }
+                        }
+
+
                         else if (stringContainsWordFromList(action.toLowerCase(), use.toArray(new String [0]))){
 
                             if (action.toLowerCase().contains("boat")) {
@@ -2511,6 +2563,24 @@ public class Game {
                             }
 
                         }
+
+                        else if (stringContainsWordFromList(action.toLowerCase(), new String[]{"ride"})) {
+
+                            boolean didRide = false;
+
+                            for (Npca npc : inRoom.getNpc()) {
+                                if (npc.getName().equalsIgnoreCase("Bill")) {
+                                    inventory = talkNpc(inRoom, inventory, playersStats, npc, player);
+                                    didRide = true;
+                                    break;
+                                }
+                            }
+
+                            if (!didRide) {
+                                System.out.println("There is nothing here you can ride.");
+                            }
+                        }
+
 
 
                         else if (stringContainsWordFromList(action.toLowerCase(), inspect.toArray(new String[0]))) {
@@ -3269,18 +3339,31 @@ public class Game {
                             }
 
                             if (!talked) {
-                                for (Npca npc : inRoom.getNpc()) {
-
+                                for (Npca npc : new ArrayList<>(inRoom.getNpc())) {
                                     String npcNameLower = npc.getName().toLowerCase();
 
                                     if (action.toLowerCase().contains(npcNameLower)) {
 
-                                        inventory  = talkNpc(inRoom, inventory, playersStats, npc, player);
+                                        if (npc.getName().equalsIgnoreCase("Bill")) {
+                                            Npca horseRef = null;
+                                            for (Npca n : inRoom.getNpc()) {
+                                                if (n.getName().equalsIgnoreCase("horsey")) {
+                                                    horseRef = n;
+                                                    break;
+                                                }
+                                            }
+
+                                            Hub newRoom = rideWithBill(inRoom, npc, horseRef, player, inventory);
+                                            inRoom = newRoom;
+
+                                        } else {
+                                            inventory = talkNpc(inRoom, inventory, playersStats, npc, player);
+                                        }
 
                                         talked = true;
 
+                                        break;
                                     }
-
                                 }
                             }
 
@@ -5483,13 +5566,9 @@ public class Game {
 
 
         else {
+
             npc.sayLine(0);
-            scanner.nextLine();
 
-            npc.sayLine(1);
-            scanner.nextLine();
-
-            npc.sayLine(2);
         }
 
         return inventory;
@@ -5768,6 +5847,67 @@ public class Game {
 
         return word;
     }
+
+    public static Hub rideWithBill(Hub current, Npca riderBill, Npca horse, Player player, List<String> inventory) {
+
+        boolean horseDead = (horse == null || horse.getHealth().isDead());
+
+        if (horseDead) {
+
+            System.out.println("Guider Bill glares at you silently. There will be no more rides.");
+
+            return current;
+        }
+
+        System.out.println("Bill (Guider) says: \"3 copper and I'll take you between FirstVille Lane 3 and Southern Forest Area 21.\"");
+        System.out.println("Options: [1] ride  [2] leave");
+        System.out.print("-> ");
+        String ch = Game.scanner.nextLine().trim();
+
+        if (!ch.equals("1")) {
+            System.out.println("Guider Bill shrugs and looks away.");
+            return current;
+        }
+
+        int copper = Collections.frequency(inventory, "copper");
+        if (copper < 3) {
+            System.out.println("Bill (Guider) says: \"You don't have enough copper. Come back with 3.\"");
+            return current;
+        }
+
+        for (int i = 0; i < 3; i++) {
+            inventory.remove("copper");
+        }
+
+        Hub target;
+
+        if (current.getRoomName().equalsIgnoreCase("FirstVille Streets #3")) {
+            target = Hub.get("Southern Forest Area #21");
+        } else if (current.getRoomName().equalsIgnoreCase("Southern Forest Area #21")) {
+            target = Hub.get("FirstVille Streets #3");
+        } else {
+            System.out.println("Bill (Guider) says: \"I only run between FirstVille Lane 3 and Southern Forest Area 21.\"");
+            return current;
+
+        }
+
+        if (target == null) {
+            System.out.println("Something is wrong with the travel route.");
+            return current;
+        }
+
+        // move NPCs between rooms
+        current.getNpc().remove(riderBill);
+        current.getNpc().remove(horse);
+        target.getNpc().add(riderBill);
+        target.getNpc().add(horse);
+
+        System.out.println("You ride with " + riderBill.getName() + " on " + (horse != null ? horse.getName() : "the horse") + ".");
+        System.out.println("You arrive at " + target.getRoomName() + ".");
+
+        return target;
+    }
+
 
 
 }
