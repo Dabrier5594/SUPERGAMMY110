@@ -10,7 +10,10 @@ import java.util.TimerTask;
 /// WHENEVER YOU CREATE ANYTHING (ITEM, NPC, ANYTHING that can be INTERACTED with), YOU MUST ADD IT TO OBJECTS!!!
 /// FOR ITEMS: AFTER YOU MAKE THEM. YOU MUST ADD THEM TO EXISTINGITEMS LIST. (SEE WHERE I MADE ALL THE ITEMS w/ "new Item" in search
 
-/// tips: 'admin0' as name gives you cheats || 'monty python' as name allows you to play game as normal, but death barely affects you...
+/// TIPS:
+/// 'admin0' as name gives you cheats || 'monty python' as name allows you to play game as normal, but death barely affects you...
+/// 'jack sparrow' as name gives you money a scuba mask and such || 'one punch man' as name allows you to play as normal, but you feel almighty...
+/// 'wizard' as name allows you to play as normal, but you get wizard goodies ||
 
 /// FIXES
 // The quest doesn't 'update' 0/5 is always 0/5 until completed
@@ -1010,10 +1013,17 @@ public class Game {
 
         Equipment equipment = new Equipment();
 
+        // SUPER COOL NAME WEAPONS
+        Item pirateHookMax = new Item("pirate thing", "melee", true, fire3, 85, false);
+        existingItems.add(pirateHookMax);
+        Item wizardStaffMax = new Item("wizard puncher", "melee", true, fire3, 100, false);
+        existingItems.add(wizardStaffMax);
+        Item wizardShieldMax = new Item("wizard thingy", "body", true, protection3, 200, false);
+        existingItems.add(wizardShieldMax);
+
+        //NORMAL THINGS
         Item scubaMask = new Item("scuba mask", "head", false, null, 0, false);
         existingItems.add(scubaMask);
-        Item adminSword = new Item("admin sword", "melee", true, fire, 3, false);
-        existingItems.add(adminSword);
         Item bearClaw = new Item("bear claw", "melee", true, null, 6, false);
         existingItems.add(bearClaw);
         Item baggerDagger = new Item("bagger's dagger", "melee", true, null, 7, false);
@@ -1262,7 +1272,9 @@ public class Game {
         objects.add("bear claw");
         objects.add("bear swords");
         objects.add("bear sword");
-        objects.add("admin sword");
+        objects.add("pirate thing");
+        objects.add("wizard thingy");
+        objects.add("wizard puncher");
 
         //MOBS
         objects.add("blood witch");
@@ -1557,45 +1569,57 @@ public class Game {
 
                 System.out.println(inRoom.getObjects());
 
-                for (int i = 0; i < 200; i++) {
+                for (int i = 0; i < 500; i++) {
                     inRoom.getObjects().add("gold");
                 }
 
-                for (int i = 0; i < 200; i++) {
+                for (int i = 0; i < 500; i++) {
                     inRoom.getObjects().add("copper");
                 }
 
-                for (int i = 0; i < 200; i++) {
+                for (int i = 0; i < 500; i++) {
                     inRoom.getObjects().add("silver");
                 }
-
-                for (int i = 0; i < 200; i++) {
-                    inRoom.getObjects().add("white whispberry");
-                }
-
-                inRoom.getObjects().add("admin sword");
-
-                inRoom.getObjects().add("firstville guards legs");
-
-                inRoom.getObjects().add("scuba mask");
-
-                inRoom.getObjects().add("dagger");
-
-                inRoom.getObjects().add("leather armor");
-
-                inRoom.getObjects().add("protection scroll 1");
-
-                inRoom.getObjects().add("protection scroll 2");
-
-                inRoom.getObjects().add("fire scroll 2");
-
-                inRoom.getObjects().add("fire scroll 3");
-
-                inRoom.getObjects().add("goblin tooth");
 
                 System.out.println("$#bonus stats have been successfully distributed");
                 scanner.nextLine();
             }
+
+        } else if (namer.equalsIgnoreCase("jack sparrow")) {
+
+            for (int i = 0; i < 300; i++) {
+                inRoom.getObjects().add("gold");
+            }
+
+            for (int i = 0; i < 300; i++) {
+                inRoom.getObjects().add("copper");
+            }
+
+            for (int i = 0; i < 300; i++) {
+                inRoom.getObjects().add("silver");
+            }
+
+            inRoom.getObjects().add("scuba mask");
+
+            inRoom.getObjects().add("pirate thing");
+
+            System.out.println("WOWZA! YOU FEEL AS IF YOU CAN TAKE ON ANYTHING OUT ON THE SEA! AND YOUR RICH...");
+
+        } else if (namer.equalsIgnoreCase("one punch man")) {
+
+            player.getHealth().setMaxHealth(1);
+            player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+            player.setAttackPower(999999);
+
+            System.out.println("Yeah, I know. I'm ONE PUNCH MAN. ONE PUNCH, ONE WIN. ");
+
+        } else if (namer.equalsIgnoreCase("wizard")) {
+
+            inRoom.getObjects().add("wizard puncher");
+
+            inRoom.getObjects().add("wizard thingy");
+
+            System.out.println("I think I am a WIZARD...");
 
         }
 
@@ -4308,17 +4332,17 @@ public class Game {
 
             int chance = 0;
 
-
             if (timeChange != null) {
                 chance = 35;
             } else {
                 chance = 65;
             }
+
             if (chancer < chance) {
 
                 List<String> stuff = new ArrayList<>();
 
-                number = (int) (Math.random() * 20) + 1; //1-8
+                number = (int) (Math.random() * 20) + 1; // 1-20
 
                 if (number > 0 && number < 4) {
 
@@ -4336,8 +4360,8 @@ public class Game {
                         inRoom.getMOBS().add(rabbit);
                         System.out.println("A rabbit hops out from the bushes.");
                     }
-                } else if (number > 3 && number < 7) {
 
+                } else if (number > 3 && number < 7) {
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -4354,7 +4378,7 @@ public class Game {
                         System.out.println("A chicken clucks into the area in confusion.");
                     }
 
-                } else if (number > 6 && number < 9){
+                } else if (number > 6 && number < 9) {
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -4371,7 +4395,43 @@ public class Game {
                         System.out.println("A mad squirrel falls from the trees.");
                     }
 
-                } else if (number > 8 && number < 12){
+                } else if (number > 8 && number < 12) {
+
+                    // Base Goblin
+                    List<String> mobCounts = new ArrayList<>();
+
+                    for (Mob mob : inRoom.getMOBS()) {
+                        String name = mob.getName();
+                        mobCounts.add(name);
+                    }
+
+                    int goblinCount = Collections.frequency(mobCounts, "Goblin");
+
+                    if (goblinCount < 3) {
+                        Mob goblin = createGoblinWithRandomStats(stuff);
+                        inRoom.getMOBS().add(goblin);
+                        System.out.println("A scrawny yet barbaric goblin jumps outta nowhere.");
+                    }
+
+                } else if (number == 13 || number == 12) {
+
+                    // Greater Goblin – strongest and rarest goblin type
+                    List<String> mobCounts = new ArrayList<>();
+
+                    for (Mob mob : inRoom.getMOBS()) {
+                        String name = mob.getName();
+                        mobCounts.add(name);
+                    }
+
+                    int greaterGoblinCount = Collections.frequency(mobCounts, "Greater Goblin");
+
+                    if (greaterGoblinCount < 2) {
+                        Mob greaterGoblin = createGreaterGoblinWithRandomStats(stuff);
+                        inRoom.getMOBS().add(greaterGoblin);
+                        System.out.println("A towering greater goblin storms into the clearing.");
+                    }
+
+                } else if (number > 13 && number < 16) {
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -4380,17 +4440,15 @@ public class Game {
                         mobCounts.add(name);
                     }
 
-                    int squirrelCount = Collections.frequency(mobCounts, "Goblin");
+                    int bearCount = Collections.frequency(mobCounts, "Bear");
 
-                    if (squirrelCount < 3) {
-                        Mob squirrel = createGoblinWithRandomStats(stuff);
-                        inRoom.getMOBS().add(squirrel);
-                        System.out.println("A barbaric goblin jumps outta nowhere.");
+                    if (bearCount < 3) {
+                        Mob bear = createBearWithRandomStats(stuff, 0, null);
+                        inRoom.getMOBS().add(bear);
+                        System.out.println("A stunning bear walks into the area.");
                     }
 
-                }
-
-                else if (number > 11 && number < 14){
+                } else if (number > 15 && number < 18) {
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -4399,17 +4457,15 @@ public class Game {
                         mobCounts.add(name);
                     }
 
-                    int squirrelCount = Collections.frequency(mobCounts, "Bear");
+                    int wolfCount = Collections.frequency(mobCounts, "Wolf");
 
-                    if (squirrelCount < 3) {
-                        Mob squirrel = createBearWithRandomStats(stuff, 0, null);
-                        inRoom.getMOBS().add(squirrel);
-                        System.out.println("A stunning bear walk into the area.");
+                    if (wolfCount < 3) {
+                        Mob wolf = createWolfWithRandomStats(stuff);
+                        inRoom.getMOBS().add(wolf);
+                        System.out.println("A hexing wolf walks round menacingly.");
                     }
 
-                }
-
-                else if (number > 13 && number < 16){
+                } else if (number > 17 && number < 20) {
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -4418,17 +4474,15 @@ public class Game {
                         mobCounts.add(name);
                     }
 
-                    int squirrelCount = Collections.frequency(mobCounts, "Wolf");
+                    int foxWitchCount = Collections.frequency(mobCounts, "Fox Witch");
 
-                    if (squirrelCount < 3) {
-                        Mob squirrel = createWolfWithRandomStats(stuff);
-                        inRoom.getMOBS().add(squirrel);
-                        System.out.println("A hexing wolf walk round menicingly.");
+                    if (foxWitchCount < 3) {
+                        Mob foxWitch = createWolfWitchWithRandomStats(stuff);
+                        inRoom.getMOBS().add(foxWitch);
+                        System.out.println("A chucking Fox Witch wanders around drunkenly.");
                     }
 
-                }
-
-                else if (number > 15 && number < 18){
+                } else if (number == 20) {
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -4437,30 +4491,11 @@ public class Game {
                         mobCounts.add(name);
                     }
 
-                    int squirrelCount = Collections.frequency(mobCounts, "Fox Witch");
+                    int bloodWitchCount = Collections.frequency(mobCounts, "Blood Witch");
 
-                    if (squirrelCount < 3) {
-                        Mob squirrel = createWolfWitchWithRandomStats(stuff);
-                        inRoom.getMOBS().add(squirrel);
-                        System.out.println("A chucking Fox Witch wonders around drunkenly.");
-                    }
-
-                }
-
-                else if (number > 17 && number < 20){
-
-                    List<String> mobCounts = new ArrayList<>();
-
-                    for (Mob mob : inRoom.getMOBS()) {
-                        String name = mob.getName();
-                        mobCounts.add(name);
-                    }
-
-                    int squirrelCount = Collections.frequency(mobCounts, "Blood Witch");
-
-                    if (squirrelCount < 3) {
-                        Mob squirrel = createBloodWitchWithRandomStats(stuff);
-                        inRoom.getMOBS().add(squirrel);
+                    if (bloodWitchCount < 3) {
+                        Mob bloodWitch = createBloodWitchWithRandomStats(stuff);
+                        inRoom.getMOBS().add(bloodWitch);
                         System.out.println("A chuckling blood witch chuckles into your line of view, egging you on.");
                     }
 
@@ -4468,19 +4503,20 @@ public class Game {
 
             }
         }
+
     }
 
     private static Mob createRabbitWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 2 + 6); //6-7
-        int currentHealth = maxHealth;  // start at full health
-        int damageResistance = 0;       // example damage resistance
+        int maxHealth = 10;
+        int currentHealth = maxHealth;
+        int damageResistance = 0;
         Health rabbitHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 4 + 1);
+        int attackPower = 6;
         boolean isAggro = false;
 
-        if (drop.isEmpty()){
-            if ((int)(Math.random() * 2 + 1) == 1){
+        if (drop.isEmpty()) {
+            if ((int)(Math.random() * 2 + 1) == 1) {
                 drop.add("rabbit hide");
             }
         }
@@ -4490,22 +4526,22 @@ public class Game {
 
     private static Mob createBearWithRandomStats(List<String> drop, int maxHealth, String name) {
 
-        if (name == null){
+        if (name == null) {
             name = "Bear";
         }
 
-        if (maxHealth == 0){
-            maxHealth = (int) (Math.random() * 18 + 22); //22-39
+        if (maxHealth == 0) {
+            maxHealth = 34;
         }
 
-        int currentHealth = maxHealth;  // start at full health
-        int damageResistance = 0;       // example damage resistance
+        int currentHealth = maxHealth;
+        int damageResistance = 0;
         Health bearHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 14 + 9); //9-22
+        int attackPower = 19;
         boolean isAggro = false;
 
-        if (drop.isEmpty()){
+        if (drop.isEmpty()) {
             drop.add("bear hide");
         }
 
@@ -4513,16 +4549,16 @@ public class Game {
     }
 
     private static Mob createSquirrelWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 10 + 6); //5-8
-        int currentHealth = maxHealth;  // start at full health
-        int damageResistance = 0;       // example damage resistance
+        int maxHealth = 14;
+        int currentHealth = maxHealth;
+        int damageResistance = 0;
         Health squirrelHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 7 + 5); //3-9
+        int attackPower = 11;
         boolean isAggro = true;
 
-        if (drop.isEmpty()){
-            if ((int)(Math.random() * 2 + 1) == 1){
+        if (drop.isEmpty()) {
+            if ((int)(Math.random() * 2 + 1) == 1) {
                 drop.add("squirrel hide");
             }
         }
@@ -4531,17 +4567,17 @@ public class Game {
     }
 
     private static Mob createChickenWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 4 + 9); //9-11
-        int currentHealth = maxHealth;  // start at full health
-        int damageResistance = 0;       // example damage resistance
+        int maxHealth = 14;
+        int currentHealth = maxHealth;
+        int damageResistance = 0;
         Health rabbitHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 3 + 1);
+        int attackPower = 5;
         boolean isAggro = false;
         boolean onFire = false;
 
-        if (drop.isEmpty()){
-            if ((int)(Math.random() * 2 + 1) == 1){
+        if (drop.isEmpty()) {
+            if ((int)(Math.random() * 2 + 1) == 1) {
                 drop.add("chicken feather");
             }
         }
@@ -4550,16 +4586,16 @@ public class Game {
     }
 
     private static Mob createGoblinWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 12 + 12); //12-17
-        int currentHealth = maxHealth;  // start at full health
-        int damageResistance = 0;       // example damage resistance
+        int maxHealth = 21;
+        int currentHealth = maxHealth;
+        int damageResistance = 0;
         Health goblinHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 12 + 7);
+        int attackPower = 16;
         boolean isAggro = true;
 
-        if (drop.isEmpty()){
-            if ((int)(Math.random() * 2 + 1) == 1){
+        if (drop.isEmpty()) {
+            if ((int)(Math.random() * 2 + 1) == 1) {
                 drop.add("goblin tooth");
             }
         }
@@ -4568,16 +4604,16 @@ public class Game {
     }
 
     private static Mob createMuteBanditWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 10 + 16); //12-17
-        int currentHealth = maxHealth;  // start at full health
-        int damageResistance = 3;       // example damage resistance
+        int maxHealth = 24;
+        int currentHealth = maxHealth;
+        int damageResistance = 3;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 12 + 12);
+        int attackPower = 21;
         boolean isAggro = false;
 
-        if (drop.isEmpty()){
-            if ((int)(Math.random() * 2 + 1) == 1){
+        if (drop.isEmpty()) {
+            if ((int)(Math.random() * 2 + 1) == 1) {
                 drop.add("cloth");
             }
         }
@@ -4585,18 +4621,17 @@ public class Game {
         return new Mob("Mute Bandit", muteHeath, attackPower, isAggro, drop);
     }
 
-
     private static Mob createWolfWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 20 + 7); //6-20
+        int maxHealth = 20;
         int currentHealth = maxHealth;
         int damageResistance = 0;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 12 + 9);
+        int attackPower = 18;
         boolean isAggro = true;
 
-        if (drop.isEmpty()){
-            if ((int)(Math.random() * 3 + 1) != 1){
+        if (drop.isEmpty()) {
+            if ((int)(Math.random() * 3 + 1) != 1) {
                 drop.add("wolfbane");
             }
         }
@@ -4605,16 +4640,16 @@ public class Game {
     }
 
     private static Mob createWolfWitchWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 20 + 12); //12-31
+        int maxHealth = 25;
         int currentHealth = maxHealth;
         int damageResistance = 1;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 15 + 12); //12-26
+        int attackPower = 22;
         boolean isAggro = false;
 
-        if (drop.isEmpty()){
-            if ((int)(Math.random() * 3 + 1) != 1){
+        if (drop.isEmpty()) {
+            if ((int)(Math.random() * 3 + 1) != 1) {
                 drop.add("raven eye");
             }
         }
@@ -4623,22 +4658,21 @@ public class Game {
     }
 
     private static Mob createBloodWitchWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 25 + 12); //4-20
+        int maxHealth = 27;
         int currentHealth = maxHealth;
         int damageResistance = 2;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 15 + 15);
+        int attackPower = 25;
         boolean isAggro;
         if ((int)(Math.random() * 2) == 0) {
             isAggro = false;
-        }
-        else {
+        } else {
             isAggro = true;
         }
 
-        if (drop.isEmpty()){
-            if ((int)(Math.random() * 3 + 1) != 1){
+        if (drop.isEmpty()) {
+            if ((int)(Math.random() * 3 + 1) != 1) {
                 drop.add("blood vial");
             }
         }
@@ -4647,22 +4681,21 @@ public class Game {
     }
 
     private static Mob createGolemWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 25 + 12);
+        int maxHealth = 27;
         int currentHealth = maxHealth;
         int damageResistance = 2;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 15 + 15);
+        int attackPower = 25;
         boolean isAggro;
         if ((int)(Math.random() * 2) == 0) {
             isAggro = false;
-        }
-        else {
+        } else {
             isAggro = true;
         }
 
-        if (drop.isEmpty()){
-            if ((int)(Math.random() * 3 + 1) != 1){
+        if (drop.isEmpty()) {
+            if ((int)(Math.random() * 3 + 1) != 1) {
                 drop.add("golem core");
             }
         }
@@ -4671,27 +4704,45 @@ public class Game {
     }
 
     private static Mob createCrabWithRandomStats(List<String> drop) {
-        int maxHealth = (int) (Math.random() * 25 + 12);
+        int maxHealth = 27;
         int currentHealth = maxHealth;
         int damageResistance = 2;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = (int) (Math.random() * 15 + 15);
+        int attackPower = 25;
         boolean isAggro;
         if ((int)(Math.random() * 2) == 0) {
             isAggro = false;
-        }
-        else {
+        } else {
             isAggro = true;
         }
 
-        if (drop.isEmpty()){
-            if ((int)(Math.random() * 3 + 1) != 1){
+        if (drop.isEmpty()) {
+            if ((int)(Math.random() * 3 + 1) != 1) {
                 drop.add("crab claw");
             }
         }
 
         return new Mob("Crab", muteHeath, attackPower, isAggro, drop);
+    }
+
+    private static Mob createGreaterGoblinWithRandomStats(List<String> drop) {
+        int maxHealth = 26;          // more than Goblin (21)
+        int currentHealth = maxHealth;
+        int damageResistance = 1;    // tougher than normal Goblin
+        Health goblinHealth = new Health(maxHealth, currentHealth, damageResistance);
+
+        int attackPower = 20;        // more than Goblin (16)
+        boolean isAggro = true;
+
+        if (drop.isEmpty()) {
+            // better drop odds or same as base Goblin, your choice
+            if ((int)(Math.random() * 2 + 1) == 1) {
+                drop.add("goblin tooth");
+            }
+        }
+
+        return new Mob("Greater Goblin", goblinHealth, attackPower, isAggro, drop);
     }
 
 
