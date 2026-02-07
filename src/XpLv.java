@@ -26,23 +26,25 @@ public class XpLv {
 
     public int calculateXp(String mobName){
         if (mobName.toLowerCase().contains("rabbit") || mobName.toLowerCase().contains("chicken")){
-            return (int)(Math.random() * 30 + 25);
+            return (20);
         } else if (mobName.toLowerCase().contains("squirrel")) {
-            return (int)(Math.random() * 30 + 35);
+            return 35;
         } else if (mobName.toLowerCase().contains("goblin")) {
-            return (int)(Math.random() * 40 + 45);
+            return 50;
         } else if (mobName.toLowerCase().contains("mutebandit")) {
-            return (int)(Math.random() * 65 + 50);
+            return 70;
         } else if (mobName.toLowerCase().contains("wolf")) {
-            return (int)(Math.random() * 45 + 60);
+            return 45;
         } else if (mobName.toLowerCase().contains("bear")) {
-            return (int)(Math.random() * 50 + 60);
+            return 85;
         } else if (mobName.toLowerCase().contains("fox witch")) {
-            return (int)(Math.random() * 50 + 60);
+            return 90;
         } else if (mobName.toLowerCase().contains("blood witch")) {
-            return (int)(Math.random() * 70 + 60);
+            return 130;
         } else if (mobName.toLowerCase().contains("forest devil")) {
-            return (int)(Math.random() * 100 + 200);
+            return 235;
+        } else if (mobName.toLowerCase().contains("greater goblin")) {
+            return 70;
         }
 
         return 0;

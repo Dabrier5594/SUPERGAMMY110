@@ -50,6 +50,16 @@ class Quest {
 
     }
 
+    public void checkMinus(String typeStr, String targetStr){
+
+        if (done || !target.equalsIgnoreCase(targetStr)) return;  // if already done OR wrong target, skip
+
+        if (goalType == 2 && typeStr.equals("COLLECT_ITEM")) { // OR item quest AND they picked up right item
+            current--;                                            // add 1 to their progress
+        }
+
+    }
+
     public String status() {
         return name + ": " + current + "/" + needed + " [" + target + "]" +  (done ? " - (DONE)" : " - (NOT-DONE) "); // make string like "Escape Cave: 1/1 Southern Forest Area #1 (DONE)"
     }

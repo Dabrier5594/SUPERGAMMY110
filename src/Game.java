@@ -13,7 +13,7 @@ import java.util.TimerTask;
 /// TIPS:
 /// 'admin0' as name gives you cheats || 'monty python' as name allows you to play game as normal, but death barely affects you...
 /// 'jack sparrow' as name gives you money a scuba mask and such || 'one punch man' as name allows you to play as normal, but you feel almighty...
-/// 'wizard' as name allows you to play as normal, but you get wizard goodies ||
+/// 'wizard' as name allows you to play as normal, but you get wizard goodies || 'cheapo' gives you 1 DAMAGE and 10000 HP
 
 /// FIXES
 // The quest doesn't 'update' 0/5 is always 0/5 until completed
@@ -315,7 +315,7 @@ public class Game {
         Player.QUESTS.put("MQ1", new Quest("MQ1", "Leave The Cave", 3, "Southern Forest Area #1", 1, 25, 5));  // main quest - go outside cave
         Player.QUESTS.put("SQ1", new Quest("SQ1", "Kill Goblins", 1, "goblin", 3, 40, 15));                 // side quest - kill 3 goblins
         Player.QUESTS.put("SQ2", new Quest("SQ2", "Collect Twigs", 2, "twig", 5, 30, 10));                  // side quest - get 5 twigs
-        Player.QUESTS.put("SQ3", new Quest("SQ3", "Go Up Some Stairs", 3, "Abandon House's Upper Room", 1, 80, 25)); // side quest - go upstairs
+        Player.QUESTS.put("SQ3", new Quest("SQ3", "Breach the Southern Forest's Abandon House's Upper Floor...", 3, "Abandon House's Upper Room", 1, 80, 25)); // side quest - go upstairs
 
         // TOMS CAVE
 
@@ -816,7 +816,7 @@ public class Game {
         firstVilleGuild.addQuest(questForGuildOne);
         questForGuildOne = new Quest("GQ2", "Wolf Hunt (GQ2)", 1,"Wolf", 2, 30, 10);
         firstVilleGuild.addQuest(questForGuildOne);
-        questForGuildOne = new Quest("GQ2", "Witch Hunt (GQ3)", 1,"Fox Witch", 1, 30, 10);
+        questForGuildOne = new Quest("GQ3", "Witch Hunt (GQ3)", 1,"Fox Witch", 1, 30, 10);
         firstVilleGuild.addQuest(questForGuildOne);
 
 
@@ -1621,11 +1621,25 @@ public class Game {
 
             System.out.println("I think I am a WIZARD...");
 
+        } else if (namer.equalsIgnoreCase("cheapo")) {
+
+            player.getHealth().setMaxHealth(100000);
+            player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+            player.setAttackPower(-4);
+            inRoom.getObjects().add("acorn");
+            inRoom.getObjects().add("acorn");
+            inRoom.getObjects().add("acorn");
+            inRoom.getObjects().add("acorn");
+            inRoom.getObjects().add("acorn");
+
+            System.out.println("I think I am a...");
+            System.out.println("");
+
         }
 
         start = true;
 
-        System.out.println("(hint: use help to 'help')");
+        System.out.println("The world is LAUNCHING...");
 
         System.out.println("");
 
@@ -1635,12 +1649,52 @@ public class Game {
             throw new RuntimeException(e);
         }
 
+        System.out.println("BUILDING the scenery...");
+
+        System.out.println("");
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("Eat food during battle to heal and fill your stomach!");
+
+        System.out.println("");
+
+        try {
+            Thread.sleep(400);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("PREPPING the mobs for your descent...");
+
+        System.out.println("");
+
+        try {
+            Thread.sleep(350);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("(hint: use help to 'help')");
+
+        System.out.println("");
+
+        try {
+            Thread.sleep(285);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         player.displayStats(player, playersStats);
 
         System.out.println("");
 
         try {
-            Thread.sleep(600);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -1874,7 +1928,7 @@ public class Game {
                         if (q.done) completed++;
                     }
 
-                    System.out.println("=== YOUR QUESTS (" + totalQuests + "/8 quests acquired) ==="); // RIGHT NOW THERE AREE ONLY 8 POSSIBLE QUESTS
+                    System.out.println("=== YOUR QUESTS (" + totalQuests + "/11 quests acquired) ==="); // RIGHT NOW THERE AREE ONLY 8 POSSIBLE QUESTS
 
                     System.out.println("\nCOMPLETED (" + completed + "/" + totalQuests + "):");
                     for (Quest q : Player.QUESTS.values()) {
@@ -3021,6 +3075,8 @@ public class Game {
                                         it.remove();
                                         foundAny = true;
                                         validObject = true;
+                                        Player.QUESTS.forEach((id, q) -> q.check("COLLECT_ITEM", obj, player, playersStats));
+
                                     }
                                 }
 
@@ -3123,6 +3179,9 @@ public class Game {
                                         inRoom.getObjects().add(item);
                                         it.remove();
                                         foundAny = true;
+
+                                        Player.QUESTS.forEach((id, q) -> q.checkMinus("COLLECT_ITEM", item));
+
                                     }
                                 }
 
@@ -3578,7 +3637,7 @@ public class Game {
         // If there is a new area where user tries to go, update it
         if (newRoom != null) {
 
-            Mobs(newRoom);
+            Mobs(newRoom, playerStats);
 
 
             for (Mob mob : new ArrayList<>(newRoom.getMOBS())) {
@@ -3938,6 +3997,7 @@ public class Game {
             inventory.add(item);
             inRoom.getObjects().remove(item);
             String takenItem = item.toLowerCase();
+
             Player.QUESTS.forEach((id, q) -> q.check("COLLECT_ITEM", takenItem, player, playerStats));
 
 
@@ -4128,6 +4188,8 @@ public class Game {
 
             inventory.remove(item);
             inRoom.getObjects().add(item);
+            String finalItem = item;
+            Player.QUESTS.forEach((id, q) -> q.checkMinus("COLLECT_ITEM", finalItem));
 
         }
 
@@ -4321,7 +4383,7 @@ public class Game {
 
     }
 
-    public static void Mobs(Hub inRoom) {
+    public static void Mobs(Hub inRoom, XpLv xpLv) {
         int chancer = 0;
         int number = 0;
 
@@ -4482,7 +4544,7 @@ public class Game {
                         System.out.println("A chucking Fox Witch wanders around drunkenly.");
                     }
 
-                } else if (number == 20) {
+                } else if (number == 20 && xpLv.getLevel() >= 2) {
 
                     List<String> mobCounts = new ArrayList<>();
 
@@ -4507,12 +4569,12 @@ public class Game {
     }
 
     private static Mob createRabbitWithRandomStats(List<String> drop) {
-        int maxHealth = 10;
+        int maxHealth = 8;
         int currentHealth = maxHealth;
         int damageResistance = 0;
         Health rabbitHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = 6;
+        int attackPower = 3;
         boolean isAggro = false;
 
         if (drop.isEmpty()) {
@@ -4531,14 +4593,14 @@ public class Game {
         }
 
         if (maxHealth == 0) {
-            maxHealth = 34;
+            maxHealth = 40;
         }
 
         int currentHealth = maxHealth;
         int damageResistance = 0;
         Health bearHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = 19;
+        int attackPower = 17;
         boolean isAggro = false;
 
         if (drop.isEmpty()) {
@@ -4549,12 +4611,12 @@ public class Game {
     }
 
     private static Mob createSquirrelWithRandomStats(List<String> drop) {
-        int maxHealth = 14;
+        int maxHealth = 12;
         int currentHealth = maxHealth;
         int damageResistance = 0;
         Health squirrelHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = 11;
+        int attackPower = 6;
         boolean isAggro = true;
 
         if (drop.isEmpty()) {
@@ -4567,12 +4629,12 @@ public class Game {
     }
 
     private static Mob createChickenWithRandomStats(List<String> drop) {
-        int maxHealth = 14;
+        int maxHealth = 10;
         int currentHealth = maxHealth;
         int damageResistance = 0;
         Health rabbitHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = 5;
+        int attackPower = 3;
         boolean isAggro = false;
         boolean onFire = false;
 
@@ -4586,12 +4648,12 @@ public class Game {
     }
 
     private static Mob createGoblinWithRandomStats(List<String> drop) {
-        int maxHealth = 21;
+        int maxHealth = 20;
         int currentHealth = maxHealth;
         int damageResistance = 0;
         Health goblinHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = 16;
+        int attackPower = 10;
         boolean isAggro = true;
 
         if (drop.isEmpty()) {
@@ -4604,12 +4666,12 @@ public class Game {
     }
 
     private static Mob createMuteBanditWithRandomStats(List<String> drop) {
-        int maxHealth = 24;
+        int maxHealth = 30;
         int currentHealth = maxHealth;
         int damageResistance = 3;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = 21;
+        int attackPower = 15;
         boolean isAggro = false;
 
         if (drop.isEmpty()) {
@@ -4627,7 +4689,7 @@ public class Game {
         int damageResistance = 0;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = 18;
+        int attackPower = 10;
         boolean isAggro = true;
 
         if (drop.isEmpty()) {
@@ -4645,7 +4707,7 @@ public class Game {
         int damageResistance = 1;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = 22;
+        int attackPower = 15;
         boolean isAggro = false;
 
         if (drop.isEmpty()) {
@@ -4658,12 +4720,12 @@ public class Game {
     }
 
     private static Mob createBloodWitchWithRandomStats(List<String> drop) {
-        int maxHealth = 27;
+        int maxHealth = 35;
         int currentHealth = maxHealth;
         int damageResistance = 2;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = 25;
+        int attackPower = 20;
         boolean isAggro;
         if ((int)(Math.random() * 2) == 0) {
             isAggro = false;
@@ -4681,7 +4743,7 @@ public class Game {
     }
 
     private static Mob createGolemWithRandomStats(List<String> drop) {
-        int maxHealth = 27;
+        int maxHealth = 30;
         int currentHealth = maxHealth;
         int damageResistance = 2;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
@@ -4704,12 +4766,12 @@ public class Game {
     }
 
     private static Mob createCrabWithRandomStats(List<String> drop) {
-        int maxHealth = 27;
+        int maxHealth = 25;
         int currentHealth = maxHealth;
         int damageResistance = 2;
         Health muteHeath = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = 25;
+        int attackPower = 10;
         boolean isAggro;
         if ((int)(Math.random() * 2) == 0) {
             isAggro = false;
@@ -4727,12 +4789,12 @@ public class Game {
     }
 
     private static Mob createGreaterGoblinWithRandomStats(List<String> drop) {
-        int maxHealth = 26;          // more than Goblin (21)
+        int maxHealth = 30;          // more than Goblin (21)
         int currentHealth = maxHealth;
         int damageResistance = 1;    // tougher than normal Goblin
         Health goblinHealth = new Health(maxHealth, currentHealth, damageResistance);
 
-        int attackPower = 20;        // more than Goblin (16)
+        int attackPower = 15;        // more than Goblin (16)
         boolean isAggro = true;
 
         if (drop.isEmpty()) {
@@ -4849,61 +4911,66 @@ public class Game {
                     //FOOD STUFF
                 } else {
 
-                    String choice = null;
                     String answer = "wag";
-                    int foodFound = 0;
 
-                    while (!answer.equalsIgnoreCase("done") && !edibleItems.isEmpty()) {
+                    String selectedFood = null;
 
-                        edibleItems = new ArrayList<>();
+                    while (true) {
+
+                        edibleItems.clear();
                         for (String item : inventory) {
                             if (food.containsKey(item.toLowerCase())) {
                                 edibleItems.add(item);
                             }
                         }
 
-                        List<String> tokenId = edibleItems;
+                        if (edibleItems.isEmpty()) {
+                            System.out.println("No edible items left!");
+                            break;
+                        }
 
-                        for (int i = 0; i < tokenId.size(); i++) {
-                            String id = tokenId.get(i);
+
+                        for (int i = 0; i < edibleItems.size(); i++) {
+                            String id = edibleItems.get(i);
                             int healValue = food.get(id.toLowerCase());
-                            System.out.print((i + 1) + ") [" + id + "] (Food value " + healValue + " pts)     ||      ");
-                            if ((i + 1) % 5 == 0) {
+                            System.out.print((i + 1) + ") [" + id + "] (Food value " + healValue + " pts)");
+
+                            if (i < edibleItems.size() - 1 && (i + 1) % 3 != 0) {
+                                System.out.print("     ||      ");
+                            } else if ((i + 1) % 3 == 0 || i == edibleItems.size() - 1) {
                                 System.out.println("");
                             }
                         }
 
-                        System.out.println("\nWhat food would you like to eat (number or 'done')? ");
+                        System.out.println("\nWhat food would you like to eat? (number or 'done') ");
                         System.out.print("-> ");
 
                         answer = Game.scanner.nextLine().trim().toLowerCase();
 
+                        if (answer.equalsIgnoreCase("done") || answer.isEmpty()) {
+                            break;
+                        }
 
                         try {
-
                             int chosen = Integer.parseInt(answer) - 1;
-                            if (chosen >= 0 && chosen < tokenId.size()) {
-                                choice = tokenId.get(chosen);
-                            }
-                        } catch (NumberFormatException ignored) {
-                            if (answer.isEmpty() || answer == null || answer.equalsIgnoreCase("done")){
-                                answer = "done";
+                            if (chosen >= 0 && chosen < edibleItems.size()) {
+                                selectedFood = edibleItems.get(chosen);
+                                System.out.println("Eating " + selectedFood + "...");
+                                inventory = eatDuringBattle(selectedFood, food, player, inventory);
+
                             } else {
-                                System.out.println("Target not found - please try again.");
+                                if (edibleItems.size() == 1){
+                                    System.out.println("Invalid number. COME ON, there's only one choice");
+                                }   else {
+                                    System.out.println("Invalid number. Must be: 1 - " + edibleItems.size());
+
+                                }
                             }
-
-                            foodFound = 1;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input. Enter a number or 'done'.");
                         }
-
-                        if (answer != "done" && foodFound == 0) {
-
-                            inventory = eatDuringBattle(choice, food, player, inventory);
-
-                        }
-
-                        foodFound = 0;
-
                     }
+
 
                 }
 
@@ -5828,6 +5895,8 @@ public class Game {
 
                     System.out.println("Your fullness increases by " + hungerBonus + "! [fullness: " + player.getFullness() + "]");
 
+                    inventory.remove(key);
+
                 } else {
 
                     if (player.getFullness() < player.getStomachSize()) {
@@ -5860,6 +5929,14 @@ public class Game {
                             player.getHealth().setHeealth(player.getHealth().getMaxHealth());
                         }
                         System.out.println("Your health has increased!");
+                    } else {
+
+                        player.getHealth().setHeealth(player.getHealth().getHeealth() + 1);
+                        if (player.getHealth().getHeealth() > player.getHealth().getMaxHealth()) {
+                            player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+                        }
+                        System.out.println("Your health has increased!");
+
                     }
                 }
 
