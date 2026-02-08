@@ -1911,7 +1911,13 @@ public class Game {
                     System.out.println("FAME: " + player.getCoins());
                 }
 
-                if (action.equalsIgnoreCase("time")) {
+                else if (action.equalsIgnoreCase("book")) {
+
+                    player.seeBook();
+
+                }
+
+                else if (action.equalsIgnoreCase("time")) {
                     String time = "DAY";
                     if (timeChange == null){
                         time = "NIGHT";
@@ -1919,7 +1925,7 @@ public class Game {
                     System.out.println("You look up the sky: " + time);
                 }
 
-                if (action.equalsIgnoreCase("quests")) {
+                else if (action.equalsIgnoreCase("quests")) {
 
                     int totalQuests = Player.QUESTS.size();
                     int completed = 0;
@@ -1946,7 +1952,7 @@ public class Game {
                     System.out.println("========================");
                 }
 
-                if (stringContainsWordFromList(action.toLowerCase(), verbsOnly.toArray(new String[0]))) {
+                 else if (stringContainsWordFromList(action.toLowerCase(), verbsOnly.toArray(new String[0]))) {
 
                     if (action.toLowerCase().equals("n") || action.toLowerCase().equals("north")) {
 
