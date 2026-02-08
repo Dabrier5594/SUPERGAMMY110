@@ -1735,7 +1735,8 @@ public class Game {
 
                 System.out.println("\nOptions: [1] Respawn [2] Quit");
                 System.out.print("-> ");
-                String choice = scanner.nextLine().trim();
+
+                String choice = scanner.next();
 
                 if (choice.equals("1")) {
 
@@ -1751,7 +1752,7 @@ public class Game {
                         System.out.println("No clinics registered to respawn at. ");
                         System.out.println("\nOptions: [1] Respawn at 'cave' [2] Quit");
                         System.out.print("-> ");
-                        String doubleChoice = scanner.nextLine();
+                        String doubleChoice = scanner.next();
 
                         System.out.println("[Due to not registering with a clinic, your items were not carried with you during respawn.\nBut they are right where you left them! \n");
                         if (doubleChoice.equals("1")) {
@@ -2146,6 +2147,9 @@ public class Game {
                                 throw new RuntimeException(e);
                             }
                             player.addFullness(chosen);
+                            if (player.getFullness() > player.getStomachSize()){
+                                player.setFullness();
+                            }
 
                         } catch (NumberFormatException ignored) {
                             System.out.println("Something went wrong as you tried to rest and you jumped back to your feet...");
@@ -2305,7 +2309,11 @@ public class Game {
 
                             if (stringContainsWordFromList(action.toLowerCase(), cauldron.toArray(new String [0]))){
 
-                                cauldron(inventory, player);
+                                if (inRoom.getRoomName().equalsIgnoreCase("Northern Forest Area #29")) {
+                                    cauldron(inventory, player);
+                                } else {
+                                    System.out.println("You are lacking the ability to find one to use...");
+                                }
 
                             }
 

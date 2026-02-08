@@ -55,6 +55,8 @@ public class XpLv {
             xp -= lv*100;
             lv += 1;
             System.out.println("Your level has increased by one! (->> " + lv + ")");
+            player.addStomachSize(1);
+            System.out.println("Your STOMACH SIZE has increased by one! (->> " + player.getStomachSize() + ")");
             player.getHealth().setMaxHealth(player.getHealth().getMaxHealth() + 5);
             player.setAttackPower(1);
 
