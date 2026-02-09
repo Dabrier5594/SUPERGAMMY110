@@ -798,6 +798,23 @@ public class Game {
         firstVilleLane39.setExit("s", firstVilleLane38);
         firstVilleLane39.setExit("n", firstVilleLane40);
 
+        //ENHANCEMENTS & SCROLLS!
+        List<Enchantment1> enchantment1List = new ArrayList<>();
+
+        Enchantment1 fire = new Enchantment1("fire scroll 1", "Lights enemies on fire", 1);
+        enchantment1List.add(fire);
+        Enchantment1 fire2 = new Enchantment1("fire scroll 2", "Lights enemies on fire", 1);
+        enchantment1List.add(fire2);
+        Enchantment1 fire3 = new Enchantment1("fire scroll 3", "Lights enemies on fire", 1);
+        enchantment1List.add(fire3);
+
+        Enchantment1 protection = new Enchantment1("protection scroll 1", "Your armor feels thicker", 2);
+        enchantment1List.add(protection);
+        Enchantment1 protection2 = new Enchantment1("protection scroll 2", "Your armor feels thicker", 2);
+        enchantment1List.add(protection2);
+        Enchantment1 protection3 = new Enchantment1("protection scroll 3", "Your armor feels thicker", 2);
+        enchantment1List.add(protection3);
+
         // CLINICS
 
         Hub.Clinic firstVilleClinic = new Hub("FirstVille Clinic", "A clinic for the crippled").new Clinic("FirstVille Clinic", "A clinic for the crippled");
@@ -987,26 +1004,6 @@ public class Game {
         stuff.remove("thorn shield");
         forest50.getBoss().add(forestDevil);
 
-
-
-
-        //ENHANCEMENTS & SCROLLS!
-        List<Enchantment1> enchantment1List = new ArrayList<>();
-
-        Enchantment1 fire = new Enchantment1("fire scroll 1", "Lights enemies on fire", 1);
-        enchantment1List.add(fire);
-        Enchantment1 fire2 = new Enchantment1("fire scroll 2", "Lights enemies on fire", 1);
-        enchantment1List.add(fire2);
-        Enchantment1 fire3 = new Enchantment1("fire scroll 3", "Lights enemies on fire", 1);
-        enchantment1List.add(fire3);
-
-        Enchantment1 protection = new Enchantment1("protection scroll 1", "Your armor feels thicker", 2);
-        enchantment1List.add(protection);
-        Enchantment1 protection2 = new Enchantment1("protection scroll 2", "Your armor feels thicker", 2);
-        enchantment1List.add(protection2);
-        Enchantment1 protection3 = new Enchantment1("protection scroll 3", "Your armor feels thicker", 2);
-        enchantment1List.add(protection3);
-
         //MAKE ITEMS AND "EQUIPMENT"
         //MAKE ITEMS EXIST IN ITEMS
         List<Item> existingItems = new ArrayList<>();
@@ -1085,7 +1082,7 @@ public class Game {
 
 
         String[] clinicClerkLines = {
-                "Welcome welcome",
+                "Welcome welcome"
         };
 
         Npca clerk = new Npca("Trevor", "Clinic Clerk", clinicClerkLines, 5, new Health(40, 40, 0), "", Npca.QuestState.NONE);
@@ -1108,11 +1105,12 @@ public class Game {
         laggerShop.addStock(knightBoots,15);
         laggerOwner.setMyShop(laggerShop);
 
-        FirstShopOwner jaggerOwner = new FirstShopOwner("copper", "Lagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
-
-        Hub.FirstVilleShop jaggerShop = new Hub("Lagger's wife and Bagger's sister(JAGGER)", "You see glowing scrolls in bookshelves.\n").new FirstVilleShop("Lagger's wife and Bagger's sister (JAGGER)", "You see glowing scrolls in bookshelves..\nEXITS: (S)", jaggerOwner);
-
-
+        FirstShopOwner jaggerOwner = new FirstShopOwner("copper", "Jagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
+        Hub.FirstVilleScrollShop jaggerShop = new Hub("Lagger's wife and Bagger's sister(JAGGER)", "You see glowing scrolls in bookshelves.\n").new FirstVilleScrollShop("Lagger's wife and Bagger's sister (JAGGER)", "You see glowing scrolls in bookshelves..\nEXITS: (S)", jaggerOwner);
+        jaggerShop.addStock(fire,30);
+        jaggerShop.addStock(protection,30);
+        jaggerShop.addFirstShopOwner(jaggerOwner);
+        jaggerOwner.setMyShop(jaggerShop);
 
         //Shop Exits
         firstVilleLane4.setExit("s", baggerShop);
@@ -1123,8 +1121,8 @@ public class Game {
         laggerShop.setExit("w", firstVilleLane5);
         firstVilleSquare.setExit("e", exchangeBooth);
         exchangeBooth.setExit("w", firstVilleSquare);
-        jaggerShop.setExit("s", firstVilleLane6);
-        firstVilleLane6.setExit("n", jaggerShop);
+        jaggerShop.setExit("n", firstVilleLane30);
+        firstVilleLane30.setExit("n", jaggerShop);
 
 
 
@@ -1354,6 +1352,7 @@ public class Game {
         objects.add("bagger");
         objects.add("lagger");
         objects.add("ragger");
+        objects.add("jagger");
         objects.add("tragger");
         objects.add("trevor");
         objects.add("maratamara");
@@ -3454,10 +3453,14 @@ public class Game {
                                             inRoom = newRoom;
 
                                         } else {
-                                            inventory = talkNpc(inRoom, inventory, playersStats, npc, player);
-                                        }
+                                            if (npc.getName().equalsIgnoreCase("jagger") || npc.getName().equalsIgnoreCase("jagger")){
 
-                                        talked = true;
+                                            } else {
+                                                inventory = talkNpc(inRoom, inventory, playersStats, npc, player);
+                                                talked = true;
+                                            }
+
+                                        }
 
                                         break;
                                     }
@@ -3503,6 +3506,16 @@ public class Game {
                                     if (action.toLowerCase().contains(npcNameLower)) {
 
                                         talkMob = true;
+
+                                    }
+
+                                }
+                            } if (!talked) {
+                                for (Npca npca : inRoom.getNpc()){
+
+                                    if (action.contains(npca.getName())){
+
+                                        inventory = talkShopFirst(inRoom, inventory, playersStats, inRoom.getFirstShopOwners(), player, equipment);
 
                                     }
 
@@ -5709,7 +5722,7 @@ public class Game {
     }
 
     public static List<String> talkShopFirst(Hub inRoom, List<String> inventory, XpLv playerStats, FirstShopOwner npc, Player player, Equipment equipment) {
-        System.out.println(npc.getName() + " (Shop Keeper): \"Welcome to my shop!\" -enter to continue");
+        System.out.println(npc.getName() + " (Shop Keeper): \"Welcome to my shop!\" [enter to continue]");
         scanner.nextLine();
 
         String choice = "8";
@@ -5738,7 +5751,6 @@ public class Game {
 
         return inventory;
     }
-
 
     private static String getInspectTarget(String action, List<String> verbs) {
 

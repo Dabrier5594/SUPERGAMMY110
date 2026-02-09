@@ -199,6 +199,72 @@ public class Hub {
         }
     }
 
+    public class FirstVilleScrollShop extends Hub {
+
+        private Map<Enchantment1, Integer> shopStock;  // item name -> price in copper
+        private FirstShopOwner shopOwner;  // who's running this joint
+
+        public FirstVilleScrollShop(String name, String description, FirstShopOwner owner) {
+            super(name, description);  // call Hub constructor cuz we want all that room stuff
+            this.shopStock = new HashMap<>();
+            this.shopOwner = owner;  // who owns the shop
+        }
+
+        public void addStock(Enchantment1 item, int price) {
+            shopStock.put(item, price);  // adds item to shop, price is how much it costs yo
+        }
+
+        public Map<Enchantment1, Integer> getStock() {
+            return new HashMap<>(shopStock); // return COPY so nobody messes with the shop data!
+        }
+
+        public String getShopOwnerName() {
+            return shopOwner.getName();
+        }
+
+        public void displayStock() {
+            System.out.println("=== " + shopOwner.getName() + "'s SHOP STOCK ===");
+            for (Map.Entry<Enchantment1, Integer> entry : shopStock.entrySet()) {
+                // loops through EVERY item in shop and prints it with price
+                System.out.println("- " + entry.getKey() + ": " + entry.getValue() + " copper");
+            }
+            System.out.println("================================");
+        }
+    }
+
+    public class FirstVilleStringShop extends Hub {
+
+        private Map<String, Integer> shopStock;  // item name -> price in copper
+        private FirstShopOwner shopOwner;  // who's running this joint
+
+        public FirstVilleStringShop(String name, String description, FirstShopOwner owner) {
+            super(name, description);  // call Hub constructor cuz we want all that room stuff
+            this.shopStock = new HashMap<>();
+            this.shopOwner = owner;  // who owns the shop
+        }
+
+        public void addStock(String item, int price) {
+            shopStock.put(item, price);  // adds item to shop, price is how much it costs yo
+        }
+
+        public Map<String, Integer> getStock() {
+            return new HashMap<>(shopStock); // return COPY so nobody messes with the shop data!
+        }
+
+        public String getShopOwnerName() {
+            return shopOwner.getName();
+        }
+
+        public void displayStock() {
+            System.out.println("=== " + shopOwner.getName() + "'s SHOP STOCK ===");
+            for (Map.Entry<String, Integer> entry : shopStock.entrySet()) {
+                // loops through EVERY item in shop and prints it with price
+                System.out.println("- " + entry.getKey() + ": " + entry.getValue() + " copper");
+            }
+            System.out.println("================================");
+        }
+    }
+
     public class FirstVilleGuild extends Hub {
         private Map<String, String> guildMembers = new HashMap<>();
         private List<Quest> availableQuests = new ArrayList<>();
