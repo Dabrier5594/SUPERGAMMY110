@@ -798,6 +798,136 @@ public class Game {
         firstVilleLane39.setExit("s", firstVilleLane38);
         firstVilleLane39.setExit("n", firstVilleLane40);
 
+        firstVilleLane12.setExit("s", firstVilleLane11);
+        firstVilleLane12.setExit("e", firstVilleLane36);
+        firstVilleLane12.setExit("w", firstVilleLane13);
+
+
+        firstVilleLane35.setExit("w", firstVilleLane11);
+        firstVilleLane35.setExit("n", firstVilleLane36);
+        firstVilleLane35.setExit("s", firstVilleLane9);
+
+
+        firstVilleLane36.setExit("s", firstVilleLane35);
+        firstVilleLane36.setExit("n", firstVilleLane37);
+        firstVilleLane36.setExit("w", firstVilleLane12);
+
+
+        firstVilleLane37.setExit("s", firstVilleLane36);
+
+
+        firstVilleLane38.setExit("w", firstVilleLane37);
+        firstVilleLane38.setExit("n", firstVilleLane39);
+
+
+        firstVilleLane39.setExit("s", firstVilleLane38);
+        firstVilleLane39.setExit("n", firstVilleLane40);
+
+
+        firstVilleLane40.setExit("n", firstVilleLane42);
+        firstVilleLane40.setExit("s", firstVilleLane39);
+        firstVilleLane40.setExit("e", firstVilleLane41);
+
+
+        firstVilleLane41.setExit("w", firstVilleLane40);
+
+
+        firstVilleLane42.setExit("s", firstVilleLane40);
+        firstVilleLane42.setExit("w", firstVilleLane43);
+        firstVilleLane43.setExit("e", firstVilleLane42);
+
+
+        firstVilleLane14.setExit("e", firstVilleLane11);
+        firstVilleLane14.setExit("n", firstVilleLane13);
+
+
+        firstVilleLane13.setExit("s", firstVilleLane14);
+        firstVilleLane13.setExit("w", firstVilleLane15);
+
+
+        firstVilleLane15.setExit("s", firstVilleInn);
+        firstVilleLane15.setExit("n", firstVilleLane16);
+        firstVilleLane15.setExit("w", firstVilleLane22);
+
+
+        firstVilleLane16.setExit("s", firstVilleLane15);
+        firstVilleLane16.setExit("n", firstVilleLane17);
+        firstVilleLane16.setExit("e", firstVilleLane21);
+
+
+        firstVilleLane17.setExit("w", firstVilleLane20);
+        firstVilleLane17.setExit("n", firstVilleLane18);
+
+
+        firstVilleLane18.setExit("n", firstVilleLane19);
+        firstVilleLane18.setExit("e", firstVilleLane31);
+
+
+        firstVilleLane19.setExit("s", firstVilleLane18);
+
+
+        firstVilleLane31.setExit("e", firstVilleLane31);
+
+
+        firstVilleLane20.setExit("s", firstVilleLane21);
+        firstVilleLane20.setExit("e", firstVilleLane17);
+
+
+        firstVilleLane21.setExit("n", firstVilleLane20);
+        firstVilleLane21.setExit("e", firstVilleLane16);
+        firstVilleLane21.setExit("s", firstVilleLane22);
+
+
+        firstVilleLane22.setExit("s", firstVilleLane23);
+        firstVilleLane22.setExit("n", firstVilleLane21);
+        firstVilleLane22.setExit("e", firstVilleLane15);
+
+
+        firstVilleLane23.setExit("s", firstVilleLane26);
+        firstVilleLane23.setExit("w", firstVilleLane24);
+        firstVilleLane23.setExit("n", firstVilleLane22);
+
+
+        firstVilleLane24.setExit("s", firstVilleLane25);
+        firstVilleLane24.setExit("e", firstVilleLane23);
+
+
+        firstVilleLane25.setExit("n", firstVilleLane24);
+        firstVilleLane23.setExit("e", firstVilleLane26);
+        firstVilleLane23.setExit("w", firstVilleInn);//luxury shop not yet made
+
+
+        firstVilleLane26.setExit("n", firstVilleLane23);
+        firstVilleLane26.setExit("w", firstVilleLane25);
+        firstVilleLane26.setExit("s", firstVilleLane27);
+
+
+        firstVilleLane27.setExit("n", firstVilleLane23);
+        firstVilleLane27.setExit("e", firstVilleInn);//barracks aren't made yet
+        firstVilleLane27.setExit("s", firstVilleLane28);
+
+
+        firstVilleLane28.setExit("n", firstVilleLane27);
+        firstVilleLane28.setExit("s", firstVilleLane29);
+
+
+        firstVilleLane29.setExit("n", firstVilleLane23);
+        firstVilleLane29.setExit("e", firstVilleLane32);
+        firstVilleLane29.setExit("s", firstVilleLane30);
+
+
+        firstVilleLane30.setExit("n", firstVilleLane29);
+
+
+        firstVilleLane32.setExit("w", firstVilleLane29);
+        firstVilleLane32.setExit("e", firstVilleLane33);
+
+
+        firstVilleLane33.setExit("w", firstVilleLane32);
+        firstVilleLane33.setExit("e", firstVilleLane3);
+
+
+
         //ENHANCEMENTS & SCROLLS!
         List<Enchantment1> enchantment1List = new ArrayList<>();
 
