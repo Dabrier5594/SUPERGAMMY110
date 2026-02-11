@@ -933,18 +933,26 @@ public class Game {
 
         Enchantment1 fire = new Enchantment1("fire scroll 1", "Lights enemies on fire", 1);
         enchantment1List.add(fire);
-        Enchantment1 fire2 = new Enchantment1("fire scroll 2", "Lights enemies on fire", 1);
+        Enchantment1 fire2 = new Enchantment1("fire scroll 2", "Lights enemies on fire", 2);
         enchantment1List.add(fire2);
-        Enchantment1 fire3 = new Enchantment1("fire scroll 3", "Lights enemies on fire", 1);
+        Enchantment1 fire3 = new Enchantment1("fire scroll 3", "Lights enemies on fire", 3);
         enchantment1List.add(fire3);
 
-        Enchantment1 protection = new Enchantment1("protection scroll 1", "Your armor feels thicker", 2);
+        Enchantment1 protection = new Enchantment1("protection scroll 1", "Your armor feels thicker", 1);
         enchantment1List.add(protection);
         Enchantment1 protection2 = new Enchantment1("protection scroll 2", "Your armor feels thicker", 2);
         enchantment1List.add(protection2);
-        Enchantment1 protection3 = new Enchantment1("protection scroll 3", "Your armor feels thicker", 2);
+        Enchantment1 protection3 = new Enchantment1("protection scroll 3", "Your armor feels thicker", 3);
         enchantment1List.add(protection3);
 
+
+
+        Enchantment1 roulette = new Enchantment1("roulette scroll 1", "", 1);
+        enchantment1List.add(roulette);
+        Enchantment1 roulette2 = new Enchantment1("roulette scroll 2", "Your armor feels thicker", 2);
+        enchantment1List.add(roulette2);
+        Enchantment1 roulette3 = new Enchantment1("roulette scroll 3", "Your armor feels thicker", 3);
+        enchantment1List.add(roulette3);
         // CLINICS
 
         Hub.Clinic firstVilleClinic = new Hub("FirstVille Clinic", "A clinic for the crippled").new Clinic("FirstVille Clinic", "A clinic for the crippled");
@@ -1622,6 +1630,9 @@ public class Game {
         scrollTypes.add("protection scroll 1");
         scrollTypes.add("protection scroll 2");
         scrollTypes.add("protection scroll 3");
+        scrollTypes.add("roulette scroll 1");
+        scrollTypes.add("roulette scroll 2");
+        scrollTypes.add("roulette scroll 3");
 
 
         // INSERT ALL CODE THAT SETS A VARIABLE HERE!!!!!
@@ -2457,11 +2468,11 @@ public class Game {
                                 int scrollLevel = 0;
                                 String chosenType = "choco";
 
-                                if (!action.contains("fire") && !action.contains("protection") ){
+                                if (!action.contains("fire") && !action.contains("protection") && !action.contains("roulette")){
                                     boolean fank = false;
 
                                     while (!fank) {
-                                        System.out.println("Please enter the type of scroll (fire | protection | or 'quit)");
+                                        System.out.println("Please enter the type of scroll (fire | protection | roulette | or 'quit)");
                                         System.out.print("-> ");
                                         String tester = scanner.nextLine();
                                         if (tester.equalsIgnoreCase("quit")) {
@@ -2470,6 +2481,11 @@ public class Game {
                                         }
                                         else if (tester.equalsIgnoreCase("fire")) {
                                             action = action + " fire";
+                                            fank = true;
+
+                                        }
+                                        else if (tester.equalsIgnoreCase("roulette")) {
+                                            action = action + " roulette";
                                             fank = true;
 
                                         }
@@ -2490,6 +2506,9 @@ public class Game {
                                     } else if (action.contains("protection")) {
                                         chosenType = "protection";
 
+                                    }
+                                     else if (action.contains("roulette")) {
+                                        chosenType = "roulette";
                                     }
 
                                     boolean hasFire = false;
@@ -2777,6 +2796,8 @@ public class Game {
                                         } else {
                                             System.out.println("The target scroll was not found in inventory.");
                                         }
+
+
 
                                     }
 
