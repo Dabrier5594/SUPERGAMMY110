@@ -44,7 +44,7 @@ public class Game {
         INSPECT_DESCRIPTIONS.put("squirrel", "A squirrel, you watch it run around for a moment.");
         INSPECT_DESCRIPTIONS.put("goblin", "A dubious goblin, short and green, a small dagger in hand.");
         INSPECT_DESCRIPTIONS.put("chest", "A heavy chest. The lid feels nailed shut.");
-        INSPECT_DESCRIPTIONS.put("ih", "A small key. It could probably fit in a chest.");
+        INSPECT_DESCRIPTIONS.put("key", "A small key. It could probably fit in a chest.");
         INSPECT_DESCRIPTIONS.put("white whispberry", "A whispberry. Smells sweet and of hiraeth, reminding you of the morning dew.");
         INSPECT_DESCRIPTIONS.put("bagger", "It's Bagger. Laggers brother-in-law, Jaggers brother, and Raggers cousin.");
         INSPECT_DESCRIPTIONS.put("ragger", "It's Ragger. Laggers cousin-in-law, Jaggers cousin, and Baggers cousin.");
@@ -265,14 +265,14 @@ public class Game {
     public static final Map<String, Token> TOKENS = new HashMap<>();
 
     static {
-        TOKENS.put("IH001",
-                new Token(001, "IH"));
+        TOKENS.put("KEY001",
+                new Token(001, "KEY"));
 
-        TOKENS.put("IH002",
-                new Token(002, "IH"));
+        TOKENS.put("KEY002",
+                new Token(002, "KEY"));
 
-        TOKENS.put("IH003",
-                new Token(003, "IH"));
+        TOKENS.put("KEY003",
+                new Token(003, "KEY"));
 
     }
 
@@ -1068,21 +1068,21 @@ public class Game {
 
         List<String> chestContents = Arrays.asList("copper", "snarkflower", "copper", "copper", "twig");
 
-        Chest firstChest = new Chest(true, "IH001", chestContents, "C");
+        Chest firstChest = new Chest(true, "KEY001", chestContents, "C");
         forest6.addChest("chest#001", firstChest);
 
-        forest6.addObject("IH001");
+        forest6.addObject("KEY001");
 
         chestContents = Arrays.asList("silver", "silver");
 
-        Chest secondChest = new Chest(true, "IH002", chestContents, "C");
+        Chest secondChest = new Chest(true, "KEY002", chestContents, "C");
         sHouseUpper.addChest("chest#002", secondChest);
 
-        forest26.addObject("IH002");
+        forest26.addObject("KEY002");
 
         chestContents = Arrays.asList("bear sword");
 
-        Chest thirdChest = new Chest(true, "IH003", chestContents, "C");
+        Chest thirdChest = new Chest(true, "KEY003", chestContents, "C");
         forest47.addChest("chest#003", thirdChest);
 
         // ADD MOBS to room
@@ -1100,9 +1100,9 @@ public class Game {
             forest11.getMOBS().add(goblin);
         }
 
-        stuff.add("IH003");
+        stuff.add("KEY003");
         Mob Mute = createMuteBanditWithRandomStats(stuff);
-        stuff.remove("IH003");
+        stuff.remove("KEY003");
 
         forest12.getMOBS().add(Mute);
 
@@ -1143,7 +1143,7 @@ public class Game {
         // SUPER COOL NAME WEAPONS
         Item pirateHookMax = new Item("pirate thing", "melee", true, fire3, 85, false);
         existingItems.add(pirateHookMax);
-        Item wizardStaffMax = new Item("wizard puncher", "melee", true, fire3, 100, false);
+        Item wizardStaffMax = new Item("wizard puncher", "melee", true, null, 0, false);
         existingItems.add(wizardStaffMax);
         Item wizardShieldMax = new Item("wizard thingy", "body", true, protection3, 200, false);
         existingItems.add(wizardShieldMax);
@@ -1236,11 +1236,17 @@ public class Game {
         laggerOwner.setMyShop(laggerShop);
 
         FirstShopOwner jaggerOwner = new FirstShopOwner("copper", "Jagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
-        Hub.FirstVilleScrollShop jaggerShop = new Hub("Lagger's wife and Bagger's sister(JAGGER)", "You see glowing scrolls in bookshelves.\n").new FirstVilleScrollShop("Lagger's wife and Bagger's sister (JAGGER)", "You see glowing scrolls in bookshelves..\nEXITS: (S)", jaggerOwner);
-        jaggerShop.addStock(fire,30);
-        jaggerShop.addStock(protection,30);
+        Hub.FirstVilleStringShop jaggerShop = new Hub("Lagger's wife and Bagger's sister(JAGGER)", "You see glowing scrolls in bookshelves.\n").new FirstVilleStringShop("Lagger's wife and Bagger's sister (JAGGER)", "You see glowing scrolls in bookshelves..\nEXITS: (S)", jaggerOwner);
+        jaggerShop.addStock("fire scroll 1",30);
+        jaggerShop.addStock("protection scroll 1",30);
         jaggerShop.addFirstShopOwner(jaggerOwner);
         jaggerOwner.setMyShop(jaggerShop);
+
+        FirstShopOwner steveOwner = new FirstShopOwner("copper", "Steve", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
+        Hub.FirstVilleStringShop stevesShop = new Hub("Not part of the -agger family (STEVE)", "Various items that can assist you line the room.\n").new FirstVilleStringShop("Not part of the -agger family (STEVE)", "Various items that can assist you line the room..\nEXITS: (S)", steveOwner);
+        stevesShop.addStock("apple",1);
+        stevesShop.addFirstShopOwner(steveOwner);
+        steveOwner.setMyShop(stevesShop);
 
         //Shop Exits
         firstVilleLane4.setExit("s", baggerShop);
@@ -1253,7 +1259,8 @@ public class Game {
         exchangeBooth.setExit("w", firstVilleSquare);
         jaggerShop.setExit("n", firstVilleLane30);
         firstVilleLane30.setExit("n", jaggerShop);
-
+        stevesShop.setExit("e", firstVilleLane20);
+        firstVilleLane20.setExit("w", stevesShop);
 
 
         Guard Oliver = new Guard("Oliver", oliverLines, oliverP, 8, FirstVilleHelm, FirstVillePlate, FirstVilleLegs, FirstVilleBoots, "MQ3", Npca.QuestState.NONE);
@@ -1477,7 +1484,7 @@ public class Game {
         objects.add("goblin");
         objects.add("bear");
         objects.add("chest");
-        objects.add("ih");
+        objects.add("key");
         objects.add("oliver");
         objects.add("bagger");
         objects.add("lagger");
@@ -1485,6 +1492,7 @@ public class Game {
         objects.add("jagger");
         objects.add("tragger");
         objects.add("trevor");
+        objects.add("steve");
         objects.add("maratamara");
         objects.add("gate");
         objects.add("traps");
@@ -1744,9 +1752,14 @@ public class Game {
 
         } else if (namer.equalsIgnoreCase("wizard")) {
 
+            player.setAttackPower(-4);
+
+            player.getHealth().setMaxHealth(100000);
+            player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+
             inRoom.getObjects().add("wizard puncher");
 
-            inRoom.getObjects().add("wizard thingy");
+            inRoom.getObjects().add("fire scroll 1");
 
             System.out.println("I think I am a WIZARD...");
 
@@ -2331,7 +2344,7 @@ public class Game {
 
                 } else if (stringContainsWordFromList(action.toLowerCase(), verbs.toArray(new String[0]))) {
 
-                    if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0])) || action.toLowerCase().contains("leaflet") || action.toLowerCase().contains("ih")) {
+                    if (stringContainsWordFromList(action.toLowerCase(), objects.toArray(new String[0])) || action.toLowerCase().contains("leaflet") || action.toLowerCase().contains("key")) {
 
                         if (stringContainsWordFromList(action.toLowerCase(), eat.toArray(new String [0]))) {
 
@@ -2738,7 +2751,6 @@ public class Game {
                                                                             unequip(choice, choice.getSlotType(), player, equipment);
 
                                                                             choice.setEnchantment1(enchantment1);
-                                                                            choice.setIncreaseNum(choice.getIncreaseNum() * 2);
                                                                             inventory.remove(theScroll);
 
                                                                             equip(choice, equipment, player);
@@ -4045,12 +4057,12 @@ public class Game {
             item = chosenId;
         }
 
-        if (item.equalsIgnoreCase("ih")) {
+        if (item.equalsIgnoreCase("key")) {
 
             List<String> tokenIds = new ArrayList<>();
             for (String obj : inRoom.getObjects()) {
                 Token a = Game.TOKENS.get(obj);
-                if (a != null && a.getName().equalsIgnoreCase("ih")) {
+                if (a != null && a.getName().equalsIgnoreCase("key")) {
                     tokenIds.add(obj);
                 }
             }
@@ -4095,7 +4107,7 @@ public class Game {
                 }
 
                 if (choice == null) {
-                    System.out.println("You decide not to take any treasure token [IH] 's.");
+                    System.out.println("You decide not to take any treasure token [KEY] 's.");
                     return;
                 }
 
@@ -4240,12 +4252,12 @@ public class Game {
 
         boolean isToken = false;
 
-        if (item.equalsIgnoreCase("ih")) {
+        if (item.equalsIgnoreCase("key")) {
 
             List<String> tokenId = new ArrayList<>();
             for (String obj : inventory) {
                 Token a = Game.TOKENS.get(obj);
-                if (a != null && a.getName().equalsIgnoreCase("ih")) {
+                if (a != null && a.getName().equalsIgnoreCase("key")) {
                     tokenId.add(obj);
                 }
             }
@@ -4290,7 +4302,7 @@ public class Game {
                 }
 
                 if (choice == null) {
-                    System.out.println("You decide not to drop any treasure token [IH] 's.");
+                    System.out.println("You decide not to drop any treasure token [KEY] 's.");
                     return;
                 }
 
@@ -4367,7 +4379,7 @@ public class Game {
             }
 
             if (isToken) {
-                System.out.println("You have dropped " + chosenAmount + " token [IH]" + (chosenAmount > 1 ? "s." : "."));
+                System.out.println("You have dropped " + chosenAmount + " token [KEY]" + (chosenAmount > 1 ? "s." : "."));
                 return;
             }
 
@@ -4998,16 +5010,6 @@ public class Game {
             return;
         }
 
-        if (mob.getName().toLowerCase().contains("bear")){
-            if (equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems()) != null) {
-                if (equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems()).getName().equalsIgnoreCase("bear claw")) {
-                    mob.setHealth();
-                    mob.setAttackPower();
-                    System.out.println("You are fighting a bear with a bear claw! The bear is shocked and has been drastically immobilized.");
-                }
-            }
-        }
-
         if (!using){
             System.out.println("Would you like to speed thru this battle (y/n) ?");
             System.out.print("-> ");
@@ -5137,6 +5139,7 @@ public class Game {
             player.attack(mob);
 
             if (equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems()) != null){
+
                 Item boom = equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems());
                 boom.checkPower(mob);
             }

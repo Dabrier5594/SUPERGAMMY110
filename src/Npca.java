@@ -156,6 +156,8 @@ class FirstShopOwner extends Npca {
 
     private Hub.FirstVilleScrollShop myScrollShop;
 
+    private Hub.FirstVilleStringShop myStringShop;
+
     private String currency;
 
     public FirstShopOwner(String currency, String name, String[] lines, Health health, int attackPower, Hub.FirstVilleShop myShop, String questId, QuestState questState) {
@@ -172,6 +174,9 @@ class FirstShopOwner extends Npca {
         this.myScrollShop = shop;
     }
 
+    public void setMyShop(Hub.FirstVilleStringShop shop) {
+        this.myStringShop = shop;
+    }
 
     public List<String> buyItem(Player player, List<String> invin) {
 
@@ -303,6 +308,80 @@ class FirstShopOwner extends Npca {
                     }
                     invin.add(chosen.getName());  // add to inventory
                     System.out.println("Bought " + chosen.getName() + " for " + price + " " + currency + "!\n");
+                    to = 1;
+
+
+                } else {
+                    System.out.println("Need " + price + " copper! You got... not enough! \n");
+                    to = 1;
+                }
+
+
+            }
+
+            if (to == 0) {
+                System.out.println("Aren't you a smarty pants, go eat some sourdough bread.\n");
+            }
+
+            return invin;
+
+        } else if (myStringShop != null) {
+            Scanner scanner = new Scanner(System.in);
+            String answer;
+            List<Map.Entry<String, Integer>> stockList = Collections.emptyList();
+
+            if (!myStringShop.getStock().isEmpty()) {
+                stockList = new ArrayList<>(myStringShop.getStock().entrySet());
+            }
+
+            System.out.println("");
+
+            if (stockList.isEmpty()) {
+                System.out.println("Shop is empty! Nothing to buy.");
+                return invin;
+            }
+
+
+            System.out.println(getName() + "'s SHOP:");
+            for (int i = 0; i < stockList.size(); i++) {
+                Map.Entry<String, Integer> entry = stockList.get(i);  // GET ith entry!
+                System.out.println((i + 1) + ") " + entry.getKey() +
+                        ": " + entry.getValue() + " " + currency);
+            }
+
+            System.out.print("Which thing? (number) - ");
+            answer = scanner.nextLine().trim();
+
+            String chosen = null;
+            int price = 0;
+
+            if (answer.isEmpty()) {
+                System.out.println("Aren't you a smarty pants, go eat some sourdough bread. *you are shoo-ed out of the store.");
+                return invin;
+            }
+
+            try {
+                int index = Integer.parseInt(answer) - 1;
+                if (index >= 0 && index < stockList.size()) {
+                    chosen = stockList.get(index).getKey();
+                    price = stockList.get(index).getValue();
+                }
+
+            } catch (NumberFormatException e) {
+                return invin;
+            }
+
+            int to = 0;
+
+            if (chosen != null) {
+
+                if (Collections.frequency(invin, currency) > price) {
+                    for (int i = 0; i < price; i++) {
+                        invin.remove(currency);
+                    }
+
+                    invin.add(chosen);  // add to inventory
+                    System.out.println("Bought " + chosen + " for " + price + " " + currency + "!\n");
                     to = 1;
 
 

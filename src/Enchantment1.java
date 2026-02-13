@@ -10,7 +10,7 @@ public class Enchantment1 {
     }
 
     public void usePower(Enchantment1 enchantment, Mob mob){
-        if (enchantment.getName().equalsIgnoreCase("fire")){
+        if (enchantment.getName().contains("fire")){
             int d = enchantment.getLevel() * 3;
             int burtTurns = enchantment.getLevel() + 1;
             if (!mob.isOnFire()) {
