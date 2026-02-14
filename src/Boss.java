@@ -152,8 +152,8 @@ public class Boss {
     public void burning(Boss mob, int d){
 
         if(onFire == true){
-            System.out.println(mob.getName() + " has taken " + d + " damage due to fire bonus!");
-            mob.getHealth().mobTakeBonusDamage(d);
+            System.out.println("Fire Bonus has been activated! " + mob.getName() + " becomes engulfed in flames!");
+            mob.getHealth().mobTakeDamage(d);
             burnTurns--;
         }
 

@@ -56,9 +56,8 @@ public class Mob {
     public void burning(Mob mob, int d){
 
         if(onFire == true){
+            System.out.println("Fire Bonus has been activated! " + mob.getName() + " becomes engulfed in flames!");
             mob.getHealth().mobTakeDamage(d);
-            System.out.println(mob.getName() + " has taken " + d + " damage due to fire bonus!");
-            System.out.println(mob.getName() + "'s health: " + mob.getHealth().getHeealth() + "/" + mob.getHealth().getMaxHealth());
             burnTurns--;
         }
 

@@ -10,15 +10,16 @@ public class Enchantment1 {
     }
 
     public void usePower(Enchantment1 enchantment, Mob mob){
+
         if (enchantment.getName().contains("fire")){
             int d = enchantment.getLevel() * 3;
-            int burtTurns = enchantment.getLevel() + 1;
+            int burtTurns = enchantment.getLevel();
             if (!mob.isOnFire()) {
                 mob.setBurnTurns(burtTurns);
                 mob.setOnFire(true);
             }
 
-            if (mob.isOnFire()){
+            else if (mob.isOnFire()){
                 mob.burning(mob, d);
             }
 
@@ -26,15 +27,15 @@ public class Enchantment1 {
     }
 
     public void usePowerBoss(Enchantment1 enchantment, Boss mob){
-        if (enchantment.getName().equalsIgnoreCase("fire")){
+        if (enchantment.getName().contains("fire")){
             int d = enchantment.getLevel() * 3;
-            int burtTurns = enchantment.getLevel() + 1;
+            int burtTurns = enchantment.getLevel();
             if (!mob.isOnFire()) {
                 mob.setBurnTurns(burtTurns);
                 mob.setOnFire(true);
             }
 
-            if (mob.isOnFire()){
+            else if (mob.isOnFire()){
                 mob.burning(mob, d);
             }
 

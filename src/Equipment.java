@@ -42,6 +42,7 @@ class Item {
     }
 
     public void checkPower(Mob mob){
+
         if (enchantment1 != null){
             enchantment1.usePower(enchantment1, mob);
         }
