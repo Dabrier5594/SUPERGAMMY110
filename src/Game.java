@@ -123,7 +123,7 @@ public class Game {
 
     public static volatile boolean onBoat   = false;
 
-    public static volatile boolean scannerOrNo = false; // true = scanning, false = no scanning
+    public static volatile boolean scannerOrNo = false; // true = GO FOR IT, false = HOLD INFO
 
     public static volatile boolean timeOfDay = true; // true = day, false = night
 
@@ -1873,22 +1873,27 @@ public class Game {
                     System.out.println("The power of Monty SURGES through you! You've healed!\n");
                 }
             }
+
             else if (player.getHealth().isDead()) {
+
+                scannerOrNo = false;
+
+                Scanner scannerdumb = new Scanner(System.in);
 
                 System.out.println("\nSHOCK. AS IF NOTHING BUT THE CHOCO CHIPS ARE LEFT ON THE COOKIE... [enter to continue]");
 
-                boolean dissapear = false;
+                scannerdumb.nextLine();
 
-                scanner.nextLine();
+                boolean dissapear = false;
 
                 System.out.println("\nThe world becomes dark... [enter to continue]");
 
-                scanner.nextLine();
+                scannerdumb.nextLine();
 
                 System.out.println("\nOptions: [1] Respawn [2] Quit");
                 System.out.print("-> ");
 
-                String choice = scanner.next();
+                String choice = scanner.nextLine();
 
                 if (choice.equals("1")) {
 
@@ -1904,7 +1909,7 @@ public class Game {
                         System.out.println("No clinics registered to respawn at. ");
                         System.out.println("\nOptions: [1] Respawn at 'cave' [2] Quit");
                         System.out.print("-> ");
-                        String doubleChoice = scanner.next();
+                        String doubleChoice = scanner.nextLine();
 
                         System.out.println("[Due to not registering with a clinic, your items were not carried with you during respawn.\nBut they are right where you left them! \n");
                         if (doubleChoice.equals("1")) {
@@ -1932,6 +1937,7 @@ public class Game {
                             inRoom = cave;
                             dissapear = true;
                             player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+                            player.setFullness();
 
                         }
 
@@ -1998,6 +2004,8 @@ public class Game {
                                     dissapear = true;
                                     System.out.println("You wake up, feeling a bit lighter, but still alive. [Registering with that clinic sure saved you!]");
                                     player.getHealth().setHeealth(player.getHealth().getMaxHealth());
+                                    player.setFullness();
+
                                     break;
                                 }
 
@@ -2022,6 +2030,8 @@ public class Game {
                     break;
                 }
 
+                scannerOrNo = true;
+
             }
 
             System.out.println("");
@@ -2044,6 +2054,7 @@ public class Game {
 
 
             System.out.print("-> ");
+
 
             String action = scanner.nextLine();
 
