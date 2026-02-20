@@ -16,8 +16,8 @@ import java.util.TimerTask;
 /// 'wizard' as name allows you to play as normal, but you get wizard goodies || 'cheapo' gives you 1 DAMAGE and 10000 HP
 
 /// FIXES
-// The quest doesn't 'update' 0/5 is always 0/5 until completed
 // Add combat so you can fight ANY type of NPC (rn we have - NPCA, GUARD, MOB, BOSS - add: SHOPOWNER, MERCHANT)
+// Make it so Zak can give you the ability to enter into the army/solidery/minion thing
 public class Game {
 
     public static Hub.FirstVilleShop baggerShop;
@@ -902,7 +902,7 @@ public class Game {
 
 
         firstVilleLane27.setExit("n", firstVilleLane23);
-        firstVilleLane27.setExit("e", firstVilleInn);//barracks aren't made yet
+        firstVilleLane27.setExit("e", firstVilleBarracks);//barracks aren't made yet
         firstVilleLane27.setExit("s", firstVilleLane28);
 
 
@@ -1152,7 +1152,7 @@ public class Game {
         existingItems.add(pirateHookMax);
         Item wizardStaffMax = new Item("wizard puncher", "melee", true, null, 0, false);
         existingItems.add(wizardStaffMax);
-        Item wizardShieldMax = new Item("wizard thingy", "body", true, protection3, 200, false);
+        Item wizardShieldMax = new Item("wizard thingy", "body", true, null, 200, false);
         existingItems.add(wizardShieldMax);
 
         //NORMAL THINGS
@@ -1195,13 +1195,23 @@ public class Game {
 
         //NPCS
 
+        String[] barraksMaster1Words = {
+        };
+
+        Health barracksMaster1Health = new Health(175, 172, 10);
+
+        Npca barracksMaster1 = new Npca("Zak", "Barracks Master (TRAINER) ", barraksMaster1Words, 50, barracksMaster1Health, "", Npca.QuestState.NONE);
+
+        firstVilleBarracks.getNpc().add(barracksMaster1);
+
+
         String[] boatSellerLines = {
                 "Looking to cross the sea?",
                 "I sell reliable boats—one payment, yours forever.",
                 "Once you own a boat, just 'use boat' at the port."
         };
 
-        Health boatSellerHp = new Health(1000000000, 1000000000, 1000000000);
+        Health boatSellerHp = new Health(250, 250, 15);
 
         Npca boatSeller = new Npca("Jerr", "Boat Master", boatSellerLines, 12121212, boatSellerHp, "", Npca.QuestState.NONE);
 
@@ -1454,6 +1464,7 @@ public class Game {
         //OTHER SMALLER THINGS
         objects.add("inventory");
         objects.add("bill");
+        objects.add("zak");
         objects.add("horsey");
         objects.add("clothes");
         objects.add("cloth");
@@ -1769,7 +1780,11 @@ public class Game {
 
             inRoom.getObjects().add("wizard puncher");
 
+            inRoom.getObjects().add("wizard thingy");
+
             inRoom.getObjects().add("fire scroll 1");
+
+            inRoom.getObjects().add("protection scroll 1");
 
             System.out.println("I think I am a WIZARD...");
 
@@ -5820,6 +5835,55 @@ public class Game {
             else {
                 System.out.println("Trevor (Clinic Clerk) says:  \"and... goodbye, don't disrupt the injured...\"");
             }
+        } else if (npc.getName().equalsIgnoreCase("Zak")) {
+
+            ArrayList<String> wordONES = new ArrayList<>();
+
+            wordONES.add("divine");
+            wordONES.add("furious");
+            wordONES.add("thunderous");
+            wordONES.add("ceremonial");
+            wordONES.add("immaculate");
+            wordONES.add("war-blessed");
+            wordONES.add("overenthusiastic");
+            wordONES.add("slightly judgmental");
+            wordONES.add("heroically unnecessary");
+            wordONES.add("dramatically over-polished");
+            wordONES.add("aggressively moisturized");
+
+            ArrayList<String> wordTWOS = new ArrayList<>();
+
+            wordTWOS.add("helmet");
+            wordTWOS.add("cannon");
+            wordTWOS.add("boot");
+            wordTWOS.add("soup ladle");
+            wordTWOS.add("chapel bell");
+            wordTWOS.add("training dummy");
+            wordTWOS.add("ration tin");
+            wordTWOS.add("commander’s emergency teacup");
+            wordTWOS.add("ceremonial protein shaker");
+            wordTWOS.add("sacred dumbbell (150KG)");
+
+            ArrayList<String> wordTHREES = new ArrayList<>();
+
+            wordTHREES.add("royal");
+            wordTHREES.add("imperial");
+            wordTHREES.add("regimental");
+            wordTHREES.add("field marshal’s");
+            wordTHREES.add("disciplinary");
+            wordTHREES.add("tribunal");
+            wordTHREES.add("budget review");
+            wordTHREES.add("promotion board");
+            wordTHREES.add("extended family visit");
+            wordTHREES.add("very disappointed aunt’s");
+            wordTHREES.add("unexpected deity audit");
+
+            String word1 = wordONES.get((int)(Math.random() * 10));
+            String word2 = wordTWOS.get((int)(Math.random() * 10));
+            String word3 = wordTHREES.get((int)(Math.random() * 10));
+
+            System.out.println("By the time I’m done with you, this barracks will shine like a " + word1 + " " + word2  + " at a " + word3 + " inspection.");
+
         } else if (npc.getName().equalsIgnoreCase("MaraTamara")) {
 
             System.out.println("Mara (Innkeeper) says: \"Need a room or just wandering?\"");
