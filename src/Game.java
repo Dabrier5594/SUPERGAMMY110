@@ -258,7 +258,65 @@ public class Game {
         LEAFLETS.put("leaflet002",
                 new Leaflet("leaflet002", "leaflet",
                         "The Money Challenges", "The world is in a money crisis, and people are going on more dangerous quests to get more money. \nOne gold is 5 silver, 1 silver is 10 copper. \nHint: (More dangerous quests make more money! But they are also much harder to complete...)"));
+
+        LEAFLETS.put("leaflet003",
+                new Leaflet("leaflet003", "leaflet",
+                        "Trump gives grudging praise to liberal trio who helped sink his tariffs", "President Donald Trump grudgingly praised the trio of liberal justices on the U.S. Supreme Court who helped block his use of an emergency law to impose sweeping tariffs on trading partners, pointing to their \"loyalty\" to Democrats. \n" +
+                        "\n" +
+                        "\"The Democrats on the court are thrilled, but they will automatically vote no,\" Trump said Friday during a press conference. \"They're an automatic no. Just like in Congress, they're an automatic no. They're against anything that makes America strong, healthy and great again. They also are frankly a disgrace to our nation. Those justices, they're an automatic no. No matter how good a case you have. It's a no.\"\n" +
+                        "\n" +
+                        "\"You can't knock their loyalty. It's one thing you can do with some of our people,\" he said. \n" +
+                        "\n" +
+                        "\n" +
+                        "DEMOCRATS CHEER SUPREME COURT MOVE BLOCKING TRUMP TARIFFS — DESPITE PAST SUPPORT FOR TRADE DUTIES\n" +
+                        "\n" +
+                        "Trump at tariff press conference \n" +
+                        "President Donald Trump grudgingly praised the trio of liberal justices on the U.S. Supreme Court who helped block his use of an emergency law to impose sweeping tariffs on trading partners.  (Mandel Ngan/Getty Images)\n" +
+                        "\n" +
+                        "The Court’s three liberal justices are Sonia Sotomayor, Elena Kagan and Ketanji Brown Jackson.\n" +
+                        "\n" +
+                        "Trump held a press conference at the White House Friday, just hours after the Supreme Court ruled that Trump exceeded his authority by imposing sweeping tariffs using emergency powers. The decision was a 6-3 ruling, with conservative Justices Brett Kavanaugh, Clarence Thomas and Samuel Alito dissenting. \n" +
+                        "\n" +
+                        "Trump praised the three conservatives who dissented.\n" +
+                        "\n" +
+                        "\"I'd like to thank and congratulate Justices Thomas, Alito and Kavanaugh for their strength and wisdom and love of our country, which is right now very proud of those justices,\" he said. \"When you read the dissenting opinions, there's no way that anyone can argue against them.\" \n" +
+                        "\n" +
+                        "Kavanaugh authored the main dissent, which argued that presidents have \"commonly\" imposed tariffs to regulate imports. He also warned there would be \"serious practical consequences\" over the high court's decision in terms of refunding the imposed tariffs. \n" +
+                        "\n" +
+                        "\"The United States may be required to refund billions of dollars to importers who paid the IEEPA tariffs, even though some importers may have already passed on costs to consumers or others,\" Kavanaugh wrote. \"As was acknowledged at oral argument, the refund process is likely to be a ‘mess.’\"\n" +
+                        "\n" +
+                        "placeholder\n" +
+                        "‘TARIFFS SUCK’: SOME REPUBLICANS PRIVATELY CELEBRATE AS SUPREME COURT BLOCKS TRUMP POLICY\n" +
+                        "\n" +
+                        "President Donald Trump holding a poster of his administration's reciprocal tariffs.\n" +
+                        "Trump held a press conference at the White House Friday, just hours after the Supreme Court ruled that Trump exceeded his authority by imposing sweeping tariffs using emergency powers. (Chip Somodevilla/Getty Images)\n" +
+                        "\n" +
+                        "Trump had promoted tariffs under emergency orders as a key piece of his policy related to the economy, arguing tariffs would usher in a flood of revenue from foreign nations that had been \"ripping off\" the U.S. for decades. \n" +
+                        "\n" +
+                        "Tariffs also were leveraged to attract foreign businesses, as well as U.S. companies, to open up shop on U.S. soil to avoid the taxes, while simultaneously bolstering U.S. jobs and manufacturing. \n" +
+                        "\n" +
+                        "AS TRUMP TOUTS TARIFF WINDFALL, BATTLEGROUND STATES SHOULDER BILLIONS IN COSTS\n" +
+                        "\n" +
+                        "Supreme Court exterior during daytime\n" +
+                        "Trump praised the three conservatives who dissented. (J. Scott Applewhite, File/The Associated Press )\n" +
+                        "\n" +
+                        "Trump continued that the ruling \"did not overrule tariffs, but \"merely overruled a particular use of IEEPA tariffs.\" \n" +
+                        "\n" +
+                        "The International Emergency Economic Powers Act is a 1977 emergency powers law that lets a president, after declaring a national emergency tied to a foreign threat, restrict or regulate certain international economic transactions — most commonly to impose sanctions.\n" +
+                        "\n" +
+                        "Trump relied on IEEPA as the legal basis for the tariffs the Court struck down, ruling that the statute does not authorize tariffs.\n" +
+                        "\n" +
+                        "\n" +
+                        "As a first step following the decision, Trump announced a 10% global tariff while touting \"other alternatives\" separated from IEEPA will be used to impose tariffs on foreign nations. \n" +
+                        "\n" +
+                        "CLICK HERE TO DOWNLOAD THE FOX NEWS APP \n" +
+                        "\n" +
+                        "\"Other alternatives will now be used to replace the ones that the court incorrectly rejected,\" Trump said. \"We have alternatives. Great alternatives. Could be more money. We'll take in more money, and we'll be a lot stronger for it. We're taking in hundreds of billions of dollars. We'll continue to do so.\"\n" +
+                        "\n" +
+                        "\"Today I will sign an order to impose a 10% global tariff under section 122 over and above our normal tariffs already being charged,\" Trump said. \"And we're also initiating several section 301 and other investigations to protect our country from unfair trading practices of other countries and companies.\" \n. \nHint: FUCK YOU JOHAN"));
+
     }
+
 
     //CHEST TOKENS
 
@@ -944,13 +1002,11 @@ public class Game {
         Enchantment1 protection3 = new Enchantment1("protection scroll 3", "Your armor feels thicker", 3);
         enchantment1List.add(protection3);
 
-
-
-        Enchantment1 roulette = new Enchantment1("roulette scroll 1", "", 1);
+        Enchantment1 roulette = new Enchantment1("roulette scroll 1", "It isn't gambling if you know you're going to win", 1);
         enchantment1List.add(roulette);
-        Enchantment1 roulette2 = new Enchantment1("roulette scroll 2", "Your armor feels thicker", 2);
+        Enchantment1 roulette2 = new Enchantment1("roulette scroll 2", "You feel like putting all of your savings on red", 2);
         enchantment1List.add(roulette2);
-        Enchantment1 roulette3 = new Enchantment1("roulette scroll 3", "Your armor feels thicker", 3);
+        Enchantment1 roulette3 = new Enchantment1("roulette scroll 3", "You can only lose 100% of your money but you can earn 2000%", 3);
         enchantment1List.add(roulette3);
         // CLINICS
 
