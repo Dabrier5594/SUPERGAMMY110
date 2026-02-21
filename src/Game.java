@@ -58,7 +58,7 @@ public class Game {
         INSPECT_DESCRIPTIONS.put("admin sword", "A legendary blade glowing with unnatural power. Clearly not meant for mortals.");
         INSPECT_DESCRIPTIONS.put("forest devil", "A twisted forest guardian with eyes like burning coals. The woods themselves seem to fear it.");
         INSPECT_DESCRIPTIONS.put("oliver", "A stern guard with a merchant's cunning. His armor gleams, but his eyes are sharper.");
-        INSPECT_DESCRIPTIONS.put("trap", "A crude but effective snare. Rusty spikes and pressure plates promise pain to the unwary.");
+        INSPECT_DESCRIPTIONS.put("zak", "The captain of the guard, built like a walking fortress. His polished muscles gleam as proudly as his armor—and he clearly knows it.");        INSPECT_DESCRIPTIONS.put("trap", "A crude but effective snare. Rusty spikes and pressure plates promise pain to the unwary.");
         INSPECT_DESCRIPTIONS.put("bear claw", "A massive claw from a fearsome bear. Still faintly warm, stained with old blood.");
         INSPECT_DESCRIPTIONS.put("bear essence", "A mystical extract from a Mama Bear's core, can be used in crafting jewelery, or sold! Smells faintly of musk and wilderness.");
         INSPECT_DESCRIPTIONS.put("wolfbane", "Toxic purple flowers that could be used as an ingredient.");
@@ -607,6 +607,9 @@ public class Game {
 
         //PLAINS BIOME [between 1st and 2cd ville]
 
+        // PLAINS BIOME HUBS (Ideally it is structured so you can go directly across the dessert in like 3 rooms, but to explore you have to go UP
+
+
         Hub plainsShaftEntrance = new Hub("Vast plains Shaft Entrance", " \nEXITS: (D)");
 
         Hub plainsShaft1 = new Hub("Entry to the Great Vast Plains Mine Shaft", " \nEXITS: (U)");
@@ -951,7 +954,6 @@ public class Game {
 
         firstVilleLane25.setExit("n", firstVilleLane24);
         firstVilleLane23.setExit("e", firstVilleLane26);
-        firstVilleLane23.setExit("w", firstVilleInn);//luxury shop not yet made
 
 
         firstVilleLane26.setExit("n", firstVilleLane23);
@@ -960,8 +962,10 @@ public class Game {
 
 
         firstVilleLane27.setExit("n", firstVilleLane23);
-        firstVilleLane27.setExit("e", firstVilleBarracks);//barracks aren't made yet
+        firstVilleLane27.setExit("e", firstVilleBarracks);
         firstVilleLane27.setExit("s", firstVilleLane28);
+
+        firstVilleBarracks.setExit("w", firstVilleLane27);
 
 
         firstVilleLane28.setExit("n", firstVilleLane27);
@@ -983,6 +987,7 @@ public class Game {
         firstVilleLane33.setExit("w", firstVilleLane32);
         firstVilleLane33.setExit("e", firstVilleLane3);
 
+        // PLAINS EXITS
 
 
         //ENHANCEMENTS & SCROLLS!
@@ -1256,7 +1261,7 @@ public class Game {
 
         Health barracksMaster1Health = new Health(175, 172, 10);
 
-        Npca barracksMaster1 = new Npca("Zak", "Barracks Master (TRAINER) ", barraksMaster1Words, 50, barracksMaster1Health, "", Npca.QuestState.NONE);
+        Npca barracksMaster1 = new Npca("Zak", "Captain of The Guard", barraksMaster1Words, 50, barracksMaster1Health, "", Npca.QuestState.NONE);
 
         firstVilleBarracks.getNpc().add(barracksMaster1);
 
