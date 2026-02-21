@@ -1417,6 +1417,8 @@ public class Game {
         verbsOnly.add("help");
         verbsOnly.add("stats");
         verbsOnly.add("sleep");
+        verbsOnly.add("craft");
+
 
 
         List<String> directions = new ArrayList<>();
@@ -1615,6 +1617,9 @@ public class Game {
 
         List<String> listen = new ArrayList<>();
         listen.add("listen");
+
+        List<String> craft = new ArrayList<>();
+        craft.add("craft");
 
         List<String> ride = new ArrayList<>();
         ride.add("ride");
@@ -2372,7 +2377,19 @@ public class Game {
                         help(verbs);
                     } else if (stringContainsWordFromList(action.toLowerCase(), stats.toArray(new String[0]))) {
                         player.displayStats(player, playersStats);
-                    } else if (stringContainsWordFromList(action.toLowerCase(), rest.toArray(new String[0]))) {
+                    }  else if (stringContainsWordFromList(action.toLowerCase(), craft.toArray(new String[0]))) {
+
+                        if (playersStats.getLevel() < 10){
+                            System.out.println("Reach LV. 10 to unlock mobile crafting!");
+                            System.out.println("For now, use cauldrons, stoves, or anvils to craft!");
+
+                        } else {
+
+
+
+                        }
+
+                    }  else if (stringContainsWordFromList(action.toLowerCase(), rest.toArray(new String[0]))) {
 
                         System.out.println("You can rest up to [" + (player.getStomachSize() - player.getFullness()) + "] fullness/energy points. How many points would you like to regain (1sec per 3 points)?");
                         System.out.print("-> ");
