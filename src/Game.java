@@ -15,13 +15,13 @@ import java.util.TimerTask;
 /// 'jack sparrow' as name gives you money a scuba mask and such || 'one punch man' as name allows you to play as normal, but you feel almighty...
 /// 'wizard' as name allows you to play as normal, but you get wizard goodies || 'cheapo' gives you 1 DAMAGE and 10000 HP
 
-/// FIXES/ADDS
+/// ADDS (TODO LIST, mainly for Dash.)
 // Add combat so you can fight MERCHANTS AND SHOP OWNERS
-// ADD A RESET TIME OF LIKE 3 MIN BEFORE ALL NPCs RESPAWN
+// Add homes and NPCS with quests to FIRSTVILLE
 // Make it so Zak can give you the ability to enter into the army/solidery/minion thing
 // ADD EASTER EGGS ( like a quest from lagger where he gifts you a relic, and then use the command addEasterEgg
 // Fill in things, like the shopper bag, and just make more items. add a bakery and a stove and stuff. Add quests to guild and such
-// UPDATE THE COMMANDS LIST
+// UPDATE THE COMMANDS LIST & UPDATE ROOM DESCRIPTIONS
 
 public class Game {
 
@@ -1163,6 +1163,38 @@ public class Game {
         firstVilleLane3.getNpc().add(riderBill);
         firstVilleLane3.getNpc().add(horse);
 
+
+        // GUARD NPCAS!!
+
+        String[] barracksGuard2Words = {
+                "Yeah, move along, citizen. Orders are orders."
+        };
+
+        Health barracksGuard2Health = new Health(60, 55, 2);
+
+        Npca barracksGuard2 = new Npca("Kerr", "Junior Guard", barracksGuard2Words, 4, barracksGuard2Health, "", Npca.QuestState.NONE);
+
+        firstVilleLane12.getNpc().add(barracksGuard2);
+
+        KEY_FIGURES.add(new KeyFigureSpawn("Kerr", firstVilleLane12, () -> {
+            Npca npc = new Npca("Kerr", "Junior Guard", barracksGuard2Words, 4, new Health(60, 55, 2), "", Npca.QuestState.NONE);
+            firstVilleLane12.getNpc().add(npc);
+        }));
+
+        String[] barracksGuard3Words = {
+                "What're you look at, brat."
+        };
+
+        Health barracksGuard3Health = new Health(90, 90, 5);
+
+        Npca barracksGuard3 = new Npca("Jerald", "Senior Guard", barracksGuard2Words, 9, barracksGuard3Health, "", Npca.QuestState.NONE);
+
+        firstVilleLane39.getNpc().add(barracksGuard3);
+
+        KEY_FIGURES.add(new KeyFigureSpawn("Jerald", firstVilleLane39, () -> {
+            Npca npc = new Npca("Jerald", "Senior Guard", barracksGuard2Words, 9, new Health(90, 90, 5), "", Npca.QuestState.NONE);
+            firstVilleLane39.getNpc().add(npc);
+        }));
 
         //INNS + inkeepers!!
         String[] innkeeperLines = {
