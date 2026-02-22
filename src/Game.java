@@ -15,9 +15,12 @@ import java.util.TimerTask;
 /// 'jack sparrow' as name gives you money a scuba mask and such || 'one punch man' as name allows you to play as normal, but you feel almighty...
 /// 'wizard' as name allows you to play as normal, but you get wizard goodies || 'cheapo' gives you 1 DAMAGE and 10000 HP
 
-/// FIXES
+/// FIXES/ADDS
 // Add combat so you can fight ANY type of NPC (rn we have - NPCA, GUARD, MOB, BOSS - add: SHOPOWNER, MERCHANT)
 // Make it so Zak can give you the ability to enter into the army/solidery/minion thing
+// MAKE IT SO PICK UP works, and get acorns works (plural should be treated as ALL. (LIKELY PICK UP DOESNT WORK CUZ ITS 2 WORDS AND STRINGMETHOD CANT DO IT
+// MAKE THE CRAFT THING WORK
+// ADD EASTER EGGS
 public class Game {
 
     public static Hub.FirstVilleShop baggerShop;
@@ -2379,8 +2382,8 @@ public class Game {
                         player.displayStats(player, playersStats);
                     }  else if (stringContainsWordFromList(action.toLowerCase(), craft.toArray(new String[0]))) {
 
-                        if (playersStats.getLevel() < 10){
-                            System.out.println("Reach LV. 10 to unlock mobile crafting!");
+                        if (playersStats.getLevel() < 5){
+                            System.out.println("Reach LV. 5 to unlock mobile crafting!");
                             System.out.println("For now, use cauldrons, stoves, or anvils to craft!");
 
                         } else {
@@ -3308,7 +3311,9 @@ public class Game {
                             boolean validObject = false;
                             boolean allOrNo = false;
 
-                            if (action.startsWith("get all") || action.startsWith("take all")) {
+                            System.out.println("MADE 1");
+                            if (action.startsWith("get all") || action.startsWith("take all") || action.startsWith("pick up all") || action.startsWith("grab all")) {
+                                System.out.println("MADE 2");
 
                                 String[] parts = action.split("\\s+");
                                 int allIndex = -1;
@@ -3383,6 +3388,9 @@ public class Game {
 
                                     }
                                 } else {
+
+                                    System.out.println("MADE 3");
+
 
                                     for (String obj : objects) {
                                         if (action.toLowerCase().contains(obj)) {
@@ -6366,6 +6374,30 @@ public class Game {
         System.out.println("You arrive at " + target.getRoomName() + ".");
 
         return target;
+    }
+
+    public static void mobileCrafting(XpLv playerStates, Player player){
+
+        System.out.println("##-MOBILE CRAFTING-##");
+        System.out.println("Rank - " + player.getMobileCraft());
+
+        if(!player.getMobileCraft().equalsIgnoreCase("platinum")) {
+
+            System.out.print("[1] CRAFT    ||     [2] UPGRADE RANK");
+            String command = scanner.nextLine();
+
+
+        } else {
+
+
+
+        }
+
+        if (playerStates.getLevel() < 10){
+            System.out.println("##-MOBILE CRAFTING-##");
+            System.out.println("Rank - " + player.getMobileCraft());
+        }
+
     }
 
 

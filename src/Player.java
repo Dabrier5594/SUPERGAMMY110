@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class Player {
 
+    private String mobileCraft = "bronze";
+
     private int easterEggs;
 
     private String name;
@@ -350,6 +352,10 @@ public class Player {
     public Health getHealth() {
         return health;
     }
+
+    public String getMobileCraft(){ return mobileCraft;}
+
+    public void setMobileCraft(String s){ mobileCraft = s;}
 
     public void setHealth(){
         health.setHeealth(health.getHeealth() + 5);
