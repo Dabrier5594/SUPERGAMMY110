@@ -16,11 +16,13 @@ import java.util.TimerTask;
 /// 'wizard' as name allows you to play as normal, but you get wizard goodies || 'cheapo' gives you 1 DAMAGE and 10000 HP
 
 /// FIXES/ADDS
-// Add combat so you can fight ANY type of NPC (rn we have - NPCA, GUARD, MOB, BOSS - add: SHOPOWNER, MERCHANT)
+// Add combat so you can fight MERCHANTS AND SHOP OWNERS
+// ADD A RESET TIME OF LIKE 3 MIN BEFORE ALL NPCs RESPAWN
 // Make it so Zak can give you the ability to enter into the army/solidery/minion thing
 // ADD EASTER EGGS ( like a quest from lagger where he gifts you a relic, and then use the command addEasterEgg
 // Fill in things, like the shopper bag, and just make more items. add a bakery and a stove and stuff. Add quests to guild and such
 // UPDATE THE COMMANDS LIST
+
 public class Game {
 
     public static Hub.FirstVilleShop baggerShop;
@@ -29,6 +31,8 @@ public class Game {
     //DESCRIPTIONS:
 
     public static final Map<String, String> INSPECT_DESCRIPTIONS = new HashMap<>();
+    public static final List<KeyFigureSpawn> KEY_FIGURES = new ArrayList<>();
+
 
     static {
         INSPECT_DESCRIPTIONS.put("dagger", "An old weathered dagger.");
@@ -146,6 +150,88 @@ public class Game {
     public static volatile boolean cabinetDaggerCaveN = true; // If you've tried to open the first cabinet (tutorial)
 
     public static volatile int nightCounter = 0; // How many nights its been
+
+    //RESPAWNING MOBS:
+    public static void setupRespawnScheduler() {
+        try {
+            long threeMinutes = 3 * 60 * 1000;
+            Timer respawnTimer = new Timer(true);
+            respawnTimer.scheduleAtFixedRate(new RespawnKeyThings(), threeMinutes, threeMinutes);
+        } catch (Exception e) {
+        }
+    }
+
+
+    public static class KeyFigureSpawn {
+        public final String name;
+        public final Hub hub;
+        public final Runnable spawner;
+        public KeyFigureSpawn(String name, Hub hub, Runnable spawner) {
+            this.name = name;
+            this.hub = hub;
+            this.spawner = spawner;
+        }
+    }
+
+    static class RespawnKeyThings extends TimerTask {
+        @Override
+        public void run() {
+
+            if (KEY_FIGURES == null || KEY_FIGURES.isEmpty()) {
+                return;
+            }
+
+            if (Game.fighting) return;
+
+            for (KeyFigureSpawn kf : KEY_FIGURES) {
+
+                if (kf == null || kf.hub == null || kf.spawner == null) {
+                    continue;
+                }
+
+                boolean present = false;
+
+                if (kf.hub.getNpc() != null) {
+                    for (Npca npc : kf.hub.getNpc()) {
+                        if (npc != null && npc.getName() != null &&
+                                npc.getName().equalsIgnoreCase(kf.name)) {
+                            present = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!present && kf.hub.getGuard() != null) {
+                    for (Guard g : kf.hub.getGuard()) {
+                        if (g != null && g.getName() != null &&
+                                g.getName().equalsIgnoreCase(kf.name)) {
+                            present = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!present && kf.hub.getBoss() != null) {
+                    for (Boss b : kf.hub.getBoss()) {
+                        if (b != null && b.getName() != null &&
+                                b.getName().equalsIgnoreCase(kf.name)) {
+                            present = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!present) {
+                    try {
+                        kf.spawner.run();
+                    } catch (Exception e) {
+                        System.out.println("Failed to respawn NPCS");
+                    }
+                }
+            }
+        }
+    }
+
 
     public static void setupDayNightSchedulers() {
 
@@ -1059,8 +1145,19 @@ public class Game {
                 "If either of us dies, this deal is off forever..."
         };
 
+        KEY_FIGURES.add(new KeyFigureSpawn("Horsey", firstVilleLane3, () -> {
+            Npca npc = new Npca("Horsey", "Horsey", horseLines, 0, new Health(60, 60, 0), "", Npca.QuestState.NONE);
+            firstVilleLane3.getNpc().add(npc);
+
+        }));
+
         Health riderHp = new Health(80, 80, 0);
         Npca riderBill = new Npca("Bill", "Guider", riderLines, 5, riderHp, "", Npca.QuestState.NONE);
+
+        KEY_FIGURES.add(new KeyFigureSpawn("Bill", firstVilleLane3, () -> {
+            Npca npc = new Npca("Bill", "Guider", riderLines, 5, new Health(80, 80, 0), "", Npca.QuestState.NONE);
+            firstVilleLane3.getNpc().add(npc);
+        }));
 
         // STARTING LOCATION – FirstVille Streets 3
         firstVilleLane3.getNpc().add(riderBill);
@@ -1075,7 +1172,13 @@ public class Game {
         };
 
         Npca innkeeper1 = new Npca("MaraTamara", "Innkeeper", innkeeperLines,
-                0, new Health(40, 40, 0), "", Npca.QuestState.NONE);
+                2, new Health(40, 40, 0), "", Npca.QuestState.NONE);
+
+        KEY_FIGURES.add(new KeyFigureSpawn("MaraTamara", firstVilleInn, () -> {
+            Npca npc = new Npca("MaraTamara", "Innkeeper", innkeeperLines, 2, new Health(40, 40, 0), "", Npca.QuestState.NONE);
+            firstVilleInn.getNpc().add(npc);
+        }));
+
 
         firstVilleInn = new Hub("FirstVille Cozy Inn", "A warm, quiet room monitored by an innkeeper. A bed sits in the very middle, looks comfortable. This is the type of place that would cost 15 copper.").new Inn("FirstVille Cozy Inn", "A warm, quiet room monitored by an innkeeper. This is the type of place that would cost 15 copper. \n" + "EXITS: ()", 15, 3, innkeeper1, "copper");
 
@@ -1204,6 +1307,11 @@ public class Game {
         stuff.remove("thorn shield");
         forest50.getBoss().add(forestDevil);
 
+        KEY_FIGURES.add(new KeyFigureSpawn("forest devil", forest50, () -> {
+            Boss npc = new Boss("forest devil", 125, 101, 10, 3, "Fierce ForestDevil's hate to be interrupted, you get the devil's stick eye. His forest embraced body curves and twists, branches stick out from nowhere. \nThe number 3 is engraved on his body in stones that seem to glow.", stuff);
+            forest50.getBoss().add(npc);
+        }));
+
         //MAKE ITEMS AND "EQUIPMENT"
         //MAKE ITEMS EXIST IN ITEMS
         List<Item> existingItems = new ArrayList<>();
@@ -1263,7 +1371,12 @@ public class Game {
 
         Health barracksMaster1Health = new Health(175, 172, 10);
 
-        Npca barracksMaster1 = new Npca("Zak", "Captain of The Guard", barraksMaster1Words, 50, barracksMaster1Health, "", Npca.QuestState.NONE);
+        Npca barracksMaster1 = new Npca("Zak", "Captain of the Guard", barraksMaster1Words, 35, barracksMaster1Health, "", Npca.QuestState.NONE);
+
+        KEY_FIGURES.add(new KeyFigureSpawn("Zak", firstVilleBarracks, () -> {
+            Npca npc = new Npca("Zak", "Captain of the Guard", barraksMaster1Words, 35, new Health(172, 172, 10), "", Npca.QuestState.NONE);
+            firstVilleBarracks.getNpc().add(npc);
+        }));
 
         firstVilleBarracks.getNpc().add(barracksMaster1);
 
@@ -1278,6 +1391,11 @@ public class Game {
 
         Npca boatSeller = new Npca("Jerr", "Boat Master", boatSellerLines, 12121212, boatSellerHp, "", Npca.QuestState.NONE);
 
+        KEY_FIGURES.add(new KeyFigureSpawn("Jerr", westPort, () -> {
+            Npca npc = new Npca("Jerr", "Boat Master", boatSellerLines, 35, new Health(200, 182, 15), "", Npca.QuestState.NONE);
+            westPort.getNpc().add(npc);
+        }));
+
         westPort.getNpc().add(boatSeller);
 
         String[] guildMasterLines = {
@@ -1287,9 +1405,13 @@ public class Game {
                 "Say 'complete [QUESTID]' after finishing a quest."
         };
 
-        Npca guildMaster = new Npca("Tragger", "Guild Master", guildMasterLines, 9, new Health(280, 138, 2), "", Npca.QuestState.NONE);
+        Npca guildMaster = new Npca("Tragger", "Guild Master", guildMasterLines, 9, new Health(280, 158, 2), "", Npca.QuestState.NONE);
         firstVilleGuild.getNpc().add(guildMaster);
 
+        KEY_FIGURES.add(new KeyFigureSpawn("Tragger", firstVilleGuild, () -> {
+            Npca npc = new Npca("Tragger", "Guild Master", guildMasterLines, 9, new Health(280, 158, 2), "", Npca.QuestState.NONE);
+            firstVilleGuild.getNpc().add(npc);
+        }));
 
         String[] clinicClerkLines = {
                 "Welcome welcome"
@@ -1297,6 +1419,11 @@ public class Game {
 
         Npca clerk = new Npca("Trevor", "Clinic Clerk", clinicClerkLines, 5, new Health(40, 40, 0), "", Npca.QuestState.NONE);
         firstVilleClinic.getNpc().add(clerk);
+
+        KEY_FIGURES.add(new KeyFigureSpawn("Trevor", firstVilleClinic, () -> {
+            Npca npc = new Npca("Tragger", "Clinic Clerk", clinicClerkLines, 5, new Health(40, 40, 0), "", Npca.QuestState.NONE);
+            firstVilleClinic.getNpc().add(npc);
+        }));
 
         Merchant Ragger = new Merchant("Ragger", raggerLines, "copper", raggerStock, raggerH, 2, "SQ0", Npca.QuestState.NONE);
 
@@ -1307,6 +1434,13 @@ public class Game {
         baggerOwner.setMyShop(baggerShop);
         baggerShop.addFirstShopOwner(baggerOwner);
 
+        KEY_FIGURES.add(new KeyFigureSpawn("Bagger", baggerShop, () -> {
+            FirstShopOwner npc = new FirstShopOwner("copper", "Bagger", raggerLines, new Health(60, 60, 0), 2,  baggerShop, "SQ0", Npca.QuestState.NONE);
+            baggerShop.addFirstShopOwner(npc);
+            npc.setMyShop(baggerShop);
+
+        }));
+
         FirstShopOwner laggerOwner = new FirstShopOwner("copper", "Lagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
         Hub.FirstVilleShop laggerShop = new Hub("Bagger's brother in law's Armory Shop (LAGGER)", "Cluttered shelves hold weapons and armor. Lagger is washing a new helmet.\n").new FirstVilleShop("Bagger's brother in law's Armory Shop (LAGGER)", "Cluttered shelves hold weapons and armor. Lagger is washing a new helmet.\nEXITS: (W)", laggerOwner);
         laggerShop.addStock(knightHelmet, 15);
@@ -1315,6 +1449,13 @@ public class Game {
         laggerShop.addStock(knightBoots, 15);
         laggerOwner.setMyShop(laggerShop);
 
+        KEY_FIGURES.add(new KeyFigureSpawn("Lagger", laggerShop, () -> {
+            FirstShopOwner npc = new FirstShopOwner("copper", "Lagger", raggerLines, new Health(60, 60, 0), 2,  laggerShop, "SQ0", Npca.QuestState.NONE);
+            laggerShop.addFirstShopOwner(npc);
+            npc.setMyShop(laggerShop);
+
+        }));
+
         FirstShopOwner jaggerOwner = new FirstShopOwner("copper", "Jagger", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
         Hub.FirstVilleStringShop jaggerShop = new Hub("Lagger's wife and Bagger's sister(JAGGER)", "You see glowing scrolls in bookshelves.\n").new FirstVilleStringShop("Lagger's wife and Bagger's sister (JAGGER)", "You see glowing scrolls in bookshelves..\nEXITS: (S)", jaggerOwner);
         jaggerShop.addStock("fire scroll 1", 30);
@@ -1322,11 +1463,25 @@ public class Game {
         jaggerShop.addFirstShopOwner(jaggerOwner);
         jaggerOwner.setMyShop(jaggerShop);
 
+        KEY_FIGURES.add(new KeyFigureSpawn("Jagger", jaggerShop, () -> {
+            FirstShopOwner npc = new FirstShopOwner("copper", "Jagger", raggerLines, new Health(60, 60, 0), 2,  null, "SQ0", Npca.QuestState.NONE);
+            jaggerShop.addFirstShopOwner(npc);
+            npc.setMyShop(jaggerShop);
+
+        }));
+
         FirstShopOwner steveOwner = new FirstShopOwner("copper", "Steve", raggerLines, raggerH, 2, null, "SQ0", Npca.QuestState.NONE);
         Hub.FirstVilleStringShop stevesShop = new Hub("Not part of the -agger family (STEVE)", "Various items that can assist you line the room.\n").new FirstVilleStringShop("Not part of the -agger family (STEVE)", "Various items that can assist you line the room..\nEXITS: (S)", steveOwner);
         stevesShop.addStock("apple", 1);
         stevesShop.addFirstShopOwner(steveOwner);
         steveOwner.setMyShop(stevesShop);
+
+        KEY_FIGURES.add(new KeyFigureSpawn("Steve", stevesShop, () -> {
+            FirstShopOwner npc = new FirstShopOwner("copper", "Steve", raggerLines, new Health(60, 60, 0), 2,  null, "SQ0", Npca.QuestState.NONE);
+            stevesShop.addFirstShopOwner(npc);
+            npc.setMyShop(stevesShop);
+
+        }));
 
         //Shop Exits
         firstVilleLane4.setExit("s", baggerShop);
@@ -1345,8 +1500,12 @@ public class Game {
 
         Guard Oliver = new Guard("Oliver", oliverLines, oliverP, 8, FirstVilleHelm, FirstVillePlate, FirstVilleLegs, FirstVilleBoots, "MQ3", Npca.QuestState.NONE);
 
-        firstVilleGate.getGuard().add(Oliver);
+        KEY_FIGURES.add(new KeyFigureSpawn("Oliver", firstVilleGate, () -> {
+            Guard newOliver = new Guard("Oliver", oliverLines, new Health(60, 60, 0), 8, FirstVilleHelm, FirstVillePlate, FirstVilleLegs, FirstVilleBoots, "MQ3", Npca.QuestState.NONE);
+            firstVilleGate.getGuard().add(newOliver);
+        }));
 
+        firstVilleGate.getGuard().add(Oliver);
 
         Story(cave, existingItems, equipment, enchantment1List);
 
@@ -1939,6 +2098,8 @@ public class Game {
         setupDayNightSchedulers();
 
         movingTheMobs();
+
+        setupRespawnScheduler();
 
         setupHealthRegen(player);
 
@@ -5325,7 +5486,7 @@ public class Game {
             System.out.println("");
         }
 
-
+        System.out.print(npc.getHealth().getHeealth());
         while (!player.getHealth().isDead() && !npc.getHealth().isDead()) {
 
             if (using == true) {
@@ -5449,6 +5610,7 @@ public class Game {
             System.out.println("");
         }
 
+        System.out.println(npc.getHealth().getHeealth());
         while (!player.getHealth().isDead() && !npc.getHealth().isDead()) {
 
             if (using == true) {
