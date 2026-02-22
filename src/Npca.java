@@ -89,16 +89,18 @@ public class Npca {
 class Merchant extends Npca {
 
     private Map<String, Integer> stock;  // "Iron Sword" -> 50
+    private String currency;
 
-    public Merchant(String name, String[] lines, Map<String, Integer> stock, Health hp, int attk, String questId, QuestState questState) {
+    public Merchant(String name, String[] lines, String currency, Map<String, Integer> stock, Health hp, int attk, String questId, QuestState questState) {
         super(name, "Merchant", lines, attk, hp, questId, questState);
         this.stock = stock;
+        this.currency = currency;
     }
 
     public void showStock() {
         System.out.println(getName() + "'s stock:");
         for (Map.Entry<String, Integer> entry : stock.entrySet()) {
-            System.out.println(" - " + entry.getKey() + " (" + entry.getValue() + " gold)");
+            System.out.println(" - " + entry.getKey() + " ( " + entry.getValue() +  " " + currency + " )");
         }
     }
 
