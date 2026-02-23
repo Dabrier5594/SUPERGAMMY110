@@ -16,11 +16,18 @@ import java.util.TimerTask;
 /// 'wizard' as name allows you to play as normal, but you get wizard goodies || 'cheapo' gives you 1 DAMAGE and 10000 HP
 
 /// ADDS (TODO LIST, mainly for Dash.)
-// Add homes and NPCS with quests to FIRSTVILLE
+// Add HOMES.
+// Add NPCS to FirstVille, some with quests.
 // Make it so Zak can give you the ability to enter into the army/solidery/minion thing
 // ADD EASTER EGGS ( like a quest from lagger where he gifts you a relic, and then use the command addEasterEgg
-// Fill in things, like the shopper bag, and just make more items. add a bakery and a stove and stuff. Add quests to guild and such
+// Fill in things, like the shopper bag, and just make more items. add a bakery and a stove and stuff. Add quests to the guild. And just items into the STREETS
 // UPDATE THE COMMANDS LIST & UPDATE ROOM DESCRIPTIONS
+
+/// QUEST IDEAS:
+// find all the darumas in the village!
+// Deliver a leaflet to Bagger
+// Find a ball for a kid
+// Gather materials and craft some food
 
 public class Game {
 
@@ -628,7 +635,13 @@ public class Game {
 
         Hub firstVilleLane11 = new Hub("FirstVille Streets #11", " \nEXITS: (E) (S) (W) (E)");
 
-        Hub firstVilleLane12 = new Hub("FirstVille Streets #12", " \nEXITS: (E) (S) (W)");
+        Hub firstVilleLane12 = new Hub("FirstVille Streets #12", "To the north is the door to one of FirstVille's residents. \nEXITS: (N) (W) (S) (E)");
+        Hub firstVilleHouse1Main = new Hub("FirstVille House 1 Main Room", "Inside a cozy family home. \nEXITS: (N) (S)"); // add desc. of room with a desk and a man hunched over it. Then if you kill him then CHANGE the desc.
+        firstVilleLane12.setExit("n", firstVilleHouse1Main);
+        firstVilleHouse1Main.setExit("s", firstVilleLane12);
+        Hub firstVilleHouse1Bedroom = new Hub("FirstVille House 1 Bedroom", "A cramped bedroom with two straw‑stuffed beds pushed against the wall. \nEXITS (S)");
+        firstVilleHouse1Main.setExit("n", firstVilleHouse1Bedroom);
+        firstVilleHouse1Bedroom.setExit("s", firstVilleHouse1Main);
 
         Hub firstVilleLane13 = new Hub("FirstVille Streets #13", " \nEXITS: (E) (S) (W)");
 
@@ -686,7 +699,10 @@ public class Game {
 
         Hub firstVilleLane40 = new Hub("FirstVille Streets #40", " \nEXITS: (E) (S) (W)");
 
-        Hub firstVilleLane41 = new Hub("FirstVille Streets #41", " \nEXITS: (E) (S) (W)");
+        Hub firstVilleLane41 = new Hub("FirstVille Streets #41", "The door to the shack of one of FirstVille's residents lays south. \nEXITS: (E) (S) (W)");
+        Hub firstVilleShackMain = new Hub("FirstVille Shack Interior", "The shack interior is cramped and bare. \nEXITS: (N)");
+        firstVilleLane41.setExit("s", firstVilleShackMain);
+        firstVilleShackMain.setExit("n", firstVilleLane41);
 
         Hub firstVilleLane42 = new Hub("FirstVille Streets #42", " \nEXITS: (E) (S) (W)");
 
@@ -988,6 +1004,7 @@ public class Game {
 
         firstVilleLane14.setExit("e", firstVilleLane11);
         firstVilleLane14.setExit("n", firstVilleLane13);
+        firstVilleLane14.setExit("w", firstVilleInn);
 
 
         firstVilleLane13.setExit("s", firstVilleLane14);
@@ -1035,7 +1052,7 @@ public class Game {
         firstVilleLane23.setExit("s", firstVilleLane26);
         firstVilleLane23.setExit("w", firstVilleLane24);
         firstVilleLane23.setExit("n", firstVilleLane22);
-
+        firstVilleLane23.setExit("e", firstVilleInn);
 
         firstVilleLane24.setExit("s", firstVilleLane25);
         firstVilleLane24.setExit("e", firstVilleLane23);
@@ -1217,6 +1234,10 @@ public class Game {
 
         firstVilleInn.setStructure("bed");
 
+        firstVilleInn.setExit("e", firstVilleLane14);
+        firstVilleInn.setExit("n", firstVilleLane15);
+        firstVilleInn.setExit("w", firstVilleLane23);
+
         //Doors!!!!
         Door caveDoor = new Door(caveNW, forest1, false);
         caveNW.setDoor("n", caveDoor);
@@ -1229,6 +1250,17 @@ public class Game {
         Door sHouseHallwayRoom = new Door(sHouseHallway, sHouseRoom, false);
         sHouseHallway.setDoor("s", sHouseHallwayRoom);
         sHouseRoom.setDoor("n", sHouseHallwayRoom);
+
+        Door firstVilleHouse1 = new Door(firstVilleLane12, firstVilleHouse1Main, false);
+        firstVilleHouse1Main.setDoor("s", firstVilleHouse1);
+        firstVilleLane12.setDoor("n", firstVilleHouse1);
+
+        Door firstVilleHouse2 = new Door(firstVilleLane41, firstVilleShackMain, false);
+        firstVilleShackMain.setDoor("n", firstVilleHouse2);
+        firstVilleLane41.setDoor("n", firstVilleHouse2);
+
+
+        // GATES
 
         LockedDoors gateDoor = new LockedDoors(true, "Guard Key", firstVilleGate, firstVillePassage);
 
