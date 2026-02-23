@@ -16,7 +16,6 @@ import java.util.TimerTask;
 /// 'wizard' as name allows you to play as normal, but you get wizard goodies || 'cheapo' gives you 1 DAMAGE and 10000 HP
 
 /// ADDS (TODO LIST, mainly for Dash.)
-// Add combat so you can fight MERCHANTS AND SHOP OWNERS
 // Add homes and NPCS with quests to FIRSTVILLE
 // Make it so Zak can give you the ability to enter into the army/solidery/minion thing
 // ADD EASTER EGGS ( like a quest from lagger where he gifts you a relic, and then use the command addEasterEgg
@@ -3535,9 +3534,6 @@ public class Game {
                                     }
                                 } else {
 
-                                    System.out.println("MADE 3");
-
-
                                     for (String obj : objects) {
                                         if (action.toLowerCase().contains(obj)) {
                                             if (action.toLowerCase().contains("all")) {
@@ -3690,6 +3686,28 @@ public class Game {
                                     mobbo = true;
 
                                     break;
+
+                                }
+
+                            }
+
+                            if (inRoom.getFirstShopOwners() != null){
+
+                                String mobNameLower = inRoom.getFirstShopOwners().getName().toLowerCase();
+
+                                if (action.toLowerCase().contains(mobNameLower)) {
+
+                                    player.setInCombat(true);
+
+                                    fighting = true;
+
+                                    combatShopOwner(player, inRoom.getFirstShopOwners(), inRoom, playersStats);
+
+                                    player.setInCombat(false);
+
+                                    fighting = false;
+
+                                    mobbo = true;
 
                                 }
 
@@ -5603,6 +5621,123 @@ public class Game {
                     }
 
                     break;
+                }
+
+            }
+
+            for (Skill skill : player.getSkills()) {
+                skill.reduceCooldown();
+            }
+
+        }
+
+
+    }
+
+    public static void combatShopOwner(Player player, FirstShopOwner npc, Hub inRoom, XpLv playerStats) {
+
+        boolean using = false;
+
+        if (player.getSkills().isEmpty()) {
+
+        } else {
+
+            System.out.println("Would you like to your skills in this battle (y/n) ?");
+            System.out.print("-> ");
+            String answer = scanner.nextLine();
+
+            if (!answer.isEmpty()) {
+                if (answer.substring(0, 1).toLowerCase().equals("y")) {
+                    using = true;
+                } else {
+                    using = false;
+                }
+            } else {
+                using = false;
+                System.out.println("No input taken...");
+            }
+
+            System.out.println("");
+        }
+
+        System.out.print(npc.getHealth().getHeealth());
+        while (!player.getHealth().isDead() && !npc.getHealth().isDead()) {
+
+            if (using == true) {
+
+                System.out.println("What skill would you like to use?");
+                for (Skill skill : player.getSkills()) {
+                    System.out.print("[" + skill.getName() + "]  ");
+                }
+                System.out.println("");
+                System.out.print("-> ");
+
+                String usingNow = scanner.nextLine();
+                if (usingNow.toLowerCase().equals("stun")) {
+                    Skill.StunSkill.applyNpc(player, npc);
+                } else {
+                    int chop = 0;
+                    for (Skill skiller : player.getSkills()) {
+                        if (usingNow.toLowerCase().equals(skiller.getName())) {
+                            chop++;
+                        }
+                    }
+
+                    if (chop <= 0) {
+                        System.out.println("Unknown input.");
+                    }
+                }
+
+
+            }
+
+            System.out.println("");
+
+            player.attackNpc(npc);
+
+            System.out.println("");
+
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (npc.getHealth().isDead()) {
+                System.out.println(npc.getName() + " has died at your hands. \n");
+
+                playerStats.addXp(playerStats.calculateXp(npc.getName()));
+
+                playerStats.calculateLv(playerStats.getXp(), playerStats.getLevel(), player);
+
+                player.displayStats(player, playerStats);
+
+                inRoom.removeFirstShopOwner();
+
+                return;
+
+            } else {
+
+                npc.attack(player);
+                System.out.println("");
+
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (player.getHealth().isDead()) {
+                    System.out.println("\nYou have been murdered by " + npc.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
+                    player.getHealth().setHeealth(-1291212112);
+
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    return;
                 }
 
             }

@@ -52,7 +52,14 @@ public class Hub {
 
     public FirstShopOwner getFirstShopOwners(){return firstShopOwners;}
 
-    public void addFirstShopOwner(FirstShopOwner a){firstShopOwners = a;}
+    public void addFirstShopOwner(FirstShopOwner a){ firstShopOwners = a;}
+
+    public void removeFirstShopOwner(){
+
+        if (firstShopOwners != null){
+            firstShopOwners = null;
+        }
+    }
 
     public void setLockedDoor(String direction, LockedDoors gate) {
         lockedDoors.put(direction, gate);
