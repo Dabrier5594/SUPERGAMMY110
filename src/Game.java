@@ -668,6 +668,18 @@ public class Game {
         Hub firstVilleLane24 = new Hub("FirstVille Streets #24", " \nEXITS: (E) (S) (W)");
 
         Hub firstVilleLane25 = new Hub("FirstVille Streets #25", " \nEXITS: (E) (S) (W)");
+        Hub firstVilleHouse2Main = new Hub("FirstVille Townhome Main Room", "A tidy main room \nEXITS: (S) (U)");
+        firstVilleHouse2Main.setExit("n", firstVilleLane25);
+        firstVilleLane25.setExit("s", firstVilleHouse2Main);
+        Hub firstVilleHouse2Bed = new Hub("FirstVille Townhome  Bedroom", "\nEXITS: (N)");
+        firstVilleHouse2Main.setExit("s", firstVilleHouse2Bed);
+        firstVilleHouse2Bed.setExit("n", firstVilleHouse2Main);
+        Hub firstVilleHouse2Upstairs = new Hub("FirstVille Townhome Upstairs Room", " \nEXITS: (D) (N)");
+        firstVilleHouse2Main.setExit("u", firstVilleHouse2Upstairs);
+        firstVilleHouse2Upstairs.setExit("s", firstVilleHouse2Main);
+        Hub firstVilleHouse2Upstairs2 = new Hub("FirstVille Townhome Upstairs Kitchen", " \nEXITS: (S)");
+        firstVilleHouse2Upstairs.setExit("n", firstVilleHouse2Upstairs2);
+        firstVilleHouse2Upstairs2.setExit("s", firstVilleHouse2Upstairs);
 
         Hub firstVilleLane26 = new Hub("FirstVille Streets #26", " \nEXITS: (E) (S) (W)");
 
@@ -1258,6 +1270,10 @@ public class Game {
         Door firstVilleHouse2 = new Door(firstVilleLane41, firstVilleShackMain, false);
         firstVilleShackMain.setDoor("n", firstVilleHouse2);
         firstVilleLane41.setDoor("n", firstVilleHouse2);
+
+        Door firstVilleHouse3 = new Door(firstVilleLane25, firstVilleHouse2Main, false);
+        firstVilleHouse2Main.setDoor("n", firstVilleHouse3);
+        firstVilleLane25.setDoor("s", firstVilleHouse3);
 
 
         // GATES
