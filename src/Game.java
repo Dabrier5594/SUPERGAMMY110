@@ -5,6 +5,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;import java.util.Timer;
 import java.util.TimerTask;
 
+/// (a, b) -> a + b [-> is basically a lamba that splits stuff, in other words, it tells the code where parameters end and code begins.]
+
 
 ///NOTE TO EVERYONE!!
 /// WHENEVER YOU CREATE ANYTHING (ITEM, NPC, ANYTHING that can be INTERACTED with), YOU MUST ADD IT TO OBJECTS!!!
@@ -677,7 +679,8 @@ public class Game {
         Hub firstVilleHouse2Upstairs = new Hub("FirstVille Townhome Upstairs Room", " \nEXITS: (D) (N)");
         firstVilleHouse2Main.setExit("u", firstVilleHouse2Upstairs);
         firstVilleHouse2Upstairs.setExit("s", firstVilleHouse2Main);
-        Hub firstVilleHouse2Upstairs2 = new Hub("FirstVille Townhome Upstairs Kitchen", " \nEXITS: (S)");
+        Hub firstVilleHouse2Upstairs2 = new Hub("FirstVille Townhome Upstairs Kitchen", "A stove is tucked into the corner, ready for use. \nEXITS: (S)");
+        firstVilleHouse2Upstairs2.setStructure("stove");
         firstVilleHouse2Upstairs.setExit("n", firstVilleHouse2Upstairs2);
         firstVilleHouse2Upstairs2.setExit("s", firstVilleHouse2Upstairs);
 
@@ -1763,6 +1766,7 @@ public class Game {
 
         //OTHER SMALLER THINGS
         objects.add("inventory");
+        objects.add("stove");
         objects.add("bill");
         objects.add("zak");
         objects.add("horsey");
@@ -1903,6 +1907,7 @@ public class Game {
 
         List<String> cauldron = new ArrayList<>();
         cauldron.add("cauldron");
+        cauldron.add("stove");
 
         List<String> scroll = new ArrayList<>();
         scroll.add("scroll");
