@@ -1456,6 +1456,14 @@ public class Game {
         existingItems.add(wizardShieldMax);
 
         //NORMAL THINGS
+        Item bruteBoots = new Item("Brute's footwear", "boots", false, null, 8, true);
+        existingItems.add(bruteBoots);
+        Item bruteChest = new Item("Brute's breastplate", "body", false, null, 12, true);
+        existingItems.add(bruteChest);
+        Item bruteLeggings = new Item("Brute's leggings", "legging", false, null, 10, true);
+        existingItems.add(bruteLeggings);
+        Item bruteHelmet = new Item("Brute's helm", "head", false, null, 8, true);
+        existingItems.add(bruteHelmet);
         Item scubaMask = new Item("scuba mask", "head", false, null, 0, false);
         existingItems.add(scubaMask);
         Item bearClaw = new Item("bear claw", "melee", true, null, 6, false);
@@ -1464,25 +1472,25 @@ public class Game {
         existingItems.add(baggerDagger);
         Item sickles = new Item("sickles", "melee", true, null, 6, false);
         existingItems.add(sickles);
-        Item knightBoots = new Item("knights footwear", "boots", false, null, 8, false);
+        Item knightBoots = new Item("knights footwear", "boots", false, null, 7, false);
         existingItems.add(knightBoots);
-        Item knightChest = new Item("knights breastplate", "body", false, null, 8, false);
+        Item knightChest = new Item("knights breastplate", "body", false, null, 10, false);
         existingItems.add(knightChest);
-        Item knightLeggings = new Item("knights leggings", "legging", false, null, 8, false);
+        Item knightLeggings = new Item("knights leggings", "legging", false, null, 9, false);
         existingItems.add(knightLeggings);
-        Item knightHelmet = new Item("knights helm", "head", false, null, 8, false);
+        Item knightHelmet = new Item("knights helm", "head", false, null, 7, false);
         existingItems.add(knightHelmet);
         Item dagger = new Item("dagger", "melee", true, null, 4, false);
         existingItems.add(dagger);
         Item leatherArmor = new Item("leather armor", "body", false, null, 4, false);
         existingItems.add(leatherArmor);
-        Item FirstVillePlate = new Item("firstville guards plate", "body", false, null, 6, false);
+        Item FirstVillePlate = new Item("firstville guards plate", "body", false, null, 8, false);
         existingItems.add(FirstVillePlate);
-        Item FirstVilleHelm = new Item("firstville guards helm", "head", false, null, 6, false);
+        Item FirstVilleHelm = new Item("firstville guards helm", "head", false, null, 4, false);
         existingItems.add(FirstVilleHelm);
         Item FirstVilleLegs = new Item("firstville guards legs", "legging", false, null, 6, false);
         existingItems.add(FirstVilleLegs);
-        Item FirstVilleBoots = new Item("firstville guards boots", "boots", false, null, 6, false);
+        Item FirstVilleBoots = new Item("firstville guards boots", "boots", false, null, 4, false);
         existingItems.add(FirstVilleBoots);
         Item copperSword = new Item("Copper Sword", "melee", true, null, 6, false);
         existingItems.add(copperSword);
