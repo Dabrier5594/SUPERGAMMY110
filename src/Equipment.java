@@ -41,10 +41,10 @@ class Item {
         return inspectDescription;
     }
 
-    public void checkPower(Mob mob){
+    public void checkPower(Mob mob, Player player){
 
         if (enchantment1 != null){
-            enchantment1.usePower(enchantment1, mob);
+            enchantment1.usePower(enchantment1, mob, player);
         }
     }
 

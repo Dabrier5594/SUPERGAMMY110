@@ -17,9 +17,10 @@ import java.util.TimerTask;
 /// 'jack sparrow' as name gives you money a scuba mask and such || 'one punch man' as name allows you to play as normal, but you feel almighty...
 /// 'wizard' as name allows you to play as normal, but you get wizard goodies || 'cheapo' gives you 1 DAMAGE and 10000 HP
 
-/// ADDS (TODO LIST, mainly for Dash.)
-// Add HOMES.
+/// ADDS ( TODO LIST )
 // Add NPCS to FirstVille, some with quests.
+// Add HOMES.
+// make it so that scrolls work on people as well
 // Fill in things, like the shopper bag, and just make more items. add a bakery and a stove and stuff. Add quests to the guild. And just items into the STREETS
 // UPDATE THE COMMANDS LIST & UPDATE ROOM DESCRIPTIONS
 
@@ -28,6 +29,7 @@ import java.util.TimerTask;
 // Make it so Zak can give you the ability to enter into the army/solidery/minion thing
 // ADD EASTER EGGS ( like a quest from lagger where he gifts you a relic, and then use the command addEasterEgg
 // Add something the first ville cell, also, make the key attainable
+// AND MORE SKILLS!
 
 /// QUEST IDEAS:
 // find all the darumas in the village!
@@ -3089,7 +3091,7 @@ public class Game {
                                                     System.out.println("You have no equipped Items... (when enchanting you can only access equipped things)");
                                                 }
 
-                                            } else if (theScroll.contains("fire")) {
+                                            } else if (theScroll.contains("fire") || theScroll.contains("roulette")) {
 
                                                 if (equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems()) != null) {
                                                     Item choice = equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems());
@@ -3110,7 +3112,6 @@ public class Game {
 
                                                                         System.out.println("\n[unequipping to apply boost!]");
                                                                         unequip(choice, choice.getSlotType(), player, equipment);
-
                                                                         choice.setEnchantment1(enchantment1);
                                                                         choice.setIncreaseNum(choice.getIncreaseNum() * 2);
                                                                         inventory.remove(theScroll);
@@ -5536,13 +5537,13 @@ public class Game {
 
             }
             //ATTACKING THE MOB - YOUR TURN!
-            player.attack(mob);
-
             if (equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems()) != null) {
 
                 Item boom = equipment.getItemBasedOnSlot("melee", equipment.getEquippedItems());
-                boom.checkPower(mob);
+                boom.checkPower(mob, player);
             }
+
+            player.attack(mob);
 
             System.out.println("");
 
@@ -6055,14 +6056,12 @@ public class Game {
             }
 
             System.out.println("");
-
-            // PLAYER ATTACK BOSS
-            player.attackBoss(boss);
-
             if (eq.getItemBasedOnSlot("melee", eq.getEquippedItems()) != null) {
                 Item boom = eq.getItemBasedOnSlot("melee", eq.getEquippedItems());
                 boom.checkPowerBoss(boss);
             }
+            // PLAYER ATTACK BOSS
+            player.attackBoss(boss);
 
             System.out.println("");
 
