@@ -20,10 +20,14 @@ import java.util.TimerTask;
 /// ADDS (TODO LIST, mainly for Dash.)
 // Add HOMES.
 // Add NPCS to FirstVille, some with quests.
-// Make it so Zak can give you the ability to enter into the army/solidery/minion thing
-// ADD EASTER EGGS ( like a quest from lagger where he gifts you a relic, and then use the command addEasterEgg
 // Fill in things, like the shopper bag, and just make more items. add a bakery and a stove and stuff. Add quests to the guild. And just items into the STREETS
 // UPDATE THE COMMANDS LIST & UPDATE ROOM DESCRIPTIONS
+
+// COMPLETE THE PLAINS AND SECOND AND OCEAN (THIRD ONLY IF TIME ALLOWS)
+
+// Make it so Zak can give you the ability to enter into the army/solidery/minion thing
+// ADD EASTER EGGS ( like a quest from lagger where he gifts you a relic, and then use the command addEasterEgg
+// Add something the first ville cell, also, make the key attainable
 
 /// QUEST IDEAS:
 // find all the darumas in the village!
@@ -721,7 +725,43 @@ public class Game {
 
         Hub firstVilleLane42 = new Hub("FirstVille Streets #42", " \nEXITS: (E) (S) (W)");
 
-        Hub firstVilleLane43 = new Hub("FirstVille Streets #43", " \nEXITS: (E) (S) (W)");
+        Hub firstVilleLane43 = new Hub("FirstVille Streets #43", "A manhole in the middle of the road. \nEXITS: (E) (S) (W) (D)");
+
+        Hub firstVilleManHoleEnt = new Hub("Entrance to a manhole", " \nEXITS: (U) (E)");
+        firstVilleLane43.setExit("d", firstVilleManHoleEnt);
+        firstVilleManHoleEnt.setExit("u", firstVilleLane43);
+
+        Hub firstVilleManHole1 = new Hub("FirstVille Manhole #1", " \nEXITS: (W) (E)");
+        firstVilleManHole1.setExit("w", firstVilleManHoleEnt);
+        firstVilleManHoleEnt.setExit("e", firstVilleManHole1);
+
+        Hub firstVilleManHole2 = new Hub("FirstVille Manhole #2", " \nEXITS: (W) (E)");
+        firstVilleManHole1.setExit("e", firstVilleManHole2);
+        firstVilleManHole2.setExit("w", firstVilleManHole1);
+
+        Hub firstVilleManHole3 = new Hub("FirstVille Manhole #3", " \nEXITS: (W) (E)");
+        firstVilleManHole3.setExit("w", firstVilleManHole2);
+        firstVilleManHole2.setExit("e", firstVilleManHole3);
+
+        Hub firstVilleManHole4 = new Hub("FirstVille Manhole #4", " \nEXITS: (W) (S)");
+        firstVilleManHole3.setExit("e", firstVilleManHole4);
+        firstVilleManHole4.setExit("w", firstVilleManHole3);
+
+        Hub firstVilleManHole5 = new Hub("FirstVille Manhole #5", " \nEXITS: (N) (S)");
+        firstVilleManHole5.setExit("n", firstVilleManHole4);
+        firstVilleManHole4.setExit("s", firstVilleManHole5);
+
+        Hub firstVilleManHole6 = new Hub("FirstVille Manhole #6", " \nEXITS: (N) (W)");
+        firstVilleManHole5.setExit("s", firstVilleManHole6);
+        firstVilleManHole6.setExit("n", firstVilleManHole5);
+
+        Hub firstVilleManHole7 = new Hub("FirstVille Manhole #7", " \nEXITS: (E) (N)");
+        firstVilleManHole7.setExit("e", firstVilleManHole6);
+        firstVilleManHole6.setExit("w", firstVilleManHole7);
+
+        Hub firstVilleManHoleCELL = new Hub("FirstVille Manhole CELL", " \nEXITS: (S)");
+        firstVilleManHole7.setExit("n", firstVilleManHoleCELL);
+        firstVilleManHoleCELL.setExit("s", firstVilleManHole7);
 
         Hub firstVilleBarracks = new Hub("FirstVille Barracks", " \nEXITS: (E) (S) (W)");
 
@@ -1286,6 +1326,11 @@ public class Game {
         firstVilleGate.setLockedDoor("n", gateDoor);
         firstVillePassage.setLockedDoor("s", gateDoor);
 
+        LockedDoors cellBar1 = new LockedDoors(true, "Cell Key", firstVilleManHole7, firstVilleManHoleCELL);
+
+        firstVilleManHole7.setLockedDoor("n", cellBar1);
+        firstVilleManHoleCELL.setLockedDoor("s", cellBar1);
+
         // ITEMS
 
         //ADD ITEMS IN TO ROOM
@@ -1829,7 +1874,12 @@ public class Game {
         objects.add("acorn");
         objects.add("jerr");
         objects.add("boat");
-        objects.add("timw");
+        objects.add("button");
+        objects.add("daruma");
+        objects.add("badge");
+        objects.add("teacup");
+        objects.add("badge");
+        objects.add("ball");
 
         List<String> yesOrYes = new ArrayList<>();
         yesOrYes.add("y");
@@ -4147,7 +4197,12 @@ public class Game {
         LockedDoors lockedDoors = currentHub.getLockedDoor(direction);
 
         if (lockedDoors != null && !lockedDoors.isOpened()) {
-            System.out.println("There is a locked gate in your way.");
+            if (currentHub.getRoomName().equalsIgnoreCase("FirstVille Manhole CELL")) {
+                System.out.println("The cell is LOCKED. A cell key is needed to unlock it.");
+            } else {
+                System.out.println("There is a locked gate in your way.");
+            }
+
             return currentHub;
         }
 
