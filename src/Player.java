@@ -86,6 +86,10 @@ public class Player {
         return skills;
     }
 
+    public void addSkills(Skill s){
+         skills.add(s);
+    }
+
     public void addEasterEggs(){
         easterEggs++;
         if (easterEggs == 1){

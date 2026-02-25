@@ -27,7 +27,7 @@ import java.util.TimerTask;
 // COMPLETE THE PLAINS AND SECOND AND OCEAN (THIRD ONLY IF TIME ALLOWS)
 
 // Make it so Zak can give you the ability to enter into the army/solidery/minion thing
-// ADD EASTER EGGS ( like a quest from lagger where he gifts you a relic, and then use the command addEasterEgg
+// ADD EASTER EGGS ( like a quest from lagger where he gifts you a relic, and then use the command addEasterEgg )
 // Add something the first ville cell, also, make the key attainable
 // AND MORE SKILLS!
 
@@ -289,7 +289,7 @@ public class Game {
         @Override
         public void run() {
 
-            if (!scannerOrNo || fighting == true || talking == true) { // SCANNER IS ACTIVE - HOLD LATEST CHANGES
+            if (!scannerOrNo || fighting || talking) { // SCANNER IS ACTIVE - HOLD LATEST CHANGES
                 timeChange = timeOfDay ? "day" : "night";
                 changeTime = LocalTime.now();
                 timeOfDay = !timeOfDay;
@@ -2229,7 +2229,13 @@ public class Game {
 
         System.out.println(inRoom.getRoomDescription());
 
-        player.getSkills().add(new Skill.StunSkill("Stun", "Stuns enemy for one turn. Cooldown: 3 turns.", true, 3));
+        player.addSkills(new Skill.StunSkill("Stun", "Stuns enemy for one turn. Cooldown: 3 turns.", true, 4)); //PUT IN ONE MORE THAN COOLDOWN TURNS
+
+        player.addSkills(new Skill.HardeningSkill("Harden", "Hardens your body for one turn. Cooldown: 1 turn", true, 2));
+
+        for (Skill a : player.getSkills()){
+            System.out.println(a.getName());
+        }
 
         setupDayNightSchedulers();
 
@@ -5380,6 +5386,8 @@ public class Game {
 
 
     public static void combat(Player player, Mob mob, Hub inRoom, XpLv playerStats, Equipment equipment, Map<String, Integer> food, List<String> inventory) {
+        int dmgResist = player.getHealth().getDamageResistance();
+
         boolean using = false;
 
         int pause = 300;
@@ -5444,7 +5452,9 @@ public class Game {
                 String usingNow = scanner.nextLine();
                 if (usingNow.toLowerCase().equals("stun")) {
                     Skill.StunSkill.apply(player, mob);
-                } else {
+                } else if (usingNow.toLowerCase().equals("harden")){
+                    Skill.HardeningSkill.apply(player, mob);
+                }else {
                     int chop = 0;
                     for (Skill skiller : player.getSkills()) {
                         if (usingNow.toLowerCase().equals(skiller.getName())) {
@@ -5561,6 +5571,8 @@ public class Game {
 
                 System.out.println("The " + mob.getName() + " has died at your hands. \n");
 
+                player.getHealth().setDamageResistance(dmgResist);
+
                 playerStats.addXp(playerStats.calculateXp(mob.getName()));
 
                 playerStats.calculateLv(playerStats.getXp(), playerStats.getLevel(), player);
@@ -5597,6 +5609,7 @@ public class Game {
 
                 if (player.getHealth().isDead()) {
                     System.out.println("\nYou have been murdered by a " + mob.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
+                    player.getHealth().setDamageResistance(dmgResist);
                     player.getHealth().setHeealth(-1291212112);
 
                     try {
@@ -5620,6 +5633,7 @@ public class Game {
     }
 
     public static void combatNpc(Player player, Npca npc, Hub inRoom, XpLv playerStats) {
+        int dmgResist = player.getHealth().getDamageResistance();
 
         boolean using = false;
 
@@ -5660,6 +5674,9 @@ public class Game {
                 String usingNow = scanner.nextLine();
                 if (usingNow.toLowerCase().equals("stun")) {
                     Skill.StunSkill.applyNpc(player, npc);
+
+                } else if (usingNow.toLowerCase().equals("harden")){
+                    Skill.HardeningSkill.applyNpc(player, npc);
                 } else {
                     int chop = 0;
                     for (Skill skiller : player.getSkills()) {
@@ -5690,6 +5707,8 @@ public class Game {
 
             if (npc.getHealth().isDead()) {
                 System.out.println(npc.getName() + " has died at your hands. \n");
+
+                player.getHealth().setDamageResistance(dmgResist);
 
                 playerStats.addXp(playerStats.calculateXp(npc.getName()));
 
@@ -5721,6 +5740,7 @@ public class Game {
 
                 if (player.getHealth().isDead()) {
                     System.out.println("\nYou have been murdered by " + npc.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
+                    player.getHealth().setDamageResistance(dmgResist);
                     player.getHealth().setHeealth(-1291212112);
 
                     try {
@@ -5744,6 +5764,7 @@ public class Game {
     }
 
     public static void combatShopOwner(Player player, FirstShopOwner npc, Hub inRoom, XpLv playerStats) {
+        int dmgResist = player.getHealth().getDamageResistance();
 
         boolean using = false;
 
@@ -5784,6 +5805,8 @@ public class Game {
                 String usingNow = scanner.nextLine();
                 if (usingNow.toLowerCase().equals("stun")) {
                     Skill.StunSkill.applyNpc(player, npc);
+                } else if (usingNow.toLowerCase().equals("harden")){
+                    Skill.HardeningSkill.applyNpc(player, npc);
                 } else {
                     int chop = 0;
                     for (Skill skiller : player.getSkills()) {
@@ -5815,6 +5838,8 @@ public class Game {
             if (npc.getHealth().isDead()) {
                 System.out.println(npc.getName() + " has died at your hands. \n");
 
+                player.getHealth().setDamageResistance(dmgResist);
+
                 playerStats.addXp(playerStats.calculateXp(npc.getName()));
 
                 playerStats.calculateLv(playerStats.getXp(), playerStats.getLevel(), player);
@@ -5838,6 +5863,7 @@ public class Game {
 
                 if (player.getHealth().isDead()) {
                     System.out.println("\nYou have been murdered by " + npc.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
+                    player.getHealth().setDamageResistance(dmgResist);
                     player.getHealth().setHeealth(-1291212112);
 
                     try {
@@ -5861,6 +5887,7 @@ public class Game {
     }
 
     public static void combatGuard(Player player, Guard npc, Hub inRoom, XpLv playerStats, List<Item> existingItems) {
+        int dmgResist = player.getHealth().getDamageResistance();
 
         boolean using = false;
 
@@ -5901,6 +5928,8 @@ public class Game {
                 String usingNow = scanner.nextLine();
                 if (usingNow.toLowerCase().equals("stun")) {
                     Skill.StunSkill.applyGuard(player, npc);
+                } else if (usingNow.toLowerCase().equals("harden")){
+                    Skill.HardeningSkill.applyGuard(player, npc);
                 } else {
                     int chop = 0;
                     for (Skill skiller : player.getSkills()) {
@@ -5933,6 +5962,8 @@ public class Game {
 
                 System.out.println(npc.getName() + " has died at your hands. \n");
 
+                player.getHealth().setDamageResistance(dmgResist);
+
                 if (npc.getName().equalsIgnoreCase("Oliver")) {
                     Item z = npc.getItem();
                     existingItems.add(z);
@@ -5963,6 +5994,7 @@ public class Game {
 
                 if (player.getHealth().isDead()) {
                     System.out.println("\nYou have been murdered by " + npc.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
+                    player.getHealth().setDamageResistance(dmgResist);
                     player.getHealth().setHeealth(-1291212112);
 
                     try {
@@ -5986,6 +6018,7 @@ public class Game {
     }
 
     public static void combatBoss(Player player, Boss boss, Hub inRoom, XpLv playerStats, List<Item> existingItems, Map<String, Item> eqI, Equipment eq) {
+        int dmgResist = player.getHealth().getDamageResistance();
 
         System.out.println("THE GREAT " + boss.getName() + " RECOGNIZES YOU AS IT'S PREY.");
         boolean using = false;
@@ -6039,6 +6072,8 @@ public class Game {
                 String usingNow = scanner.nextLine();
                 if (usingNow.toLowerCase().equals("stun")) {
                     Skill.StunSkill.applyBoss(player, boss);
+                } else if (usingNow.toLowerCase().equals("harden")){
+                    Skill.HardeningSkill.applyBoss(player, boss);
                 } else {
                     int chop = 0;
                     for (Skill skiller : player.getSkills()) {
@@ -6077,6 +6112,8 @@ public class Game {
 
                 System.out.println(boss.getName() + " has died at your hands. \n");
 
+                player.getHealth().setDamageResistance(dmgResist);
+
                 playerStats.addXp(playerStats.calculateXp(boss.getName()));
 
                 playerStats.calculateLv(playerStats.getXp(), playerStats.getLevel(), player);
@@ -6100,6 +6137,7 @@ public class Game {
 
                 if (player.getHealth().isDead()) {
                     System.out.println("\nYou have been murdered by " + boss.getName() + " (and a fork... and Tom. And his spoon.)\n\n");
+                    player.getHealth().setDamageResistance(dmgResist);
                     player.getHealth().setHeealth(-1291212112);
 
                     if (pause != 0) {
