@@ -10,6 +10,10 @@ public class Npca {
     private String questId;        // e.g., "SQ2" for Collect Twigs
     private QuestState questState;
 
+    public void setName(String kimBroke) {
+        name = kimBroke;
+    }
+
     public enum QuestState {
         NONE,        // no quest
         OFFERED,     // user has seen the offer but did not accepted

@@ -12,10 +12,11 @@ import java.util.TimerTask;
 /// WHENEVER YOU CREATE ANYTHING (ITEM, NPC, ANYTHING that can be INTERACTED with), YOU MUST ADD IT TO OBJECTS!!!
 /// FOR ITEMS: AFTER YOU MAKE THEM. YOU MUST ADD THEM TO EXISTINGITEMS LIST. (SEE WHERE I MADE ALL THE ITEMS w/ "new Item" in search
 
-/// TIPS:
 /// 'admin0' as name gives you cheats || 'monty python' as name allows you to play game as normal, but death barely affects you...
 /// 'jack sparrow' as name gives you money a scuba mask and such || 'one punch man' as name allows you to play as normal, but you feel almighty...
 /// 'wizard' as name allows you to play as normal, but you get wizard goodies || 'cheapo' gives you 1 DAMAGE and 10000 HP
+
+// ----------------------------------------------------
 
 /// ADDS ( TODO LIST )
 // Add NPCS to FirstVille, some with quests.
@@ -36,6 +37,8 @@ import java.util.TimerTask;
 // Deliver a leaflet to Bagger
 // Find a ball for a kid
 // Gather materials and craft some food
+
+// ----------------------------------------------------
 
 public class Game {
 
@@ -162,6 +165,8 @@ public class Game {
     public static volatile boolean treeReset = true; // If you can get apples from a tree or not
 
     public static volatile boolean cabinetDaggerCaveN = true; // If you've tried to open the first cabinet (tutorial)
+
+    public static volatile boolean kimBroke = false;
 
     public static volatile int nightCounter = 0; // How many nights its been
 
@@ -700,7 +705,7 @@ public class Game {
 
         Hub firstVilleLane30 = new Hub("FirstVille Streets #30", " \nEXITS: (E) (S) (W)");
 
-        Hub firstVilleLane31 = new Hub("FirstVille Streets #31", " \nEXITS: (E) (S) (W)");
+        Hub firstVilleLane31 = new Hub("Player Home [location: FirstVille]", "The main room of YOUR personal estate \nEXITS: (E) (S) (W)");
 
         Hub firstVilleLane32 = new Hub("FirstVille Streets #32", " \nEXITS: (E) (S) (W)");
 
@@ -1206,6 +1211,28 @@ public class Game {
         Hub.CurrencyExchangeBooth exchangeBooth = new Hub("Exchange Booth", "A booth for trading currencies. Perfect for merchants.").new CurrencyExchangeBooth("Exchange Booth", "A booth for trading currencies. Perfect for merchants.");
         exchangeBooth.getObjects().add("exchange booth");
 
+        // NEW FIRSTVILLE NPCA!!!
+        //REAL ESTATE AGENT
+
+        String[] firstVilleRealAgentWords = {
+                "Watch out kid, we got scammers in this town. Not that I'm one..."
+        };
+
+        Health firstVilleRealEstateAgentHP = new Health(100, 100, 1);
+
+        Npca firstVilleRealEstateAgent = new Npca("Kim Richards", "Real Estate Agent", firstVilleRealAgentWords, 7, firstVilleRealEstateAgentHP, "", Npca.QuestState.NONE);
+
+        firstVilleLane8.getNpc().add(firstVilleRealEstateAgent);
+
+        KEY_FIGURES.add(new KeyFigureSpawn("Kim Richards", firstVilleLane8, () -> {
+            Npca npc = new Npca("Kim Richards", "SReal Estate Agent", firstVilleRealAgentWords, 7, new Health(100, 100, 1), "", Npca.QuestState.NONE);
+            firstVilleLane8.getNpc().add(npc);
+            if (kimBroke){
+                npc.setName("Kim Broke");
+            }
+        }));
+
+        //ELDER OF FIRSTVILLE
 
         // HORSE RIDER NPCS
         String horseLines[] = {"Neigh."};
@@ -1332,6 +1359,11 @@ public class Game {
 
         firstVilleManHole7.setLockedDoor("n", cellBar1);
         firstVilleManHoleCELL.setLockedDoor("s", cellBar1);
+
+        LockedDoors yourRealEstate1 = new LockedDoors(true, "house key", firstVilleLane31, firstVilleLane18);
+
+        firstVilleLane31.setLockedDoor("w", yourRealEstate1);
+        firstVilleLane18.setLockedDoor("e", yourRealEstate1);
 
         // ITEMS
 
@@ -4212,13 +4244,28 @@ public class Game {
         LockedDoors lockedDoors = currentHub.getLockedDoor(direction);
 
         if (lockedDoors != null && !lockedDoors.isOpened()) {
-            if (currentHub.getRoomName().equalsIgnoreCase("FirstVille Manhole CELL")) {
+            if (currentHub.getRoomName().equalsIgnoreCase("FirstVille Manhole CELL") || currentHub.getRoomName().equalsIgnoreCase("FirstVille Manhole #7")) {
                 System.out.println("The cell is LOCKED. A cell key is needed to unlock it.");
             } else {
                 System.out.println("There is a locked gate in your way.");
             }
 
-            return currentHub;
+            if (currentHub.getRoomName().equalsIgnoreCase("FirstVille Streets #18")) {
+                System.out.println("You walk face first into a a giant gate.");
+                if (!kimBroke){
+                    System.out.println("The villages real estate agent is currently selling this house.");
+                }
+            } else {
+                System.out.println("There is a locked gate in your way.");
+            }
+
+            if (currentHub.getRoomName().equalsIgnoreCase("FirstVille Streets #31")) {
+
+                System.out.println("Bonk! You walk straight into your house's humongo gate!");
+
+            }
+
+                return currentHub;
         }
 
         // If there is a new area where user tries to go, update it
@@ -6397,6 +6444,43 @@ public class Game {
             String word3 = wordTHREES.get((int) (Math.random() * 10));
 
             System.out.println("By the time I’m done with you, this barracks will shine like a " + word1 + " " + word2 + " at a " + word3 + " inspection.");
+
+        } else if (npc.getName().contains("Kim")) {
+
+            if (npc.getName().equalsIgnoreCase("Kim Broke")) {
+                npc.sayLine(0);
+            } else {
+                System.out.println("Real Estate Agent Kim says: \"Well Well Well...\'");
+                System.out.println("Real Estate Agent Kim says: \"Do you wish to buy a humble home in FIRSTVILLE?\'");
+                System.out.println("Options: [1] YES [2] NO");
+                String doer = scanner.nextLine();
+                if (doer.equalsIgnoreCase("1")) {
+                    System.out.println("Real Estate Agent Kim says: \"WONDERFUL! Let's check you savings...\'");
+                    int silverCount = Collections.frequency(inventory, "silver");
+                    if (silverCount >= 30){
+                        System.out.println("Real Estate Agent Kim says: \"DOUBLE WONDERFUL! It's all YOURS!\'");
+                        System.out.println("[Kim Richards hands you the key to your house.");
+                        inventory.add("house key");
+                        for(int i = 0; i < 30; i++){
+                            inventory.remove("silver");
+                        }
+
+                        npc.setName("Kim Broke");
+
+                        return inventory;
+
+                    } else {
+                        System.out.println("Real Estate Agent Kim says: \"What the hell... You're broke. Get outta here.\'");
+                        return inventory;
+
+                    }
+
+                } else {
+                    System.out.println("Real Estate Agent Kim says: \"BAHHH...\'");
+
+                }
+
+            }
 
         } else if (npc.getName().equalsIgnoreCase("MaraTamara")) {
 
