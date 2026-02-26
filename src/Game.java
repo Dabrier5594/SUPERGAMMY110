@@ -51,9 +51,8 @@ public class Game {
     public static final List<KeyFigureSpawn> KEY_FIGURES = new ArrayList<>();
 
 
-    static {
-        INSPECT_DESCRIPTIONS.put("dagger", "An old weathered dagger.");
-        INSPECT_DESCRIPTIONS.put("leather armor", "Light leather armor. Won't protect you much but it's better than walking into a goblin nest naked.");
+    static {INSPECT_DESCRIPTIONS.put("dagger", "An old weathered dagger.");
+        INSPECT_DESCRIPTIONS.put("leather armor", "Light leather armor. Won't protect you much but is very light.");
         INSPECT_DESCRIPTIONS.put("thornshield", "A shield covered in thorns. Once enemies attack you they take some damage they dealt.");
         INSPECT_DESCRIPTIONS.put("copper", "A dull copper coin. 10 make 1 silver.");
         INSPECT_DESCRIPTIONS.put("silver", "A silver coin. 5 make 1 gold.");
@@ -68,7 +67,7 @@ public class Game {
         INSPECT_DESCRIPTIONS.put("squirrel", "A squirrel, you watch it run around for a moment.");
         INSPECT_DESCRIPTIONS.put("goblin", "A dubious goblin, short and green, a small dagger in hand.");
         INSPECT_DESCRIPTIONS.put("chest", "A heavy chest. The lid feels nailed shut.");
-        INSPECT_DESCRIPTIONS.put("key", "A small key. It could probably fit in a chest.");
+        INSPECT_DESCRIPTIONS.put("ih", "A small key. It could probably fit in a chest.");
         INSPECT_DESCRIPTIONS.put("white whispberry", "A whispberry. Smells sweet and of hiraeth, reminding you of the morning dew.");
         INSPECT_DESCRIPTIONS.put("bagger", "It's Bagger. Laggers brother-in-law, Jaggers brother, and Raggers cousin.");
         INSPECT_DESCRIPTIONS.put("ragger", "It's Ragger. Laggers cousin-in-law, Jaggers cousin, and Baggers cousin.");
@@ -80,40 +79,45 @@ public class Game {
         INSPECT_DESCRIPTIONS.put("inventory", "A leather satchel full of all your items.");
         //continue from here
         INSPECT_DESCRIPTIONS.put("admin sword", "A legendary blade glowing with unnatural power. Clearly not meant for mortals.");
-        INSPECT_DESCRIPTIONS.put("forest devil", "A twisted forest guardian with eyes like burning coals. The woods themselves seem to fear it.");
-        INSPECT_DESCRIPTIONS.put("oliver", "A stern guard with a merchant's cunning. His armor gleams, but his eyes are sharper.");
-        INSPECT_DESCRIPTIONS.put("zak", "The captain of the guard, built like a walking fortress. His polished muscles gleam as proudly as his armor—and he clearly knows it.");
-        INSPECT_DESCRIPTIONS.put("trap", "A crude but effective snare. Rusty spikes and pressure plates promise pain to the unwary.");
+        INSPECT_DESCRIPTIONS.put("forest devil", "A corrupted growth of vines and roots. It towers over you and you feel pieces of moss fall from it and hit your face.");
+        INSPECT_DESCRIPTIONS.put("oliver", "A firstville guard. A welcoming sight to the unfamiliar village behind him.");
+        INSPECT_DESCRIPTIONS.put("trap", "A crude but effective snare.");
         INSPECT_DESCRIPTIONS.put("bear claw", "A massive claw from a fearsome bear. Still faintly warm, stained with old blood.");
-        INSPECT_DESCRIPTIONS.put("bear essence", "A mystical extract from a Mama Bear's core, can be used in crafting jewelery, or sold! Smells faintly of musk and wilderness.");
-        INSPECT_DESCRIPTIONS.put("wolfbane", "Toxic purple flowers that could be used as an ingredient.");
-        INSPECT_DESCRIPTIONS.put("raven eye", "A polished black gem that seems to watch you. Perfect for crafting.");
-        INSPECT_DESCRIPTIONS.put("blood vial", "A small glass vial filled with thick, dark blood. Still warm—what kind of creature bled this? A handy ingredient.");
-        INSPECT_DESCRIPTIONS.put("cauldron", "A dented iron pot bubbling with someones failed creation.");
-        INSPECT_DESCRIPTIONS.put("tree", "A crooked looking tree which has been through a lot, although red orbs seem to be peaking through the dried leaves.");
+        INSPECT_DESCRIPTIONS.put("bear essence", "The teeth from a Mama Bear. A useful ingredient for potions.");
+        INSPECT_DESCRIPTIONS.put("wolfbane", "The flesh from a wolf. Once cooked could sustain you plenty.");
+        INSPECT_DESCRIPTIONS.put("raven eye", "The eye from a raven. A useful ingredient for potions.");
+        INSPECT_DESCRIPTIONS.put("blood vial", "A small glass vial filled with coagulated blood. A useful ingredient for potions.");
+        INSPECT_DESCRIPTIONS.put("cauldron", "A weathered, cracked cauldron stands abandoned in a small clearing. Could be used for crafting potions.");
+        INSPECT_DESCRIPTIONS.put("tree", "A tall tree, towering above you. Moss and ruined bark run up its tall trunk.");
 
 
     }
 
+
     public static final Map<String, String> COMBAT_DESCRIPTIONS = new HashMap<>();
+
 
     // COMBAT DESCRIPTIONS
     static {
         // --- Goblin ---
-        COMBAT_DESCRIPTIONS.put("goblin_attack", "The goblin lunges with a rusty dagger, screeching for your blood!");
-        COMBAT_DESCRIPTIONS.put("goblin_death", "The goblin collapses with a guttural cry.");
+        COMBAT_DESCRIPTIONS.put("goblin_attack", "The goblin jumps at you, its small hands clawing at your face.");
+        COMBAT_DESCRIPTIONS.put("goblin_death", "The goblin collapses body bruised and bloodied");
+
 
         // --- Rabbit ---
-        COMBAT_DESCRIPTIONS.put("rabbit_attack", "The rabbit charges you head-on. It’s… strangely fierce?");
-        COMBAT_DESCRIPTIONS.put("rabbit_death", "The rabbit lies still. You can’t help but feel a little guilty.");
+        COMBAT_DESCRIPTIONS.put("rabbit_attack", "The rabbit charges you, its sharp teeth starting to dig into your skin.");
+        COMBAT_DESCRIPTIONS.put("rabbit_death", "The rabbit lies still. Nothing of use from the dead rabbit.");
+
 
         // --- Chicken ---
-        COMBAT_DESCRIPTIONS.put("chicken_attack", "The chicken flaps and pecks wildly, a blur of feathers and rage.");
-        COMBAT_DESCRIPTIONS.put("chicken_death", "The chicken topples over dramatically. Dinner, anyone?");
+        COMBAT_DESCRIPTIONS.put("chicken_attack", "The chicken begins to peck at you, wings flapping in a frenzy.");
+        COMBAT_DESCRIPTIONS.put("chicken_death", "The chicken goes limp. A few of its feathers are in good enough condition to be utilized elsewhere.");
+
 
         // --- Squirrel ---
-        COMBAT_DESCRIPTIONS.put("squirrel_attack", "The squirrel leaps onto your shoulder, scratching like mad!");
-        COMBAT_DESCRIPTIONS.put("squirrel_death", "The squirrel collapses, tiny claws still clutching a nut.");
+        COMBAT_DESCRIPTIONS.put("squirrel_attack", "The squirrel leaps onto you, beginning to bite and claw at your face and neck.");
+        COMBAT_DESCRIPTIONS.put("squirrel_death", "The squirrels small body falls. ");
+
 
         // --- Forest Boss ---
         COMBAT_DESCRIPTIONS.put("forest_boss_attack", "The Forest Boss roars, slamming a root-covered fist into the ground as vines lash toward you!");
