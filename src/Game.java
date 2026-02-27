@@ -694,6 +694,7 @@ public class Game {
         Hub firstVilleHouse2Upstairs = new Hub("FirstVille Townhome Upstairs Room", " \nEXITS: (D) (N)");
         firstVilleHouse2Main.setExit("u", firstVilleHouse2Upstairs);
         firstVilleHouse2Upstairs.setExit("s", firstVilleHouse2Main);
+        firstVilleHouse2Upstairs.getObjects().add("daruma");
         Hub firstVilleHouse2Upstairs2 = new Hub("FirstVille Townhome Upstairs Kitchen", "A stove is tucked into the corner, ready for use. \nEXITS: (S)");
         firstVilleHouse2Upstairs2.setStructure("stove");
         firstVilleHouse2Upstairs.setExit("n", firstVilleHouse2Upstairs2);
@@ -1539,6 +1540,21 @@ public class Game {
 
         //NPCS
 
+        String[] firstVilleElderWords = {
+                "Ho ho ho! It's just like the old days!"
+        };
+
+        Health firstVilleElderHP = new Health(90, 85, 8);
+
+        Npca firstVilleElder = new Npca("Ragu", "Village Elder", firstVilleElderWords, 10, firstVilleElderHP, "SQ6", Npca.QuestState.NONE);
+
+        KEY_FIGURES.add(new KeyFigureSpawn("Ragu", firstVilleHouse2Bed, () -> {
+            Npca npc = new Npca("Ragu", "Village Elder", firstVilleElderWords, 10, new Health(90, 85, 10), "SQ6", Npca.QuestState.NONE);
+            firstVilleHouse2Bed.getNpc().add(npc);
+        }));
+
+        firstVilleHouse2Bed.getNpc().add(firstVilleElder);
+
         String[] barraksMaster1Words = {
         };
 
@@ -1904,6 +1920,7 @@ public class Game {
         objects.add("ragger");
         objects.add("jagger");
         objects.add("tragger");
+        objects.add("ragu");
         objects.add("trevor");
         objects.add("steve");
         objects.add("maratamara");
@@ -1920,11 +1937,15 @@ public class Game {
         objects.add("acorn");
         objects.add("jerr");
         objects.add("boat");
+        objects.add("buttons");
         objects.add("button");
+        objects.add("darumas");
         objects.add("daruma");
-        objects.add("badge");
+        objects.add("teacups");
         objects.add("teacup");
+        objects.add("badges");
         objects.add("badge");
+        objects.add("balls");
         objects.add("ball");
 
         List<String> yesOrYes = new ArrayList<>();
@@ -2277,10 +2298,6 @@ public class Game {
 
         player.addSkills(new Skill.HardeningSkill("Harden", "Hardens your body for one turn. Cooldown: 1 turn", true, 2));
 
-        for (Skill a : player.getSkills()){
-            System.out.println(a.getName());
-        }
-
         setupDayNightSchedulers();
 
         movingTheMobs();
@@ -2512,7 +2529,7 @@ public class Game {
                         if (q.done) completed++;
                     }
 
-                    System.out.println("=== YOUR QUESTS (" + totalQuests + "/11 quests acquired) ==="); // RIGHT NOW THERE AREE ONLY 8 POSSIBLE QUESTS
+                    System.out.println("=== YOUR QUESTS (" + totalQuests + "/12 quests acquired) ==="); // RIGHT NOW THERE AREE ONLY 8 POSSIBLE QUESTS
 
                     System.out.println("\nCOMPLETED (" + completed + "/" + totalQuests + "):");
                     for (Quest q : Player.QUESTS.values()) {
@@ -2886,8 +2903,8 @@ public class Game {
 
                             if (stringContainsWordFromList(action.toLowerCase(), cauldron.toArray(new String[0]))) {
 
-                                if (inRoom.getRoomName().equalsIgnoreCase("Northern Forest Area #29")) {
-                                    cauldron(inventory, player);
+                                if (inRoom.getRoomName().equalsIgnoreCase("Northern Forest Area #29") || inRoom.getRoomName().equalsIgnoreCase("FirstVille Townhome Upstairs Room")) {
+                                    cauldron(inventory, player, inRoom);
                                 } else {
                                     System.out.println("You are lacking the ability to find one to use...");
                                 }
@@ -4224,10 +4241,12 @@ public class Game {
                 boatLocation = currentHub;
             }
 
-            String helmetName = equipment.getHelmet();
-            if (!helmetName.equalsIgnoreCase("scuba mask")) {
-                System.out.println("You can't dive here without a proper scuba mask on your head.");
-                return currentHub;
+            if (currentHub.getRoomName().toLowerCase().contains("ocean")) {
+                String helmetName = equipment.getHelmet();
+                if (!helmetName.equalsIgnoreCase("scuba mask")) {
+                    System.out.println("You can't dive here without a proper scuba mask on your head.");
+                    return currentHub;
+                }
             }
         }
 
@@ -6541,6 +6560,43 @@ public class Game {
 
             npc.sayLine(0);
 
+            if (npc.getQuestId() != null){
+
+                if (npc.getQuestState() == Npca.QuestState.NONE) {
+                    System.out.println(npc.getName() + " (" + npc.getRole() + "): \"I have a quest for you. Do you wish to accept??\"");
+                    System.out.println("Options: [y/yes] accept   ||    [n/no] decline");
+                    System.out.print("-> ");
+                    String acceptOrNo = scanner.nextLine().toLowerCase();
+                    if (acceptOrNo.contains("no") || acceptOrNo.startsWith("n")){
+                        System.out.println(npc.getName() + " (" + npc.getRole() + "): \"~sighh. Very well.\"");
+                    } else if (acceptOrNo.contains("yes") || acceptOrNo.startsWith("y")){
+                        System.out.println(npc.getName() + " (" + npc.getRole() + "): \"Yes?! You will?! Awesome! Come see me when you're done!\" \nwhispering: I think one is upstairs... But I'm too old to get there!");
+                        if (npc.getName().equalsIgnoreCase("Ragu")){
+                            player.QUESTS.put("SQ6", new Quest("SQ6", "Find the Elder's childhood toys [daruma]", 2, "daruma", 5, 100, 35));
+                            npc.setQuestState(Npca.QuestState.ACCEPTED);
+                        }
+                    }
+                } else if (npc.getQuestState() == Npca.QuestState.ACCEPTED){
+                    if (player.QUESTS.get(npc.getQuestId()).isDone()){
+                        if (npc.getName().equalsIgnoreCase("Ragu")){
+                            System.out.println(npc.getName() + " (" + npc.getRole() + "): \"WOWZA! Thank you so much for doing this for me! It's like my life is rewinding!\"");
+                            System.out.println(npc.getName() + " (" + npc.getRole() + "): \"Here here. A reward.\"");
+                            System.out.println("== Ragu gifts you a 'cell key' for all your troubles! ==");
+                            inventory.add("cell key");
+                        }
+
+                        npc.setQuestState(Npca.QuestState.COMPLETED);
+
+                    } else {
+                        System.out.println(npc.getName() + " (" + npc.getRole() + "): \"Nice to see you're doing well...\"");
+                    }
+
+
+                } else if (npc.getQuestState() == Npca.QuestState.COMPLETED){
+                    System.out.println("Thank you for your good deed!");
+                }
+            }
+
         }
 
         return inventory;
@@ -6610,111 +6666,118 @@ public class Game {
         }
     }
 
-    public static List<String> cauldron(List<String> invin, Player player) {
+    public static List<String> cauldron(List<String> invin, Player player, Hub inRoom) {
 
-        if (player.QUESTS.get("SQ4") == null) {
-            Player.QUESTS.put("SQ4", new Quest("SQ4", "Craft Wolfs Bane Soup", 2, "wolfs bane soup", 1, 100, 20));
-            System.out.println("[[ YOU'VE UNLOCKED A QUEST ]]");
-            System.out.println("");
-        }
-
-        List<String> craftable = new ArrayList<>();
-        craftable.add("wolfs bane soup");
-        craftable.add("apple pie");
-
-        System.out.println("What would you like to craft?\n");
-        for (String a : craftable) {
-            System.out.println(a);
-        }
-        System.out.println("");
-
-        System.out.print("-> ");
-
-        String craft = scanner.nextLine();
-
-        int doable = 0;
-
-        for (String i : craftable) {
-            if (i.equalsIgnoreCase(craft)) {
-                doable++;
-                break;
-            }
-        }
-
-        if (doable != 0) {
-
-            if (craft.equalsIgnoreCase("wolfs bane soup")) {
-                int wolfbane = 0;
-                int ravenEye = 0;
-                int bloody = 0;
+        if (inRoom.getRoomName().equalsIgnoreCase("FirstVille Townhome Upstairs Room")){
 
 
-                for (String w : invin) {
-
-                    if (w == "wolfbane") {
-                        wolfbane++;
-                    }
-                    if (w == "raven eye") {
-                        ravenEye++;
-                    }
-                    if (w == "blood vial") {
-                        bloody++;
-                    }
-                }
-
-                if (wolfbane >= 3 && ravenEye >= 1 && bloody >= 1) {
-                    System.out.println("Success! You've made a Wolfs bane Soup!");
-                    invin.add("wolfs bane soup");
-                    for (int i = 0; i < 3; i++) {
-                        invin.remove("wolfbane");
-                    }
-                    invin.remove("raven eye");
-                    invin.remove("blood vial");
-                    return invin;
-
-                } else {
-                    System.out.println("You are lacking the materials to craft this: Wolfbane x3, raven eye, blood vial");
-                    return invin;
-
-                }
-            } else if (craft.equalsIgnoreCase("apple pie")) {
-
-                int apple = 0;
-                int wheat = 0;
-
-                for (String w : invin) {
-
-                    if (w == "apple") {
-                        apple++;
-                    }
-                    if (w == "wheat") {
-                        wheat++;
-                    }
-                }
-
-                if (apple >= 2 && wheat >= 2) {
-                    System.out.println("Success! You've made Apple Pie!");
-                    invin.add("apple pie");
-                    for (int i = 0; i < 2; i++) {
-                        invin.remove("apple");
-                        invin.remove("wheat");
-                    }
-
-                    return invin;
-
-                } else {
-                    System.out.println("You are lacking the materials to craft this: Apple x3, Wheat x3");
-                    return invin;
-
-                }
-            }
         } else {
-            System.out.println("Yeah, you are gonna have to go somewhere else to craft that...");
-            return invin;
+
+
+            if (player.QUESTS.get("SQ4") == null) {
+                Player.QUESTS.put("SQ4", new Quest("SQ4", "Craft Wolfs Bane Soup", 2, "wolfs bane soup", 1, 100, 20));
+                System.out.println("[[ YOU'VE UNLOCKED A QUEST ]]");
+                System.out.println("");
+            }
+
+            List<String> craftable = new ArrayList<>();
+            craftable.add("wolfs bane soup");
+            craftable.add("apple pie");
+
+            System.out.println("What would you like to craft?\n");
+            for (String a : craftable) {
+                System.out.println(a);
+            }
+            System.out.println("");
+
+            System.out.print("-> ");
+
+            String craft = scanner.nextLine();
+
+            int doable = 0;
+
+            for (String i : craftable) {
+                if (i.equalsIgnoreCase(craft)) {
+                    doable++;
+                    break;
+                }
+            }
+
+            if (doable != 0) {
+
+                if (craft.equalsIgnoreCase("wolfs bane soup")) {
+                    int wolfbane = 0;
+                    int ravenEye = 0;
+                    int bloody = 0;
+
+
+                    for (String w : invin) {
+
+                        if (w == "wolfbane") {
+                            wolfbane++;
+                        }
+                        if (w == "raven eye") {
+                            ravenEye++;
+                        }
+                        if (w == "blood vial") {
+                            bloody++;
+                        }
+                    }
+
+                    if (wolfbane >= 3 && ravenEye >= 1 && bloody >= 1) {
+                        System.out.println("Success! You've made a Wolfs bane Soup!");
+                        invin.add("wolfs bane soup");
+                        for (int i = 0; i < 3; i++) {
+                            invin.remove("wolfbane");
+                        }
+                        invin.remove("raven eye");
+                        invin.remove("blood vial");
+                        return invin;
+
+                    } else {
+                        System.out.println("You are lacking the materials to craft this: Wolfbane x3, raven eye, blood vial");
+                        return invin;
+
+                    }
+                } else if (craft.equalsIgnoreCase("apple pie")) {
+
+                    int apple = 0;
+                    int wheat = 0;
+
+                    for (String w : invin) {
+
+                        if (w == "apple") {
+                            apple++;
+                        }
+                        if (w == "wheat") {
+                            wheat++;
+                        }
+                    }
+
+                    if (apple >= 2 && wheat >= 2) {
+                        System.out.println("Success! You've made Apple Pie!");
+                        invin.add("apple pie");
+                        for (int i = 0; i < 2; i++) {
+                            invin.remove("apple");
+                            invin.remove("wheat");
+                        }
+
+                        return invin;
+
+                    } else {
+                        System.out.println("You are lacking the materials to craft this: Apple x3, Wheat x3");
+                        return invin;
+
+                    }
+                }
+            } else {
+                System.out.println("Yeah, you are gonna have to go somewhere else to craft that...");
+                return invin;
+            }
+
         }
 
         return invin;
-
 
     }
 

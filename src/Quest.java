@@ -38,7 +38,7 @@ class Quest {
             done = true;
             player.addCoins(rewardGold);
             xpLv.addXp(rewardXp);
-            System.out.println(name + " COMPLETE! +" + rewardXp + "XP (total: " + xpLv.getXp() + "  // +" + rewardGold + " fame points (total: " + player.getCoins() + ")"); // tell player they won
+            System.out.println(name + " COMPLETE! +" + rewardXp + "XP (total: " + xpLv.getXp() + ")  // +" + rewardGold + " fame points (total: " + player.getCoins() + ")"); // tell player they won
 
 
             if (this.getId().equals("MQ1")){
