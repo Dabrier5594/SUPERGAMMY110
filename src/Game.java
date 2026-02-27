@@ -19,9 +19,9 @@ import java.util.TimerTask;
 // ----------------------------------------------------
 
 /// ADDS ( TODO LIST )
+// Add 3 more DARUMAS into the world.
 // Add NPCS to FirstVille, some with quests.
-// Add HOMES.
-// make it so that scrolls work on people as well
+// make it so that scrolls work on people as well.
 // Fill in things, like the shopper bag, and just make more items. add a bakery and a stove and stuff. Add quests to the guild. And just items into the STREETS
 // UPDATE THE COMMANDS LIST & UPDATE ROOM DESCRIPTIONS
 
@@ -29,13 +29,11 @@ import java.util.TimerTask;
 
 // Make it so Zak can give you the ability to enter into the army/solidery/minion thing
 // ADD EASTER EGGS ( like a quest from lagger where he gifts you a relic, and then use the command addEasterEgg )
-// Add something the first ville cell, also, make the key attainable
+// Add something the first ville cell
 // AND MORE SKILLS!
 
 /// QUEST IDEAS:
-// find all the darumas in the village!
 // Deliver a leaflet to Bagger
-// Find a ball for a kid
 // Gather materials and craft some food
 
 // ----------------------------------------------------
@@ -740,6 +738,7 @@ public class Game {
         Hub firstVilleLane43 = new Hub("FirstVille Streets #43", "A manhole in the middle of the road. \nEXITS: (E) (S) (W) (D)");
 
         Hub firstVilleManHoleEnt = new Hub("Entrance to a manhole", " \nEXITS: (U) (E)");
+        firstVilleManHoleEnt.getObjects().add("ball");
         firstVilleLane43.setExit("d", firstVilleManHoleEnt);
         firstVilleManHoleEnt.setExit("u", firstVilleLane43);
 
@@ -1544,6 +1543,23 @@ public class Game {
 
         //NPCS
 
+        String[] firstVilleKid1Words = {
+                "Hwah! Hwah! shahshshahaha! Yippeeee! MAFEUBAIUEHFIEUH!"
+        };
+
+        Health firstVilleKid1HP = new Health(30, 30, 0);
+
+        Npca firstVilleKid1 = new Npca("Pam", "8 yr old kid", firstVilleKid1Words, 3, firstVilleKid1HP, "SQ7", Npca.QuestState.NONE);
+
+        KEY_FIGURES.add(new KeyFigureSpawn("Pam", firstVilleLane33, () -> {
+            Npca npc = new Npca("Pam", "8 yr old kid", firstVilleKid1Words,  3, new Health(30, 30, 3), "SQ7", Npca.QuestState.NONE);
+            firstVilleLane33.getNpc().add(npc);
+        }));
+
+        firstVilleLane33.getNpc().add(firstVilleKid1);
+
+
+
         String[] barracksGuard4Words = {
                 "People like you tend to like to keep your heads, right? Well scram."
         };
@@ -1551,8 +1567,6 @@ public class Game {
         Health barracksGuard4Health = new Health(120, 108, 8);
 
         Npca barracksGuard4 = new Npca("Cookie", "Shadow Guard", barracksGuard4Words, 11, barracksGuard4Health, "", Npca.QuestState.NONE);
-
-        firstVilleLane14.getNpc().add(barracksGuard4);
 
         KEY_FIGURES.add(new KeyFigureSpawn("Cookie", firstVilleLane14, () -> {
             Npca npc = new Npca("Cookie", "Shadow Guard", barracksGuard4Words,  11, new Health(120, 108, 8), "", Npca.QuestState.NONE);
@@ -6596,6 +6610,10 @@ public class Game {
                             player.QUESTS.put("SQ6", new Quest("SQ6", "Find the Elder's childhood toys [daruma]", 2, "daruma", 5, 100, 35));
                             npc.setQuestState(Npca.QuestState.ACCEPTED);
                         }
+                        if (npc.getName().equalsIgnoreCase("Pam")){
+                            player.QUESTS.put("SQ7", new Quest("SQ7", "Find Pam's missing ball!", 2, "ball", 1, 70, 20));
+                            npc.setQuestState(Npca.QuestState.ACCEPTED);
+                        }
                     }
                 } else if (npc.getQuestState() == Npca.QuestState.ACCEPTED){
                     if (player.QUESTS.get(npc.getQuestId()).isDone()){
@@ -6606,6 +6624,13 @@ public class Game {
                             inventory.add("cell key");
                         }
 
+                        if (npc.getName().equalsIgnoreCase("Pam")){
+                            System.out.println(npc.getName() + " (" + npc.getRole() + "): \"Yayy! Thank you so much! Now I can shatter windows with my ball!\"");
+                            System.out.println(npc.getName() + " (" + npc.getRole() + "): \"Okay. Behold. In return, I gift you my SECOND favorite toy!\"");
+                            System.out.println("== Pam throws his daruma onto the floow in front of you! ==");
+                            inRoom.getObjects().add("daruma");
+                        }
+
                         npc.setQuestState(Npca.QuestState.COMPLETED);
 
                     } else {
@@ -6614,7 +6639,15 @@ public class Game {
 
 
                 } else if (npc.getQuestState() == Npca.QuestState.COMPLETED){
-                    System.out.println("Thank you for your good deed!");
+                    if (npc.getName().equalsIgnoreCase("Pam")) {
+                        System.out.println(npc.getName() + " (" + npc.getRole() + "): \"Hey there!\"");
+
+                    }
+
+                    if (npc.getName().equalsIgnoreCase("Ragu")) {
+                        System.out.println(npc.getName() + " (" + npc.getRole() + "): \"*Chuckle* You sure are a nice guy!\"");
+
+                    }
                 }
             }
 
