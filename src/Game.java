@@ -1217,6 +1217,10 @@ public class Game {
         exchangeBooth.getObjects().add("exchange booth");
 
         // NEW FIRSTVILLE NPCA!!!
+
+
+
+
         //REAL ESTATE AGENT
 
         String[] firstVilleRealAgentWords = {
@@ -1539,6 +1543,23 @@ public class Game {
         //forest boss
 
         //NPCS
+
+        String[] barracksGuard4Words = {
+                "People like you tend to like to keep your heads, right? Well scram."
+        };
+
+        Health barracksGuard4Health = new Health(120, 108, 8);
+
+        Npca barracksGuard4 = new Npca("Cookie", "Shadow Guard", barracksGuard4Words, 11, barracksGuard4Health, "", Npca.QuestState.NONE);
+
+        firstVilleLane14.getNpc().add(barracksGuard4);
+
+        KEY_FIGURES.add(new KeyFigureSpawn("Cookie", firstVilleLane14, () -> {
+            Npca npc = new Npca("Cookie", "Shadow Guard", barracksGuard4Words,  11, new Health(120, 108, 8), "", Npca.QuestState.NONE);
+            firstVilleLane14.getNpc().add(npc);
+        }));
+
+        firstVilleLane14.getNpc().add(barracksGuard4);
 
         String[] firstVilleElderWords = {
                 "Ho ho ho! It's just like the old days!"
@@ -6560,7 +6581,7 @@ public class Game {
 
             npc.sayLine(0);
 
-            if (npc.getQuestId() != null){
+            if (npc.getQuestId() != null && !npc.getQuestId().equalsIgnoreCase("")){
 
                 if (npc.getQuestState() == Npca.QuestState.NONE) {
                     System.out.println(npc.getName() + " (" + npc.getRole() + "): \"I have a quest for you. Do you wish to accept??\"");
