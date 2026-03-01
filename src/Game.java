@@ -2078,8 +2078,12 @@ public class Game {
         food.put("acorn", 1);
         food.put("apple", 2);
         food.put("orange", 2);
-        food.put("apple pie", 3);
-        food.put("wolfs bane soup", 4);
+        food.put("bun", 3);
+        food.put("bread", 4);
+        food.put("jerky", 4);
+        food.put("apple pie", 6);
+        food.put("berry pie", 8);
+        food.put("wolfs bane soup", 12);
         food.put("golden apple", 88);
 
         List<String> remove = new ArrayList<>();
@@ -6863,7 +6867,95 @@ public class Game {
                     }
 
 
+                } else if (bake.equalsIgnoreCase("bun")) {
+
+                    int wheat = 0;
+
+                    for (String w : invin) {
+
+                        if (w == "wheat") {
+                            wheat++;
+                        }
+
+                    }
+
+                    if (wheat >= 2) {
+                        System.out.println("Success! You've baked a yummy bun");
+                        invin.add("bun");
+                        for (int i = 0; i < 2; i++) {
+                            invin.remove("wheat");
+                        }
+
+                        return invin;
+
+                    } else {
+                        System.out.println("You are lacking the materials to craft this: wheat X2");
+                        return invin;
+
+                    }
+
+
+                } else if (bake.equalsIgnoreCase("jerky")) {
+
+                    int rabbit = 0;
+                    int squirrel = 0;
+                    int meat = 0;
+
+                    for (String w : invin) {
+
+                        if (w == "rabbit hide") {
+                            rabbit++;
+                            meat++;
+                        }
+
+                        if (w == "squirrel hide") {
+                            rabbit++;
+                            meat++;
+                        }
+
+                    }
+
+                    if (meat >= 2) {
+                        System.out.println("Success! You've baked some dried jerky!");
+                        invin.add("jerky");
+
+                        int total = 2;
+                        if (rabbit > 0) {
+                            if (rabbit > 2) {
+                                rabbit = 2;
+                            }
+                            for (int i = 0; i < rabbit; i++) {
+                                invin.remove("rabbit hide");
+                                total--;
+                            }
+                            if (total > 0){
+
+                                for (int i = 0; i < total; i++) {
+                                    invin.remove("squirrel hide");
+
+                                }
+
+                            }
+                        } else {
+
+                            for (int i = 0; i < 2; i++) {
+                                invin.remove("squirrel");
+                                total--;
+                            }
+
+                        }
+
+                        return invin;
+
+                    } else {
+                        System.out.println("You are lacking the materials to craft this: combined total of TWO of either SQUIRREL or RABBIT hide");
+                        return invin;
+
+                    }
+
+
                 }
+
 
             } else {
 
