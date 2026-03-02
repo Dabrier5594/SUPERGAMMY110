@@ -23,7 +23,7 @@ import java.util.TimerTask;
 // Add NPCS to FirstVille, some with quests.
 // make it so that scrolls work on people as well.
 // Fill in shopper bag || ADD items to rooms (wheat, sugar, berrys etc) ||  Add more quests to the guild
-// || Add things to YOUR house || ADD THING TO CELL  || ADD ITEMS INTO STORES! || RESET NPC HPs! THEY ARE THE SAME RN...
+// || Add things to YOUR house || ADD THING TO CELL  || ADD ITEMS INTO STORES! || RESET NPC HPs! THEY ARE THE SAME RN...  (ADD MONEY
 // UPDATE THE COMMANDS LIST & UPDATE ROOM DESCRIPTIONS
 
 // COMPLETE THE PLAINS AND SECOND AND OCEAN (THIRD ONLY IF TIME ALLOWS)
@@ -7298,16 +7298,22 @@ public class Game {
         }
 
         Map<String, Integer> bronze = new HashMap<>();
-        bronze.put("", 2);
+        bronze.put("copper", 10);
 
         Map<String, Integer> silver = new HashMap<>();
-        bronze.put("", 2);
+        silver.put("copper", 8);
+        silver.put("silver", 80);
 
         Map<String, Integer> gold = new HashMap<>();
-        bronze.put("", 2);
+        gold.put("copper", 5);
+        gold.put("silver", 50);
+        gold.put("gold", 250);
 
         Map<String, Integer> platinum = new HashMap<>();
-        bronze.put("", 2);
+        platinum.put("copper", 3);
+        platinum.put("silver", 30);
+        platinum.put("gold", 150);
+
 
         // SHOPPING CODE
 
