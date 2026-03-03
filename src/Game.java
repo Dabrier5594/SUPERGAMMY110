@@ -82,7 +82,7 @@ public class Game {
         INSPECT_DESCRIPTIONS.put("oliver", "A firstville guard. A welcoming sight to the unfamiliar village behind him.");
         INSPECT_DESCRIPTIONS.put("trap", "A crude but effective snare.");
         INSPECT_DESCRIPTIONS.put("bear claw", "A massive claw from a fearsome bear. Still faintly warm, stained with old blood.");
-        INSPECT_DESCRIPTIONS.put("bear essence", "The teeth from a Mama Bear. A useful ingredient for potions.");
+        INSPECT_DESCRIPTIONS.put("bear tooth", "The tooth from a Mama Bear. A useful ingredient for potions.");
         INSPECT_DESCRIPTIONS.put("wolfbane", "The flesh from a wolf. Once cooked could sustain you plenty.");
         INSPECT_DESCRIPTIONS.put("raven eye", "The eye from a raven. A useful ingredient for potions.");
         INSPECT_DESCRIPTIONS.put("blood vial", "A small glass vial filled with coagulated blood. A useful ingredient for potions.");
@@ -1458,12 +1458,12 @@ public class Game {
 
         stuff.add("bear fur");
         stuff.add("snarkflower");
-        stuff.add("bear essence");
+        stuff.add("bear tooth");
 
         goblin = createBearWithRandomStats(stuff, 70, "Mama Bear");
         stuff.remove("bear fur");
         stuff.remove("snarkflower");
-        stuff.remove("bear essence");
+        stuff.remove("bear tooth");
 
 
         forest47.getMOBS().add(goblin);
@@ -1906,7 +1906,8 @@ public class Game {
         objects.add("berry pies");
         objects.add("berry pie");
         objects.add("scuba mask");
-        objects.add("bear essence");
+        objects.add("bear teeth");
+        objects.add("bear tooth");
         objects.add("golden apples");
         objects.add("golden apple");
         objects.add("white whispberries");
@@ -1919,12 +1920,12 @@ public class Game {
         objects.add("blood vial");
         objects.add("goblin teeth");
         objects.add("goblin tooth");
-        objects.add("rabbit hides");
-        objects.add("rabbit hide");
-        objects.add("squirrel hides");
-        objects.add("squirrel hide");
-        objects.add("bear hides");
-        objects.add("bear hide");
+        objects.add("rabbit meats");
+        objects.add("rabbit meat");
+        objects.add("squirrel meats");
+        objects.add("squirrel meat");
+        objects.add("bear meats");
+        objects.add("bear meat");
         objects.add("chicken feathers");
         objects.add("chicken feather");
 
@@ -5309,7 +5310,7 @@ public class Game {
 
         if (drop.isEmpty()) {
             if ((int) (Math.random() * 2 + 1) == 1) {
-                drop.add("rabbit hide");
+                drop.add("rabbit meat");
             }
         }
 
@@ -5334,7 +5335,7 @@ public class Game {
         boolean isAggro = false;
 
         if (drop.isEmpty()) {
-            drop.add("bear hide");
+            drop.add("bear meat");
         }
 
         return new Mob(name, bearHealth, attackPower, isAggro, drop);
@@ -5351,7 +5352,7 @@ public class Game {
 
         if (drop.isEmpty()) {
             if ((int) (Math.random() * 2 + 1) == 1) {
-                drop.add("squirrel hide");
+                drop.add("squirrel meat");
             }
         }
 
@@ -6903,12 +6904,12 @@ public class Game {
 
                     for (String w : invin) {
 
-                        if (w == "rabbit hide") {
+                        if (w == "rabbit meat") {
                             rabbit++;
                             meat++;
                         }
 
-                        if (w == "squirrel hide") {
+                        if (w == "squirrel meat") {
                             rabbit++;
                             meat++;
                         }
@@ -6925,13 +6926,13 @@ public class Game {
                                 rabbit = 2;
                             }
                             for (int i = 0; i < rabbit; i++) {
-                                invin.remove("rabbit hide");
+                                invin.remove("rabbit meat");
                                 total--;
                             }
                             if (total > 0){
 
                                 for (int i = 0; i < total; i++) {
-                                    invin.remove("squirrel hide");
+                                    invin.remove("squirrel meat");
 
                                 }
 
@@ -6948,7 +6949,7 @@ public class Game {
                         return invin;
 
                     } else {
-                        System.out.println("You are lacking the materials to craft this: combined total of TWO of either SQUIRREL or RABBIT hide");
+                        System.out.println("You are lacking the materials to craft this: combined total of TWO of either SQUIRREL or RABBIT meat");
                         return invin;
 
                     }
