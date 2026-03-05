@@ -66,7 +66,7 @@ public class Game {
         INSPECT_DESCRIPTIONS.put("squirrel", "A squirrel, you watch it run around for a moment.");
         INSPECT_DESCRIPTIONS.put("goblin", "A dubious goblin, short and green, a small dagger in hand.");
         INSPECT_DESCRIPTIONS.put("chest", "A heavy chest. The lid feels nailed shut.");
-        INSPECT_DESCRIPTIONS.put("ih", "A small key. It could probably fit in a chest.");
+        INSPECT_DESCRIPTIONS.put("key", "A small key. It could probably fit in a chest.");
         INSPECT_DESCRIPTIONS.put("white whispberry", "A whispberry. Smells sweet and of hiraeth, reminding you of the morning dew.");
         INSPECT_DESCRIPTIONS.put("bagger", "It's Bagger. Laggers brother-in-law, Jaggers brother, and Raggers cousin.");
         INSPECT_DESCRIPTIONS.put("ragger", "It's Ragger. Laggers cousin-in-law, Jaggers cousin, and Baggers cousin.");
@@ -1943,7 +1943,6 @@ public class Game {
         objects.add("cauldron");
         objects.add("scroll");
         objects.add("tree");
-        objects.add("wheats");
         objects.add("wheat");
         objects.add("exchange");
         objects.add("cabinet");
@@ -1987,7 +1986,6 @@ public class Game {
         objects.add("gate");
         objects.add("traps");
         objects.add("trap");
-        objects.add("wolfbanes");
         objects.add("wolfbane");
         objects.add("wolf");
         objects.add("cauldron");
@@ -2007,7 +2005,6 @@ public class Game {
         objects.add("badge");
         objects.add("balls");
         objects.add("ball");
-        objects.add("wheats");
         objects.add("wheat");
         objects.add("berries");
         objects.add("berry");
@@ -2015,7 +2012,6 @@ public class Game {
         objects.add("sugar");
         objects.add("breads");
         objects.add("bread");
-        objects.add("jerkys");
         objects.add("jerky");
         objects.add("buns");
         objects.add("bun");
@@ -2092,7 +2088,7 @@ public class Game {
 
         List<String> inspect = new ArrayList<>();
         inspect.add("inspect");
-        inspect.add("examine");   // alt word
+        inspect.add("examine");
         inspect.add("look at");
 
         List<String> cabinet = new ArrayList<>();
@@ -6247,8 +6243,9 @@ public class Game {
             System.out.println("");
             if (eq.getItemBasedOnSlot("melee", eq.getEquippedItems()) != null) {
                 Item boom = eq.getItemBasedOnSlot("melee", eq.getEquippedItems());
-                boom.checkPowerBoss(boss);
+                boom.checkPowerBoss(boss, player);
             }
+
             // PLAYER ATTACK BOSS
             player.attackBoss(boss);
 

@@ -48,9 +48,9 @@ class Item {
         }
     }
 
-    public void checkPowerBoss(Boss mob){
+    public void checkPowerBoss(Boss mob, Player player){
         if (enchantment1 != null){
-            enchantment1.usePowerBoss(enchantment1, mob);
+            enchantment1.usePowerBoss(enchantment1, mob, player);
         }
     }
 
