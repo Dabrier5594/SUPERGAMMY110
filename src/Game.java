@@ -421,8 +421,6 @@ public class Game {
                         "\n" +
                         "As a first step following the decision, Trump announced a 10% global tariff while touting \"other alternatives\" separated from IEEPA will be used to impose tariffs on foreign nations. \n" +
                         "\n" +
-                        "CLICK HERE TO DOWNLOAD THE FOX NEWS APP \n" +
-                        "\n" +
                         "\"Other alternatives will now be used to replace the ones that the court incorrectly rejected,\" Trump said. \"We have alternatives. Great alternatives. Could be more money. We'll take in more money, and we'll be a lot stronger for it. We're taking in hundreds of billions of dollars. We'll continue to do so.\"\n" +
                         "\n" +
                         "\"Today I will sign an order to impose a 10% global tariff under section 122 over and above our normal tariffs already being charged,\" Trump said. \"And we're also initiating several section 301 and other investigations to protect our country from unfair trading practices of other countries and companies.\" \n. \nHint: FUCK YOU JOHAN"));
@@ -1715,7 +1713,7 @@ public class Game {
         Health mandellHP = new Health(150, 150, 10);
 
         FirstShopOwner mandell = new FirstShopOwner("silver", "Mandell", mandellWords, mandellHP, 10, null, "", Npca.QuestState.NONE);
-        Hub.FirstVilleStringShop mandellsShop = new Hub("MANDELL'S FABULOUS BAKERYS", "Scents from far and beyond gather in this store\nEXITS: (S)").new FirstVilleStringShop("MANDELL'S FABULOUS BAKERYS", "Scents from far and beyond gather in this store\nEXITS: (S)", mandell);
+        Hub.FirstVilleStringShop mandellsShop = new Hub("MANDELL'S FABULOUS BAKERY", "Scents from far and beyond gather in this store\nEXITS: (S)").new FirstVilleStringShop("MANDELL'S FABULOUS BAKERY", "Scents from far and beyond gather in this store\nEXITS: (S)", mandell);
         mandellsShop.addStock("", 1);
         mandellsShop.addFirstShopOwner(mandell);
         mandell.setMyShop(mandellsShop);
@@ -1941,6 +1939,7 @@ public class Game {
         objects.add("dagger");
         objects.add("cauldron");
         objects.add("scroll");
+        objects.add("forge");
         objects.add("tree");
         objects.add("wheats");
         objects.add("wheat");
@@ -1994,7 +1993,7 @@ public class Game {
         objects.add("tree");
         objects.add("acorns");
         objects.add("acorn");
-        objects.add("jerr");
+        objects.add("jerry");
         objects.add("boat");
         objects.add("buttons");
         objects.add("button");
@@ -2006,7 +2005,6 @@ public class Game {
         objects.add("badge");
         objects.add("balls");
         objects.add("ball");
-        objects.add("wheats");
         objects.add("wheat");
         objects.add("berries");
         objects.add("berry");
@@ -2014,10 +2012,13 @@ public class Game {
         objects.add("sugar");
         objects.add("breads");
         objects.add("bread");
-        objects.add("jerkys");
         objects.add("jerky");
         objects.add("buns");
         objects.add("bun");
+        objects.add("campfire");
+
+
+
 
         List<String> yesOrYes = new ArrayList<>();
         yesOrYes.add("y");
@@ -2100,6 +2101,10 @@ public class Game {
         List<String> cauldron = new ArrayList<>();
         cauldron.add("cauldron");
         cauldron.add("stove");
+        cauldron.add("forge");
+
+        List<String> craft = new ArrayList<>();
+        craft.add("craft");
 
         List<String> scroll = new ArrayList<>();
         scroll.add("scroll");
@@ -2595,6 +2600,11 @@ public class Game {
                         time = "NIGHT";
                     }
                     System.out.println("You look up the sky: " + time);
+
+                } else if (action.equalsIgnoreCase("craft")){
+                    crafting(inventory, player);
+
+
                 } else if (action.equalsIgnoreCase("quests")) {
 
                     int totalQuests = Player.QUESTS.size();
@@ -6818,7 +6828,7 @@ public class Game {
                         return invin;
 
                     } else {
-                        System.out.println("You are lacking the materials to craft this: wheat X3");
+                        System.out.println("You are lacking the materials to make this: wheat X3");
                         return invin;
 
                     }
@@ -6861,7 +6871,7 @@ public class Game {
                         return invin;
 
                     } else {
-                        System.out.println("You are lacking the materials to craft this: wheat X3   berry X2   sugar X2");
+                        System.out.println("You are lacking the materials to make this: wheat X3   berry X2   sugar X2");
                         return invin;
 
                     }
@@ -6889,7 +6899,7 @@ public class Game {
                         return invin;
 
                     } else {
-                        System.out.println("You are lacking the materials to craft this: wheat X2");
+                        System.out.println("You are lacking the materials to make this: wheat X2");
                         return invin;
 
                     }
@@ -6948,7 +6958,7 @@ public class Game {
                         return invin;
 
                     } else {
-                        System.out.println("You are lacking the materials to craft this: combined total of TWO of either SQUIRREL or RABBIT hide");
+                        System.out.println("You are lacking the materials to make this: combined total of TWO of either SQUIRREL or RABBIT hide");
                         return invin;
 
                     }
@@ -6960,29 +6970,29 @@ public class Game {
             } else {
 
                 if (player.QUESTS.get("SQ4") == null) {
-                    Player.QUESTS.put("SQ4", new Quest("SQ4", "Craft Wolfs Bane Soup", 2, "wolfs bane soup", 1, 100, 20));
+                    Player.QUESTS.put("SQ4", new Quest("SQ4", "Make Wolfs Bane Soup", 2, "wolfs bane soup", 1, 100, 20));
                     System.out.println("[[ YOU'VE UNLOCKED A QUEST ]]");
                     System.out.println("");
                 }
 
-                List<String> craftable = new ArrayList<>();
-                craftable.add("wolfs bane soup");
-                craftable.add("apple pie");
+                List<String> makeable = new ArrayList<>();
+                makeable.add("wolfs bane soup");
+                makeable.add("apple pie");
 
-                System.out.println("What would you like to craft?\n");
-                for (String a : craftable) {
+                System.out.println("What would you like to make?\n");
+                for (String a : makeable) {
                     System.out.println(a);
                 }
                 System.out.println("");
 
                 System.out.print("-> ");
 
-                String craft = scanner.nextLine();
+                String make = scanner.nextLine();
 
                 int doable = 0;
 
-                for (String i : craftable) {
-                    if (i.equalsIgnoreCase(craft)) {
+                for (String i : makeable) {
+                    if (i.equalsIgnoreCase(make)) {
                         doable++;
                         break;
                     }
@@ -6990,7 +7000,7 @@ public class Game {
 
                 if (doable != 0) {
 
-                    if (craft.equalsIgnoreCase("wolfs bane soup")) {
+                    if (make.equalsIgnoreCase("wolfs bane soup")) {
                         int wolfbane = 0;
                         int ravenEye = 0;
                         int bloody = 0;
@@ -7020,11 +7030,11 @@ public class Game {
                             return invin;
 
                         } else {
-                            System.out.println("You are lacking the materials to craft this: Wolfbane x3, raven eye, blood vial");
+                            System.out.println("You are lacking the materials to make this: Wolfbane x3, raven eye, blood vial");
                             return invin;
 
                         }
-                    } else if (craft.equalsIgnoreCase("apple pie")) {
+                    } else if (make.equalsIgnoreCase("apple pie")) {
 
                         int apple = 0;
                         int wheat = 0;
@@ -7050,14 +7060,14 @@ public class Game {
                             return invin;
 
                         } else {
-                            System.out.println("You are lacking the materials to craft this: Apple x3, Wheat x3");
+                            System.out.println("You are lacking the materials to make this: Apple x3, Wheat x3");
                             return invin;
 
                         }
                     }
 
                 } else {
-                    System.out.println("Yeah, you are gonna have to go somewhere else to craft that...");
+                    System.out.println("Yeah, you are gonna have to go somewhere else to make that...");
                     return invin;
                 }
 
@@ -7070,6 +7080,206 @@ public class Game {
         return invin;
 
     }
+
+    public static List<String> crafting(List<String> invin, Player player) {
+
+
+        List<String> craftables = new ArrayList<>();
+        craftables.add("");
+        craftables.add("");
+        craftables.add("");
+        craftables.add("");
+
+        System.out.println("What would you like to craft?\n");
+        for (String a : craftables) {
+            System.out.println(a);
+        }
+
+        System.out.println("");
+
+        System.out.print("-> ");
+
+        String craft = scanner.nextLine();
+
+        int doable0 = 0;
+
+        for (String i : craftables) {
+            if (i.equalsIgnoreCase(craft)) {
+                doable0++;
+                break;
+            }
+        }
+
+        if (doable0 != 0) {
+
+            if (craft.equalsIgnoreCase("campfire")) {
+
+                int twig = 0;
+
+                for (String t : invin) {
+
+                    if (t == "twig") {
+                        twig++;
+                    }
+                }
+
+                if (twig >= 3) {
+                    System.out.println("Success! You've crafted a campfire!");
+                    invin.add("campfire");
+                    for (int i = 0; i < 3; i++) {
+                        invin.remove("twig");
+                    }
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to craft this: wheat X3");
+                    return invin;
+
+                }
+
+
+            } else if (craft.equalsIgnoreCase("")) {
+
+                int berry = 0;
+                int wheat = 0;
+                int sugar = 0;
+
+
+                for (String w : invin) {
+
+                    if (w == "wheat") {
+                        wheat++;
+                    }
+
+                    if (w == "berry") {
+                        berry++;
+                    }
+
+                    if (w == "sugar") {
+                        sugar++;
+                    }
+                }
+
+                if (wheat >= 3 && sugar >= 2 && berry >= 2) {
+                    System.out.println("Success! You've baked a berry pie!");
+                    invin.add("berry pie");
+                    for (int i = 0; i < 3; i++) {
+                        invin.remove("wheat");
+                    }
+                    for (int i = 0; i < 2; i++) {
+                        invin.remove("berry");
+                    }
+                    for (int i = 0; i < 2; i++) {
+                        invin.remove("sugar");
+                    }
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to craft this: wheat X3   berry X2   sugar X2");
+                    return invin;
+
+                }
+
+
+            } else if (craft.equalsIgnoreCase("bun")){
+
+                int wheat = 0;
+
+                for (String w : invin) {
+
+                    if (w == "wheat") {
+                        wheat++;
+                    }
+
+                }
+
+                if (wheat >= 2) {
+                    System.out.println("Success! You've baked a yummy bun");
+                    invin.add("bun");
+                    for (int i = 0; i < 2; i++) {
+                        invin.remove("wheat");
+                    }
+
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to craft this: wheat X2");
+                    return invin;
+
+                }
+
+
+            } else if (craft.equalsIgnoreCase("jerky")) {
+
+                int rabbit = 0;
+                int squirrel = 0;
+                int meat = 0;
+
+                for (String w : invin) {
+
+                    if (w == "rabbit hide") {
+                        rabbit++;
+                        meat++;
+                    }
+
+                    if (w == "squirrel hide") {
+                        rabbit++;
+                        meat++;
+                    }
+
+                }
+
+                if (meat >= 2) {
+                    System.out.println("Success! You've baked some dried jerky!");
+                    invin.add("jerky");
+
+                    int total = 2;
+                    if (rabbit > 0) {
+                        if (rabbit > 2) {
+                            rabbit = 2;
+                        }
+                        for (int i = 0; i < rabbit; i++) {
+                            invin.remove("rabbit hide");
+                            total--;
+                        }
+                        if (total > 0){
+
+                            for (int i = 0; i < total; i++) {
+                                invin.remove("squirrel hide");
+
+                            }
+
+                        }
+                    } else {
+
+                        for (int i = 0; i < 2; i++) {
+                            invin.remove("squirrel");
+                            total--;
+                        }
+
+                    }
+
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to craft this: combined total of TWO of either SQUIRREL or RABBIT hide");
+                    return invin;
+
+                }
+
+
+            }
+
+
+        } else {
+            System.out.println("That's not something you can craft");
+        }
+        return invin;
+
+    }
+
+
+
 
 
     private static int extractNumber(String text) {
