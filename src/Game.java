@@ -7086,7 +7086,7 @@ public class Game {
 
 
         List<String> craftables = new ArrayList<>();
-        craftables.add("");
+        craftables.add("campfire");
         craftables.add("");
         craftables.add("");
         craftables.add("");
