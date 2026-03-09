@@ -75,6 +75,8 @@ public class Boss {
 
     public void setDead(boolean isDead){this.isDead = isDead;}
 
+    public int getAttackPower(){ return  attackPower;}
+
     public void attack(Player player, Equipment eq, Map<String, Item> eqI){
 
         if (getStunned()) {
@@ -114,6 +116,13 @@ public class Boss {
 
                     }
                 }
+            }
+        }
+
+        for (MobSkill skill : skills) {
+            if (skill.getName().equals("RouletteSkill")) {
+                ((MobSkill.RouletteSkill)skill).apply(this);
+                break;
             }
         }
 
