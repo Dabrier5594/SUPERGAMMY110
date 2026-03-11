@@ -2016,7 +2016,7 @@ public class Game {
         objects.add("bun");
         objects.add("campfire");
 
-
+        //HBM Nuclear Tech
 
 
         List<String> yesOrYes = new ArrayList<>();
@@ -2101,6 +2101,7 @@ public class Game {
         cauldron.add("cauldron");
         cauldron.add("stove");
         cauldron.add("forge");
+        cauldron.add("campfire");
 
         List<String> craft = new ArrayList<>();
         craft.add("craft");
@@ -2603,6 +2604,10 @@ public class Game {
                 } else if (action.equalsIgnoreCase("craft")){
                     crafting(inventory, player);
 
+                } else if (action.equalsIgnoreCase("campfire")){
+                    campfire(inventory, player);
+
+
 
                 } else if (action.equalsIgnoreCase("quests")) {
 
@@ -2986,6 +2991,9 @@ public class Game {
                             }
 
                             if (stringContainsWordFromList(action.toLowerCase(), cauldron.toArray(new String[0]))) {
+                                if(action.contains("campfire")){
+                                    campfire(inventory, player);
+                                }
 
                                 if (inRoom.getRoomName().equalsIgnoreCase("Northern Forest Area #29") || inRoom.getRoomName().equalsIgnoreCase("FirstVille Townhome Upstairs Room")) {
                                     cauldron(inventory, player, inRoom);
@@ -7082,6 +7090,347 @@ public class Game {
 
     }
 
+    public static List<String> campfire(List<String> invin, Player player) {
+
+        List<String> bakables = new ArrayList<>();
+        bakables.add("bread");
+        bakables.add("berry pie");
+        bakables.add("jerky");
+        bakables.add("bun");
+
+        System.out.println("What would you like to bake?\n");
+        for (String a : bakables) {
+            System.out.println(a);
+        }
+
+        System.out.println("");
+
+        System.out.print("-> ");
+
+        String bake = scanner.nextLine();
+
+        int doable0 = 0;
+
+        for (String i : bakables) {
+            if (i.equalsIgnoreCase(bake)) {
+                doable0++;
+                break;
+            }
+        }
+
+        if (doable0 != 0) {
+
+            if (bake.equalsIgnoreCase("bread")) {
+
+                int wheat = 0;
+
+                for (String w : invin) {
+
+                    if (w == "wheat") {
+                        wheat++;
+                    }
+                }
+
+                if (wheat >= 3) {
+                    System.out.println("Success! You've baked bread!");
+                    invin.add("bread");
+                    for (int i = 0; i < 3; i++) {
+                        invin.remove("wheat");
+                    }
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to make this: wheat X3");
+                    return invin;
+
+                }
+
+
+            } else if (bake.equalsIgnoreCase("bun")) {
+
+                int wheat = 0;
+
+                for (String w : invin) {
+
+                    if (w == "wheat") {
+                        wheat++;
+                    }
+
+                }
+
+                if (wheat >= 2) {
+                    System.out.println("Success! You've baked a yummy bun");
+                    invin.add("bun");
+                    for (int i = 0; i < 2; i++) {
+                        invin.remove("wheat");
+                    }
+
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to make this: wheat X2");
+                    return invin;
+
+                }
+
+
+            } else if (bake.equalsIgnoreCase("jerky")) {
+
+                int rabbit = 0;
+                int squirrel = 0;
+                int meat = 0;
+
+                for (String w : invin) {
+
+                    if (w == "rabbit meat") {
+                        rabbit++;
+                        meat++;
+                    }
+
+                    if (w == "squirrel meat") {
+                        rabbit++;
+                        meat++;
+                    }
+
+                }
+
+
+
+
+                if (meat >= 2) {
+                    System.out.println("Success! You've baked some dried jerky!");
+                    invin.add("jerky");
+
+                    int total = 2;
+                    if (rabbit > 0) {
+                        if (rabbit > 2) {
+                            rabbit = 2;
+                        }
+                        for (int i = 0; i < rabbit; i++) {
+                            invin.remove("rabbit meat");
+                            total--;
+                        }
+                        if (total > 0) {
+
+                            for (int i = 0; i < total; i++) {
+                                invin.remove("squirrel meat");
+
+                            }
+
+                        }
+                    } else {
+
+                        for (int i = 0; i < 2; i++) {
+                            invin.remove("squirrel");
+                            total--;
+                        }
+
+                    }
+
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to make this: combined total of TWO of either SQUIRREL or RABBIT hide");
+                    System.out.println("You are lacking the materials to craft this: combined total of TWO of either SQUIRREL or RABBIT meat");
+                    return invin;
+
+                }
+
+
+            }
+
+
+        } else {
+            return invin;
+        }
+        return invin;
+    }
+
+    public static List<String> forge(List<String> invin, Player player) {
+
+        List<String> forgables = new ArrayList<>();
+        forgables.add("sword");
+        forgables.add("");
+        forgables.add("jerky");
+        forgables.add("bun");
+
+        List<String> alloys = new ArrayList<>();
+        alloys.add("steel");
+        alloys.add("ferric schrabidate");
+
+        List<String> melt_and_castables = new ArrayList<>();
+        melt_and_castables.add("ferric schrabidate");
+
+        System.out.println("What would you like to make?\n");
+        for (String a : forgables) {
+            System.out.println(a);
+        }
+        for (String a : alloys) {
+            System.out.println(a);
+        }
+        for (String a : melt_and_castables) {
+            System.out.println(a);
+        }
+
+        System.out.println("");
+
+        System.out.print("-> ");
+
+        String bake = scanner.nextLine();
+
+        int doable0 = 0;
+
+        for (String i : forgables) {
+            if (i.equalsIgnoreCase(bake)) {
+                doable0++;
+                break;
+            }
+        }
+
+        for (String i : alloys) {
+            if (i.equalsIgnoreCase(bake)) {
+                doable0++;
+                break;
+            }
+        }
+        for (String i : melt_and_castables) {
+
+            if (i.equalsIgnoreCase(bake)) {
+                doable0++;
+                break;
+            }
+        }
+
+        if (doable0 != 0) {
+
+            if (bake.equalsIgnoreCase("bread")) {
+
+                int wheat = 0;
+
+                for (String w : invin) {
+
+                    if (w == "wheat") {
+                        wheat++;
+                    }
+                }
+
+                if (wheat >= 3) {
+                    System.out.println("Success! You've baked bread!");
+                    invin.add("bread");
+                    for (int i = 0; i < 3; i++) {
+                        invin.remove("wheat");
+                    }
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to make this: wheat X3");
+                    return invin;
+
+                }
+
+
+            } else if (bake.equalsIgnoreCase("bun")) {
+
+                int wheat = 0;
+
+                for (String w : invin) {
+
+                    if (w == "wheat") {
+                        wheat++;
+                    }
+
+                }
+
+                if (wheat >= 2) {
+                    System.out.println("Success! You've baked a yummy bun");
+                    invin.add("bun");
+                    for (int i = 0; i < 2; i++) {
+                        invin.remove("wheat");
+                    }
+
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to make this: wheat X2");
+                    return invin;
+
+                }
+
+
+            } else if (bake.equalsIgnoreCase("jerky")) {
+
+                int rabbit = 0;
+                int squirrel = 0;
+                int meat = 0;
+
+                for (String w : invin) {
+
+                    if (w == "rabbit meat") {
+                        rabbit++;
+                        meat++;
+                    }
+
+                    if (w == "squirrel meat") {
+                        rabbit++;
+                        meat++;
+                    }
+
+                }
+
+
+
+
+                if (meat >= 2) {
+                    System.out.println("Success! You've baked some dried jerky!");
+                    invin.add("jerky");
+
+                    int total = 2;
+                    if (rabbit > 0) {
+                        if (rabbit > 2) {
+                            rabbit = 2;
+                        }
+                        for (int i = 0; i < rabbit; i++) {
+                            invin.remove("rabbit meat");
+                            total--;
+                        }
+                        if (total > 0) {
+
+                            for (int i = 0; i < total; i++) {
+                                invin.remove("squirrel meat");
+
+                            }
+
+                        }
+                    } else {
+
+                        for (int i = 0; i < 2; i++) {
+                            invin.remove("squirrel");
+                            total--;
+                        }
+
+                    }
+
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to make this: combined total of TWO of either SQUIRREL or RABBIT hide");
+                    System.out.println("You are lacking the materials to craft this: combined total of TWO of either SQUIRREL or RABBIT meat");
+                    return invin;
+
+                }
+
+
+            }
+
+
+        } else {
+            return invin;
+        }
+        return invin;
+    }
+
+
+
     public static List<String> crafting(List<String> invin, Player player) {
 
 
@@ -7139,39 +7488,65 @@ public class Game {
                 }
 
 
-            } else if (craft.equalsIgnoreCase("")) {
+            } else if (craft.equalsIgnoreCase("gerald")) {
 
-                int berry = 0;
-                int wheat = 0;
-                int sugar = 0;
 
+                int nuclear_charge = 0;
+                int dense_BSCCO_wire = 0;
+                int heavy_duty_element = 0;
+                int ufo_coin = 0;
+                int quantum_computer = 0;
+                int cast_ferric_schrabidate_plate = 0;
 
                 for (String w : invin) {
 
-                    if (w == "wheat") {
-                        wheat++;
+                    if (w == "nuclear charge") {
+                        nuclear_charge++;
                     }
 
-                    if (w == "berry") {
-                        berry++;
+                    if (w == "dense BSCO wire") {
+                        dense_BSCCO_wire++;
                     }
 
-                    if (w == "sugar") {
-                        sugar++;
+                    if (w == "heavy duty element") {
+                        heavy_duty_element++;
                     }
-                }
 
-                if (wheat >= 3 && sugar >= 2 && berry >= 2) {
-                    System.out.println("Success! You've baked a berry pie!");
-                    invin.add("berry pie");
+                    if (w == "ufo coin") {
+                        ufo_coin++;
+                    }
+
+                    if (w == "quantum computer") {
+                        quantum_computer++;
+                    }
+
+                    if (w == "cast ferric schrabidate plate") {
+                        cast_ferric_schrabidate_plate++;
+                    }
+
+
+                    }
+
+                if (nuclear_charge >= 3 && ufo_coin >= 2 && dense_BSCCO_wire >= 2 && heavy_duty_element >= 0 && quantum_computer >= 0 && cast_ferric_schrabidate_plate >= 0) {
+                    System.out.println("Congrats on making Gerald the construction android");
+                    invin.add("gerald");
                     for (int i = 0; i < 3; i++) {
-                        invin.remove("wheat");
+                        invin.remove("ufo coin");
                     }
                     for (int i = 0; i < 2; i++) {
-                        invin.remove("berry");
+                        invin.remove("cast ferric schrabidate plate");
                     }
                     for (int i = 0; i < 2; i++) {
-                        invin.remove("sugar");
+                        invin.remove("quantum computer");
+                    }
+                    for (int i = 0; i < 2; i++) {
+                        invin.remove("heavy duty element");
+                    }
+                    for (int i = 0; i < 2; i++) {
+                        invin.remove("nuclear charge");
+                    }
+                    for (int i = 0; i < 3; i++) {
+                        invin.remove("dense BSCCO wire");
                     }
                     return invin;
 
@@ -7182,19 +7557,29 @@ public class Game {
                 }
 
 
-            } else if (craft.equalsIgnoreCase("bun")){
+            } else if (craft.equalsIgnoreCase("nuclear charge")){
 
-                int wheat = 0;
+                int uranium_235 = 0;
+                int steel_shell = 0;
+                int cordite = 0;
+
 
                 for (String w : invin) {
 
-                    if (w == "wheat") {
-                        wheat++;
+                    if (w == "uranium 235") {
+                        uranium_235++;
+                    }
+
+                    if (w == "steel shell") {
+                        steel_shell++;
+                    }
+                    if (w == "cordite") {
+                        uranium_235++;
                     }
 
                 }
 
-                if (wheat >= 2) {
+                if (uranium_235 >= 3) {
                     System.out.println("Success! You've baked a yummy bun");
                     invin.add("bun");
                     for (int i = 0; i < 2; i++) {
