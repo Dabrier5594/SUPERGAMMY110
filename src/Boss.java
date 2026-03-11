@@ -121,7 +121,7 @@ public class Boss {
 
         for (MobSkill skill : skills) {
             if (skill.getName().equals("RouletteSkill")) {
-                ((MobSkill.RouletteSkill)skill).apply(this);
+                ((MobSkill.RouletteSkill)skill).applyR(this);
                 break;
             }
         }

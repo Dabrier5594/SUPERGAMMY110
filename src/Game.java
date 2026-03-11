@@ -777,9 +777,9 @@ public class Game {
 
         //PLAINS BIOME [between 1st and 2cd ville]
 
-        // PLAINS BIOME HUBS (Ideally it is structured so you can go directly across the dessert in like 3 rooms, but to explore you have to go UP
+        Hub plains42 = new Hub("Plains Area #42", " \nEXITS: (W) (E) (S)");
 
-
+        //PLAINS AREA 35 = plainsshaftE
         Hub plainsShaftEntrance = new Hub("Vast plains Shaft Entrance", " \nEXITS: (D)");
 
         Hub plainsShaft1 = new Hub("Entry to the Great Vast Plains Mine Shaft", " \nEXITS: (U)");
@@ -1483,9 +1483,16 @@ public class Game {
 
         //1st VILLE BOSS
 
-        Boss firstVilleBoss = new Boss("JohanBerkley", 250, 225, 35, 5, "A goblin/creampuff hybrid? All he keeps saying is 'CREAM-PUFF! CREAM-PUFF!' What a demon.", null);
-        MobSkill rouletteSkill = new MobSkill.StunSkill("RouletteSkill", 3);
+        Boss firstVilleBoss = new Boss("JoeHanBerkleeE", 250, 225, 35, 5, "A goblin/creampuff hybrid? All he keeps saying is 'CREAM-PUFF! CREAM-PUFF!' What a demon.", stuff);
+        MobSkill rouletteSkill = new MobSkill.RouletteSkill("RouletteSkill", 3);
         firstVilleBoss.addSkills(rouletteSkill);
+        plains42.getBoss().add(firstVilleBoss);
+
+
+        KEY_FIGURES.add(new KeyFigureSpawn("JoeHanBerkleeE", forest50, () -> {
+            Boss npc = new Boss("JoeHanBerkleeE", 250, 225, 35, 5, "A goblin/creampuff hybrid? All he keeps saying is 'CREAM-PUFF! CREAM-PUFF!' What a demon.", stuff);
+            plains42.getBoss().add(npc);
+        }));
 
         //MAKE ITEMS AND "EQUIPMENT"
         //MAKE ITEMS EXIST IN ITEMS
@@ -1975,6 +1982,7 @@ public class Game {
         objects.add("chicken");
         objects.add("squirrel");
         objects.add("goblin");
+        objects.add("joehanberkleee");
         objects.add("bear");
         objects.add("chest");
         objects.add("key");
@@ -2208,7 +2216,7 @@ public class Game {
 
                 System.out.println("(12 is next to sHouse) Southern Forest Area #--");
                 System.out.println("(50 is close to firstville) Northern Forest Area #--");
-                System.out.println("(living room/kitchen etc.) Tom's Dark --- \n(clinic is n to lane3) FirstVille Streets #--");
+                System.out.println("(living room/kitchen etc.) Tom's Dark --- \n(clinic is n to lane3) FirstVille Streets #-- \nPlains Area #--");
 
                 System.out.print("Enter target room\n-> ");
                 String gotoRoomBlah = scanner.nextLine();
