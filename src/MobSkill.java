@@ -103,4 +103,57 @@ public abstract class MobSkill {
         }
     }
 
+    public static class RouletteSkill extends MobSkill {
+        private int temp = 0;
+        private int cooldownTurns;
+        private int currentCooldown = 0;
+        private boolean compound = true;
+
+        public RouletteSkill(String name, int cooldownTurns) {
+            super(name);
+            this.cooldownTurns = cooldownTurns;
+            this.currentCooldown = 0;
+        }
+
+        public void reduceCooldown() {
+            if (currentCooldown > 0) currentCooldown--;
+        }
+
+        public boolean canUse() {
+            return currentCooldown <= 0;
+        }
+
+        public void apply(Boss boss) {
+
+            if (canUse()) {
+
+                boss.setAttackPower(temp);
+                compound = false;
+
+            }
+
+            if (!compound){
+                int go = (int)(Math.random() * 2);
+                    if (go == 0){
+                        compound = true;
+                } else {
+                        System.out.println(boss.getName() + " used Roulette! He landed: FAIL! He took damage for his bad bet!");
+                        boss.getHealth().setHeealth((int)(boss.getHealth().getHeealth() * 0.90));
+                        System.out.println(boss.getHealth().getHeealth());
+                    }
+            }
+
+            if (compound) {
+                boss.setAttackPower((int) (boss.getAttackPower() * 1.2));
+                System.out.println(boss.getName() + " used Roulette! He landed: JACKPOT! His power will compound (x1.2) for 3 turns!");
+            }
+
+            currentCooldown = cooldownTurns;
+        }
+
+        public int getCurrentCooldown(){
+            return currentCooldown;
+        }
+    }
+
 }

@@ -622,7 +622,7 @@ public class Game {
         Hub firstVilleGate = new Hub("Gate of FirstVille", "The Great Gate of FirstVille.\nYou stand in a clearing, opposite from the forest, in front of a great booming gate: (S) (N)");
         firstVilleGate.setStructure("gate");
 
-        Hub firstVillePassage = new Hub("The Great Passage into FirstVille", "A short passage that reaches the Great Gate and the town square. \nTo the south stand wood line gates, to the north you see bustling people and lights. \nEXITS: (N) (S)");
+        Hub firstVillePassage = new Hub("The Great Passage into FirstVille", "A short passage that reaches the Great Gate and the town square. \nTo the south stand wood line gates, to the north you see bustling people and lights. \nEXITS: (N) (S) (W) (E)");
         firstVillePassage.setStructure("gate");
 
         Hub firstVilleSquare = new Hub("FirstVille Square", "The bustling heart of FirstVille. Merchants shout their wares and townsfolk mill about. \nEXITS: (N) (S)");
@@ -1467,6 +1467,7 @@ public class Game {
         forest47.getMOBS().add(goblin);
 
         stuff.add("thorn shield");
+
         Boss forestDevil = new Boss("forest devil", 125, 101, 10, 3, "Fierce ForestDevil's hate to be interrupted, you get the devil's stick eye. His forest embraced body curves and twists, branches stick out from nowhere. \nThe number 3 is engraved on his body in stones that seem to glow.", stuff);
         MobSkill stunSkill = new MobSkill.StunSkill("StunSkill", 3);
         forestDevil.addSkills(stunSkill);
@@ -1476,9 +1477,15 @@ public class Game {
         forest50.getBoss().add(forestDevil);
 
         KEY_FIGURES.add(new KeyFigureSpawn("forest devil", forest50, () -> {
-            Boss npc = new Boss("forest devil", 125, 101, 10, 3, "Fierce ForestDevil's hate to be interrupted, you get the devil's stick eye. His forest embraced body curves and twists, branches stick out from nowhere. \nThe number 3 is engraved on his body in stones that seem to glow.", stuff);
+            Boss npc = new Boss("forest devil", 125, 101, 10, 3, "Fierce ForestDevil's hate to be interrupted, you get the devil's stick eye. His forest embraced body curves and twists, branches stick out from nowhere.", stuff);
             forest50.getBoss().add(npc);
         }));
+
+        //1st VILLE BOSS
+
+        Boss firstVilleBoss = new Boss("JohanBerkley", 250, 225, 35, 5, "A goblin/creampuff hybrid? All he keeps saying is 'CREAM-PUFF! CREAM-PUFF!' What a demon.", null);
+        MobSkill rouletteSkill = new MobSkill.StunSkill("RouletteSkill", 3);
+        firstVilleBoss.addSkills(rouletteSkill);
 
         //MAKE ITEMS AND "EQUIPMENT"
         //MAKE ITEMS EXIST IN ITEMS
