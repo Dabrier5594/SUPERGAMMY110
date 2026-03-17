@@ -71,6 +71,11 @@ public class Boss {
         attackPower += tint;
     }
 
+    public void makeAttackPower(int tint){
+        attackPower = tint;
+    }
+
+
     public boolean getDead(){return isDead;}
 
     public void setDead(boolean isDead){this.isDead = isDead;}

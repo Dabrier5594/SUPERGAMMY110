@@ -127,7 +127,7 @@ public abstract class MobSkill {
 
             if (canUse()) {
 
-                boss.setAttackPower(temp);
+                boss.makeAttackPower(temp);
                 compound = false;
 
             }
@@ -144,14 +144,14 @@ public abstract class MobSkill {
             }
 
             if (compound) {
-                boss.setAttackPower((int) (boss.getAttackPower() * 1.05));
+                boss.makeAttackPower((int) (boss.getAttackPower() * 1.05));
                 if (cooldownTurns > 2) {
                     System.out.println(boss.getName() + " used Roulette! He landed: JACKPOT! His power will compound (x1.05) for 3 turns!");
                 }
 
             }
 
-            currentCooldown = cooldownTurns;
+            currentCooldown = cooldownTurns; //WHAT? IS THIS RIGHT?
 
         }
 
