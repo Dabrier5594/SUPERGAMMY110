@@ -22,7 +22,7 @@ import java.util.TimerTask;
 // Add 3 more DARUMAS into the world.
 // Add NPCS to FirstVille, some with quests.
 // make it so that scrolls work on people as well.
-// Fill in shopper bag || ADD items to rooms (wheat, sugar, berrys etc) ||  Add more quests to the guild
+//ADD items to rooms (wheat, sugar, berrys etc) ||  Add more quests to the guild
 // || Add things to YOUR house || ADD THING TO CELL  || ADD ITEMS INTO STORES! || RESET NPC HPs! THEY ARE THE SAME RN...  (ADD MONEY
 // UPDATE THE COMMANDS LIST & UPDATE ROOM DESCRIPTIONS
 
@@ -172,6 +172,8 @@ public class Game {
     public static volatile boolean cabinetDaggerCaveN = true; // If you've tried to open the first cabinet (tutorial)
 
     public static volatile boolean kimBroke = false;
+
+    public static volatile boolean forgottenSword = false;
 
     public static volatile int nightCounter = 0; // How many nights its been
 
@@ -860,9 +862,9 @@ public class Game {
 
 
 
-        // PLAINS BIOME HUBS (Ideally it is structured so you can go directly across the dessert in like 3 rooms, but to explore you have to go UP
+        Hub plains42 = new Hub("Plains Area #42", " \nEXITS: (W) (E) (S)");
 
-
+        //PLAINS AREA 35 = plainsshaftE
         Hub plainsShaftEntrance = new Hub("Vast plains Shaft Entrance", " \nEXITS: (D)");
 
         Hub plainsShaft1 = new Hub("Entry to the Great Vast Plains Mine Shaft", " \nEXITS: (U)");
@@ -1566,9 +1568,30 @@ public class Game {
 
         //1st VILLE BOSS
 
-        Boss firstVilleBoss = new Boss("JohanBerkley", 250, 225, 35, 5, "A goblin/creampuff hybrid? All he keeps saying is 'CREAM-PUFF! CREAM-PUFF!' What a demon.", null);
-        MobSkill rouletteSkill = new MobSkill.StunSkill("RouletteSkill", 3);
+        Boss firstVilleBoss = new Boss("JoeHanBerkleeE", 250, 225, 35, 5, "A goblin/creampuff hybrid? All he keeps saying is 'CREAM-PUFF! CREAM-PUFF!' What a demon.", stuff);
+        MobSkill rouletteSkill = new MobSkill.RouletteSkill("RouletteSkill", 3);
         firstVilleBoss.addSkills(rouletteSkill);
+        plains42.getBoss().add(firstVilleBoss);
+
+
+        KEY_FIGURES.add(new KeyFigureSpawn("JoeHanBerkleeE", forest50, () -> {
+            Boss npc = new Boss("JoeHanBerkleeE", 250, 225, 35, 5, "A goblin/creampuff hybrid? All he keeps saying is 'CREAM-PUFF! CREAM-PUFF!' What a demon.", stuff);
+            plains42.getBoss().add(npc);
+        }));
+
+        String[] cellGuyWords = {
+                "chkl chkl chkl..."
+        };
+
+        Health cellGuyHP = new Health(150, 150, 0);
+
+        Npca cellGuy = new Npca("Forgotten One", "criminal", cellGuyWords, 20, cellGuyHP, "A forgotten soul that has taken the form of a shadowed informant.", Npca.QuestState.NONE);
+        firstVilleManHoleCELL.getNpc().add(cellGuy);
+
+        KEY_FIGURES.add(new KeyFigureSpawn("Forgotten One", forest50, () -> {
+            Npca npc = new Npca("Forgotten One", "criminal", cellGuyWords, 20, new Health(150, 150, 3), "A forgotten soul that has taken the form of a shadowed informant.", Npca.QuestState.NONE);
+            firstVilleManHoleCELL.getNpc().add(npc);
+        }));
 
         //MAKE ITEMS AND "EQUIPMENT"
         //MAKE ITEMS EXIST IN ITEMS
@@ -1585,6 +1608,8 @@ public class Game {
         existingItems.add(wizardShieldMax);
 
         //NORMAL THINGS
+        Item forgottenSword = new Item("Forgotten Sword", "melee", true, null, 20, true);
+        existingItems.add(forgottenSword);
         Item bruteBoots = new Item("Brute's footwear", "boots", false, null, 8, true);
         existingItems.add(bruteBoots);
         Item bruteChest = new Item("Brute's breastplate", "body", false, null, 12, true);
@@ -1977,6 +2002,8 @@ public class Game {
         objects.add("firstville guards legs");
         objects.add("leather armors");
         objects.add("leather armor");
+        objects.add("forgotten sword");
+        objects.add("forgotten one");
         objects.add("bear claws");
         objects.add("bear claw");
         objects.add("bear swords");
@@ -2061,6 +2088,7 @@ public class Game {
         objects.add("chicken");
         objects.add("squirrel");
         objects.add("goblin");
+        objects.add("joehanberkleee");
         objects.add("bear");
         objects.add("chest");
         objects.add("key");
@@ -2336,7 +2364,7 @@ public class Game {
 
                 System.out.println("(12 is next to sHouse) Southern Forest Area #--");
                 System.out.println("(50 is close to firstville) Northern Forest Area #--");
-                System.out.println("(living room/kitchen etc.) Tom's Dark --- \n(clinic is n to lane3) FirstVille Streets #--");
+                System.out.println("(living room/kitchen etc.) Tom's Dark --- \n(clinic is n to lane3) FirstVille Streets #-- \nPlains Area #--");
 
                 System.out.print("Enter target room\n-> ");
                 String gotoRoomBlah = scanner.nextLine();
@@ -2947,18 +2975,20 @@ public class Game {
                         help(verbs);
                     } else if (stringContainsWordFromList(action.toLowerCase(), stats.toArray(new String[0]))) {
                         player.displayStats(player, playersStats);
-                    } else if (stringContainsWordFromList(action.toLowerCase(), bag.toArray(new String[0]))) {
+                    } //else if (stringContainsWordFromList(action.toLowerCase(), bag.toArray(new String[0]))) {
 
-                        if (playersStats.getLevel() < 5) {
-                            System.out.println("Reach LV. 5 to unlock mobile shopping!");
 
-                        } else {
+                        //if (playersStats.getLevel() < 5) {
+                            //System.out.println("Reach LV. 5 to unlock mobile shopping!");
 
-                            mobileBag(player, inventory);
+                        //} else {
 
-                        }
+                          //mobileBag(player, inventory);
 
-                    } else if (stringContainsWordFromList(action.toLowerCase(), rest.toArray(new String[0]))) {
+                        //}
+
+                    //}
+                    else if (stringContainsWordFromList(action.toLowerCase(), rest.toArray(new String[0]))) {
 
                         System.out.println("You can rest up to [" + (player.getStomachSize() - player.getFullness()) + "] fullness/energy points. How many points would you like to regain (1sec per 3 points)?");
                         System.out.print("-> ");
@@ -6654,6 +6684,17 @@ public class Game {
             } else {
                 System.out.println("Trevor (Clinic Clerk) says:  \"and... goodbye, don't disrupt the injured...\"");
             }
+        } else if (npc.getName().equalsIgnoreCase("Forgotten One")) {
+
+            System.out.println("Forgotten One (Criminal) says: \"Hmmm... eh... heh heh...\"");
+            System.out.println("Forgotten One (Criminal) says: \"Child... you are quite a special one...\"");
+            if (!forgottenSword) {
+                inventory.add("forgotten sword");
+                forgottenSword = true;
+            }
+            System.out.println("The forgotten one has gifted you something... * he seems familiar *");
+
+
         } else if (npc.getName().equalsIgnoreCase("Zak")) {
 
             ArrayList<String> wordONES = new ArrayList<>();

@@ -71,6 +71,11 @@ public class Boss {
         attackPower += tint;
     }
 
+    public void makeAttackPower(int tint){
+        attackPower = tint;
+    }
+
+
     public boolean getDead(){return isDead;}
 
     public void setDead(boolean isDead){this.isDead = isDead;}
@@ -121,7 +126,7 @@ public class Boss {
 
         for (MobSkill skill : skills) {
             if (skill.getName().equals("RouletteSkill")) {
-                ((MobSkill.RouletteSkill)skill).apply(this);
+                ((MobSkill.RouletteSkill)skill).applyR(this);
                 break;
             }
         }

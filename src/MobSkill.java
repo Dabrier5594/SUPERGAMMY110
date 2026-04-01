@@ -123,11 +123,11 @@ public abstract class MobSkill {
             return currentCooldown <= 0;
         }
 
-        public void apply(Boss boss) {
+        public void applyR(Boss boss) {
 
             if (canUse()) {
 
-                boss.setAttackPower(temp);
+                boss.makeAttackPower(temp);
                 compound = false;
 
             }
@@ -136,19 +136,23 @@ public abstract class MobSkill {
                 int go = (int)(Math.random() * 2);
                     if (go == 0){
                         compound = true;
-                } else {
-                        System.out.println(boss.getName() + " used Roulette! He landed: FAIL! He took damage for his bad bet!");
+                    } else {
+                        System.out.println(boss.getName() + " used Roulette! He landed: FAIL! He got knocked back for his bad bet!");
                         boss.getHealth().setHeealth((int)(boss.getHealth().getHeealth() * 0.90));
-                        System.out.println(boss.getHealth().getHeealth());
+                        System.out.println("Health: " + boss.getHealth().getHeealth());
                     }
             }
 
             if (compound) {
-                boss.setAttackPower((int) (boss.getAttackPower() * 1.2));
-                System.out.println(boss.getName() + " used Roulette! He landed: JACKPOT! His power will compound (x1.2) for 3 turns!");
+                boss.makeAttackPower((int) (boss.getAttackPower() * 1.05));
+                if (cooldownTurns > 2) {
+                    System.out.println(boss.getName() + " used Roulette! He landed: JACKPOT! His power will compound (x1.05) for 3 turns!");
+                }
+
             }
 
-            currentCooldown = cooldownTurns;
+            currentCooldown = cooldownTurns; //WHAT? IS THIS RIGHT?
+
         }
 
         public int getCurrentCooldown(){
