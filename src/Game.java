@@ -19,7 +19,8 @@ import java.util.TimerTask;
 // ----------------------------------------------------
 
 /// ADDS ( TODO LIST )
-// Add 3 more DARUMAS into the world.
+
+// Add 2 more DARUMAS into the world.
 // Add NPCS to FirstVille, some with quests.
 // make it so that scrolls work on people as well.
 //ADD items to rooms (wheat, sugar, berrys etc) ||  Add more quests to the guild
@@ -28,7 +29,7 @@ import java.util.TimerTask;
 
 // COMPLETE THE PLAINS AND SECOND AND OCEAN (THIRD ONLY IF TIME ALLOWS)
 
-// Add something the first ville cell
+// Add something the first ville cell guy (wea[pm)
 // Make it so Zak can give you the ability to enter into the army/solidery/minion thing
 // ADD EASTER EGGS ( like a quest from lagger where he gifts you a relic, and then use the command addEasterEgg )
 // AND MORE SKILLS!
@@ -774,6 +775,7 @@ public class Game {
         Hub firstVilleManHoleCELL = new Hub("FirstVille Manhole CELL", " \nEXITS: (S)");
         firstVilleManHole7.setExit("n", firstVilleManHoleCELL);
         firstVilleManHoleCELL.setExit("s", firstVilleManHole7);
+        firstVilleManHoleCELL.getObjects().add("daruma");
 
         Hub firstVilleBarracks = new Hub("FirstVille Barracks", " \nEXITS: (E) (S) (W)");
 
@@ -1500,7 +1502,7 @@ public class Game {
                 "chkl chkl chkl..."
         };
 
-        Health cellGuyHP = new Health(150, 150, 0);
+        Health cellGuyHP = new Health(150, 8, 0);
 
         Npca cellGuy = new Npca("Forgotten One", "criminal", cellGuyWords, 20, cellGuyHP, "A forgotten soul that has taken the form of a shadowed informant.", Npca.QuestState.NONE);
         firstVilleManHoleCELL.getNpc().add(cellGuy);
