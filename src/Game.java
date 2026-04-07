@@ -44,6 +44,8 @@ public class Game {
 
     public static Hub.FirstVilleShop baggerShop;
     public static Hub.Inn firstVilleInn;
+    public static boolean hbm = false;
+
 
     //DESCRIPTIONS:
 
@@ -780,6 +782,87 @@ public class Game {
         Hub firstVilleBarracks = new Hub("FirstVille Barracks", " \nEXITS: (E) (S) (W)");
 
         //PLAINS BIOME [between 1st and 2cd ville]
+        Hub plains1 = new Hub("Plains Area #1 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains2 = new Hub("Plains Area #2 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains3 = new Hub("Plains Area #3 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains4 = new Hub("Plains Area #4 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains5 = new Hub("Plains Area #5 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains6 = new Hub("Plains Area #6 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains7 = new Hub("Plains Area #7 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains8 = new Hub("Plains Area #8 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains9 = new Hub("Plains Area #9 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains10 = new Hub("Plains Area #10 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains11 = new Hub("Plains Area #11 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains12 = new Hub("Plains Area #12 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains13 = new Hub("Plains Area #13 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains14 = new Hub("Plains Area #14 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains15 = new Hub("Plains Area #15 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains16 = new Hub("Plains Area #16 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains17 = new Hub("Plains Area #17 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains18 = new Hub("Plains Area #18 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains19 = new Hub("Plains Area #19 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains20 = new Hub("Plains Area #20 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains21 = new Hub("Plains Area #21 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains22 = new Hub("Plains Area #22 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains23 = new Hub("Plains Area #23 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains24 = new Hub("Plains Area #24 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains25 = new Hub("Plains Area #25 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains26 = new Hub("Plains Area #26 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains27 = new Hub("Plains Area #27 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains28 = new Hub("Plains Area #28 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains29 = new Hub("Plains Area #29 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains30 = new Hub("Plains Area #30 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains31 = new Hub("Plains Area #31 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains32 = new Hub("Plains Area #32 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains33 = new Hub("Plains Area #33 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains34 = new Hub("Plains Area #34 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains36 = new Hub("Plains Area #36 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains37 = new Hub("Plains Area #37 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains38 = new Hub("Plains Area #38 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains39 = new Hub("Plains Area #39 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains40 = new Hub("Plains Area #40 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains41 = new Hub("Plains Area #41 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains43 = new Hub("Plains Area #43 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains44 = new Hub("Plains Area #44 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains45 = new Hub("Plains Area #45 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains46 = new Hub("Plains Area #46 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains47 = new Hub("Plains Area #47 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains48 = new Hub("Plains Area #48 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains49 = new Hub("Plains Area #49 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains50 = new Hub("Plains Area #50 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains51 = new Hub("Plains Area #51 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains52 = new Hub("Plains Area #52 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains53 = new Hub("Plains Area #53 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains54 = new Hub("Plains Area #54 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains55 = new Hub("Plains Area #55 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains56 = new Hub("Plains Area #56 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains57 = new Hub("Plains Area #57 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains58 = new Hub("Plains Area #58 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains59 = new Hub("Plains Area #59 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains60 = new Hub("Plains Area #60 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains61 = new Hub("Plains Area #61 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains62 = new Hub("Plains Area #62 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains63 = new Hub("Plains Area #63 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains64 = new Hub("Plains Area #64 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains65 = new Hub("Plains Area #65 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains66 = new Hub("Plains Area #66 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains67 = new Hub("Plains Area #67 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains68 = new Hub("Plains Area #68 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains69 = new Hub("Plains Area #69 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains70 = new Hub("Plains Area #70 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains71 = new Hub("Plains Area #71 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains72 = new Hub("Plains Area #72 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains73 = new Hub("Plains Area #73 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains74 = new Hub("Plains Area #74 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains75 = new Hub("Plains Area #75 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains76 = new Hub("Plains Area #76 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains77 = new Hub("Plains Area #77 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains78 = new Hub("Plains Area #78 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+        Hub plains79 = new Hub("Plains Area #79 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
+
+
+
+
 
         Hub plains42 = new Hub("Plains Area #42", " \nEXITS: (W) (E) (S)");
 
@@ -1690,6 +1773,7 @@ public class Game {
         baggerShop.addStock(sickles, 30);
         baggerOwner.setMyShop(baggerShop);
         baggerShop.addFirstShopOwner(baggerOwner);
+        baggerShop.setStructure("forge");
 
         KEY_FIGURES.add(new KeyFigureSpawn("Bagger", baggerShop, () -> {
             FirstShopOwner npc = new FirstShopOwner("copper", "Bagger", raggerLines, new Health(60, 60, 0), 2,  baggerShop, "SQ0", Npca.QuestState.NONE);
@@ -1705,6 +1789,7 @@ public class Game {
         laggerShop.addStock(knightChest, 30);
         laggerShop.addStock(knightBoots, 15);
         laggerOwner.setMyShop(laggerShop);
+        laggerShop.setStructure("");//thing to smelt ores into ingots
 
         KEY_FIGURES.add(new KeyFigureSpawn("Lagger", laggerShop, () -> {
             FirstShopOwner npc = new FirstShopOwner("copper", "Lagger", raggerLines, new Health(60, 60, 0), 2,  laggerShop, "SQ0", Npca.QuestState.NONE);
@@ -1962,6 +2047,7 @@ public class Game {
         objects.add("bear meat");
         objects.add("chicken feathers");
         objects.add("chicken feather");
+        objects.add("Uru");
 
 
         //OTHER SMALLER THINGS
@@ -2024,7 +2110,6 @@ public class Game {
         objects.add("trap");
         objects.add("wolfbane");
         objects.add("wolf");
-        objects.add("cauldron");
         objects.add("scroll");
         objects.add("tree");
         objects.add("acorns");
@@ -2052,8 +2137,42 @@ public class Game {
         objects.add("buns");
         objects.add("bun");
         objects.add("campfire");
+        objects.add("chemical plant");
 
         //HBM Nuclear Tech
+        objects.add("chemical plant");
+        objects.add("burner press");
+        objects.add("radioactive barrel");
+        objects.add("fusion reactor");
+        objects.add("particle accelerator");
+        objects.add("cadmium");
+        objects.add("pvc");
+        objects.add("bscco");
+
+        //Forge Items
+        objects.add("tool handle");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
+        objects.add("");
 
 
         List<String> yesOrYes = new ArrayList<>();
@@ -2213,9 +2332,17 @@ public class Game {
 
         System.out.println("");
 
+        if(namer.equalsIgnoreCase(("hbm man"))){
+            hbm = true;
+
+        }
+
+
         if (namer.equalsIgnoreCase("monty python")) {
             System.out.println("You feel the power of MONTY flow through your vanes... You don't think you can die.");
         }
+
+
 
         if (namer.equalsIgnoreCase("admin0")) {
 
@@ -3005,6 +3132,7 @@ public class Game {
                             }
                         } else if (stringContainsWordFromList(action.toLowerCase(), use.toArray(new String[0]))) {
 
+
                             if (action.toLowerCase().contains("boat")) {
 
                                 if (!player.ownsBoat()) {
@@ -3036,6 +3164,13 @@ public class Game {
 
                                 if (inRoom.getRoomName().equalsIgnoreCase("Northern Forest Area #29") || inRoom.getRoomName().equalsIgnoreCase("FirstVille Townhome Upstairs Room")) {
                                     cauldron(inventory, player, inRoom);
+                                } else {
+                                    System.out.println("You are lacking the ability to find one to use...");
+                                }
+
+                                if (inRoom.getRoomName().equalsIgnoreCase("Ragger's cousin's Gear Shop (BAGGER)")) {
+                                    forge(inventory, player, inRoom);
+
                                 } else {
                                     System.out.println("You are lacking the ability to find one to use...");
                                 }
@@ -7144,7 +7279,6 @@ public class Game {
 
         List<String> bakables = new ArrayList<>();
         bakables.add("bread");
-        bakables.add("berry pie");
         bakables.add("jerky");
         bakables.add("bun");
 
@@ -7296,192 +7430,472 @@ public class Game {
         return invin;
     }
 
-    public static List<String> forge(List<String> invin, Player player) {
+    public static List<String> forge(List<String> invin, Player player, Hub inRoom) {
+        if (inRoom.getRoomName().equalsIgnoreCase("Ragger's cousin's Gear Shop (BAGGER)")) {
 
-        List<String> forgables = new ArrayList<>();
-        forgables.add("sword");
-        forgables.add("");
-        forgables.add("jerky");
-        forgables.add("bun");
+            List<String> forgables = new ArrayList<>();
+            forgables.add("iron sword blade");//material cost 2
+            forgables.add("iron axe head");//material cost 3
+            forgables.add("iron helmet");//material cost 4
+            forgables.add("iron breastplate");//material cost 8
+            forgables.add("iron leggings");//material cost 6
+            forgables.add("iron boots");//material cost 4
+            forgables.add("titanium sword blade");//material cost 2
+            forgables.add("titanium axe head");//material cost 3
+            forgables.add("titanium helmet");//material cost 4
+            forgables.add("titanium breastplate");//material cost 8
+            forgables.add("titanium leggings");//material cost 6
+            forgables.add("titanium boots");//material cost 4
+            forgables.add("advanced alloy sword blade");//material cost 2
+            forgables.add("advanced alloy axe head");//material cost 3
+            forgables.add("advanced alloy helmet");//material cost 4
+            forgables.add("advanced alloy breastplate");//material cost 8
+            forgables.add("advanced alloy leggings");//material cost 6
+            forgables.add("advanced alloy boots");//material cost 4
+            forgables.add("advanced alloy spear head");//material cost 2
+            forgables.add("uru hammer head");//material cost 2
+            forgables.add("uru axe head");//material cost 3
+            forgables.add("uru helmet");//material cost 4
+            forgables.add("uru breastplate");//material cost 8
+            forgables.add("uru leggings");//material cost 6
+            forgables.add("uru boots");//material cost 4
 
-        List<String> alloys = new ArrayList<>();
-        alloys.add("steel");
-        alloys.add("ferric schrabidate");
+            List<String> alloys = new ArrayList<>();
+            alloys.add("red copper alloy");//1 copper + 1 tin
+            alloys.add("steel alloy");//1 iron + 1 coal
+            alloys.add("advanced alloy");//1 red copper + 1 steel
+            alloys.add("");
 
-        List<String> melt_and_castables = new ArrayList<>();
-        melt_and_castables.add("ferric schrabidate");
+            List<String> melt_and_castables = new ArrayList<>();
+            melt_and_castables.add("steel");
+            melt_and_castables.add("iron");
+            melt_and_castables.add("copper");
 
-        System.out.println("What would you like to make?\n");
-        for (String a : forgables) {
-            System.out.println(a);
-        }
-        for (String a : alloys) {
-            System.out.println(a);
-        }
-        for (String a : melt_and_castables) {
-            System.out.println(a);
-        }
-
-        System.out.println("");
-
-        System.out.print("-> ");
-
-        String bake = scanner.nextLine();
-
-        int doable0 = 0;
-
-        for (String i : forgables) {
-            if (i.equalsIgnoreCase(bake)) {
-                doable0++;
-                break;
+            if(hbm == true){
+                melt_and_castables.add("ferric schrabidate");
+                alloys.add("desh");
             }
-        }
 
-        for (String i : alloys) {
-            if (i.equalsIgnoreCase(bake)) {
-                doable0++;
-                break;
+            System.out.println("What would you like to make?\n");
+            System.out.println("You can forge: ");
+            for (String a : forgables) {
+                System.out.println(a);
             }
-        }
-        for (String i : melt_and_castables) {
-
-            if (i.equalsIgnoreCase(bake)) {
-                doable0++;
-                break;
+            System.out.println("Alloys you can make are: ");
+            for (String a : alloys) {
+                System.out.println(a);
             }
-        }
+            System.out.println("You can cast: ");
+            for (String a : melt_and_castables) {
+                System.out.println(a);
+            }
+            System.out.println("The shapes you can cast into are: \n Plate(Material Cost 1) Cast Plate(Material Cost 3), Dense Wire(Material Cost 1), x8 Wires(Material Cost 1), Ingot(Material Cost 1) or Block(Material Cost 9)");
 
-        if (doable0 != 0) {
+            System.out.println("");
 
-            if (bake.equalsIgnoreCase("bread")) {
+            System.out.print("-> ");
 
-                int wheat = 0;
+            String forge = scanner.nextLine();
 
-                for (String w : invin) {
+            int doableforge = 0;
+            int doablealloy = 0;
+            int doablecast = 0;
 
-                    if (w == "wheat") {
-                        wheat++;
-                    }
+            for (String i : forgables) {
+                if (i.equalsIgnoreCase(forge)) {
+                    doableforge++;
+                    break;
                 }
+            }
 
-                if (wheat >= 3) {
-                    System.out.println("Success! You've baked bread!");
-                    invin.add("bread");
-                    for (int i = 0; i < 3; i++) {
-                        invin.remove("wheat");
-                    }
-                    return invin;
-
-                } else {
-                    System.out.println("You are lacking the materials to make this: wheat X3");
-                    return invin;
-
+            for (String i : alloys) {
+                if (i.equalsIgnoreCase(forge)) {
+                    doablealloy++;
+                    break;
                 }
+            }
+            for (String i : melt_and_castables) {
 
-
-            } else if (bake.equalsIgnoreCase("bun")) {
-
-                int wheat = 0;
-
-                for (String w : invin) {
-
-                    if (w == "wheat") {
-                        wheat++;
-                    }
-
+                if (i.equalsIgnoreCase(forge)) {
+                    doablecast++;
+                    break;
                 }
+            }
 
-                if (wheat >= 2) {
-                    System.out.println("Success! You've baked a yummy bun");
-                    invin.add("bun");
-                    for (int i = 0; i < 2; i++) {
-                        invin.remove("wheat");
-                    }
+            if (doableforge != 0) {
 
-                    return invin;
-
-                } else {
-                    System.out.println("You are lacking the materials to make this: wheat X2");
-                    return invin;
-
-                }
-
-
-            } else if (bake.equalsIgnoreCase("jerky")) {
-
-                int rabbit = 0;
-                int squirrel = 0;
-                int meat = 0;
-
-                for (String w : invin) {
-
-                    if (w == "rabbit meat") {
-                        rabbit++;
-                        meat++;
-                    }
-
-                    if (w == "squirrel meat") {
-                        rabbit++;
-                        meat++;
-                    }
-
-                }
-
-
-
-
-                if (meat >= 2) {
-                    System.out.println("Success! You've baked some dried jerky!");
-                    invin.add("jerky");
-
-                    int total = 2;
-                    if (rabbit > 0) {
-                        if (rabbit > 2) {
-                            rabbit = 2;
+                if (forge.equalsIgnoreCase("iron sword blade")) {
+                    int iron = 0;
+                    for (String w : invin) {
+                        if (w == "iron ingot") {
+                            iron++;
                         }
-                        for (int i = 0; i < rabbit; i++) {
-                            invin.remove("rabbit meat");
-                            total--;
+                    }
+                    if (iron >= 2) {
+                        System.out.println("Success! You've forged an iron sowrd blade !");
+                        invin.add("iron sword blade");
+                        for (int i = 0; i < 3; i++) {
+                            invin.remove("iron");
                         }
-                        if (total > 0) {
+                        return invin;
+                    } else {
+                        System.out.println("You are lacking the materials to make this: iron X2");
+                        return invin;
 
-                            for (int i = 0; i < total; i++) {
-                                invin.remove("squirrel meat");
+                    }
 
+
+                } else if (forge.equalsIgnoreCase("iron helmet")) {
+
+                    int iron = 0;
+
+                    for (String w : invin) {
+
+                        if (w == "iron") {
+                            iron++;
+                        }
+
+                    }
+
+                    if (iron >= 4) {
+                        System.out.println("Success! You've forged an iron helmet");
+                        invin.add("bun");
+                        for (int i = 0; i < 2; i++) {
+                            invin.remove("wheat");
+                        }
+
+                        return invin;
+
+                    } else {
+                        System.out.println("You are lacking the materials to make this: wheat X2");
+                        return invin;
+
+                    }
+
+
+                } else if (forge.equalsIgnoreCase("jerky")) {
+
+                    int rabbit = 0;
+                    int squirrel = 0;
+                    int meat = 0;
+
+                    for (String w : invin) {
+
+                        if (w == "rabbit meat") {
+                            rabbit++;
+                            meat++;
+                        }
+
+                        if (w == "squirrel meat") {
+                            rabbit++;
+                            meat++;
+                        }
+
+                    }
+
+
+                    if (meat >= 2) {
+                        System.out.println("Success! You've baked some dried jerky!");
+                        invin.add("jerky");
+
+                        int total = 2;
+                        if (rabbit > 0) {
+                            if (rabbit > 2) {
+                                rabbit = 2;
+                            }
+                            for (int i = 0; i < rabbit; i++) {
+                                invin.remove("rabbit meat");
+                                total--;
+                            }
+                            if (total > 0) {
+
+                                for (int i = 0; i < total; i++) {
+                                    invin.remove("squirrel meat");
+
+                                }
+
+                            }
+                        } else {
+
+                            for (int i = 0; i < 2; i++) {
+                                invin.remove("squirrel");
+                                total--;
                             }
 
                         }
-                    } else {
 
-                        for (int i = 0; i < 2; i++) {
-                            invin.remove("squirrel");
-                            total--;
-                        }
+                        return invin;
+
+                    } else {
+                        System.out.println("You are lacking the materials to make this: combined total of TWO of either SQUIRREL or RABBIT hide");
+                        System.out.println("You are lacking the materials to craft this: combined total of TWO of either SQUIRREL or RABBIT meat");
+                        return invin;
 
                     }
 
-                    return invin;
-
-                } else {
-                    System.out.println("You are lacking the materials to make this: combined total of TWO of either SQUIRREL or RABBIT hide");
-                    System.out.println("You are lacking the materials to craft this: combined total of TWO of either SQUIRREL or RABBIT meat");
-                    return invin;
 
                 }
 
 
+            } else {
+                return invin;
             }
 
+            if (doablecast != 0) {
 
-        } else {
-            return invin;
+                if (forge.equalsIgnoreCase("bread")) {
+
+                    int wheat = 0;
+
+                    for (String w : invin) {
+
+                        if (w == "wheat") {
+                            wheat++;
+                        }
+                    }
+
+                    if (wheat >= 3) {
+                        System.out.println("Success! You've baked bread!");
+                        invin.add("bread");
+                        for (int i = 0; i < 3; i++) {
+                            invin.remove("wheat");
+                        }
+                        return invin;
+
+                    } else {
+                        System.out.println("You are lacking the materials to make this: wheat X3");
+                        return invin;
+
+                    }
+
+
+                } else if (forge.equalsIgnoreCase("bun")) {
+
+                    int wheat = 0;
+
+                    for (String w : invin) {
+
+                        if (w == "wheat") {
+                            wheat++;
+                        }
+
+                    }
+
+                    if (wheat >= 2) {
+                        System.out.println("Success! You've baked a yummy bun");
+                        invin.add("bun");
+                        for (int i = 0; i < 2; i++) {
+                            invin.remove("wheat");
+                        }
+
+                        return invin;
+
+                    } else {
+                        System.out.println("You are lacking the materials to make this: wheat X2");
+                        return invin;
+
+                    }
+
+
+                } else if (forge.equalsIgnoreCase("jerky")) {
+
+                    int rabbit = 0;
+                    int squirrel = 0;
+                    int meat = 0;
+
+                    for (String w : invin) {
+
+                        if (w == "rabbit meat") {
+                            rabbit++;
+                            meat++;
+                        }
+
+                        if (w == "squirrel meat") {
+                            rabbit++;
+                            meat++;
+                        }
+
+                    }
+
+
+                    if (meat >= 2) {
+                        System.out.println("Success! You've baked some dried jerky!");
+                        invin.add("jerky");
+
+                        int total = 2;
+                        if (rabbit > 0) {
+                            if (rabbit > 2) {
+                                rabbit = 2;
+                            }
+                            for (int i = 0; i < rabbit; i++) {
+                                invin.remove("rabbit meat");
+                                total--;
+                            }
+                            if (total > 0) {
+
+                                for (int i = 0; i < total; i++) {
+                                    invin.remove("squirrel meat");
+
+                                }
+
+                            }
+                        } else {
+
+                            for (int i = 0; i < 2; i++) {
+                                invin.remove("squirrel");
+                                total--;
+                            }
+
+                        }
+
+                        return invin;
+
+                    } else {
+                        System.out.println("You are lacking the materials to make this: combined total of TWO of either SQUIRREL or RABBIT hide");
+                        System.out.println("You are lacking the materials to craft this: combined total of TWO of either SQUIRREL or RABBIT meat");
+                        return invin;
+
+                    }
+
+
+                }
+
+
+            } else {
+                return invin;
+            }
+
+            if (doablealloy != 0) {
+
+                if (forge.equalsIgnoreCase("bread")) {
+
+                    int wheat = 0;
+
+                    for (String w : invin) {
+
+                        if (w == "wheat") {
+                            wheat++;
+                        }
+                    }
+
+                    if (wheat >= 3) {
+                        System.out.println("Success! You've baked bread!");
+                        invin.add("bread");
+                        for (int i = 0; i < 3; i++) {
+                            invin.remove("wheat");
+                        }
+                        return invin;
+
+                    } else {
+                        System.out.println("You are lacking the materials to make this: wheat X3");
+                        return invin;
+
+                    }
+
+
+                } else if (forge.equalsIgnoreCase("bun")) {
+
+                    int wheat = 0;
+
+                    for (String w : invin) {
+
+                        if (w == "wheat") {
+                            wheat++;
+                        }
+
+                    }
+
+                    if (wheat >= 2) {
+                        System.out.println("Success! You've baked a yummy bun");
+                        invin.add("bun");
+                        for (int i = 0; i < 2; i++) {
+                            invin.remove("wheat");
+                        }
+
+                        return invin;
+
+                    } else {
+                        System.out.println("You are lacking the materials to make this: wheat X2");
+                        return invin;
+
+                    }
+
+
+                } else if (forge.equalsIgnoreCase("jerky")) {
+
+                    int rabbit = 0;
+                    int squirrel = 0;
+                    int meat = 0;
+
+                    for (String w : invin) {
+
+                        if (w == "rabbit meat") {
+                            rabbit++;
+                            meat++;
+                        }
+
+                        if (w == "squirrel meat") {
+                            rabbit++;
+                            meat++;
+                        }
+
+                    }
+
+
+                    if (meat >= 2) {
+                        System.out.println("Success! You've baked some dried jerky!");
+                        invin.add("jerky");
+
+                        int total = 2;
+                        if (rabbit > 0) {
+                            if (rabbit > 2) {
+                                rabbit = 2;
+                            }
+                            for (int i = 0; i < rabbit; i++) {
+                                invin.remove("rabbit meat");
+                                total--;
+                            }
+                            if (total > 0) {
+
+                                for (int i = 0; i < total; i++) {
+                                    invin.remove("squirrel meat");
+
+                                }
+
+                            }
+                        } else {
+
+                            for (int i = 0; i < 2; i++) {
+                                invin.remove("squirrel");
+                                total--;
+                            }
+
+                        }
+
+                        return invin;
+
+                    } else {
+                        System.out.println("You are lacking the materials to make this: combined total of TWO of either SQUIRREL or RABBIT hide");
+                        System.out.println("You are lacking the materials to craft this: combined total of TWO of either SQUIRREL or RABBIT meat");
+                        return invin;
+
+                    }
+
+
+                }
+
+
+            } else {
+                return invin;
+            }
+        }
+        else{
+            System.out.println("There is no forge in this room");
         }
         return invin;
     }
 
-
-
-    public static List<String> crafting(List<String> invin, Player player) {
+    public static List<String> chemical_plant(List<String> invin, Player player) {
 
 
         List<String> craftables = new ArrayList<>();
@@ -7575,7 +7989,7 @@ public class Game {
                     }
 
 
-                    }
+                }
 
                 if (nuclear_charge >= 3 && ufo_coin >= 2 && dense_BSCCO_wire >= 2 && heavy_duty_element >= 0 && quantum_computer >= 0 && cast_ferric_schrabidate_plate >= 0) {
                     System.out.println("Congrats on making Gerald the construction android");
@@ -7715,6 +8129,244 @@ public class Game {
     }
 
 
+    public static List<String> crafting(List<String> invin, Player player) {
+
+
+        List<String> craftables = new ArrayList<>();
+        craftables.add("campfire");
+        craftables.add("");
+        craftables.add("");
+        craftables.add("");
+        if(hbm == true){
+            craftables.add("nuclear charge");
+            craftables.add("gerald");
+        }
+
+        System.out.println("What would you like to craft?\n");
+        for (String a : craftables) {
+            System.out.println(a);
+        }
+
+        System.out.println("");
+
+        System.out.print("-> ");
+
+        String craft = scanner.nextLine();
+
+        int doable0 = 0;
+
+        for (String i : craftables) {
+            if (i.equalsIgnoreCase(craft)) {
+                doable0++;
+                break;
+            }
+        }
+
+        if (doable0 != 0) {
+
+            if (craft.equalsIgnoreCase("campfire")) {
+
+                int twig = 0;
+
+                for (String t : invin) {
+
+                    if (t == "twig") {
+                        twig++;
+                    }
+                }
+
+                if (twig >= 3) {
+                    System.out.println("Success! You've crafted a campfire!");
+                    invin.add("campfire");
+                    for (int i = 0; i < 3; i++) {
+                        invin.remove("twig");
+                    }
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to craft this: wheat X3");
+                    return invin;
+
+                }
+
+
+            } else if (craft.equalsIgnoreCase("gerald") && hbm == true) {
+
+
+                int nuclear_charge = 0;
+                int dense_BSCCO_wire = 0;
+                int heavy_duty_element = 0;
+                int ufo_coin = 0;
+                int quantum_computer = 0;
+                int cast_ferric_schrabidate_plate = 0;
+
+                for (String w : invin) {
+
+                    if (w == "nuclear charge") {
+                        nuclear_charge++;
+                    }
+
+                    if (w == "dense BSCO wire") {
+                        dense_BSCCO_wire++;
+                    }
+
+                    if (w == "heavy duty element") {
+                        heavy_duty_element++;
+                    }
+
+                    if (w == "ufo coin") {
+                        ufo_coin++;
+                    }
+
+                    if (w == "quantum computer") {
+                        quantum_computer++;
+                    }
+
+                    if (w == "cast ferric schrabidate plate") {
+                        cast_ferric_schrabidate_plate++;
+                    }
+
+
+                    }
+
+                if (nuclear_charge >= 3 && ufo_coin >= 2 && dense_BSCCO_wire >= 2 && heavy_duty_element >= 0 && quantum_computer >= 0 && cast_ferric_schrabidate_plate >= 0) {
+                    System.out.println("Congrats on making Gerald the construction android");
+                    invin.add("gerald");
+                    for (int i = 0; i < 3; i++) {
+                        invin.remove("ufo coin");
+                    }
+                    for (int i = 0; i < 2; i++) {
+                        invin.remove("cast ferric schrabidate plate");
+                    }
+                    for (int i = 0; i < 2; i++) {
+                        invin.remove("quantum computer");
+                    }
+                    for (int i = 0; i < 2; i++) {
+                        invin.remove("heavy duty element");
+                    }
+                    for (int i = 0; i < 2; i++) {
+                        invin.remove("nuclear charge");
+                    }
+                    for (int i = 0; i < 3; i++) {
+                        invin.remove("dense BSCCO wire");
+                    }
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to craft this: wheat X3   berry X2   sugar X2");
+                    return invin;
+
+                }
+
+
+            } else if (craft.equalsIgnoreCase("nuclear charge") && hbm == true){
+
+                int uranium_235 = 0;
+                int steel_shell = 0;
+                int cordite = 0;
+
+
+                for (String w : invin) {
+
+                    if (w == "uranium 235") {
+                        uranium_235++;
+                    }
+
+                    if (w == "steel shell") {
+                        steel_shell++;
+                    }
+                    if (w == "cordite") {
+                        uranium_235++;
+                    }
+
+                }
+
+                if (uranium_235 >= 3) {
+                    System.out.println("Success! You've baked a yummy bun");
+                    invin.add("bun");
+                    for (int i = 0; i < 2; i++) {
+                        invin.remove("wheat");
+                    }
+
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to craft this: wheat X2");
+                    return invin;
+
+                }
+
+
+            } else if (craft.equalsIgnoreCase("jerky")) {
+
+                int rabbit = 0;
+                int squirrel = 0;
+                int meat = 0;
+
+                for (String w : invin) {
+
+                    if (w == "rabbit hide") {
+                        rabbit++;
+                        meat++;
+                    }
+
+                    if (w == "squirrel hide") {
+                        rabbit++;
+                        meat++;
+                    }
+
+                }
+
+                if (meat >= 2) {
+                    System.out.println("Success! You've baked some dried jerky!");
+                    invin.add("jerky");
+
+                    int total = 2;
+                    if (rabbit > 0) {
+                        if (rabbit > 2) {
+                            rabbit = 2;
+                        }
+                        for (int i = 0; i < rabbit; i++) {
+                            invin.remove("rabbit hide");
+                            total--;
+                        }
+                        if (total > 0){
+
+                            for (int i = 0; i < total; i++) {
+                                invin.remove("squirrel hide");
+
+                            }
+
+                        }
+                    } else {
+
+                        for (int i = 0; i < 2; i++) {
+                            invin.remove("squirrel");
+                            total--;
+                        }
+
+                    }
+
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to craft this: combined total of TWO of either SQUIRREL or RABBIT hide");
+                    return invin;
+
+                }
+
+
+            }
+
+
+        } else {
+            System.out.println("That's not something you can craft");
+        }
+        return invin;
+
+    }
+
+
 
 
 
@@ -7726,6 +8378,9 @@ public class Game {
         }
         return 0;
     }
+
+
+
 
     public static List<String> eatDuringBattle(String target, Map<String, Integer> food, Player player, List<String> inventory) {
 
