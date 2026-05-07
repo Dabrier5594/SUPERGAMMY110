@@ -2332,6 +2332,7 @@ public class Game {
 
         if(namer.equalsIgnoreCase(("hbm man"))){
             hbm = true;
+            System.out.println("You know what would be really silly?");
 
         }
 
@@ -8138,6 +8139,20 @@ public class Game {
         if(hbm == true){
             craftables.add("nuclear charge");
             craftables.add("gerald");
+            craftables.add("");
+            craftables.add("");
+            craftables.add("");
+            craftables.add("");
+            craftables.add("");
+            craftables.add("");
+            craftables.add("");
+            craftables.add("");
+            craftables.add("");
+            craftables.add("");
+            craftables.add("");
+            craftables.add("");
+            craftables.add("");
+            craftables.add("");
         }
 
         System.out.println("What would you like to craft?\n");
@@ -8227,31 +8242,31 @@ public class Game {
 
                     }
 
-                if (nuclear_charge >= 3 && ufo_coin >= 2 && dense_BSCCO_wire >= 2 && heavy_duty_element >= 0 && quantum_computer >= 0 && cast_ferric_schrabidate_plate >= 0) {
+                if (nuclear_charge >= 64 && ufo_coin >= 1 && dense_BSCCO_wire >= 128 && heavy_duty_element >= 256 && quantum_computer >= 64 && cast_ferric_schrabidate_plate >= 128) {
                     System.out.println("Congrats on making Gerald the construction android");
                     invin.add("gerald");
-                    for (int i = 0; i < 3; i++) {
-                        invin.remove("ufo coin");
-                    }
-                    for (int i = 0; i < 2; i++) {
+
+                    invin.remove("ufo coin");
+
+                    for (int i = 0; i < 128; i++) {
                         invin.remove("cast ferric schrabidate plate");
                     }
-                    for (int i = 0; i < 2; i++) {
+                    for (int i = 0; i < 64; i++) {
                         invin.remove("quantum computer");
                     }
-                    for (int i = 0; i < 2; i++) {
+                    for (int i = 0; i < 256; i++) {
                         invin.remove("heavy duty element");
                     }
-                    for (int i = 0; i < 2; i++) {
+                    for (int i = 0; i < 64; i++) {
                         invin.remove("nuclear charge");
                     }
-                    for (int i = 0; i < 3; i++) {
+                    for (int i = 0; i < 128; i++) {
                         invin.remove("dense BSCCO wire");
                     }
                     return invin;
 
                 } else {
-                    System.out.println("You are lacking the materials to craft this: wheat X3   berry X2   sugar X2");
+                    System.out.println("nuclear_charge x64, ufo_coin x1, dense BSCCO_wire x128, heavy duty element x256, quantum computer x64, cast ferric schrabidate_plate x128");
                     return invin;
 
                 }
