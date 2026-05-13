@@ -104,15 +104,16 @@ public abstract class MobSkill {
     }
 
     public static class RouletteSkill extends MobSkill {
-        private int temp = 0;
+        private int temp;
         private int cooldownTurns;
         private int currentCooldown = 0;
         private boolean compound = true;
 
-        public RouletteSkill(String name, int cooldownTurns) {
+        public RouletteSkill(String name, int cooldownTurns, int attk) {
             super(name);
             this.cooldownTurns = cooldownTurns;
             this.currentCooldown = 0;
+            temp = attk;
         }
 
         public void reduceCooldown() {
@@ -127,26 +128,32 @@ public abstract class MobSkill {
 
             if (canUse()) {
 
-                boss.makeAttackPower(temp);
                 compound = false;
 
             }
 
             if (!compound){
                 int go = (int)(Math.random() * 2);
-                    if (go == 0){
-                        compound = true;
-                    } else {
-                        System.out.println(boss.getName() + " used Roulette! He landed: FAIL! He got knocked back for his bad bet!");
-                        boss.getHealth().setHeealth((int)(boss.getHealth().getHeealth() * 0.90));
-                        System.out.println("Health: " + boss.getHealth().getHeealth());
+                if (go == 0){
+                    compound = true;
+                } else {
+                    System.out.println(boss.getName() + " used Roulette! He landed: FAIL! He got knocked back for his bad bet!");
+                    boss.getHealth().setHeealth((int)(boss.getHealth().getHeealth() * 0.90));
+                    System.out.println("Health: " + boss.getHealth().getHeealth());
+                    if (cooldownTurns <= 0) {
+                        boss.makeAttackPower(temp);
                     }
+                }
             }
 
             if (compound) {
                 boss.makeAttackPower((int) (boss.getAttackPower() * 1.05));
                 if (cooldownTurns > 2) {
                     System.out.println(boss.getName() + " used Roulette! He landed: JACKPOT! His power will compound (x1.05) for 3 turns!");
+                } else if (cooldownTurns <= -1){
+                    cooldownTurns = 3;
+                } else if (cooldownTurns ==0){
+                    boss.makeAttackPower(temp);
                 }
 
             }

@@ -874,6 +874,7 @@ public class Game {
         Hub plainsShaft2 = new Hub("Great Plains Shaft Area #1", " \nEXITS: ");
 
         Hub plainsShaft3 = new Hub("Great Plains Shaft Area #2", " \nEXITS: ");
+        plainsShaft3.getObjects().add("pickaxe");
 
         //PLAINS BIOME EXITS:
 
@@ -1571,13 +1572,14 @@ public class Game {
         //1st VILLE BOSS
 
         Boss firstVilleBoss = new Boss("JoeHanBerkleeE", 250, 225, 35, 5, "A goblin/creampuff hybrid? All he keeps saying is 'CREAM-PUFF! CREAM-PUFF!' What a demon.", stuff);
-        MobSkill rouletteSkill = new MobSkill.RouletteSkill("RouletteSkill", 3);
+        MobSkill rouletteSkill = new MobSkill.RouletteSkill("RouletteSkill", 3, 35);
         firstVilleBoss.addSkills(rouletteSkill);
         plains42.getBoss().add(firstVilleBoss);
 
 
-        KEY_FIGURES.add(new KeyFigureSpawn("JoeHanBerkleeE", forest50, () -> {
+        KEY_FIGURES.add(new KeyFigureSpawn("JoeHanBerkleeE", plains42, () -> {
             Boss npc = new Boss("JoeHanBerkleeE", 250, 225, 35, 5, "A goblin/creampuff hybrid? All he keeps saying is 'CREAM-PUFF! CREAM-PUFF!' What a demon.", stuff);
+            firstVilleBoss.addSkills(rouletteSkill);
             plains42.getBoss().add(npc);
         }));
 
@@ -1917,6 +1919,7 @@ public class Game {
 
         List<String> verbsOnly = new ArrayList<>();
         verbsOnly.add("n");
+        verbsOnly.add("mine");
         verbsOnly.add("s");
         verbsOnly.add("w");
         verbsOnly.add("e");
@@ -2051,7 +2054,15 @@ public class Game {
 
 
         //OTHER SMALLER THINGS
+        objects.add("stone");
+        objects.add("coal");
+        objects.add("copper");
+        objects.add("iron");
+        objects.add("titanium");
+        objects.add("uru");
+
         objects.add("inventory");
+        objects.add("pickaxe");
         objects.add("stove");
         objects.add("bill");
         objects.add("zak");
@@ -2366,7 +2377,7 @@ public class Game {
 
                 System.out.println("(12 is next to sHouse) Southern Forest Area #--");
                 System.out.println("(50 is close to firstville) Northern Forest Area #--");
-                System.out.println("(living room/kitchen etc.) Tom's Dark --- \n(clinic is n to lane3) FirstVille Streets #-- \nPlains Area #--");
+                System.out.println("(living room/kitchen etc.) Tom's Dark --- \n(clinic is n to lane3) FirstVille Streets #-- \nPlains Area #-- \nGreat Plains Shaft Area #--");
 
                 System.out.print("Enter target room\n-> ");
                 String gotoRoomBlah = scanner.nextLine();
@@ -2772,6 +2783,17 @@ public class Game {
                     campfire(inventory, player);
 
 
+
+                } else if (action.equalsIgnoreCase("mine")){
+
+                    String wow = mine(inRoom, inventory);
+
+                    if (!wow.equalsIgnoreCase("nada")){
+                        System.out.println("Something falls to the floor! ..." + wow);
+                        inRoom.getObjects().add(wow);
+                    } else if (!wow.equalsIgnoreCase("bom")){
+                        System.out.println("Hmm... Just more nothing. Mining is tough.");
+                    }
 
                 } else if (action.equalsIgnoreCase("quests")) {
 
@@ -7430,6 +7452,53 @@ public class Game {
         return invin;
     }
 
+    public static String mine(Hub inRoom, List<String> invin){
+
+        String gem = "nada";
+
+        if (inRoom.getRoomName().contains("Shaft")){
+
+            int o = 0;
+
+            for (String a : invin){
+
+                if (a.equalsIgnoreCase("pickaxe")){
+                    System.out.println("You mine vigorously, cracking away at the shaft wall.");
+                    int p = (int)(Math.random() * 100 + 1);
+
+                    if ( p <= 30){
+                        gem = "stone";
+                    } else if (p <= 25){
+                        gem = "coal";
+                    } else if ( p <= 15){
+                        gem = "copper";
+                    } else if ( p <= 10){
+                        gem = "iron";
+                    } else if ( p <= 5){
+                        gem = "titanium";
+                    } else if ( p <= 1){
+                        gem = "uru";
+                    }
+
+                    o = 1;
+                }
+
+            }
+
+            if (o == 0) {
+                System.out.println("You generally need a pickaxe to mine...");
+                return "bom";
+            }
+
+        } else {
+            System.out.println("You attempt to mine, but all you touch is air. You would look weird to people staring. Try going to a mineshaft...");
+            return "bom";
+
+        }
+
+        return gem;
+
+    }
     public static List<String> forge(List<String> invin, Player player, Hub inRoom) {
         if (inRoom.getRoomName().equalsIgnoreCase("Ragger's cousin's Gear Shop (BAGGER)")) {
 
@@ -7628,7 +7697,6 @@ public class Game {
 
                     } else {
                         System.out.println("You are lacking the materials to make this: combined total of TWO of either SQUIRREL or RABBIT hide");
-                        System.out.println("You are lacking the materials to craft this: combined total of TWO of either SQUIRREL or RABBIT meat");
                         return invin;
 
                     }
