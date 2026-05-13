@@ -2058,8 +2058,15 @@ public class Game {
         objects.add("coal");
         objects.add("copper");
         objects.add("iron");
+        objects.add("iron ores");
+        objects.add("iron ore");
         objects.add("titanium");
+        objects.add("titanium ores" );
+        objects.add("titanium ore" );
         objects.add("uru");
+        objects.add("uru ores");
+        objects.add("uru ore");
+
 
         objects.add("inventory");
         objects.add("pickaxe");
@@ -2090,8 +2097,12 @@ public class Game {
         objects.add("gold");
         objects.add("silvers");
         objects.add("silver");
+        objects.add("silver ores");
+        objects.add("silver ore");
         objects.add("coppers");
         objects.add("copper");
+        objects.add("copper ores");
+        objects.add("copper ore");
         objects.add("twigs");
         objects.add("twig");
         objects.add("snarkflowers");
@@ -6660,7 +6671,7 @@ public class Game {
         if (npc.getName().equalsIgnoreCase("Tragger")) {
             System.out.println("GuildMaster Tragger (Guild Master) says: What do you want?");
 
-            while (choice != "6") {
+            while (!choice.equalsIgnoreCase("6")) {
                 System.out.println("[1] Join Guild [2] View Rankings [3] View Quests [4] Report Quest [5] Accept Quest [6] Quit");
                 System.out.print("-> ");
 
@@ -6695,7 +6706,7 @@ public class Game {
                 } else if (choice.equals("5")) {
                     inRoom.acceptQuests(player.getName(), player);
                 } else {
-                    System.out.println("GuildMaster Tragger: 'Choose 1-4 or leave me alone!'");
+                    System.out.println("GuildMaster Tragger: 'Don't talk to me if you don't need anything! Leave me alone! You sucker! '");
                 }
             }
         } else if (npc.getName().equalsIgnoreCase("Trevor")) {
@@ -6929,7 +6940,7 @@ public class Game {
         scanner.nextLine();
 
         String choice = "8";
-        while (choice != "3") {
+        while ( !choice.equalsIgnoreCase("3")) {
             System.out.println("[1] Buy  [2] Sell  [3] Leave");
             System.out.print("-> ");
 
@@ -7467,18 +7478,18 @@ public class Game {
                     System.out.println("You mine vigorously, cracking away at the shaft wall.");
                     int p = (int)(Math.random() * 100 + 1);
 
-                    if ( p <= 30){
+                    if ( p >=  60){
                         gem = "stone";
-                    } else if (p <= 25){
+                    } else if ( p >=  40){
                         gem = "coal";
-                    } else if ( p <= 15){
-                        gem = "copper";
-                    } else if ( p <= 10){
-                        gem = "iron";
-                    } else if ( p <= 5){
-                        gem = "titanium";
-                    } else if ( p <= 1){
-                        gem = "uru";
+                    } else if ( p >=  30){
+                        gem = "copper ore";
+                    } else if ( p >=  17){
+                        gem = "iron ore";
+                    } else if ( p >=  8){
+                        gem = "titanium ore";
+                    } else if ( p >=  0){
+                        gem = "uru ore";
                     }
 
                     o = 1;
