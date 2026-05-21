@@ -5,7 +5,7 @@ import java.util.*;
         import java.util.regex.Matcher;
 import java.util.regex.Pattern;import java.util.Timer;
 import java.util.TimerTask;
-
+// mandell test comment
 /// (a, b) -> a + b [-> is basically a lamba that splits stuff, in other words, it tells the code where parameters end and code begins.]
 
 
