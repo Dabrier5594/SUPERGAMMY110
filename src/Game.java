@@ -2095,6 +2095,113 @@ public class Game {
         Item copperSword = new Item("Copper Sword", "melee", true, null, 6, false);
         existingItems.add(copperSword);
 
+        Item ironSwordBlade = new Item("iron sword", "melee", false, null, 8, false);
+        existingItems.add(ironSwordBlade);
+
+        Item ironAxeHead = new Item("iron axe head", "melee", false, null, 10, false);
+        existingItems.add(ironAxeHead);
+
+        Item ironHelmet = new Item("iron helmet", "head", false, null, 5, false);
+        existingItems.add(ironHelmet);
+
+        Item ironBreastplate = new Item("iron breastplate", "chest", false, null, 10, false);
+        existingItems.add(ironBreastplate);
+
+        Item ironLeggings = new Item("iron leggings", "legging", false, null, 7, false);
+        existingItems.add(ironLeggings);
+
+        Item ironBoots = new Item("iron boots", "boots", false, null, 5, false);
+        existingItems.add(ironBoots);
+
+        Item ironSpearHead = new Item("iron spear head", "weapon part", false, null, 6, false);
+        existingItems.add(ironSpearHead);
+
+
+        Item copperAxeHead = new Item("copper axe", "melee", false, null, 3, false);
+        existingItems.add(copperAxeHead);
+
+        Item copperHelmet = new Item("copper helmet", "head", false, null, 4, false);
+        existingItems.add(copperHelmet);
+
+        Item copperBreastplate = new Item("copper breastplate", "chest", false, null, 8, false);
+        existingItems.add(copperBreastplate);
+
+        Item copperLeggings = new Item("copper leggings", "legging", false, null, 6, false);
+        existingItems.add(copperLeggings);
+
+        Item copperBoots = new Item("copper boots", "boots", false, null, 4, false);
+        existingItems.add(copperBoots);
+
+        Item copperSpearHead = new Item("copper spear head", "melee", false, null, 2, false);
+        existingItems.add(copperSpearHead);
+
+
+        Item titaniumSwordBlade = new Item("titanium sword blade", "melee", false, null, 2, false);
+        existingItems.add(titaniumSwordBlade);
+
+        Item titaniumAxeHead = new Item("titanium axe head", "melee", false, null, 3, false);
+        existingItems.add(titaniumAxeHead);
+
+        Item titaniumHelmet = new Item("titanium helmet", "head", false, null, 4, false);
+        existingItems.add(titaniumHelmet);
+
+        Item titaniumBreastplate = new Item("titanium breastplate", "chest", false, null, 8, false);
+        existingItems.add(titaniumBreastplate);
+
+        Item titaniumLeggings = new Item("titanium leggings", "legging", false, null, 6, false);
+        existingItems.add(titaniumLeggings);
+
+        Item titaniumBoots = new Item("titanium boots", "boots", false, null, 4, false);
+        existingItems.add(titaniumBoots);
+
+        Item titaniumSpearHead = new Item("titanium spear head", "melee", false, null, 1, false);
+        existingItems.add(titaniumSpearHead);
+
+
+        Item advancedAlloySwordBlade = new Item("advanced alloy sword blade", "melee", false, null, 2, false);
+        existingItems.add(advancedAlloySwordBlade);
+
+        Item advancedAlloyAxeHead = new Item("advanced alloy axe head", "melee", false, null, 3, false);
+        existingItems.add(advancedAlloyAxeHead);
+
+        Item advancedAlloyHelmet = new Item("advanced alloy helmet", "head", false, null, 4, false);
+        existingItems.add(advancedAlloyHelmet);
+
+        Item advancedAlloyBreastplate = new Item("advanced alloy breastplate", "chest", false, null, 8, false);
+        existingItems.add(advancedAlloyBreastplate);
+
+        Item advancedAlloyLeggings = new Item("advanced alloy leggings", "legging", false, null, 6, false);
+        existingItems.add(advancedAlloyLeggings);
+
+        Item advancedAlloyBoots = new Item("advanced alloy boots", "boots", false, null, 4, false);
+        existingItems.add(advancedAlloyBoots);
+
+        Item advancedAlloySpearHead = new Item("advanced alloy spear head", "melee", false, null, 1, false);
+        existingItems.add(advancedAlloySpearHead);
+
+
+        Item uruHammerHead = new Item("uru hammer head", "melee", false, null, 40, false);
+        existingItems.add(uruHammerHead);
+
+        Item uruAxeHead = new Item("uru axe head", "weapon part", false, null, 50, false);
+        existingItems.add(uruAxeHead);
+
+        Item uruHelmet = new Item("uru helmet", "head", false, null, 20, false);
+        existingItems.add(uruHelmet);
+
+        Item uruBreastplate = new Item("uru breastplate", "chest", false, null, 45, false);
+        existingItems.add(uruBreastplate);
+
+        Item uruLeggings = new Item("uru leggings", "legging", false, null, 30, false);
+        existingItems.add(uruLeggings);
+
+        Item uruBoots = new Item("uru boots", "boots", false, null, 20, false);
+        existingItems.add(uruBoots);
+
+        Item uruSpearHead = new Item("uru spear head", "melee", false, null, 30, false);
+        existingItems.add(uruSpearHead);
+
+
         //Boss Drops
         Item thornShield = new Item("the shield of the forest boss", "melee", true, null, 9, false);
         existingItems.add(thornShield);
