@@ -9,6 +9,8 @@ import java.util.TimerTask;
 /// (a, b) -> a + b [-> is basically a lamba that splits stuff, in other words, it tells the code where parameters end and code begins.]
 
 
+//FIX ROULETTE! TOP PRIORITY!
+
 ///NOTE TO EVERYONE!!
 /// WHENEVER YOU CREATE ANYTHING (ITEM, NPC, ANYTHING that can be INTERACTED with), YOU MUST ADD IT TO OBJECTS!!!
 /// FOR ITEMS: AFTER YOU MAKE THEM. YOU MUST ADD THEM TO EXISTINGITEMS LIST. (SEE WHERE I MADE ALL THE ITEMS w/ "new Item" in search
@@ -2434,6 +2436,7 @@ public class Game {
         //List of verbs
         List<String> verbs = new ArrayList<>();
         verbs.add("ride");
+        verbs.add("throw");
         verbs.add("move");
         verbs.add("fight");
         verbs.add("use");
@@ -2554,6 +2557,7 @@ public class Game {
         objects.add("firstville guards helm");
         objects.add("firstville guards boots");
         objects.add("firstville guards legs");
+
         objects.add("leather armors");
         objects.add("leather armor");
         objects.add("forgotten sword");
@@ -2566,6 +2570,48 @@ public class Game {
         objects.add("wizard thingy");
         objects.add("wizard puncher");
 
+
+        //forgables:
+        objects.add("iron sword blade");
+        objects.add("iron axe head");
+        objects.add("iron helmet");
+        objects.add("iron breastplate");
+        objects.add("iron leggings");
+        objects.add("iron boots");
+        objects.add("iron spear head");
+
+        objects.add("copper sword blade");
+        objects.add("copper axe head");
+        objects.add("copper helmet");
+        objects.add("copper breastplate");
+        objects.add("copper leggings");
+        objects.add("copper boots");
+        objects.add("copper spear head");
+
+        objects.add("titanium sword blade");
+        objects.add("titanium axe head");
+        objects.add("titanium helmet");
+        objects.add("titanium breastplate");
+        objects.add("titanium leggings");
+        objects.add("titanium boots");
+        objects.add("titanium spear head");
+
+        objects.add("advanced alloy sword blade");
+        objects.add("advanced alloy axe head");
+        objects.add("advanced alloy helmet");
+        objects.add("advanced alloy breastplate");
+        objects.add("advanced alloy leggings");
+        objects.add("advanced alloy boots");
+        objects.add("advanced alloy spear head");
+
+//
+//            forgables.add("uru hammer head");//material cost 2
+//            forgables.add("uru axe head");//material cost 3
+//            forgables.add("uru helmet");//material cost 4
+//            forgables.add("uru breastplate");//material cost 8
+//            forgables.add("uru leggings");//material cost 6
+//            forgables.add("uru boots");//material cost 4
+//            forgables.add("uru spear head");//material cost 1
         //MOBS
         objects.add("blood witch");
         objects.add("fox witch");
@@ -2618,6 +2664,7 @@ public class Game {
 
 
         objects.add("inventory");
+        objects.add("dirt");
         objects.add("pickaxe");
         objects.add("stove");
         objects.add("bill");
@@ -2771,6 +2818,9 @@ public class Game {
         List<String> sleep = new ArrayList<>();
         sleep.add("sleep");
 
+        List<String> throww = new ArrayList<>();
+        throww.add("throw");
+
         List<String> listen = new ArrayList<>();
         listen.add("listen");
 
@@ -2812,6 +2862,9 @@ public class Game {
         food.put("berry pie", 8);
         food.put("wolfs bane soup", 12);
         food.put("golden apple", 88);
+
+        //foods (some of them)
+        //objects.add("");
 
         List<String> remove = new ArrayList<>();
         remove.add("remove");
@@ -2922,16 +2975,16 @@ public class Game {
                 System.out.println("Admin Code received.");
 
                 System.out.print("Enter MAX health \n-> ");
-                String setHealthMAX = scanner.nextLine().trim();
+                int setHealthMAX = Integer.parseInt(scanner.nextLine());
                 System.out.print("Enter damage \n-> ");
-                String setDamage = scanner.nextLine().trim();
+                int setDamage = Integer.parseInt(scanner.nextLine());
                 System.out.print("Enter damage resistance\n-> ");
-                String setReist = scanner.nextLine().trim();
+                int setReist = Integer.parseInt(scanner.nextLine());
                 try {
-                    player.getHealth().setMaxHealth(Integer.parseInt(setHealthMAX));
+                    player.getHealth().setMaxHealth(setHealthMAX);
                     player.getHealth().setHeealth(player.getHealth().getMaxHealth());
-                    player.setAttackPower(Integer.parseInt(setDamage));
-                    player.getHealth().setDamageResistance(Integer.parseInt(setReist));
+                    player.setAttackPower(setDamage);
+                    player.getHealth().setDamageResistance(setReist);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid numbers, using defaults.");
                 }
@@ -4587,6 +4640,12 @@ public class Game {
                             if (!validObject) {
                                 System.out.println("You can't just '" + action + "'");
                             }
+                        } else if (stringContainsWordFromList(action.toLowerCase(), throww.toArray(new String[0]))) {
+
+                            System.out.println("You try, but you trip over a piece of dirt. It's amazing. You love it. And everyone loves you.");
+                            inRoom.getObjects().add("dirt");
+
+
                         } else if (stringContainsWordFromList(action.toLowerCase(), drop.toArray(new String[0])) || stringContainsWordFromList(action.toLowerCase(), remove.toArray(new String[0]))) {
 
                             boolean validObject = false;
