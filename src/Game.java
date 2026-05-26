@@ -8172,9 +8172,9 @@ public class Game {
 //            forgables.add("uru spear head");//material cost 1
 
             List<String> alloys = new ArrayList<>();
-            alloys.add("red copper alloy");//2 copper + 1 iron
-            alloys.add("steel alloy");//1 iron + 1 coal
-            alloys.add("advanced alloy");//1 red copper + 1 steel
+            alloys.add("red copper alloy(2 copper ingot + 1 iron = 2)");//2 copper + 1 iron = 2
+            alloys.add("steel alloy(1 iron + 1 coal = 1)");//1 iron + 1 coal = 1
+            alloys.add("advanced alloy(2 red copper + 3 steel = 2)");//1 red copper + 1 steel = 2
 
 
             List<String> furnace = new ArrayList<>();
@@ -8223,7 +8223,7 @@ public class Game {
                     forge = scanner.nextLine();
                     if(iron >= needed){
                         System.out.println("Congratulations");
-                        for(int i = 0; i < iron; i++){
+                        for(int i = 0; i < needed; i++){
                             invin.remove("iron ore");
                             invin.add("iron ingot");
                         }
@@ -8252,7 +8252,7 @@ public class Game {
 
                     if(copper >= needed){
                         System.out.println("Congratulations");
-                        for(int i = 0; i < copper; i++){
+                        for(int i = 0; i < needed; i++){
                             invin.remove("copper ore");
                             invin.add("copper ingot");
                         }
@@ -8281,7 +8281,7 @@ public class Game {
 
                     if(titanium >= needed){
                         System.out.println("Congratulations");
-                        for(int i = 0; i < titanium; i++){
+                        for(int i = 0; i < needed; i++){
                             invin.remove("titanium ore");
                             invin.add("titanium ingot");
                         }
@@ -8312,7 +8312,7 @@ public class Game {
 
                     if(uru >= needed){
                         System.out.println("Congratulations");
-                        for(int i = 0; i < uru; i++){
+                        for(int i = 0; i < needed; i++){
                             invin.remove("uru ore");
                             invin.add("uru ingot");
                         }
@@ -8351,10 +8351,10 @@ public class Game {
                         }
                         forge = scanner.nextLine();
 
-                        if(iron >= 5){
+                        if(iron >= 4){
                             System.out.println("Congratulations you have made an iron helmet");
                             invin.add("iron helmet");
-                            for(int i = 0; i < iron; i++){
+                            for(int i = 0; i < 4; i++){
                                 invin.remove("iron ingot");
                             }
                             return invin;
@@ -8375,11 +8375,161 @@ public class Game {
                         }
                         forge = scanner.nextLine();
 
-                        if(iron >= 5){
-                            System.out.println("Congratulations you have made an iron helmet");
-                            invin.add("iron helmet");
-                            for(int i = 0; i < iron; i++){
+                        if(iron >= 8){
+                            System.out.println("Congratulations you have made an iron chestplate");
+                            invin.add("iron chestplate");
+                            for(int i = 0; i < 8; i++){
                                 invin.remove("iron ingot");
+                            }
+                            return invin;
+
+
+                        }
+                        else{
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+
+                    if(type.equalsIgnoreCase("legs") || type.equalsIgnoreCase("leggings")){
+                        for (String w : invin) {
+                            if (w == "iron ingot") {
+                                iron++;
+                            }
+                        }
+                        forge = scanner.nextLine();
+
+                        if(iron >= 6){
+                            System.out.println("Congratulations you have made an iron leggings");
+                            invin.add("iron leggings");
+                            for(int i = 0; i < 6; i++){
+                                invin.remove("iron ingot");
+                            }
+                            return invin;
+
+
+                        }
+                        else{
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+
+
+                    }
+
+                    if(type.equalsIgnoreCase("boots") || type.equalsIgnoreCase("shoes")){
+                        for (String w : invin) {
+                            if (w == "iron ingot") {
+                                iron++;
+                            }
+                        }
+                        forge = scanner.nextLine();
+
+                        if(iron >= 4){
+                            System.out.println("Congratulations you have made an iron boots");
+                            invin.add("iron boots");
+                            for(int i = 0; i < 4; i++){
+                                invin.remove("iron ingot");
+                            }
+                            return invin;
+
+
+                        }
+                        else{
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+                }
+
+                if (ore.equalsIgnoreCase("copper")){
+                    int copper = 0;
+                    if(type.equalsIgnoreCase("helmet")){
+                        for (String w : invin) {
+                            if (w == "copper ingot") {
+                                copper++;
+                            }
+                        }
+                        forge = scanner.nextLine();
+
+                        if(copper >= 4){
+                            System.out.println("Congratulations you have made an copper helmet");
+                            invin.add("copper helmet");
+                            for(int i = 0; i < 4; i++){
+                                invin.remove("copper ingot");
+                            }
+                            return invin;
+
+                        }
+                        else{
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+
+                    if(type.equalsIgnoreCase("chest plate") || type.equalsIgnoreCase("chestplate")){
+                        for (String w : invin) {
+                            if (w == "copper ingot") {
+                                copper++;
+                            }
+                        }
+                        forge = scanner.nextLine();
+
+                        if(copper >= 8){
+                            System.out.println("Congratulations you have made an copper chestplate");
+                            invin.add("copper chestplate");
+                            for(int i = 0; i < 8; i++){
+                                invin.remove("copper ingot");
+                            }
+                            return invin;
+
+
+                        }
+                        else{
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+
+                    if(type.equalsIgnoreCase("legs") || type.equalsIgnoreCase("leggings")){
+                        for (String w : invin) {
+                            if (w == "copper ingot") {
+                                copper++;
+                            }
+                        }
+                        forge = scanner.nextLine();
+
+                        if(copper >= 6){
+                            System.out.println("Congratulations you have made an copper leggings");
+                            invin.add("copper leggings");
+                            for(int i = 0; i < 6; i++){
+                                invin.remove("copper ingot");
+                            }
+                            return invin;
+
+
+                        }
+                        else{
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+
+
+                    }
+
+                    if(type.equalsIgnoreCase("boots") || type.equalsIgnoreCase("shoes")){
+                        for (String w : invin) {
+                            if (w == "copper ingot") {
+                                copper++;
+                            }
+                        }
+                        forge = scanner.nextLine();
+
+                        if(copper >= 4){
+                            System.out.println("Congratulations you have made an copper boots");
+                            invin.add("copper boots");
+                            for(int i = 0; i < 4; i++){
+                                invin.remove("copper ingot");
                             }
                             return invin;
 
@@ -8397,124 +8547,115 @@ public class Game {
             }
 
             if (forge.equalsIgnoreCase("alloy")) {
+                System.out.println("What would you like to alloy");
+                if (forge.equalsIgnoreCase("steel") || forge.equalsIgnoreCase("steel alloy")) {
+                    int needed = scanner.nextInt();
+                    System.out.println("How many would you like to make?");
 
-                if (forge.equalsIgnoreCase("bread")) {
-
-                    int wheat = 0;
-
-                    for (String w : invin) {
-
-                        if (w == "wheat") {
-                            wheat++;
-                        }
-                    }
-
-                    if (wheat >= 3) {
-                        System.out.println("Success! You've baked bread!");
-                        invin.add("bread");
-                        for (int i = 0; i < 3; i++) {
-                            invin.remove("wheat");
-                        }
-                        return invin;
-
-                    } else {
-                        System.out.println("You are lacking the materials to make this: wheat X3");
-                        return invin;
-
-                    }
-
-
-                } else if (forge.equalsIgnoreCase("bun")) {
-
-                    int wheat = 0;
+                    int iron = 0;
+                    int coal = 0;
 
                     for (String w : invin) {
-
-                        if (w == "wheat") {
-                            wheat++;
+                        if (w == "iron ingot") {
+                            iron++;
                         }
-
-                    }
-
-                    if (wheat >= 2) {
-                        System.out.println("Success! You've baked a yummy bun");
-                        invin.add("bun");
-                        for (int i = 0; i < 2; i++) {
-                            invin.remove("wheat");
+                        if (w == "coal") {
+                            coal++;
                         }
-
-                        return invin;
-
-                    } else {
-                        System.out.println("You are lacking the materials to make this: wheat X2");
-                        return invin;
-
                     }
+                    forge = scanner.nextLine();
+                    if(iron >= needed && coal >= (needed * 2)){
+                        System.out.println("Congratulations");
+                        for(int i = 0; i < needed; i++){
+                            invin.remove("iron ingot");
+                            invin.remove("coal");
+                            invin.add("steel");
+                        }
+                        return invin;
+                    }
+                    else{
+                        System.out.println("You do not have enough materials");
+                        return invin;
+                    }
+                }
 
+                if (forge.equalsIgnoreCase("red copper") || forge.equalsIgnoreCase("red copper alloy")) {
+                    int needed = scanner.nextInt();
+                    System.out.println("How many batches would you like to make?");
 
-                } else if (forge.equalsIgnoreCase("jerky")) {
-
-                    int rabbit = 0;
-                    int squirrel = 0;
-                    int meat = 0;
+                    int copper = 0;
+                    int iron = 0;
 
                     for (String w : invin) {
-
-                        if (w == "rabbit meat") {
-                            rabbit++;
-                            meat++;
+                        if (w == "copper ingot") {
+                            copper++;
                         }
-
-                        if (w == "squirrel meat") {
-                            rabbit++;
-                            meat++;
+                        if (w == "iron ingot") {
+                            iron++;
                         }
+                    }
+                    forge = scanner.nextLine();
+
+                    if(copper >= (needed * 2) && iron >= needed){
+                        System.out.println("Congratulations");
+                        for(int i = 0; i < needed; i++){
+                            invin.remove("copper ingot");
+                            invin.remove("copper ingot");
+                            invin.remove("iron ingot");
+
+                            invin.add("red copper ingot");
+                        }
+                        return invin;
+
 
                     }
+                    else{
+                        System.out.println("You do not have enough materials");
+                        return invin;
+                    }
+                }
+
+                if (forge.equalsIgnoreCase("advanced alloy")) {
+                    int needed = scanner.nextInt();
+                    System.out.println("How many batches would you like to make?");
+
+                    int red_copper = 0;
 
 
-                    if (meat >= 2) {
-                        System.out.println("Success! You've baked some dried jerky!");
-                        invin.add("jerky");
 
-                        int total = 2;
-                        if (rabbit > 0) {
-                            if (rabbit > 2) {
-                                rabbit = 2;
-                            }
-                            for (int i = 0; i < rabbit; i++) {
-                                invin.remove("rabbit meat");
-                                total--;
-                            }
-                            if (total > 0) {
-
-                                for (int i = 0; i < total; i++) {
-                                    invin.remove("squirrel meat");
-
-                                }
-
-                            }
-                        } else {
-
-                            for (int i = 0; i < 2; i++) {
-                                invin.remove("squirrel");
-                                total--;
-                            }
-
+                    for (String w : invin) {
+                        if (w == "red copper ingot") {
+                            red_copper++;
                         }
+                        if (w == "steel") {
+                            red_copper++;
+                        }
+                    }
+                    forge = scanner.nextLine();
 
+                    if(red_copper >= (needed * 3)){
+                        System.out.println("Congratulations");
+                        for(int i = 0; i < needed; i++){
+                            invin.remove("red copper ingot");
+                            invin.remove("red copper ingot");
+                            invin.remove("red copper ingot");
+                            invin.remove("steel ingot");
+                            invin.remove("steel ingot");
+
+                            invin.add("advanced alloy ingot");
+                            invin.add("advanced alloy ingot");
+                        }
                         return invin;
 
-                    } else {
-                        System.out.println("You are lacking the materials to make this: combined total of TWO of either SQUIRREL or RABBIT hide");
-                        System.out.println("You are lacking the materials to craft this: combined total of TWO of either SQUIRREL or RABBIT meat");
-                        return invin;
 
+                    }
+                    else{
+                        System.out.println("You do not have enough materials");
+                        return invin;
                     }
 
 
                 }
-
 
             } else {
                 return invin;
