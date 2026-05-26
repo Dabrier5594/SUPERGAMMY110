@@ -492,6 +492,7 @@ public class Game {
         Player.QUESTS.put("SQ1", new Quest("SQ1", "Kill Goblins", 1, "goblin", 3, 40, 15));                 // side quest - kill 3 goblins
         Player.QUESTS.put("SQ2", new Quest("SQ2", "Collect Twigs", 2, "twig", 5, 30, 10));                  // side quest - get 5 twigs
         Player.QUESTS.put("SQ3", new Quest("SQ3", "Breach the Southern Forest's Abandon House's Upper Floor...", 3, "Abandon House's Upper Room", 1, 80, 25)); // side quest - go upstairs
+        Player.QUESTS.put("MQ3", new Quest("MQ3", "Kill Your First Boss", 1, "forest devil", 1, 500, 5));  // main quest - K.O. Boss
 
         // TOMS CAVE
 
@@ -7109,6 +7110,8 @@ public class Game {
 
                 inRoom.getBoss().remove(boss); //remove an object that has the name Rabbit
 
+                Player.QUESTS.forEach((id, q) -> q.check("KILL_MOB", boss.getName(), player, playerStats));
+
                 break;
 
             } else {
@@ -8086,18 +8089,18 @@ public class Game {
                     System.out.println("You mine vigorously, cracking away at the shaft wall.");
                     int p = (int)(Math.random() * 100 + 1);
 
-                    if ( p >=  60){
-                        gem = "stone";
-                    } else if ( p >=  40){
-                        gem = "coal";
-                    } else if ( p >=  30){
-                        gem = "copper ore";
-                    } else if ( p >=  17){
-                        gem = "iron ore";
+                    if ( p >=  80){
+                        gem = "stone";// 20
+                    } else if ( p >=  55){
+                        gem = "coal"; // 25
+                    } else if ( p >=  33){
+                        gem = "copper ore"; // 22
+                    } else if ( p >=  18){
+                        gem = "iron ore"; // 15
                     } else if ( p >=  8){
-                        gem = "titanium ore";
+                        gem = "titanium ore";// 10
                     } else if ( p >=  0){
-                        gem = "uru ore";
+                        gem = "uru ore"; // 8
                     }
 
                     o = 1;
