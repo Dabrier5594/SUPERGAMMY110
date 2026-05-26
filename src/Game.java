@@ -1,4 +1,5 @@
 
+import java.sql.Array;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.*;
@@ -3034,6 +3035,26 @@ public class Game {
 
                 for (int i = 0; i < 500; i++) {
                     inRoom.getObjects().add("silver");
+                }
+
+                boolean bunn = false;
+
+                while (!bunn) {
+
+                    System.out.println("Enter the item one at a time (or quit): ");
+                    String itemspawner = scanner.nextLine();
+
+                    for (int i = 0; i < 500; i++) {
+
+                        inRoom.getObjects().add(itemspawner);
+
+                    }
+
+                    if (itemspawner.equalsIgnoreCase("quit")){
+                        bunn = true;
+                        
+                    }
+
                 }
 
                 System.out.println("$#bonus stats have been successfully distributed");
