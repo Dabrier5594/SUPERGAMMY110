@@ -3,14 +3,11 @@ import java.sql.Array;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.*;
-        import java.util.regex.Matcher;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;import java.util.Timer;
 import java.util.TimerTask;
 // mandell test comment -- addition
 /// (a, b) -> a + b [-> is basically a lamba that splits stuff, in other words, it tells the code where parameters end and code begins.]
-
-
-//FIX ROULETTE! TOP PRIORITY!
 
 ///NOTE TO EVERYONE!!
 /// WHENEVER YOU CREATE ANYTHING (ITEM, NPC, ANYTHING that can be INTERACTED with), YOU MUST ADD IT TO OBJECTS!!!
@@ -20,27 +17,25 @@ import java.util.TimerTask;
 /// 'jack sparrow' as name gives you money a scuba mask and such || 'one punch man' as name allows you to play as normal, but you feel almighty...
 /// 'wizard' as name allows you to play as normal, but you get wizard goodies || 'cheapo' gives you 1 DAMAGE and 10000 HP
 
-// ----------------------------------------------------
+// ----------------------------------------------------  ( TODO LIST )
 
-/// ADDS ( TODO LIST )
+////////////// ADDS
 
+//BURRITO THING
 // Add 2 more DARUMAS into the world.
-// Add NPCS to FirstVille, some with quests.
-// make it so that scrolls work on people as well.
-//ADD items to rooms (wheat, sugar, berrys etc) ||  Add more quests to the guild
+//Connect WestPort to somewhere
+
+/////////Less Important-ish:
 // || Add things to YOUR house || ADD THING TO CELL  || ADD ITEMS INTO STORES! || RESET NPC HPs! THEY ARE THE SAME RN...  (ADD MONEY
 // UPDATE THE COMMANDS LIST & UPDATE ROOM DESCRIPTIONS
-
-// COMPLETE THE PLAINS AND SECOND AND OCEAN (THIRD ONLY IF TIME ALLOWS)
-
 // Add something the first ville cell guy (wea[pm)
-// Make it so Zak can give you the ability to enter into the army/solidery/minion thing
 // ADD EASTER EGGS ( like a quest from lagger where he gifts you a relic, and then use the command addEasterEgg )
 // AND MORE SKILLS!
 
-/// QUEST IDEAS:
+//////////// QUEST IDEAS:
 // Deliver a leaflet to Bagger
 // Gather materials and craft some food
+// Make it so Zak can give you the ability to enter into the army/solidery/minion thing
 
 // ----------------------------------------------------
 
@@ -2654,6 +2649,7 @@ public class Game {
 
         //OTHER SMALLER THINGS
         objects.add("stone");
+        objects.add("coals");
         objects.add("coal");
         objects.add("copper");
         objects.add("iron");
@@ -2857,18 +2853,32 @@ public class Game {
 
         Map<String, Integer> food = new HashMap<>();
         food.put("acorn", 1);
+        food.put("bean", 1);
+        food.put("refrito", 1);
         food.put("apple", 2);
         food.put("orange", 2);
         food.put("bun", 3);
         food.put("bread", 4);
+        food.put("tortilla", 5);
         food.put("jerky", 4);
+        food.put("beef", 5);
         food.put("apple pie", 6);
         food.put("berry pie", 8);
         food.put("wolfs bane soup", 12);
+        food.put("wagyu", 35);
         food.put("golden apple", 88);
 
         //foods (some of them)
-        //objects.add("");
+        objects.add("tortilla");
+        objects.add("tortillas");
+        objects.add("beans");
+        objects.add("refritos");
+        objects.add("refrito");
+        objects.add("bean");
+        objects.add("cheeses");
+        objects.add("cheese");
+        objects.add("wagyu");
+        objects.add("beef");
 
         List<String> remove = new ArrayList<>();
         remove.add("remove");
@@ -3041,7 +3051,7 @@ public class Game {
 
                 while (!bunn) {
 
-                    System.out.println("Enter the item one at a time (or quit): ");
+                    System.out.println("Enter the item one at a time (or quit. THEY WILL ADD, just say each item once): ");
                     String itemspawner = scanner.nextLine();
 
                     for (int i = 0; i < 500; i++) {
@@ -3052,7 +3062,7 @@ public class Game {
 
                     if (itemspawner.equalsIgnoreCase("quit")){
                         bunn = true;
-                        
+
                     }
 
                 }
@@ -6179,6 +6189,39 @@ public class Game {
         return new Mob("Rabbit", rabbitHealth, attackPower, isAggro, drop);
     }
 
+    private static Mob createGoldCowWithRandomStats(List<String> drop) {
+        int maxHealth = 100;
+        int currentHealth = maxHealth;
+        int damageResistance = 25;
+        Health goldCowHealth = new Health(maxHealth, currentHealth, damageResistance);
+
+        int attackPower = 10;
+        boolean isAggro = false;
+
+        if (drop.isEmpty()) {
+            drop.add("wagyu");
+        }
+
+        return new Mob("Gold Cow", goldCowHealth, attackPower, isAggro, drop);
+    }
+
+
+    private static Mob createCowWithRandomStats(List<String> drop) {
+        int maxHealth = 25;
+        int currentHealth = maxHealth;
+        int damageResistance = 5;
+        Health goldCowHealth = new Health(maxHealth, currentHealth, damageResistance);
+
+        int attackPower = 4;
+        boolean isAggro = false;
+
+        if (drop.isEmpty()) {
+            drop.add("beef");
+        }
+
+        return new Mob("Cow", goldCowHealth, attackPower, isAggro, drop);
+    }
+
     private static Mob createBearWithRandomStats(List<String> drop, int maxHealth, String name) {
 
         if (name == null) {
@@ -7955,6 +7998,8 @@ public class Game {
         bakables.add("bread");
         bakables.add("jerky");
         bakables.add("bun");
+        bakables.add("refrito");
+        bakables.add("ten refritos");
 
         System.out.println("What would you like to bake?\n");
         for (String a : bakables) {
@@ -8027,6 +8072,71 @@ public class Game {
 
                 } else {
                     System.out.println("You are lacking the materials to make this: wheat X2");
+                    return invin;
+
+                }
+
+
+            }  else if (bake.equalsIgnoreCase("refrito")) {
+
+                int bean = 0;
+
+                for (String w : invin) {
+
+                    if (w == "bean") {
+                        bean++;
+                    }
+
+                }
+
+                if (bean >= 1) {
+                    System.out.println("Success! You've refried (baked) a single bean!");
+                    invin.add("refrito");
+                    for (int i = 0; i < 1; i++) {
+                        invin.remove("bean");
+                    }
+
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to make this: one measly bean");
+                    return invin;
+
+                }
+
+
+            } else if (bake.equalsIgnoreCase("ten refritos")) {
+
+                int bean = 0;
+
+                for (String w : invin) {
+
+                    if (w == "bean") {
+                        bean++;
+                    }
+
+                }
+
+                if (bean >= 10) {
+                    System.out.println("Success! You've refried (baked) ten single beans!");
+                    invin.add("refrito");
+                    invin.add("refrito");
+                    invin.add("refrito");
+                    invin.add("refrito");
+                    invin.add("refrito");
+                    invin.add("refrito");
+                    invin.add("refrito");
+                    invin.add("refrito");
+                    invin.add("refrito");
+                    invin.add("refrito");
+                    for (int i = 0; i < 10; i++) {
+                        invin.remove("bean");
+                    }
+
+                    return invin;
+
+                } else {
+                    System.out.println("You are lacking the materials to make this: ten measly bean");
                     return invin;
 
                 }
@@ -8695,14 +8805,8 @@ public class Game {
 
         List<String> craftables = new ArrayList<>();
         craftables.add("campfire");
-        craftables.add("");
-        craftables.add("");
-        craftables.add("");
-        if(hbm == true){
-            craftables.add("nuclear charge");
-            craftables.add("gerald");
+        craftables.add("burrito");
 
-        }
 
         System.out.println("What would you like to craft?\n");
         for (String a : craftables) {
@@ -8750,6 +8854,77 @@ public class Game {
                     return invin;
 
                 }
+
+            } else if (craft.equalsIgnoreCase("burrito")) {
+
+                int tort = 0;
+                int fritos = 0;
+                int cheese = 0;
+                int jerky = 0;
+                int beef  = 0;
+                int wagyu  = 0;
+
+                for (String t : invin) {
+                    if (t == "tortilla") {
+                        tort++;
+                    }
+                    if (t == "refritos") {
+                        fritos++;
+                    }
+                    if (t == "cheese") {
+                        cheese++;
+                    }
+                    if (t == "jerky") {
+                        jerky++;
+                    }
+                    if (t == "beef") {
+                        beef++;
+                    }
+                    if (t == "wagyu") {
+                        wagyu++;
+                    }
+                }
+
+                int[] superBurrito = new int[4];
+
+                if (tort > 0) {
+
+                    if (fritos > 0) {
+                        System.out.println("How many refritos would you like to add to your burrito?");
+                        superBurrito[0] = 0;
+                    }
+                    if (cheese > 0) {
+                        System.out.println();
+                        superBurrito[1] = 0;
+
+                    }
+                    if (jerky > 0) {
+                        System.out.println();
+                        superBurrito[2] = 0;
+
+                    }
+                    if (beef > 0) {
+                        System.out.println();
+                        superBurrito[3] = 0;
+
+                    }
+                    if (wagyu > 0) {
+                        System.out.println();
+                        superBurrito[4] = 0;
+
+                    }
+
+                }
+
+                int haveItem = 0;
+
+                for (int i = 0; i <  5; i ++) {
+
+
+
+                }
+
+                //add the success or lacking thing somewhere here! DASH
 
             }
 
