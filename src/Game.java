@@ -153,7 +153,7 @@ public class Game {
 
     // OTHER CLASS SCOPE VARIABLES!
 
-    public static volatile int fuel;
+    public static int fuel;
 
     public static volatile Hub boatLocation;
 
@@ -2649,21 +2649,20 @@ public class Game {
         objects.add("bear meat");
         objects.add("chicken feathers");
         objects.add("chicken feather");
-        objects.add("Uru");
+
 
 
         //OTHER SMALLER THINGS
         objects.add("stone");
         objects.add("coal");
         objects.add("copper");
-        objects.add("iron");
-        objects.add("iron ores");
+        objects.add("copper ore");
+        objects.add("copper ingot");
         objects.add("iron ore");
-        objects.add("titanium");
-        objects.add("titanium ores" );
+        objects.add("iron ingot");
+        objects.add("titanium ingot");
         objects.add("titanium ore" );
-        objects.add("uru");
-        objects.add("uru ores");
+        objects.add("uru ingot");
         objects.add("uru ore");
 
 
@@ -3575,7 +3574,8 @@ public class Game {
                         }
 
                     } else if (action.equalsIgnoreCase("fuel")) {
-                        if(inRoom.getRoomName().equalsIgnoreCase("Baggerroom(not actual name")){//can use other fuels also verbonly
+                        if(inRoom.getRoomName().equalsIgnoreCase("Ragger's cousin's Gear Shop (BAGGER)")){//can use other fuels
+                            fuelForge(inventory, player);
 
                         }
                     } else if (stringContainsWordFromList(action.toLowerCase(), look.toArray(new String[0]))) {
@@ -7949,6 +7949,34 @@ public class Game {
 
     }
 
+    public static List<String> fuelForge(List<String> invin, Player player){
+        //String type = scanner.next();
+
+        //Ragger's cousin's Gear Shop (BAGGER)
+
+        //System.out.println("What fuel would you like to use");
+
+        //add if that allows you to use wood items
+                                //change it to variable
+        System.out.println("How much coal would you like to use");
+        int amount = scanner.nextInt();
+        int fuelAmount = 0;
+        for(String r : invin){
+            if(r.equalsIgnoreCase("coal")){
+                fuelAmount++;
+            }
+
+        }
+        if(fuelAmount >= amount){
+            for(int i = 0; i < amount; i++){
+                invin.remove("coal");
+                fuel += 6;
+            }
+            System.out.println(fuel);
+        }
+        return invin;
+    }
+
     public static List<String> campfire(List<String> invin, Player player) {
 
         List<String> bakables = new ArrayList<>();
@@ -8115,7 +8143,7 @@ public class Game {
             for (String a : invin){
 
                 if (a.equalsIgnoreCase("pickaxe")){
-                    System.out.println("You mine vigorously, cracking away at the shaft wall.");
+                    System.out.println("You mine vigorously, cracking away at the mineshaft wall.");
                     int p = (int)(Math.random() * 100 + 1);
 
                     if ( p >=  80){
@@ -8154,6 +8182,7 @@ public class Game {
     public static List<String> forge(List<String> invin, Player player, Hub inRoom) {
         if (inRoom.getRoomName().equalsIgnoreCase("Ragger's cousin's Gear Shop (BAGGER)")) {
             int fuel = 0;
+            //Ragger's cousin's Gear Shop (BAGGER)
 
             List<String> forgables = new ArrayList<>();
             forgables.add("sword blade");
@@ -8217,22 +8246,24 @@ public class Game {
             furnace.add("uru ore");
 
             System.out.println("What would you like to make?\n");
+            System.out.println("You can smelt");
+            for (String a : furnace) {
+                System.out.println(a);
+            }
+
             System.out.println("You can forge: ");
             for (String a : forgables) {
                 System.out.println(a);
-                System.out.println("All of these can be made in iron, copper, steel, titanium, red copper, advanced alloy or uru");
             }
+            System.out.println("All of these can be made in iron, copper, steel, titanium, red copper, advanced alloy or uru");
+            System.out.println("");
             System.out.println("Alloys you can make are: ");
             for (String a : alloys) {
                 System.out.println(a);
             }
 
 //            System.out.println("The shapes you can cast into are: \n Axe head(Material cost 3), Sword Blade(Material cost 2), Spear Head(Material Cost 1), Helm(Material Cost 4), Leggings(Material Cost 6), Boots(Material Cost 4), Ingot(Material Cost 1) or Block(Material Cost 9)");
-
-
-
             System.out.println("");
-
 
             System.out.print("-> ");
 
@@ -8240,8 +8271,32 @@ public class Game {
             System.out.println("Would you like to alloy, cast or smelt");
             String forge = scanner.nextLine();
 
+
+
+
             if(fuel < 1){
+                System.out.println(fuel);
                 System.out.println("you need to fuel the forge");
+                System.out.println("How much coal would you like to use");
+                int amount = scanner.nextInt();
+                int fuelAmount = 0;
+                for(String r : invin){
+                    if(r.equalsIgnoreCase("coal")){
+                        fuelAmount++;
+                    }
+
+                }
+                if(fuelAmount >= amount){
+                    for(int i = 0; i < amount; i++){
+                        invin.remove("coal");
+                        fuel += 6;
+                    }
+                    System.out.println(fuel);
+                }
+                forge = scanner.nextLine();
+
+
+
             }
             while(fuel > 0) {
 
