@@ -148,6 +148,12 @@ public class Game {
 
     // OTHER CLASS SCOPE VARIABLES!
 
+    public static volatile int burritoID = 1;
+
+    public static volatile List<String> objects = new ArrayList<>();
+
+    public static volatile Map<String, Integer> food = new HashMap<>();
+
     public static int fuel;
 
     public static volatile Hub boatLocation;
@@ -2550,7 +2556,6 @@ public class Game {
         rest.add("take a break");
         rest.add("close your eyes");
 
-        List<String> objects = new ArrayList<>();
         //ARMOR/WEAPONS
         objects.add("firstville guards plate");
         objects.add("firstville guards helm");
@@ -2850,7 +2855,6 @@ public class Game {
         List<String> drop = new ArrayList<>();
         drop.add("drop");
 
-        Map<String, Integer> food = new HashMap<>();
         food.put("acorn", 1);
         food.put("bean", 1);
         food.put("refrito", 1);
@@ -2868,12 +2872,12 @@ public class Game {
         food.put("golden apple", 88);
 
         //foods (some of them)
-        objects.add("tortilla");
         objects.add("tortillas");
+        objects.add("tortilla");
         objects.add("beans");
+        objects.add("bean");
         objects.add("refritos");
         objects.add("refrito");
-        objects.add("bean");
         objects.add("cheeses");
         objects.add("cheese");
         objects.add("wagyu");
@@ -3431,6 +3435,9 @@ public class Game {
 
 
 
+                } else if (action.equalsIgnoreCase("hunger")){
+                    System.out.println("You stomach fullness is " + player.getFullness() + "/" + player.getStomachSize());
+
                 } else if (action.equalsIgnoreCase("mine")){
 
                     String wow = mine(inRoom, inventory);
@@ -3653,19 +3660,7 @@ public class Game {
                         help(verbs);
                     } else if (stringContainsWordFromList(action.toLowerCase(), stats.toArray(new String[0]))) {
                         player.displayStats(player, playersStats);
-                    } //else if (stringContainsWordFromList(action.toLowerCase(), bag.toArray(new String[0]))) {
-
-
-                    //if (playersStats.getLevel() < 5) {
-                    //System.out.println("Reach LV. 5 to unlock mobile shopping!");
-
-                    //} else {
-
-                    //mobileBag(player, inventory);
-
-                    //}
-
-                    //}
+                    }
                     else if (stringContainsWordFromList(action.toLowerCase(), rest.toArray(new String[0]))) {
 
                         System.out.println("You can rest up to [" + (player.getStomachSize() - player.getFullness()) + "] fullness/energy points. How many points would you like to regain (1sec per 3 points)?");
@@ -3737,7 +3732,11 @@ public class Game {
 
                         if (stringContainsWordFromList(action.toLowerCase(), eat.toArray(new String[0]))) {
 
+                            if (action.equalsIgnoreCase("eat")) {
+                                System.out.println("Eat what...?");
+                            }
                             if (player.getFullness() < player.getStomachSize()) {
+                                int wagga = 0;
                                 for (String key : food.keySet()) {
 
                                     if (action.contains(key)) {
@@ -3772,11 +3771,13 @@ public class Game {
                                             }
                                         }
 
-                                    } else {
-                                        System.out.println("hmmm. Your gonna have trouble doing that...");
+                                        wagga++;
+
                                     }
                                 }
-
+                                if (wagga == 0) {
+                                    System.out.println("hmmm. Your gonna have trouble doing that...");
+                                }
 
                             } else {
                                 System.out.println("No need to eat! You are full! ");
@@ -4811,6 +4812,7 @@ public class Game {
                             }
 
                             if (inRoom.getFirstShopOwners() != null){
+                                //stop here
 
                                 String mobNameLower = inRoom.getFirstShopOwners().getName().toLowerCase();
 
@@ -5904,6 +5906,8 @@ public class Game {
                 System.out.println("You decide not to read any leaflet right now.");
             }
             return;
+        } else {
+            System.out.println("You read it intensely, hmm.");
         }
 
         // user typed a specific id like "leaflet001"
@@ -5982,8 +5986,8 @@ public class Game {
 
     public static void help(List<String> verbs) {
 
-        System.out.println("[VERB] + [OBJECT] = action\nSome verbs will not need an object to be used (e.g., 'look')\n=== COMMANDS ===\n       Movement: n, s, w, e, go <dir>, move <dir>       \n       Interact: open/close <obj>, inspect <obj>, look, listen, wait, read <leaflet>       \n       Self:     get/take <obj>, remove/drop <obj>, equip/unequip <obj>, inventory, stats, fame \n       Combat:   kill/attack <target>  \n       Social:   talk <npc>, quests  \n       Special:  eat <obj>, rest, use <obj>   \n       Utility:  help, quit \n================");
-
+        System.out.println("[VERB] + [OBJECT] = action\nSome verbs will not need an object to be used (e.g., 'look')\n=== COMMANDS ===\n       Movement: n, s, w, e, go <dir>, move <dir>       \n       Interact: open/close <obj>, inspect <obj>, look, listen, wait, read <leaflet>, ride <horse>, inspect <structure>       \n       Self:     get/take <obj>, remove/drop <obj>, equip/unequip <obj>, inventory, stats, fame, hunger \n       Combat:   kill/attack <target>  \n       Social:   talk <npc>, quests  \n       Special:  eat <obj>, rest, use <obj>, sleep, craft   \n       Utility:  help, quit \n================");
+    //HELP STUFF GOES HERE
     }
 
     public static void Mobs(Hub inRoom, XpLv xpLv) {
@@ -8891,7 +8895,7 @@ public class Game {
 
                 for (String t : invin) {
 
-                    if (t == "twig") {
+                    if (t.equalsIgnoreCase( "twig")) {
                         twig++;
                     }
                 }
@@ -8905,7 +8909,7 @@ public class Game {
                     return invin;
 
                 } else {
-                    System.out.println("You are lacking the materials to craft this: wheat X3");
+                    System.out.println("You are lacking the materials to craft this: twig X3");
                     return invin;
 
                 }
@@ -8920,72 +8924,143 @@ public class Game {
                 int wagyu  = 0;
 
                 for (String t : invin) {
-                    if (t == "tortilla") {
+                    if (t .equalsIgnoreCase( "tortilla")) {
                         tort++;
                     }
-                    if (t == "refritos") {
+                    if (t .equalsIgnoreCase( "refrito")) {
                         fritos++;
                     }
-                    if (t == "cheese") {
+                    if (t .equalsIgnoreCase( "cheese")) {
                         cheese++;
                     }
-                    if (t == "jerky") {
+                    if (t .equalsIgnoreCase( "jerky")) {
                         jerky++;
                     }
-                    if (t == "beef") {
+                    if (t .equalsIgnoreCase( "beef")) {
                         beef++;
                     }
-                    if (t == "wagyu") {
+                    if (t .equalsIgnoreCase( "wagyu")) {
                         wagyu++;
                     }
                 }
 
-                int[] superBurrito = new int[4];
+                int burritoPower = 0;
 
                 if (tort > 0) {
+                    boolean burritoAfied = false;
+                    int addOn = -1;
 
                     if (fritos > 0) {
-                        System.out.println("How many refritos would you like to add to your burrito?");
-                        superBurrito[0] = 0;
+                        System.out.println("How many REFRITOS would you like to add to your burrito?");
+                        while (addOn < 0 || addOn > fritos){
+                            System.out.println("Please enter a valid number. You have " + fritos + " refritos.");
+                            System.out.print("-> ");
+                            addOn = Integer.parseInt(scanner.nextLine());
+                        }
+
+                        if (addOn > 0){
+                            burritoAfied = true;
+                            burritoPower += (int)(addOn*=1.5);
+                            for (int i = 0; i < addOn; i++){
+                                invin.remove("refrito");
+                            }
+                            System.out.println("Your burrito is stronger!");
+                        }
+
                     }
+
+                    addOn = -1;
                     if (cheese > 0) {
-                        System.out.println();
-                        superBurrito[1] = 0;
+                        System.out.println("How much CHEESE would you like to add to your burrito?");
+                        while (addOn < 0 || addOn > cheese){
+                            System.out.println("Please enter a valid number. You have " + cheese + " cheeses.");
+                            System.out.print("-> ");
+                            addOn = Integer.parseInt(scanner.nextLine());
+                        }
+                        if (addOn > 0){
+                            burritoAfied = true;
+                            burritoPower += (int)(addOn*=1.5);
+                            for (int i = 0; i < addOn; i++){
+                                invin.remove("cheese");
+                            }
+                            System.out.println("Your burrito is stronger!");
+                        }
 
                     }
+
+                    addOn = -1;
                     if (jerky > 0) {
-                        System.out.println();
-                        superBurrito[2] = 0;
+                        System.out.println("How much JERKY would you like to add to your burrito?");
+                        while (addOn < 0 || addOn > jerky){
+                            System.out.println("Please enter a valid number. You have " + jerky + " units of jerky.");
+                            System.out.print("-> ");
+                            addOn = Integer.parseInt(scanner.nextLine());
+                        }
+                        if (addOn > 0){
+                            burritoAfied = true;
+                            burritoPower += (int)(addOn*=1.5);
+                            for (int i = 0; i < addOn; i++){
+                                invin.remove("jerky");
+                            }
+                            System.out.println("Your burrito is stronger!");
+                        }
 
                     }
+
+                    addOn = -1;
                     if (beef > 0) {
-                        System.out.println();
-                        superBurrito[3] = 0;
-
+                        System.out.println("How much BEEF would you like to add to your burrito?");
+                        while (addOn < 0 || addOn > beef){
+                            System.out.println("Please enter a valid number. You have " + beef + " units of beef.");
+                            System.out.print("-> ");
+                            addOn = Integer.parseInt(scanner.nextLine());
+                        }
+                        if (addOn > 0){
+                            burritoAfied = true;
+                            burritoPower += (int)(addOn*=1.5);
+                            for (int i = 0; i < addOn; i++){
+                                invin.remove("beef");
+                            }
+                            System.out.println("Your burrito is stronger!");
+                        }
                     }
+
+                    addOn = -1;
                     if (wagyu > 0) {
-                        System.out.println();
-                        superBurrito[4] = 0;
-
+                        System.out.println("How much WAGYU would you like to add to your burrito?");
+                        while (addOn < 0 || addOn > wagyu){
+                            System.out.println("Please enter a valid number. You have " + wagyu + " units of wagyu.");
+                            System.out.print("-> ");
+                            addOn = Integer.parseInt(scanner.nextLine());
+                        }
+                        if (addOn > 0){
+                            burritoAfied = true;
+                            burritoPower += (int)(addOn*=1.5);
+                            for (int i = 0; i < addOn; i++){
+                                invin.remove("wagyu");
+                            }
+                            System.out.println("Your burrito is stronger!");
+                        }
                     }
 
+                    if (burritoAfied){
+                        burritoPower += 7;
+                        System.out.println("Your super burrito has been crafted! It's power is " + burritoPower);
+                        String burritoNewID = "burrito" + burritoID;
+                        objects.add(burritoNewID);
+                        food.put(burritoNewID, burritoPower);
+                        System.out.println("This is ... " + burritoNewID + " !!!");
+                        invin.add(burritoNewID);
+                        burritoID += 1;
+                    } else {
+                        System.out.println("You lack the ingredients to create a burrito.");
+                    }
+
+                } else {
+                    System.out.println("You lack the ingredients to create a burrito.");
                 }
-
-                int haveItem = 0;
-
-                for (int i = 0; i <  5; i ++) {
-
-
-
-                }
-
-                //add the success or lacking thing somewhere here! DASH
 
             }
-
-
-
-
 
         } else {
             System.out.println("That's not something you can craft");
