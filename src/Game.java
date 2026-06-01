@@ -45,6 +45,9 @@ public class Game {
     public static Hub.Inn firstVilleInn;
     public static boolean hbm = false;
 
+    public static int fuel = 0;
+
+
 
     //DESCRIPTIONS:
 
@@ -148,7 +151,6 @@ public class Game {
 
     // OTHER CLASS SCOPE VARIABLES!
 
-    public static int fuel;
 
     public static volatile Hub boatLocation;
 
@@ -861,8 +863,174 @@ public class Game {
         Hub plains78 = new Hub("Plains Area #78 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
         Hub plains79 = new Hub("Plains Area #79 ","A wide open plain with a few trees and some greenery \nEXITS: (S) (W)");
 
+        Hub secondVilleRoad1 = new Hub("SecondVille Road #1", "The forest opens up to  a road leading to a village \nEXITS: (E) (W)");
+        Hub secondVilleRoad2 = new Hub("SecondVille Road #2", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad3 = new Hub("SecondVille Road #3", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad4 = new Hub("SecondVille Road #4", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad5 = new Hub("SecondVille Road #5", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad6 = new Hub("SecondVille Road #6", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad7 = new Hub("SecondVille Road #7", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad8 = new Hub("SecondVille Road #8", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad9 = new Hub("SecondVille Road #9", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad10 = new Hub("SecondVille Road #10", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad11 = new Hub("SecondVille Road #11", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad12 = new Hub("SecondVille Road #12", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad13 = new Hub("SecondVille Road #13", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad14 = new Hub("SecondVille Road #14", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad15 = new Hub("SecondVille Road #15", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad16 = new Hub("SecondVille Road #16", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad17 = new Hub("SecondVille Road #17", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad18 = new Hub("SecondVille Road #18", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad19 = new Hub("SecondVille Road #19", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad20 = new Hub("SecondVille Road #20", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad21 = new Hub("SecondVille Road #21", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad22 = new Hub("SecondVille Road #22", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad23 = new Hub("SecondVille Road #23", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad24 = new Hub("SecondVille Road #24", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad25 = new Hub("SecondVille Road #25", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad26 = new Hub("SecondVille Road #26", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad27 = new Hub("SecondVille Road #27", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad28 = new Hub("SecondVille Road #28", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad29 = new Hub("SecondVille Road #29", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad30 = new Hub("SecondVille Road #30", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad31 = new Hub("SecondVille Road #31", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad32 = new Hub("SecondVille Road #32", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad33 = new Hub("SecondVille Road #33", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad34 = new Hub("SecondVille Road #34", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad35 = new Hub("SecondVille Road #35", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad36 = new Hub("SecondVille Road #36", "A road that leads along SecondVille \nEXITS: (E) (W)");
+        Hub secondVilleRoad37 = new Hub("SecondVille Road #37", "A road that leads along SecondVille \nEXITS: (E) (W)");
 
-
+        Hub ocean1 = new Hub("Ocean #1", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean2 = new Hub("Ocean #2", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean3 = new Hub("Ocean #3", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean4 = new Hub("Ocean #4", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean5 = new Hub("Ocean #5", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean6 = new Hub("Ocean #6", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean7 = new Hub("Ocean #7", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean8 = new Hub("Ocean #8", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean9 = new Hub("Ocean #9", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean10 = new Hub("Ocean #10", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean11 = new Hub("Ocean #11", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean12 = new Hub("Ocean #12", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean13 = new Hub("Ocean #13", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean14 = new Hub("Ocean #14", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean15 = new Hub("Ocean #15", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean16 = new Hub("Ocean #16", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean17 = new Hub("Ocean #17", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean18 = new Hub("Ocean #18", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean19 = new Hub("Ocean #19", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean20 = new Hub("Ocean #20", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean21 = new Hub("Ocean #21", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean22 = new Hub("Ocean #22", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean23 = new Hub("Ocean #23", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean24 = new Hub("Ocean #24", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean25 = new Hub("Ocean #25", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean26 = new Hub("Ocean #26", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean27 = new Hub("Ocean #27", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean28 = new Hub("Ocean #28", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean29 = new Hub("Ocean #29", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean30 = new Hub("Ocean #30", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean31 = new Hub("Ocean #31", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean32 = new Hub("Ocean #32", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean33 = new Hub("Ocean #33", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean34 = new Hub("Ocean #34", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean35 = new Hub("Ocean #35", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean36 = new Hub("Ocean #36", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean37 = new Hub("Ocean #37", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean38 = new Hub("Ocean #38", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean39 = new Hub("Ocean #39", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean40 = new Hub("Ocean #40", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean41 = new Hub("Ocean #41", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean42 = new Hub("Ocean #42", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean43 = new Hub("Ocean #43", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean44 = new Hub("Ocean #44", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean45 = new Hub("Ocean #45", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean46 = new Hub("Ocean #46", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean47 = new Hub("Ocean #47", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean48 = new Hub("Ocean #48", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean49 = new Hub("Ocean #49", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean50 = new Hub("Ocean #50", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean51 = new Hub("Ocean #51", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean52 = new Hub("Ocean #52", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean53 = new Hub("Ocean #53", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean54 = new Hub("Ocean #54", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean55 = new Hub("Ocean #55", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean56 = new Hub("Ocean #56", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean57 = new Hub("Ocean #57", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean58 = new Hub("Ocean #58", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean59 = new Hub("Ocean #59", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean60 = new Hub("Ocean #60", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean61= new Hub("Ocean #61", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean62 = new Hub("Ocean #62", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean63 = new Hub("Ocean #63", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean64 = new Hub("Ocean #64", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean65 = new Hub("Ocean #65", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean66 = new Hub("Ocean #66", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean67 = new Hub("Ocean #67", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean68 = new Hub("Ocean #68", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean69 = new Hub("Ocean #69", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean70 = new Hub("Ocean #70", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean71 = new Hub("Ocean #71", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean72 = new Hub("Ocean #72", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean73 = new Hub("Ocean #73", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean74 = new Hub("Ocean #74", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean75 = new Hub("Ocean #75", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean76 = new Hub("Ocean #76", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean77 = new Hub("Ocean #77", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean78 = new Hub("Ocean #78", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean79 = new Hub("Ocean #79", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean80 = new Hub("Ocean #80", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean81 = new Hub("Ocean #81", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean82 = new Hub("Ocean #82", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean83 = new Hub("Ocean #83", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean84 = new Hub("Ocean #84", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean85 = new Hub("Ocean #85", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean86 = new Hub("Ocean #86", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean87 = new Hub("Ocean #87", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean88 = new Hub("Ocean #88", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean89 = new Hub("Ocean #89", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean90 = new Hub("Ocean #90", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean91 = new Hub("Ocean #91", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean92 = new Hub("Ocean #92", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean93 = new Hub("Ocean #93", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean94 = new Hub("Ocean #94", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean95 = new Hub("Ocean #95", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean96 = new Hub("Ocean #96", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean97 = new Hub("Ocean #97", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean98 = new Hub("Ocean #98", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean99 = new Hub("Ocean #99", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean100 = new Hub("Ocean #100", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean101 = new Hub("Ocean #101", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean102 = new Hub("Ocean #102", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean103 = new Hub("Ocean #103", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean104 = new Hub("Ocean #104", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean105 = new Hub("Ocean #105", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean106 = new Hub("Ocean #106", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean107 = new Hub("Ocean #107", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean108 = new Hub("Ocean #108", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean109 = new Hub("Ocean #109", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean110 = new Hub("Ocean #110", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean111 = new Hub("Ocean #111", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean112 = new Hub("Ocean #112", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean113 = new Hub("Ocean #113", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean114 = new Hub("Ocean #114", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean115 = new Hub("Ocean #115", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean116 = new Hub("Ocean #116", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean117 = new Hub("Ocean #117", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean118 = new Hub("Ocean #118", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean119 = new Hub("Ocean #119", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean120 = new Hub("Ocean #120", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean121 = new Hub("Ocean #121", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean122 = new Hub("Ocean #122", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean123 = new Hub("Ocean #123", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean124 = new Hub("Ocean #124", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean125 = new Hub("Ocean #125", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean126 = new Hub("Ocean #126", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean127 = new Hub("Ocean #127", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean128 = new Hub("Ocean #128", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean129 = new Hub("Ocean #129", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
+        Hub ocean130 = new Hub("Ocean #130", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
 
 
         Hub plains42 = new Hub("Plains Area #42", " \nEXITS: (W) (E) (S)");
@@ -7995,21 +8163,25 @@ public class Game {
     public static List<String> fuelForge(List<String> invin, Player player){
         //String type = scanner.next();
 
+        int fuelAmount = 0;
+
         //Ragger's cousin's Gear Shop (BAGGER)
 
         //System.out.println("What fuel would you like to use");
 
         //add if that allows you to use wood items
                                 //change it to variable
-        System.out.println("How much coal would you like to use");
-        int amount = scanner.nextInt();
-        int fuelAmount = 0;
         for(String r : invin){
             if(r.equalsIgnoreCase("coal")){
                 fuelAmount++;
             }
 
         }
+        System.out.println("How much coal would you like to use");
+
+        int amount = scanner.nextInt();
+
+        System.out.println(amount);
         if(fuelAmount >= amount){
             for(int i = 0; i < amount; i++){
                 invin.remove("coal");
@@ -8291,7 +8463,7 @@ public class Game {
     }
     public static List<String> forge(List<String> invin, Player player, Hub inRoom) {
         if (inRoom.getRoomName().equalsIgnoreCase("Ragger's cousin's Gear Shop (BAGGER)")) {
-            int fuel = 0;
+
             //Ragger's cousin's Gear Shop (BAGGER)
 
             List<String> forgables = new ArrayList<>();
@@ -8355,63 +8527,50 @@ public class Game {
             furnace.add("titanium ore");
             furnace.add("uru ore");
 
-            System.out.println("What would you like to make?\n");
-            System.out.println("You can smelt");
-            for (String a : furnace) {
-                System.out.println(a);
-            }
 
-            System.out.println("You can forge: ");
-            for (String a : forgables) {
-                System.out.println(a);
-            }
-            System.out.println("All of these can be made in iron, copper, steel, titanium, red copper, advanced alloy or uru");
-            System.out.println("");
-            System.out.println("Alloys you can make are: ");
-            for (String a : alloys) {
-                System.out.println(a);
-            }
-
-//            System.out.println("The shapes you can cast into are: \n Axe head(Material cost 3), Sword Blade(Material cost 2), Spear Head(Material Cost 1), Helm(Material Cost 4), Leggings(Material Cost 6), Boots(Material Cost 4), Ingot(Material Cost 1) or Block(Material Cost 9)");
-            System.out.println("");
-
-            System.out.print("-> ");
-
-
-            System.out.println("Would you like to alloy, cast or smelt");
-            String forge = scanner.nextLine();
 
 
 
 
             if(fuel < 1){
-                System.out.println(fuel);
-                System.out.println("you need to fuel the forge");
-                System.out.println("How much coal would you like to use");
-                int amount = scanner.nextInt();
-                int fuelAmount = 0;
-                for(String r : invin){
-                    if(r.equalsIgnoreCase("coal")){
-                        fuelAmount++;
-                    }
-
-                }
-                if(fuelAmount >= amount){
-                    for(int i = 0; i < amount; i++){
-                        invin.remove("coal");
-                        fuel += 6;
-                    }
-                    System.out.println(fuel);
-                }
-                forge = scanner.nextLine();
-
-
+                System.out.println("You don't have enough heat in the forge, please add some coal");
+                fuelForge(invin, player);
 
             }
             while(fuel > 0) {
+                //System.out.println("What would you like to make?\n");
+                System.out.println("You can smelt");
+                for (String a : furnace) {
+                    System.out.println(a);
+                }
 
+                System.out.println("You can forge: ");
+                for (String a : forgables) {
+                    System.out.println(a);
+                }
+                System.out.println("All of these can be made in iron, copper, steel, titanium, red copper, advanced alloy or uru");
+                System.out.println("");
+                System.out.println("Alloys you can make are: ");
+                for (String a : alloys) {
+                    System.out.println(a);
+                }
+
+                System.out.println("");
+
+                System.out.print("-> 1");
+
+
+                System.out.println("Would you like to alloy, cast or smelt");
+
+                System.out.println("before scanner scanner");
+
+                String forge = scanner.next();
+                System.out.println(forge);
+                System.out.println("after scanner");
                 if (forge.equals("smelt")) {
                     System.out.println("What would you like to smelt");
+                    forge = scanner.next();
+
                     if (forge.equalsIgnoreCase("iron") || forge.equalsIgnoreCase("iron ore")) {
                         int needed = scanner.nextInt();
                         System.out.println("How many would you like to smelt?");
@@ -8419,7 +8578,7 @@ public class Game {
                         int iron = 0;
 
                         for (String w : invin) {
-                            if (w == "iron ore") {
+                            if (w.equalsIgnoreCase("iron ore")) {
                                 iron++;
                             }
                         }
