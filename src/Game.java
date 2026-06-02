@@ -150,17 +150,14 @@ public class Game {
     }
 
     // OTHER CLASS SCOPE VARIABLES!
-
-<<<<<<< HEAD
-=======
+    
     public static volatile int burritoID = 1;
 
     public static volatile List<String> objects = new ArrayList<>();
 
     public static volatile Map<String, Integer> food = new HashMap<>();
 
-    public static int fuel;
->>>>>>> aee773e2ebaa263a7ca7b37faa6d8b1d9ac7044e
+
 
     public static volatile Hub boatLocation;
 
