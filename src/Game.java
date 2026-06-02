@@ -3905,11 +3905,11 @@ public class Game {
                             System.out.println("You can't just '" + action + "'");
                         }
 
-                    } else if (action.equalsIgnoreCase("fuel")) {
-                        if(inRoom.getRoomName().equalsIgnoreCase("Ragger's cousin's Gear Shop (BAGGER)")){//can use other fuels
-                            fuelForge(inventory, player);
-
-                        }
+//                    } else if (action.equalsIgnoreCase("fuel")) {
+//                        if(inRoom.getRoomName().equalsIgnoreCase("Ragger's cousin's Gear Shop (BAGGER)")){//can use other fuels
+//                            fuelForge(inventory, player);
+//
+//                        }
                     } else if (stringContainsWordFromList(action.toLowerCase(), look.toArray(new String[0]))) {
                         System.out.println(inRoom.getRoomName());
                         System.out.println(inRoom.getRoomDescription());
@@ -8679,10 +8679,6 @@ public class Game {
             furnace.add("uru ore");
 
 
-
-
-
-
             if(fuel < 1){
                 System.out.println("You don't have enough heat in the forge, please add some coal");
                 fuelForge(invin, player);
@@ -8708,19 +8704,20 @@ public class Game {
 
                 System.out.println("");
 
-                System.out.print("-> 1");
+                System.out.print("-> ");
 
 
                 System.out.println("Would you like to alloy, cast or smelt");
 
-                System.out.println("before scanner scanner");
+                //System.out.println("before scanner scanner");
 
                 String forge = scanner.next();
                 System.out.println(forge);
-                System.out.println("after scanner");
+                //System.out.println("after scanner");
                 if (forge.equals("smelt")) {
                     System.out.println("What would you like to smelt");
                     forge = scanner.next();
+                    System.out.println(forge);
 
                     if (forge.equalsIgnoreCase("iron") || forge.equalsIgnoreCase("iron ore")) {
                         int needed = scanner.nextInt();
