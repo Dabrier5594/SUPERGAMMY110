@@ -648,6 +648,7 @@ public class Game {
 
     public static void main(String[] args) {
 
+        scanner.useDelimiter("\\n");
         //QUESTS
 
         Player.QUESTS.put("MQ1", new Quest("MQ1", "Leave The Cave", 3, "Southern Forest Area #1", 1, 25, 5));  // main quest - go outside cave
@@ -8720,8 +8721,14 @@ public class Game {
                     System.out.println(forge);
 
                     if (forge.equalsIgnoreCase("iron") || forge.equalsIgnoreCase("iron ore")) {
+                        System.out.println(forge);
                         System.out.println("How many would you like to smelt?");
+
+                        System.out.println("above");
+
                         int needed = scanner.nextInt();
+
+                        System.out.println("below");
 
                         int iron = 0;
 
@@ -8731,7 +8738,7 @@ public class Game {
                             }
                         }
 
-                        forge = scanner.nextLine();
+//                        forge = scanner.nextLine();
                         if (iron >= needed) {
                             System.out.println("Congratulations");
                             for (int i = 0; i < needed; i++) {
