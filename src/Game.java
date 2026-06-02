@@ -4151,20 +4151,26 @@ public class Game {
 
                             if (stringContainsWordFromList(action.toLowerCase(), cauldron.toArray(new String[0]))) {
                                 if(action.contains("campfire")){
+                                    //check if in invin!
                                     campfire(inventory, player);
                                 }
 
-                                if (inRoom.getRoomName().equalsIgnoreCase("Northern Forest Area #29") || inRoom.getRoomName().equalsIgnoreCase("FirstVille Townhome Upstairs Room")) {
-                                    cauldron(inventory, player, inRoom);
-                                } else {
-                                    System.out.println("You are lacking the ability to find one to use...");
+                                if(action.contains("cauldron")) {
+                                    if (inRoom.getRoomName().equalsIgnoreCase("Northern Forest Area #29") || inRoom.getRoomName().equalsIgnoreCase("FirstVille Townhome Upstairs Room")) {
+                                        cauldron(inventory, player, inRoom);
+                                    } else {
+                                        System.out.println("You are lacking the ability to find one to use...");
+                                    }
                                 }
 
-                                if (inRoom.getRoomName().equalsIgnoreCase("Ragger's cousin's Gear Shop (BAGGER)")) {
-                                    forge(inventory, player, inRoom);
+                                if(action.contains("forge")) {
 
-                                } else {
-                                    System.out.println("You are lacking the ability to find one to use...");
+                                    if (inRoom.getRoomName().equalsIgnoreCase("Ragger's cousin's Gear Shop (BAGGER)")) {
+                                        forge(inventory, player, inRoom);
+
+                                    } else {
+                                        System.out.println("You are lacking the ability to find one to use...");
+                                    }
                                 }
 
                             }
@@ -8328,7 +8334,8 @@ public class Game {
             }
 
         }
-        System.out.println("How much coal would you like to use");
+        System.out.println("How much coal would you like to use?");
+        System.out.print("-> ");
 
         int amount = scanner.nextInt();
 
@@ -8338,7 +8345,9 @@ public class Game {
                 invin.remove("coal");
                 fuel += 6;
             }
-            System.out.println(fuel);
+            System.out.println("Fueled!");
+        } else {
+            System.out.println("That is an invalid number. The forge rejects you.");
         }
         return invin;
     }
@@ -8684,22 +8693,25 @@ public class Game {
 
 
             if(fuel < 1){
-                System.out.println("You don't have enough heat in the forge, please add some coal");
+                System.out.println("You don't have enough heat in the forge, please add some coal!");
                 fuelForge(invin, player);
 
             }
             while(fuel > 0) {
                 //System.out.println("What would you like to make?\n");
-                System.out.println("You can smelt");
+                System.out.println("You can smelt the following:");
                 for (String a : furnace) {
+                    System.out.print("- ");
                     System.out.println(a);
                 }
 
-                System.out.println("You can forge: ");
+                System.out.println("You can forge the following: ");
                 for (String a : forgables) {
+                    System.out.print("- ");
                     System.out.println(a);
                 }
-                System.out.println("All of these can be made in iron, copper, steel, titanium, red copper, advanced alloy or uru");
+                System.out.println("");
+                System.out.println("-! All of these can be made with iron, copper, steel, titanium, red copper, advanced alloy or uru !-");
                 System.out.println("");
                 System.out.println("Alloys you can make are: ");
                 for (String a : alloys) {
@@ -8722,9 +8734,12 @@ public class Game {
                     System.out.println("What would you like to smelt");
                     forge = scanner.next();
 
-                    if (forge.equalsIgnoreCase("iron") || forge.equalsIgnoreCase("iron ore")) {
+                    if (forge.equalsIgnoreCase("iron ore") || forge.equalsIgnoreCase("iron")) {
+
                         System.out.println("How many would you like to smelt?");
-                        int needed = scanner.nextInt();
+                        System.out.println("test one");
+                        int needed = Integer.parseInt(scanner.nextLine());
+                        System.out.println("test two");
 
                         int iron = 0;
 
