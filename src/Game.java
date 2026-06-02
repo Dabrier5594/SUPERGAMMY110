@@ -8707,8 +8707,7 @@ public class Game {
 
                 System.out.print("-> ");
 
-
-                System.out.println("Would you like to alloy, cast or smelt");
+                System.out.println("Would you like to alloy, cast(forge) or smelt");
 
                 //System.out.println("before scanner scanner");
 
@@ -8843,8 +8842,6 @@ public class Game {
                     }
 
 
-                } else {
-                    return invin;
                 }
 
 
@@ -9047,8 +9044,6 @@ public class Game {
                         }
                     }
 
-                } else {
-                    return invin;
                 }
 
                 if (forge.equalsIgnoreCase("alloy")) {
@@ -9158,8 +9153,6 @@ public class Game {
 
                     }
 
-                } else {
-                    return invin;
                 }
             }
         }
