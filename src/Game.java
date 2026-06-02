@@ -55,7 +55,9 @@ public class Game {
     public static final List<KeyFigureSpawn> KEY_FIGURES = new ArrayList<>();
 
 
-    static {INSPECT_DESCRIPTIONS.put("dagger", "An old weathered dagger.");
+    static {
+
+        INSPECT_DESCRIPTIONS.put("dagger", "An old weathered dagger.");
         INSPECT_DESCRIPTIONS.put("leather armor", "Light leather armor. Won't protect you much but is very light.");
         INSPECT_DESCRIPTIONS.put("thornshield", "A shield covered in thorns. Once enemies attack you they take some damage they dealt.");
         INSPECT_DESCRIPTIONS.put("copper", "A dull copper coin. 10 make 1 silver.");
@@ -94,6 +96,160 @@ public class Game {
         INSPECT_DESCRIPTIONS.put("cauldron", "A weathered, cracked cauldron stands abandoned in a small clearing. Could be used for crafting potions.");
         INSPECT_DESCRIPTIONS.put("tree", "A tall tree, towering above you. Moss and ruined bark run up its tall trunk.");
 
+        INSPECT_DESCRIPTIONS.put("leather armors", "Several sets of light leather armor stacked together.");
+        INSPECT_DESCRIPTIONS.put("forgotten sword", "An ancient sword worn by time. Its edge is chipped, but it still feels dangerous.");
+        INSPECT_DESCRIPTIONS.put("forgotten one", "A forgotten being from ages past. Its presence feels unsettling.");
+        INSPECT_DESCRIPTIONS.put("bear claws", "Several massive claws taken from a fearsome bear.");
+        INSPECT_DESCRIPTIONS.put("bear swords", "Crude swords crafted from sharpened bear claws.");
+        INSPECT_DESCRIPTIONS.put("bear sword", "A savage weapon fashioned from a massive bear claw.");
+        INSPECT_DESCRIPTIONS.put("pirate thing", "Some sort of pirate trinket. Its original purpose is unclear.");
+        INSPECT_DESCRIPTIONS.put("wizard thingy", "A strange magical object humming faintly with energy.");
+        INSPECT_DESCRIPTIONS.put("wizard puncher", "A weapon designed with one purpose: punching wizards.");
+
+        INSPECT_DESCRIPTIONS.put("iron sword blade", "A forged iron sword blade awaiting a handle.");
+        INSPECT_DESCRIPTIONS.put("iron axe head", "A heavy iron axe head.");
+        INSPECT_DESCRIPTIONS.put("iron helmet", "A sturdy iron helmet.");
+        INSPECT_DESCRIPTIONS.put("iron breastplate", "A solid iron breastplate.");
+        INSPECT_DESCRIPTIONS.put("iron leggings", "Protective iron leggings.");
+        INSPECT_DESCRIPTIONS.put("iron boots", "Heavy iron boots.");
+        INSPECT_DESCRIPTIONS.put("iron spear head", "An iron spear head waiting to be mounted.");
+
+        INSPECT_DESCRIPTIONS.put("copper sword blade", "A copper sword blade. Softer than iron, but still useful.");
+        INSPECT_DESCRIPTIONS.put("copper axe head", "A copper axe head.");
+        INSPECT_DESCRIPTIONS.put("copper helmet", "A simple copper helmet.");
+        INSPECT_DESCRIPTIONS.put("copper breastplate", "A breastplate forged from copper.");
+        INSPECT_DESCRIPTIONS.put("copper leggings", "Copper leggings offering modest protection.");
+        INSPECT_DESCRIPTIONS.put("copper boots", "Copper boots with a dull metallic shine.");
+        INSPECT_DESCRIPTIONS.put("copper spear head", "A sharpened copper spear head.");
+
+        INSPECT_DESCRIPTIONS.put("titanium sword blade", "A lightweight titanium sword blade.");
+        INSPECT_DESCRIPTIONS.put("titanium axe head", "A titanium axe head forged with precision.");
+        INSPECT_DESCRIPTIONS.put("titanium helmet", "A strong titanium helmet.");
+        INSPECT_DESCRIPTIONS.put("titanium breastplate", "A titanium breastplate offering excellent protection.");
+        INSPECT_DESCRIPTIONS.put("titanium leggings", "Titanium leggings reinforced for battle.");
+        INSPECT_DESCRIPTIONS.put("titanium boots", "Titanium boots built to endure.");
+        INSPECT_DESCRIPTIONS.put("titanium spear head", "A razor-sharp titanium spear head.");
+
+        INSPECT_DESCRIPTIONS.put("advanced alloy sword blade", "A sword blade forged from an advanced alloy.");
+        INSPECT_DESCRIPTIONS.put("advanced alloy axe head", "An axe head crafted from an advanced alloy.");
+        INSPECT_DESCRIPTIONS.put("advanced alloy helmet", "A helmet made from an advanced alloy.");
+        INSPECT_DESCRIPTIONS.put("advanced alloy breastplate", "A remarkably durable advanced alloy breastplate.");
+        INSPECT_DESCRIPTIONS.put("advanced alloy leggings", "Advanced alloy leggings designed for elite warriors.");
+        INSPECT_DESCRIPTIONS.put("advanced alloy boots", "Advanced alloy boots with exceptional durability.");
+        INSPECT_DESCRIPTIONS.put("advanced alloy spear head", "A spear head forged from an advanced alloy.");
+
+        INSPECT_DESCRIPTIONS.put("blood witch", "A sinister witch stained by forbidden rituals.");
+        INSPECT_DESCRIPTIONS.put("fox witch", "A cunning witch whose eyes gleam with mischief.");
+        INSPECT_DESCRIPTIONS.put("mama bear", "A massive bear fiercely protective of her territory.");
+        INSPECT_DESCRIPTIONS.put("mute bandit", "A silent bandit who watches you carefully.");
+
+        INSPECT_DESCRIPTIONS.put("berry pies", "Several freshly baked berry pies.");
+        INSPECT_DESCRIPTIONS.put("berry pie", "A warm berry pie with a sweet aroma.");
+        INSPECT_DESCRIPTIONS.put("scuba mask", "A mask designed for underwater exploration.");
+        INSPECT_DESCRIPTIONS.put("bear teeth", "Several sharp bear teeth.");
+        INSPECT_DESCRIPTIONS.put("golden apples", "Several rare golden apples.");
+        INSPECT_DESCRIPTIONS.put("golden apple", "A golden apple shimmering with strange vitality.");
+        INSPECT_DESCRIPTIONS.put("white whispberries", "Several sweet-smelling whispberries.");
+        INSPECT_DESCRIPTIONS.put("wolf bane soups", "Several bowls of hearty wolf bane soup.");
+        INSPECT_DESCRIPTIONS.put("wolf bane soup", "A hearty soup made from wolfbane.");
+        INSPECT_DESCRIPTIONS.put("raven eyes", "Several raven eyes. Useful for potion making.");
+        INSPECT_DESCRIPTIONS.put("blood vials", "Several glass vials filled with coagulated blood.");
+        INSPECT_DESCRIPTIONS.put("goblin teeth", "A handful of jagged goblin teeth.");
+        INSPECT_DESCRIPTIONS.put("goblin tooth", "A small, jagged goblin tooth.");
+        INSPECT_DESCRIPTIONS.put("rabbit meats", "Cuts of rabbit meat ready for cooking.");
+        INSPECT_DESCRIPTIONS.put("rabbit meat", "Fresh rabbit meat.");
+        INSPECT_DESCRIPTIONS.put("squirrel meats", "Several small cuts of squirrel meat.");
+        INSPECT_DESCRIPTIONS.put("squirrel meat", "A small cut of squirrel meat.");
+        INSPECT_DESCRIPTIONS.put("bear meats", "Large cuts of bear meat.");
+        INSPECT_DESCRIPTIONS.put("bear meat", "A hefty cut of bear meat.");
+        INSPECT_DESCRIPTIONS.put("chicken feathers", "A collection of chicken feathers.");
+        INSPECT_DESCRIPTIONS.put("chicken feather", "A single chicken feather.");
+
+        INSPECT_DESCRIPTIONS.put("stone", "A common stone.");
+        INSPECT_DESCRIPTIONS.put("coals", "Several chunks of coal.");
+        INSPECT_DESCRIPTIONS.put("coal", "A chunk of coal. Useful as fuel.");
+        INSPECT_DESCRIPTIONS.put("copper ore", "Ore containing traces of copper.");
+        INSPECT_DESCRIPTIONS.put("copper ingot", "A refined copper ingot.");
+        INSPECT_DESCRIPTIONS.put("iron ore", "Ore rich with iron.");
+        INSPECT_DESCRIPTIONS.put("iron ingot", "A refined iron ingot.");
+        INSPECT_DESCRIPTIONS.put("titanium ore", "A rare ore containing titanium.");
+        INSPECT_DESCRIPTIONS.put("titanium ingot", "A refined titanium ingot.");
+        INSPECT_DESCRIPTIONS.put("uru ore", "A legendary ore with unusual properties.");
+        INSPECT_DESCRIPTIONS.put("uru ingot", "A refined ingot of uru.");
+
+        INSPECT_DESCRIPTIONS.put("dirt", "A patch of ordinary dirt.");
+        INSPECT_DESCRIPTIONS.put("pickaxe", "A sturdy mining tool.");
+        INSPECT_DESCRIPTIONS.put("stove", "A stove used for cooking food.");
+        INSPECT_DESCRIPTIONS.put("scroll", "An old scroll covered in faded writing.");
+        INSPECT_DESCRIPTIONS.put("forge", "A blazing forge used to shape metal.");
+        INSPECT_DESCRIPTIONS.put("exchange", "A place where goods and currency are traded.");
+        INSPECT_DESCRIPTIONS.put("campfire", "A warm campfire crackling softly.");
+        INSPECT_DESCRIPTIONS.put("chemical plant", "A complex facility for processing chemicals.");
+        INSPECT_DESCRIPTIONS.put("burner press", "An industrial machine used in manufacturing.");
+        INSPECT_DESCRIPTIONS.put("radioactive barrel", "A barrel marked with radioactive warnings.");
+        INSPECT_DESCRIPTIONS.put("fusion reactor", "A powerful machine generating immense energy.");
+        INSPECT_DESCRIPTIONS.put("particle accelerator", "A scientific machine used to accelerate particles.");
+
+        INSPECT_DESCRIPTIONS.put("cadmium", "A soft bluish metal.");
+        INSPECT_DESCRIPTIONS.put("pvc", "A durable synthetic plastic material.");
+        INSPECT_DESCRIPTIONS.put("bscco", "A high-temperature superconducting material.");
+
+        INSPECT_DESCRIPTIONS.put("wheat", "Golden stalks of wheat.");
+        INSPECT_DESCRIPTIONS.put("apple", "A crisp red apple.");
+        INSPECT_DESCRIPTIONS.put("apples", "Several crisp apples.");
+        INSPECT_DESCRIPTIONS.put("orange", "A juicy orange.");
+        INSPECT_DESCRIPTIONS.put("oranges", "Several juicy oranges.");
+        INSPECT_DESCRIPTIONS.put("acorn", "A small acorn fallen from a tree.");
+        INSPECT_DESCRIPTIONS.put("acorns", "A handful of acorns.");
+        INSPECT_DESCRIPTIONS.put("berry", "A small wild berry.");
+        INSPECT_DESCRIPTIONS.put("berries", "A collection of wild berries.");
+        INSPECT_DESCRIPTIONS.put("sugar", "Sweet refined sugar.");
+        INSPECT_DESCRIPTIONS.put("sugars", "Several portions of refined sugar.");
+        INSPECT_DESCRIPTIONS.put("bread", "A loaf of freshly baked bread.");
+        INSPECT_DESCRIPTIONS.put("breads", "Several loaves of bread.");
+        INSPECT_DESCRIPTIONS.put("jerky", "Dried meat preserved for travel.");
+        INSPECT_DESCRIPTIONS.put("bun", "A soft bread bun.");
+        INSPECT_DESCRIPTIONS.put("buns", "Several soft bread buns.");
+        INSPECT_DESCRIPTIONS.put("tortilla", "A flatbread commonly used in cooking.");
+        INSPECT_DESCRIPTIONS.put("tortillas", "Several fresh tortillas.");
+        INSPECT_DESCRIPTIONS.put("bean", "A simple bean.");
+        INSPECT_DESCRIPTIONS.put("beans", "A pile of beans.");
+        INSPECT_DESCRIPTIONS.put("refrito", "Seasoned refried beans.");
+        INSPECT_DESCRIPTIONS.put("refritos", "Several servings of refried beans.");
+        INSPECT_DESCRIPTIONS.put("cheese", "A block of cheese.");
+        INSPECT_DESCRIPTIONS.put("cheeses", "Several blocks of cheese.");
+        INSPECT_DESCRIPTIONS.put("wagyu", "Highly prized marbled beef.");
+        INSPECT_DESCRIPTIONS.put("beef", "A cut of raw beef.");
+
+        INSPECT_DESCRIPTIONS.put("bill", "A local villager.");
+        INSPECT_DESCRIPTIONS.put("zak", "A familiar face around the village.");
+        INSPECT_DESCRIPTIONS.put("horsey", "A loyal horse.");
+        INSPECT_DESCRIPTIONS.put("clothes", "A set of ordinary clothes.");
+        INSPECT_DESCRIPTIONS.put("cloth", "A piece of woven cloth.");
+        INSPECT_DESCRIPTIONS.put("joehanberkleee", "An individual of questionable reputation.");
+        INSPECT_DESCRIPTIONS.put("bear", "A large bear. Best admired from a distance.");
+        INSPECT_DESCRIPTIONS.put("lagger", "It's Lagger. Somehow related to everyone else.");
+        INSPECT_DESCRIPTIONS.put("jagger", "It's Jagger. The family tree gets confusing here.");
+        INSPECT_DESCRIPTIONS.put("tragger", "It's Tragger. Another member of the ever-growing family.");
+        INSPECT_DESCRIPTIONS.put("ragu", "A mysterious individual.");
+        INSPECT_DESCRIPTIONS.put("trevor", "A villager going about their day.");
+        INSPECT_DESCRIPTIONS.put("steve", "A familiar face.");
+        INSPECT_DESCRIPTIONS.put("maratamara", "A traveler with stories to tell.");
+        INSPECT_DESCRIPTIONS.put("mandell", "A resident of the region.");
+        INSPECT_DESCRIPTIONS.put("wolf", "A wild wolf prowling nearby.");
+        INSPECT_DESCRIPTIONS.put("jerry", "A curious individual.");
+        INSPECT_DESCRIPTIONS.put("boat", "A sturdy boat for crossing water.");
+
+        INSPECT_DESCRIPTIONS.put("button", "A small decorative button.");
+        INSPECT_DESCRIPTIONS.put("buttons", "Several decorative buttons.");
+        INSPECT_DESCRIPTIONS.put("daruma", "A traditional daruma doll.");
+        INSPECT_DESCRIPTIONS.put("darumas", "Several traditional daruma dolls.");
+        INSPECT_DESCRIPTIONS.put("teacup", "A delicate teacup.");
+        INSPECT_DESCRIPTIONS.put("teacups", "Several delicate teacups.");
+        INSPECT_DESCRIPTIONS.put("badge", "A small badge.");
+        INSPECT_DESCRIPTIONS.put("badges", "Several badges.");
+        INSPECT_DESCRIPTIONS.put("ball", "A simple ball.");
+        INSPECT_DESCRIPTIONS.put("balls", "Several balls.");
 
     }
 
@@ -2930,16 +3086,6 @@ public class Game {
         objects.add("campfire");
         objects.add("chemical plant");
 
-        //HBM Nuclear Tech
-        objects.add("chemical plant");
-        objects.add("burner press");
-        objects.add("radioactive barrel");
-        objects.add("fusion reactor");
-        objects.add("particle accelerator");
-        objects.add("cadmium");
-        objects.add("pvc");
-        objects.add("bscco");
-
         //Forge Items
         objects.add("tool handle");
         objects.add("");
@@ -3228,7 +3374,7 @@ public class Game {
 
                     for (int i = 0; i < 500; i++) {
 
-                        inRoom.getObjects().add(itemspawner);
+                        inventory.add(itemspawner);
 
                     }
 
