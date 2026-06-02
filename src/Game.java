@@ -8720,8 +8720,8 @@ public class Game {
                     System.out.println(forge);
 
                     if (forge.equalsIgnoreCase("iron") || forge.equalsIgnoreCase("iron ore")) {
-                        int needed = scanner.nextInt();
                         System.out.println("How many would you like to smelt?");
+                        int needed = scanner.nextInt();
 
                         int iron = 0;
 
@@ -8730,6 +8730,7 @@ public class Game {
                                 iron++;
                             }
                         }
+
                         forge = scanner.nextLine();
                         if (iron >= needed) {
                             System.out.println("Congratulations");
