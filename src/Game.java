@@ -67,6 +67,7 @@ public class Game {
         INSPECT_DESCRIPTIONS.put("leaflet", "A tattered, worn out piece of paper. Most of the text is weathered away.");
         INSPECT_DESCRIPTIONS.put("twig", "Just a twig. Useful for starting fires.");
         INSPECT_DESCRIPTIONS.put("snarkflower", "A snarkflower. Smells of ozone, and something floral.");
+        INSPECT_DESCRIPTIONS.put("all father Tim", "Nothing special about this guy. (But he may have ascended...?)");
         INSPECT_DESCRIPTIONS.put("door", "A door made of sturdy wood.");
         INSPECT_DESCRIPTIONS.put("rabbit", "A small rabbit wandering through the brush. It's refreshing to see life around.");
         INSPECT_DESCRIPTIONS.put("chicken", "A wild chicken. Rare to see these anymore.");
@@ -910,6 +911,8 @@ public class Game {
 
         Hub firstVilleManHoleEnt = new Hub("Entrance to a manhole", " \nEXITS: (U) (E)");
         firstVilleManHoleEnt.getObjects().add("ball");
+        firstVilleManHoleEnt.getObjects().add("daruma");
+        firstVilleManHoleEnt.getObjects().add("daruma");
         firstVilleLane43.setExit("d", firstVilleManHoleEnt);
         firstVilleManHoleEnt.setExit("u", firstVilleLane43);
 
@@ -2343,6 +2346,22 @@ public class Game {
             forest50.getBoss().add(npc);
         }));
 
+        //FINAL BOSS
+
+        stuff.add("scepter");
+        Boss allFatherTim = new Boss("all father Tim", 600, 600, 90, 15, "The guy who started in a cave. But he had some life complications.", stuff);
+        MobSkill  stunSkill = new MobSkill.StunSkill("StunSkill", 3);
+        forestDevil.addSkills(stunSkill);
+        MobSkill vineSkill = new MobSkill.VineSkill("VineSkill", 3);
+        forestDevil.addSkills(vineSkill);
+        stuff.remove("scepter");
+        forest50.getBoss().add(forestDevil);
+
+        KEY_FIGURES.add(new KeyFigureSpawn("forest devil", forest50, () -> {
+            Boss npc = new Boss("forest devil", 125, 101, 10, 3, "Fierce ForestDevil's hate to be interrupted, you get the devil's stick eye. His forest embraced body curves and twists, branches stick out from nowhere.", stuff);
+            forest50.getBoss().add(npc);
+        }));
+
         //1st VILLE BOSS
 
         Boss firstVilleBoss = new Boss("JoeHanBerkleeE", 250, 225, 35, 5, "A goblin/creampuff hybrid? All he keeps saying is 'CREAM-PUFF! CREAM-PUFF!' What a demon.", stuff);
@@ -2352,7 +2371,7 @@ public class Game {
 
 
         KEY_FIGURES.add(new KeyFigureSpawn("JoeHanBerkleeE", plains42, () -> {
-            Boss npc = new Boss("JoeHanBerkleeE", 250, 225, 35, 5, "A goblin/creampuff hybrid? All he keeps saying is 'CREAM-PUFF! CREAM-PUFF!' What a demon.", stuff);
+            Boss npc = new Boss("JoeHanBerkleeE", 250, 250, 35, 5, "A goblin/creampuff hybrid? All he keeps saying is 'CREAM-PUFF! CREAM-PUFF!' What a demon.", stuff);
             firstVilleBoss.addSkills(rouletteSkill);
             plains42.getBoss().add(npc);
         }));
@@ -2994,6 +3013,7 @@ public class Game {
 
 
         objects.add("inventory");
+        objects.add("scepter");
         objects.add("dirt");
         objects.add("pickaxe");
         objects.add("stove");

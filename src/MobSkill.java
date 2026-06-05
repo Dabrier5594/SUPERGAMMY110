@@ -1,4 +1,5 @@
 import java.util.Map;
+import java.util.Scanner;
 
 public abstract class MobSkill {
     private String name;
@@ -18,7 +19,7 @@ public abstract class MobSkill {
         return name;
     }
 
-
+    Scanner scannerdumb = new Scanner(System.in);
 
     public static class StunSkill extends MobSkill {
         private int cooldownTurns;
@@ -117,7 +118,7 @@ public abstract class MobSkill {
         }
 
         public void reduceCooldown() {
-             currentCooldown--;
+            currentCooldown--;
         }
 
         public boolean canUse() {
@@ -153,6 +154,50 @@ public abstract class MobSkill {
                     boss.makeAttackPower(temp);
                 }
 
+            }
+
+        }
+
+        public int getCurrentCooldown(){
+            return currentCooldown;
+        }
+    }
+
+    public static class FireGuySkill extends MobSkill {
+        private int temp;
+        private int cooldownTurns;
+        private int currentCooldown = 0;
+        private boolean compound = false;
+        int fireFlameCount = 5;
+
+
+        public FireGuySkill(String name, int attk) {
+            super(name);
+            temp = attk;
+        }
+
+        public void reduceCooldown() {
+            currentCooldown--;
+        }
+
+        public boolean canUse() {
+            return currentCooldown <= 0;
+        }
+
+        public void applyR(Boss boss) {
+
+            System.out.println("All Father Tim has activated his unique skill: FIRE FLAME BOOST");
+            System.out.println("In " + fireFlameCount + " turns All Father Tim will unleash FIRE FLAME TYCOON if not neutralized!");
+            System.out.println("Oh... You can't neutralize it... UNLESS YOU GUESS HIS TRUE NAME!!!");
+            System.out.println("HINT: \nI was blamed for a fall I never caused,\n" +
+                    "Celebrated for a discovery I never made.\n" +
+                    "I sit on desks, glow in pockets,\n" +
+                    "And yet I begin my life in an orchard.\n" +
+                    "What am I?");
+            System.out.println("-> ");
+            String trueName = scannerdumb.next();
+            if (trueName.equalsIgnoreCase("apple")){
+                System.out.println("NEUTRALIZED!");
             }
 
         }
