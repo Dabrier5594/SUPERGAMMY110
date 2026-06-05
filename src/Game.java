@@ -2350,10 +2350,10 @@ public class Game {
 
         stuff.add("scepter");
         Boss allFatherTim = new Boss("all father Tim", 600, 600, 90, 15, "The guy who started in a cave. But he had some life complications.", stuff);
-        MobSkill  stunSkill = new MobSkill.StunSkill("StunSkill", 3);
-        forestDevil.addSkills(stunSkill);
-        MobSkill vineSkill = new MobSkill.VineSkill("VineSkill", 3);
-        forestDevil.addSkills(vineSkill);
+        //MobSkill  stunSkill = new MobSkill.StunSkill("StunSkill", 3);
+        //forestDevil.addSkills(stunSkill);
+        //MobSkill vineSkill = new MobSkill.VineSkill("VineSkill", 3);
+        //forestDevil.addSkills(vineSkill);
         stuff.remove("scepter");
         forest50.getBoss().add(forestDevil);
 
