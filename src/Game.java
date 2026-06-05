@@ -3186,6 +3186,8 @@ public class Game {
         food.put("wolfs bane soup", 12);
         food.put("wagyu", 35);
         food.put("golden apple", 88);
+        food.put("golden burrito", 88);
+        food.put("burrito", 88);
 
         //foods (some of them)
         objects.add("tortillas");
@@ -3198,6 +3200,8 @@ public class Game {
         objects.add("cheese");
         objects.add("wagyu");
         objects.add("beef");
+        objects.add("golden burrito");
+        objects.add("burrito");
 
         List<String> remove = new ArrayList<>();
         remove.add("remove");
@@ -9366,6 +9370,9 @@ public class Game {
                         burritoPower += 7;
                         System.out.println("Your super burrito has been crafted! It's power is " + burritoPower);
                         String burritoNewID = "burrito" + burritoID;
+                        if (addOn >= 1){
+                            burritoNewID = "golden " + burritoNewID;
+                        }
                         objects.add(burritoNewID);
                         food.put(burritoNewID, burritoPower);
                         System.out.println("This is ... " + burritoNewID + " !!!");
