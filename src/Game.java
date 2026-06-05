@@ -648,6 +648,7 @@ public class Game {
 
     public static void main(String[] args) {
 
+        scanner.useDelimiter("\\n");
         //QUESTS
 
         Player.QUESTS.put("MQ1", new Quest("MQ1", "Leave The Cave", 3, "Southern Forest Area #1", 1, 25, 5));  // main quest - go outside cave
@@ -8720,26 +8721,22 @@ public class Game {
 
                 System.out.println("");
 
-                System.out.print("-> 1");
+                System.out.print("-> ");
 
+                System.out.println("Would you like to alloy, cast(forge) or smelt");
 
-                System.out.println("Would you like to alloy, cast or smelt");
-
-                System.out.println("before scanner scanner");
+                //System.out.println("before scanner scanner");
 
                 String forge = scanner.next();
                 System.out.println(forge);
-                System.out.println("after scanner");
+                //System.out.println("after scanner");
                 if (forge.equals("smelt")) {
                     System.out.println("What would you like to smelt");
                     forge = scanner.next();
 
-                    if (forge.equalsIgnoreCase("iron ore") || forge.equalsIgnoreCase("iron")) {
-
+                    if (forge.equalsIgnoreCase("iron") || forge.equalsIgnoreCase("iron ore")) {
                         System.out.println("How many would you like to smelt?");
-                        System.out.println("test one");
-                        int needed = Integer.parseInt(scanner.nextLine());
-                        System.out.println("test two");
+                        int needed = scanner.nextInt();
 
                         int iron = 0;
 
