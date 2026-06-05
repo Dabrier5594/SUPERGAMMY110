@@ -1200,6 +1200,7 @@ public class Game {
         Hub ocean130 = new Hub("Ocean #130", "A vast Ocean with a ton of fog \nEXITS: (N) (W) (S) (E)");
 
 
+
         Hub plains42 = new Hub("Plains Area #42", " \nEXITS: (W) (E) (S)");
 
         //PLAINS AREA 35 = plainsshaftE
@@ -2022,6 +2023,590 @@ public class Game {
         plains2.setExit("n", plains3);
         plains2.setExit("w", plains11);
 
+
+
+
+
+
+
+        ocean1.setExit("e", ocean2);
+        ocean1.setExit("s", ocean11);
+
+        ocean2.setExit("w", ocean1);
+        ocean2.setExit("e", ocean3);
+        ocean2.setExit("s", ocean12);
+
+        ocean3.setExit("w", ocean2);
+        ocean3.setExit("e", ocean4);
+        ocean3.setExit("s", ocean13);
+
+        ocean4.setExit("w", ocean3);
+        ocean4.setExit("e", ocean5);
+        ocean4.setExit("s", ocean14);
+
+        ocean5.setExit("w", ocean4);
+        ocean5.setExit("e", ocean6);
+        ocean5.setExit("s", ocean15);
+
+        ocean6.setExit("w", ocean5);
+        ocean6.setExit("e", ocean7);
+        ocean6.setExit("s", ocean16);
+
+        ocean7.setExit("w", ocean6);
+        ocean7.setExit("e", ocean8);
+        ocean7.setExit("s", ocean17);
+
+        ocean8.setExit("w", ocean7);
+        ocean8.setExit("e", ocean9);
+        ocean8.setExit("s", ocean18);
+
+        ocean9.setExit("w", ocean8);
+        ocean9.setExit("e", ocean10);
+        ocean9.setExit("s", ocean19);
+
+        ocean10.setExit("w", ocean9);
+        ocean10.setExit("s", ocean20);
+
+        ocean11.setExit("n", ocean1);
+        ocean11.setExit("e", ocean12);
+        ocean11.setExit("s", ocean21);
+
+        ocean12.setExit("n", ocean2);
+        ocean12.setExit("w", ocean11);
+        ocean12.setExit("e", ocean13);
+        ocean12.setExit("s", ocean22);
+
+        ocean13.setExit("n", ocean3);
+        ocean13.setExit("w", ocean12);
+        ocean13.setExit("e", ocean14);
+        ocean13.setExit("s", ocean23);
+
+        ocean14.setExit("n", ocean4);
+        ocean14.setExit("w", ocean13);
+        ocean14.setExit("e", ocean15);
+        ocean14.setExit("s", ocean24);
+
+        ocean15.setExit("n", ocean5);
+        ocean15.setExit("w", ocean14);
+        ocean15.setExit("e", ocean16);
+        ocean15.setExit("s", ocean25);
+
+        ocean16.setExit("n", ocean6);
+        ocean16.setExit("w", ocean15);
+        ocean16.setExit("e", ocean17);
+        ocean16.setExit("s", ocean26);
+
+        ocean17.setExit("n", ocean7);
+        ocean17.setExit("w", ocean16);
+        ocean17.setExit("e", ocean18);
+        ocean17.setExit("s", ocean27);
+
+        ocean18.setExit("n", ocean8);
+        ocean18.setExit("w", ocean17);
+        ocean18.setExit("e", ocean19);
+        ocean18.setExit("s", ocean28);
+
+        ocean19.setExit("n", ocean9);
+        ocean19.setExit("w", ocean18);
+        ocean19.setExit("e", ocean20);
+        ocean19.setExit("s", ocean29);
+
+        ocean20.setExit("n", ocean10);
+        ocean20.setExit("w", ocean19);
+        ocean20.setExit("s", ocean30);
+
+        ocean21.setExit("n", ocean11);
+        ocean21.setExit("e", ocean22);
+        ocean21.setExit("s", ocean31);
+
+        ocean22.setExit("n", ocean12);
+        ocean22.setExit("w", ocean21);
+        ocean22.setExit("e", ocean23);
+        ocean22.setExit("s", ocean32);
+
+        ocean23.setExit("n", ocean13);
+        ocean23.setExit("w", ocean22);
+        ocean23.setExit("e", ocean24);
+        ocean23.setExit("s", ocean33);
+
+        ocean24.setExit("n", ocean14);
+        ocean24.setExit("w", ocean23);
+        ocean24.setExit("e", ocean25);
+        ocean24.setExit("s", ocean34);
+
+        ocean25.setExit("n", ocean15);
+        ocean25.setExit("w", ocean24);
+        ocean25.setExit("e", ocean26);
+        ocean25.setExit("s", ocean35);
+
+        ocean26.setExit("n", ocean16);
+        ocean26.setExit("w", ocean25);
+        ocean26.setExit("e", ocean27);
+        ocean26.setExit("s", ocean36);
+
+        ocean27.setExit("n", ocean17);
+        ocean27.setExit("w", ocean26);
+        ocean27.setExit("e", ocean28);
+        ocean27.setExit("s", ocean37);
+
+        ocean28.setExit("n", ocean18);
+        ocean28.setExit("w", ocean27);
+        ocean28.setExit("e", ocean29);
+        ocean28.setExit("s", ocean38);
+
+        ocean29.setExit("n", ocean19);
+        ocean29.setExit("w", ocean28);
+        ocean29.setExit("e", ocean30);
+        ocean29.setExit("s", ocean39);
+
+        ocean30.setExit("n", ocean20);
+        ocean30.setExit("w", ocean29);
+        ocean30.setExit("s", ocean40);
+
+        ocean31.setExit("n", ocean21);
+        ocean31.setExit("e", ocean32);
+        ocean31.setExit("s", ocean41);
+
+        ocean32.setExit("n", ocean22);
+        ocean32.setExit("w", ocean31);
+        ocean32.setExit("e", ocean33);
+        ocean32.setExit("s", ocean42);
+
+        ocean33.setExit("n", ocean23);
+        ocean33.setExit("w", ocean32);
+        ocean33.setExit("e", ocean34);
+        ocean33.setExit("s", ocean43);
+
+        ocean34.setExit("n", ocean24);
+        ocean34.setExit("w", ocean33);
+        ocean34.setExit("e", ocean35);
+        ocean34.setExit("s", ocean44);
+
+        ocean35.setExit("n", ocean25);
+        ocean35.setExit("w", ocean34);
+        ocean35.setExit("e", ocean36);
+        ocean35.setExit("s", ocean45);
+
+        ocean36.setExit("n", ocean26);
+        ocean36.setExit("w", ocean35);
+        ocean36.setExit("e", ocean37);
+        ocean36.setExit("s", ocean46);
+
+        ocean37.setExit("n", ocean27);
+        ocean37.setExit("w", ocean36);
+        ocean37.setExit("e", ocean38);
+        ocean37.setExit("s", ocean47);
+
+        ocean38.setExit("n", ocean28);
+        ocean38.setExit("w", ocean37);
+        ocean38.setExit("e", ocean39);
+        ocean38.setExit("s", ocean48);
+
+        ocean39.setExit("n", ocean29);
+        ocean39.setExit("w", ocean38);
+        ocean39.setExit("e", ocean40);
+        ocean39.setExit("s", ocean49);
+
+        ocean40.setExit("n", ocean30);
+        ocean40.setExit("w", ocean39);
+        ocean40.setExit("s", ocean50);
+
+        ocean41.setExit("n", ocean31);
+        ocean41.setExit("e", ocean42);
+        ocean41.setExit("s", ocean51);
+
+        ocean42.setExit("n", ocean32);
+        ocean42.setExit("w", ocean41);
+        ocean42.setExit("e", ocean43);
+        ocean42.setExit("s", ocean52);
+
+        ocean43.setExit("n", ocean33);
+        ocean43.setExit("w", ocean42);
+        ocean43.setExit("e", ocean44);
+        ocean43.setExit("s", ocean53);
+
+        ocean44.setExit("n", ocean34);
+        ocean44.setExit("w", ocean43);
+        ocean44.setExit("e", ocean45);
+        ocean44.setExit("s", ocean54);
+
+        ocean45.setExit("n", ocean35);
+        ocean45.setExit("w", ocean44);
+        ocean45.setExit("e", ocean46);
+        ocean45.setExit("s", ocean55);
+
+        ocean46.setExit("n", ocean36);
+        ocean46.setExit("w", ocean45);
+        ocean46.setExit("e", ocean47);
+        ocean46.setExit("s", ocean56);
+
+        ocean47.setExit("n", ocean37);
+        ocean47.setExit("w", ocean46);
+        ocean47.setExit("e", ocean48);
+        ocean47.setExit("s", ocean57);
+
+        ocean48.setExit("n", ocean38);
+        ocean48.setExit("w", ocean47);
+        ocean48.setExit("e", ocean49);
+        ocean48.setExit("s", ocean58);
+
+        ocean49.setExit("n", ocean39);
+        ocean49.setExit("w", ocean48);
+        ocean49.setExit("e", ocean50);
+        ocean49.setExit("s", ocean59);
+
+        ocean50.setExit("n", ocean40);
+        ocean50.setExit("w", ocean49);
+        ocean50.setExit("s", ocean60);
+
+        ocean51.setExit("n", ocean41);
+        ocean51.setExit("e", ocean52);
+        ocean51.setExit("s", ocean61);
+
+        ocean52.setExit("n", ocean42);
+        ocean52.setExit("w", ocean51);
+        ocean52.setExit("e", ocean53);
+        ocean52.setExit("s", ocean62);
+
+        ocean53.setExit("n", ocean43);
+        ocean53.setExit("w", ocean52);
+        ocean53.setExit("e", ocean54);
+        ocean53.setExit("s", ocean63);
+
+        ocean54.setExit("n", ocean44);
+        ocean54.setExit("w", ocean53);
+        ocean54.setExit("e", ocean55);
+        ocean54.setExit("s", ocean64);
+
+        ocean55.setExit("n", ocean45);
+        ocean55.setExit("w", ocean54);
+        ocean55.setExit("e", ocean56);
+        ocean55.setExit("s", ocean65);
+
+        ocean56.setExit("n", ocean46);
+        ocean56.setExit("w", ocean55);
+        ocean56.setExit("e", ocean57);
+        ocean56.setExit("s", ocean66);
+
+        ocean57.setExit("n", ocean47);
+        ocean57.setExit("w", ocean56);
+        ocean57.setExit("e", ocean58);
+        ocean57.setExit("s", ocean67);
+
+        ocean58.setExit("n", ocean48);
+        ocean58.setExit("w", ocean57);
+        ocean58.setExit("e", ocean59);
+        ocean58.setExit("s", ocean68);
+
+        ocean59.setExit("n", ocean49);
+        ocean59.setExit("w", ocean58);
+        ocean59.setExit("e", ocean60);
+        ocean59.setExit("s", ocean69);
+
+        ocean60.setExit("n", ocean50);
+        ocean60.setExit("w", ocean59);
+        ocean60.setExit("s", ocean70);
+
+        ocean61.setExit("n", ocean51);
+        ocean61.setExit("e", ocean62);
+        ocean61.setExit("s", ocean71);
+
+        ocean62.setExit("n", ocean52);
+        ocean62.setExit("w", ocean61);
+        ocean62.setExit("e", ocean63);
+        ocean62.setExit("s", ocean72);
+
+        ocean63.setExit("n", ocean53);
+        ocean63.setExit("w", ocean62);
+        ocean63.setExit("e", ocean64);
+        ocean63.setExit("s", ocean73);
+
+        ocean64.setExit("n", ocean54);
+        ocean64.setExit("w", ocean63);
+        ocean64.setExit("e", ocean65);
+        ocean64.setExit("s", ocean74);
+
+        ocean65.setExit("n", ocean55);
+        ocean65.setExit("w", ocean64);
+        ocean65.setExit("e", ocean66);
+        ocean65.setExit("s", ocean75);
+
+        ocean66.setExit("n", ocean56);
+        ocean66.setExit("w", ocean65);
+        ocean66.setExit("e", ocean67);
+        ocean66.setExit("s", ocean76);
+
+        ocean67.setExit("n", ocean57);
+        ocean67.setExit("w", ocean66);
+        ocean67.setExit("e", ocean68);
+        ocean67.setExit("s", ocean77);
+
+        ocean68.setExit("n", ocean58);
+        ocean68.setExit("w", ocean67);
+        ocean68.setExit("e", ocean69);
+        ocean68.setExit("s", ocean78);
+
+        ocean69.setExit("n", ocean59);
+        ocean69.setExit("w", ocean68);
+        ocean69.setExit("e", ocean70);
+        ocean69.setExit("s", ocean79);
+
+        ocean70.setExit("n", ocean60);
+        ocean70.setExit("w", ocean69);
+        ocean70.setExit("s", ocean80);
+
+        ocean71.setExit("n", ocean61);
+        ocean71.setExit("e", ocean72);
+        ocean71.setExit("s", ocean81);
+
+        ocean72.setExit("n", ocean62);
+        ocean72.setExit("w", ocean71);
+        ocean72.setExit("e", ocean73);
+        ocean72.setExit("s", ocean82);
+
+        ocean73.setExit("n", ocean63);
+        ocean73.setExit("w", ocean72);
+        ocean73.setExit("e", ocean74);
+        ocean73.setExit("s", ocean83);
+
+        ocean74.setExit("n", ocean64);
+        ocean74.setExit("w", ocean73);
+        ocean74.setExit("e", ocean75);
+        ocean74.setExit("s", ocean84);
+
+        ocean75.setExit("n", ocean65);
+        ocean75.setExit("w", ocean74);
+        ocean75.setExit("e", ocean76);
+        ocean75.setExit("s", ocean85);
+
+        ocean76.setExit("n", ocean66);
+        ocean76.setExit("w", ocean75);
+        ocean76.setExit("e", ocean77);
+        ocean76.setExit("s", ocean86);
+
+        ocean77.setExit("n", ocean67);
+        ocean77.setExit("w", ocean76);
+        ocean77.setExit("e", ocean78);
+        ocean77.setExit("s", ocean87);
+
+        ocean78.setExit("n", ocean68);
+        ocean78.setExit("w", ocean77);
+        ocean78.setExit("e", ocean79);
+        ocean78.setExit("s", ocean88);
+
+        ocean79.setExit("n", ocean69);
+        ocean79.setExit("w", ocean78);
+        ocean79.setExit("e", ocean80);
+        ocean79.setExit("s", ocean89);
+
+        ocean80.setExit("n", ocean70);
+        ocean80.setExit("w", ocean79);
+        ocean80.setExit("s", ocean90);
+
+        ocean81.setExit("n", ocean71);
+        ocean81.setExit("e", ocean82);
+        ocean81.setExit("s", ocean91);
+
+        ocean82.setExit("n", ocean72);
+        ocean82.setExit("w", ocean81);
+        ocean82.setExit("e", ocean83);
+        ocean82.setExit("s", ocean92);
+
+        ocean83.setExit("n", ocean73);
+        ocean83.setExit("w", ocean82);
+        ocean83.setExit("e", ocean84);
+        ocean83.setExit("s", ocean93);
+
+        ocean84.setExit("n", ocean74);
+        ocean84.setExit("w", ocean83);
+        ocean84.setExit("e", ocean85);
+        ocean84.setExit("s", ocean94);
+
+        ocean85.setExit("n", ocean75);
+        ocean85.setExit("w", ocean84);
+        ocean85.setExit("e", ocean86);
+        ocean85.setExit("s", ocean95);
+
+        ocean86.setExit("n", ocean76);
+        ocean86.setExit("w", ocean85);
+        ocean86.setExit("e", ocean87);
+        ocean86.setExit("s", ocean96);
+
+        ocean87.setExit("n", ocean77);
+        ocean87.setExit("w", ocean86);
+        ocean87.setExit("e", ocean88);
+        ocean87.setExit("s", ocean97);
+
+        ocean88.setExit("n", ocean78);
+        ocean88.setExit("w", ocean87);
+        ocean88.setExit("e", ocean89);
+        ocean88.setExit("s", ocean98);
+
+        ocean89.setExit("n", ocean79);
+        ocean89.setExit("w", ocean88);
+        ocean89.setExit("e", ocean90);
+        ocean89.setExit("s", ocean99);
+
+        ocean90.setExit("n", ocean80);
+        ocean90.setExit("w", ocean89);
+        ocean90.setExit("s", ocean100);
+
+        ocean91.setExit("n", ocean81);
+        ocean91.setExit("e", ocean92);
+
+        ocean92.setExit("n", ocean82);
+        ocean92.setExit("w", ocean91);
+        ocean92.setExit("e", ocean93);
+
+        ocean93.setExit("n", ocean83);
+        ocean93.setExit("w", ocean92);
+        ocean93.setExit("e", ocean94);
+
+        ocean94.setExit("n", ocean84);
+        ocean94.setExit("w", ocean93);
+        ocean94.setExit("e", ocean95);
+
+        ocean95.setExit("n", ocean85);
+        ocean95.setExit("w", ocean94);
+        ocean95.setExit("e", ocean96);
+
+        ocean96.setExit("n", ocean86);
+        ocean96.setExit("w", ocean95);
+        ocean96.setExit("e", ocean97);
+
+        ocean97.setExit("n", ocean87);
+        ocean97.setExit("w", ocean96);
+        ocean97.setExit("e", ocean98);
+
+        ocean98.setExit("n", ocean88);
+        ocean98.setExit("w", ocean97);
+        ocean98.setExit("e", ocean99);
+
+        ocean99.setExit("n", ocean89);
+        ocean99.setExit("w", ocean98);
+        ocean99.setExit("e", ocean100);
+        ocean99.setExit("e", ocean107);
+
+        ocean100.setExit("n", ocean90);
+        ocean100.setExit("w", ocean99);
+        ocean100.setExit("s", ocean101);
+
+        ocean101.setExit("w", ocean107);
+        ocean101.setExit("e", ocean102);
+        ocean101.setExit("s", ocean104);
+        ocean101.setExit("n", ocean100);
+
+        ocean102.setExit("w", ocean101);
+        ocean102.setExit("e", ocean103);
+        ocean102.setExit("s", ocean105);
+
+        ocean103.setExit("w", ocean102);
+        ocean103.setExit("s", ocean106);
+
+        ocean104.setExit("n", ocean101);
+        ocean104.setExit("w", ocean108);
+        ocean104.setExit("e", ocean105);
+        ocean104.setExit("s", ocean109);
+
+        ocean105.setExit("n", ocean102);
+        ocean105.setExit("w", ocean104);
+        ocean105.setExit("e", ocean106);
+        ocean105.setExit("s", ocean110);
+
+        ocean106.setExit("n", ocean103);
+        ocean106.setExit("w", ocean105);
+        ocean106.setExit("s", ocean111);
+
+        ocean107.setExit("e", ocean101);
+        ocean107.setExit("s", ocean108);
+        ocean107.setExit("n", ocean99);
+
+
+        ocean108.setExit("n", ocean107);
+        ocean108.setExit("e", ocean104);
+
+        ocean109.setExit("n", ocean104);
+        ocean109.setExit("e", ocean110);
+
+        ocean110.setExit("n", ocean105);
+        ocean110.setExit("w", ocean109);
+        ocean110.setExit("e", ocean111);
+        ocean110.setExit("s", ocean113);
+
+        ocean111.setExit("n", ocean106);
+        ocean111.setExit("w", ocean110);
+        ocean111.setExit("e", ocean112);
+        ocean111.setExit("s", ocean114);
+
+        ocean112.setExit("w", ocean111);
+        ocean112.setExit("s", ocean115);
+
+        ocean113.setExit("n", ocean110);
+        ocean113.setExit("e", ocean114);
+
+        ocean114.setExit("n", ocean111);
+        ocean114.setExit("w", ocean113);
+        ocean114.setExit("e", ocean115);
+        ocean114.setExit("s", ocean117);
+
+        ocean115.setExit("n", ocean112);
+        ocean115.setExit("w", ocean114);
+        ocean115.setExit("e", ocean116);
+        ocean115.setExit("s", ocean118);
+
+        ocean116.setExit("w", ocean115);
+        ocean116.setExit("s", ocean119);
+
+        ocean117.setExit("n", ocean114);
+        ocean117.setExit("e", ocean118);
+
+        ocean118.setExit("n", ocean115);
+        ocean118.setExit("w", ocean117);
+        ocean118.setExit("e", ocean119);
+
+        ocean119.setExit("n", ocean116);
+        ocean119.setExit("w", ocean118);
+        ocean119.setExit("e", ocean120);
+        ocean119.setExit("s", ocean121);
+
+        ocean120.setExit("w", ocean119);
+        ocean120.setExit("s", ocean122);
+
+        ocean121.setExit("n", ocean119);
+        ocean121.setExit("e", ocean122);
+        ocean121.setExit("s", ocean123);
+
+        ocean122.setExit("n", ocean120);
+        ocean122.setExit("w", ocean121);
+        ocean122.setExit("s", ocean124);
+
+        ocean123.setExit("n", ocean121);
+        ocean123.setExit("e", ocean124);
+        ocean123.setExit("s", ocean125);
+
+        ocean124.setExit("n", ocean122);
+        ocean124.setExit("w", ocean123);
+        ocean124.setExit("s", ocean126);
+
+        ocean125.setExit("n", ocean123);
+        ocean125.setExit("e", ocean126);
+        ocean125.setExit("s", ocean127);
+
+        ocean126.setExit("n", ocean124);
+        ocean126.setExit("w", ocean125);
+        ocean126.setExit("s", ocean128);
+
+        ocean127.setExit("n", ocean125);
+        ocean127.setExit("e", ocean128);
+
+        ocean128.setExit("n", ocean126);
+        ocean128.setExit("w", ocean127);
+        ocean128.setExit("s", ocean129);
+
+        ocean129.setExit("n", ocean128);
+        ocean129.setExit("s", ocean130);
+
+        ocean130.setExit("n", ocean129);
 
         // PLAINS EXITS
 
@@ -3348,7 +3933,7 @@ public class Game {
 
                 System.out.println("(12 is next to sHouse) Southern Forest Area #--");
                 System.out.println("(50 is close to firstville) Northern Forest Area #--");
-                System.out.println("(living room/kitchen etc.) Tom's Dark --- \n(clinic is n to lane3) FirstVille Streets #-- \nPlains Area #-- \nGreat Plains Shaft Area #--");
+                System.out.println("(living room/kitchen etc.) Tom's Dark --- \n(clinic is n to lane3) FirstVille Streets #-- \nPlains Area #-- \nGreat Plains Shaft Area #-- \nRagger's cousin's Gear Shop (BAGGER)");
 
                 System.out.print("Enter target room\n-> ");
                 String gotoRoomBlah = scanner.nextLine();
@@ -8718,6 +9303,7 @@ public class Game {
 
 
             if(fuel < 1){
+                System.out.println("Ragger's cousin's Gear Shop (BAGGER)");
                 System.out.println("You don't have enough heat in the forge, please add some coal!");
                 fuelForge(invin, player);
 
@@ -8770,7 +9356,7 @@ public class Game {
                             }
                         }
 
-                        forge = scanner.nextLine();
+                        forge = scanner.next();
                         if (iron >= needed) {
                             System.out.println("Congratulations");
                             for (int i = 0; i < needed; i++) {
@@ -8797,7 +9383,7 @@ public class Game {
                                 copper++;
                             }
                         }
-                        forge = scanner.nextLine();
+                        forge = scanner.next();
 
                         if (copper >= needed) {
                             System.out.println("Congratulations");
@@ -8875,236 +9461,391 @@ public class Game {
                     }
 
 
-                } else {
-                    return invin;
                 }
 
 
-                if (forge.equalsIgnoreCase("forge")) {
+                if (forge.equalsIgnoreCase("cast")) {
                     System.out.println("What would you like to forge?");
-                    String type = forge;
-                    String material = scanner.next();
-                    System.out.println("With which material would you like to make this out of?");
-                    String ore = material;
-                    if (ore.equalsIgnoreCase("iron")) {
+                    System.out.println("material + type(ex chestplate, sword blade, boots");
+                    System.out.println("->");
+
+
+                    if (forge.equalsIgnoreCase("iron helmet")) {
                         int iron = 0;
-                        if (type.equalsIgnoreCase("helmet")) {
-                            for (String w : invin) {
-                                if (w == "iron ingot") {
-                                    iron++;
-                                }
-                            }
-                            forge = scanner.nextLine();
-
-                            if (iron >= 4) {
-                                System.out.println("Congratulations you have made an iron helmet");
-                                invin.add("iron helmet");
-                                for (int i = 0; i < 4; i++) {
-                                    invin.remove("iron ingot");
-                                }
-                                return invin;
-
-
-                            } else {
-                                System.out.println("You do not have enough materials");
-                                return invin;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("iron ingot")) {
+                                iron++;
                             }
                         }
-
-                        if (type.equalsIgnoreCase("chest plate") || type.equalsIgnoreCase("chestplate")) {
-                            for (String w : invin) {
-                                if (w == "iron ingot") {
-                                    iron++;
-                                }
+                        if (iron >= 4) {
+                            System.out.println("Congratulations you have made an iron helmet");
+                            invin.add("iron helmet");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("iron ingot");
                             }
-                            forge = scanner.nextLine();
-
-                            if (iron >= 8) {
-                                System.out.println("Congratulations you have made an iron chestplate");
-                                invin.add("iron chestplate");
-                                for (int i = 0; i < 8; i++) {
-                                    invin.remove("iron ingot");
-                                }
-                                return invin;
+                            return invin;
 
 
-                            } else {
-                                System.out.println("You do not have enough materials");
-                                return invin;
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+                    if (forge.equalsIgnoreCase("iron chestplate")) {
+                        int iron = 0;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("iron ingot")) {
+                                iron++;
                             }
                         }
-
-                        if (type.equalsIgnoreCase("legs") || type.equalsIgnoreCase("leggings")) {
-                            for (String w : invin) {
-                                if (w == "iron ingot") {
-                                    iron++;
-                                }
+                        if (iron >= 4) {
+                            System.out.println("Congratulations you have made an iron helmet");
+                            invin.add("iron helmet");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("iron ingot");
                             }
-                            forge = scanner.nextLine();
-
-                            if (iron >= 6) {
-                                System.out.println("Congratulations you have made an iron leggings");
-                                invin.add("iron leggings");
-                                for (int i = 0; i < 6; i++) {
-                                    invin.remove("iron ingot");
-                                }
-                                return invin;
+                            return invin;
 
 
-                            } else {
-                                System.out.println("You do not have enough materials");
-                                return invin;
-                            }
-
-
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
                         }
-
-                        if (type.equalsIgnoreCase("boots") || type.equalsIgnoreCase("shoes")) {
-                            for (String w : invin) {
-                                if (w == "iron ingot") {
-                                    iron++;
-                                }
+                    }
+                    if (forge.equalsIgnoreCase("iron leggings")) {
+                        int iron = 0;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("iron ingot")) {
+                                iron++;
                             }
-                            forge = scanner.nextLine();
-
-                            if (iron >= 4) {
-                                System.out.println("Congratulations you have made an iron boots");
-                                invin.add("iron boots");
-                                for (int i = 0; i < 4; i++) {
-                                    invin.remove("iron ingot");
-                                }
-                                return invin;
-
-
-                            } else {
-                                System.out.println("You do not have enough materials");
-                                return invin;
+                        }
+                        if (iron >= 4) {
+                            System.out.println("Congratulations you have made an iron helmet");
+                            invin.add("iron helmet");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("iron ingot");
                             }
+                            return invin;
+
+
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+                    if (forge.equalsIgnoreCase("iron boots")) {
+                        int iron = 0;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("iron ingot")) {
+                                iron++;
+                            }
+                        }
+                        if (iron >= 4) {
+                            System.out.println("Congratulations you have made an iron helmet");
+                            invin.add("iron helmet");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("iron ingot");
+                            }
+                            return invin;
+
+
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
                         }
                     }
 
-                    if (ore.equalsIgnoreCase("copper")) {
+                    if (forge.equalsIgnoreCase("iron helmet")) {
+                        int iron = 0;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("iron ingot")) {
+                                iron++;
+                            }
+                        }
+                        if (iron >= 4) {
+                            System.out.println("Congratulations you have made an iron helmet");
+                            invin.add("iron helmet");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("iron ingot");
+                            }
+                            return invin;
+
+
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+
+                    if (forge.equalsIgnoreCase("iron sword")) {
+                        int iron = 0;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("iron ingot")) {
+                                iron++;
+                            }
+                        }
+                        if (iron >= 4) {
+                            System.out.println("Congratulations you have made an iron helmet");
+                            invin.add("iron helmet");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("iron ingot");
+                            }
+                            return invin;
+
+
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+
+                    if (forge.equalsIgnoreCase("iron axe")) {
+                        int iron = 0;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("iron ingot")) {
+                                iron++;
+                            }
+                        }
+                        if (iron >= 4) {
+                            System.out.println("Congratulations you have made an iron helmet");
+                            invin.add("iron helmet");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("iron ingot");
+                            }
+                            return invin;
+
+
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+
+                    if (forge.equalsIgnoreCase("iron spear head")) {
+                        int iron = 0;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("iron ingot")) {
+                                iron++;
+                            }
+                        }
+                        if (iron >= 4) {
+                            System.out.println("Congratulations you have made an iron helmet");
+                            invin.add("iron helmet");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("iron ingot");
+                            }
+                            return invin;
+
+
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+
+                    //Copper stuff
+                    if (forge.equalsIgnoreCase("copper helmet")) {
                         int copper = 0;
-                        if (type.equalsIgnoreCase("helmet")) {
-                            for (String w : invin) {
-                                if (w == "copper ingot") {
-                                    copper++;
-                                }
-                            }
-                            forge = scanner.nextLine();
-
-                            if (copper >= 4) {
-                                System.out.println("Congratulations you have made an copper helmet");
-                                invin.add("copper helmet");
-                                for (int i = 0; i < 4; i++) {
-                                    invin.remove("copper ingot");
-                                }
-                                return invin;
-
-                            } else {
-                                System.out.println("You do not have enough materials");
-                                return invin;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("iron ingot")) {
+                                copper++;
                             }
                         }
-
-                        if (type.equalsIgnoreCase("chest plate") || type.equalsIgnoreCase("chestplate")) {
-                            for (String w : invin) {
-                                if (w == "copper ingot") {
-                                    copper++;
-                                }
+                        if (copper >= 4) {
+                            System.out.println("Congratulations you have made a copper helmet");
+                            invin.add("copper helmet");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("copper ingot");
                             }
-                            forge = scanner.nextLine();
-
-                            if (copper >= 8) {
-                                System.out.println("Congratulations you have made an copper chestplate");
-                                invin.add("copper chestplate");
-                                for (int i = 0; i < 8; i++) {
-                                    invin.remove("copper ingot");
-                                }
-                                return invin;
+                            return invin;
 
 
-                            } else {
-                                System.out.println("You do not have enough materials");
-                                return invin;
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+                    if (forge.equalsIgnoreCase("copper chestplate")) {
+                        int copper = 0;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("copper ingot")) {
+                                copper++;
                             }
                         }
-
-                        if (type.equalsIgnoreCase("legs") || type.equalsIgnoreCase("leggings")) {
-                            for (String w : invin) {
-                                if (w == "copper ingot") {
-                                    copper++;
-                                }
+                        if (copper >= 4) {
+                            System.out.println("Congratulations you have made an copper helmet");
+                            invin.add("copper helmet");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("copper ingot");
                             }
-                            forge = scanner.nextLine();
-
-                            if (copper >= 6) {
-                                System.out.println("Congratulations you have made an copper leggings");
-                                invin.add("copper leggings");
-                                for (int i = 0; i < 6; i++) {
-                                    invin.remove("copper ingot");
-                                }
-                                return invin;
+                            return invin;
 
 
-                            } else {
-                                System.out.println("You do not have enough materials");
-                                return invin;
-                            }
-
-
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
                         }
-
-                        if (type.equalsIgnoreCase("boots") || type.equalsIgnoreCase("shoes")) {
-                            for (String w : invin) {
-                                if (w == "copper ingot") {
-                                    copper++;
-                                }
+                    }
+                    if (forge.equalsIgnoreCase("copper leggings")) {
+                        int copper = 0;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("copper ingot")) {
+                                copper++;
                             }
-                            forge = scanner.nextLine();
-
-                            if (copper >= 4) {
-                                System.out.println("Congratulations you have made an copper boots");
-                                invin.add("copper boots");
-                                for (int i = 0; i < 4; i++) {
-                                    invin.remove("copper ingot");
-                                }
-                                return invin;
-
-
-                            } else {
-                                System.out.println("You do not have enough materials");
-                                return invin;
+                        }
+                        if (copper >= 4) {
+                            System.out.println("Congratulations you have made a copper leggings");
+                            invin.add("copper leggings");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("copper ingot");
                             }
+                            return invin;
+
+
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+                    if (forge.equalsIgnoreCase("iron boots")) {
+                        int iron = 0;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("iron ingot")) {
+                                iron++;
+                            }
+                        }
+                        if (iron >= 4) {
+                            System.out.println("Congratulations you have made an iron helmet");
+                            invin.add("iron helmet");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("iron ingot");
+                            }
+                            return invin;
+
+
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
                         }
                     }
 
-                } else {
-                    return invin;
+                    if (forge.equalsIgnoreCase("iron helmet")) {
+                        int iron = 0;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("iron ingot")) {
+                                iron++;
+                            }
+                        }
+                        if (iron >= 4) {
+                            System.out.println("Congratulations you have made an iron helmet");
+                            invin.add("iron helmet");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("iron ingot");
+                            }
+                            return invin;
+
+
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+
+                    if (forge.equalsIgnoreCase("iron sword")) {
+                        int iron = 0;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("iron ingot")) {
+                                iron++;
+                            }
+                        }
+                        if (iron >= 4) {
+                            System.out.println("Congratulations you have made an iron helmet");
+                            invin.add("iron helmet");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("iron ingot");
+                            }
+                            return invin;
+
+
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+
+                    if (forge.equalsIgnoreCase("iron axe")) {
+                        int iron = 0;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("iron ingot")) {
+                                iron++;
+                            }
+                        }
+                        if (iron >= 4) {
+                            System.out.println("Congratulations you have made an iron helmet");
+                            invin.add("iron helmet");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("iron ingot");
+                            }
+                            return invin;
+
+
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+
+                    if (forge.equalsIgnoreCase("iron spear head")) {
+                        int iron = 0;
+                        for (String w : invin) {
+                            if (w.equalsIgnoreCase("iron ingot")) {
+                                iron++;
+                            }
+                        }
+                        if (iron >= 4) {
+                            System.out.println("Congratulations you have made an iron helmet");
+                            invin.add("iron helmet");
+                            for (int i = 0; i < 4; i++) {
+                                invin.remove("iron ingot");
+                            }
+                            return invin;
+
+
+                        } else {
+                            System.out.println("You do not have enough materials");
+                            return invin;
+                        }
+                    }
+
+
                 }
 
                 if (forge.equalsIgnoreCase("alloy")) {
+                    //forge = scanner.next();
                     System.out.println("What would you like to alloy");
+                    System.out.print("-> ");
+                    forge = scanner.next();
                     if (forge.equalsIgnoreCase("steel") || forge.equalsIgnoreCase("steel alloy")) {
-                        int needed = scanner.nextInt();
                         System.out.println("How many would you like to make?");
-
+                        System.out.print("-> ");
+                        int needed = scanner.nextInt();
                         int iron = 0;
                         int coal = 0;
 
                         for (String w : invin) {
-                            if (w == "iron ingot") {
+                            if (w.equalsIgnoreCase("iron ingot")) {
                                 iron++;
                             }
-                            if (w == "coal") {
+                            if (w.equalsIgnoreCase("coal")) {
                                 coal++;
                             }
                         }
-                        forge = scanner.nextLine();
+                        //forge = scanner.next();
                         if (iron >= needed && coal >= (needed * 2)) {
-                            System.out.println("Congratulations");
+                            System.out.println("Congratulations you alloyed steel!");
                             for (int i = 0; i < needed; i++) {
                                 invin.remove("iron ingot");
+                                invin.remove("coal");
                                 invin.remove("coal");
                                 invin.add("steel");
                             }
@@ -9155,19 +9896,20 @@ public class Game {
                         System.out.println("How many batches would you like to make?");
 
                         int red_copper = 0;
+                        int steel = 0;
 
 
                         for (String w : invin) {
-                            if (w == "red copper ingot") {
+                            if (w.equalsIgnoreCase("red copper ingot")) {
                                 red_copper++;
                             }
-                            if (w == "steel") {
-                                red_copper++;
+                            if (w.equalsIgnoreCase("steel")) {
+                                steel++;
                             }
                         }
                         forge = scanner.nextLine();
 
-                        if (red_copper >= (needed * 3)) {
+                        if (red_copper >= (needed * 3) && steel >= needed * 2){
                             System.out.println("Congratulations");
                             for (int i = 0; i < needed; i++) {
                                 invin.remove("red copper ingot");
@@ -9180,7 +9922,6 @@ public class Game {
                                 invin.add("advanced alloy ingot");
                             }
                             return invin;
-
 
                         } else {
                             System.out.println("You do not have enough materials");
